@@ -19,6 +19,7 @@ public class HelloApplication extends Application {
 // dsnfjdsifdnsofjadsojfhdishfpidhsfahsfihadsiuhfu
     //commento di gaetano reajhj
     //commento di davide
+    // commento giuseppe
     public static void main(String[] args) {
         launch();
     }
