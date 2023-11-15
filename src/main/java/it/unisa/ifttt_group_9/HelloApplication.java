@@ -17,6 +17,7 @@ public class HelloApplication extends Application {
         stage.show();
     }
 // dsnfjdsifdnsofjadsojfhdishfpidhsfahsfihadsiuhfu
+    //commento di gaetano rea
     public static void main(String[] args) {
         launch();
     }
