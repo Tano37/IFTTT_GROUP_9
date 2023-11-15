@@ -17,7 +17,7 @@ public class HelloApplication extends Application {
         stage.show();
     }
 // dsnfjdsifdnsofjadsojfhdishfpidhsfahsfihadsiuhfu
-    //commento di gaetano rea
+    //commento di gaetano reajhj
     //commento di davide
     public static void main(String[] args) {
         launch();
