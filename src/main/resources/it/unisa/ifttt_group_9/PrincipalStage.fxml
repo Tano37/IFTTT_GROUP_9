@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 
 
-<StackPane fx:id="stackPaneId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="307.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="stackPaneId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="307.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unisa.ifttt_group_9.PrincipalStageViewController">
    <children>
       <AnchorPane fx:id="ancorPane1" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
