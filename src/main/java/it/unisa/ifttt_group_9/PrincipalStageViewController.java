@@ -1,6 +1,7 @@
 package it.unisa.ifttt_group_9;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Tab;
@@ -10,7 +11,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-public class HelloController {
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class PrincipalStageViewController implements Initializable {
 
     @FXML
     private StackPane stackPaneId;
@@ -19,10 +24,10 @@ public class HelloController {
     private AnchorPane ancorPane1;
 
     @FXML
-    private TableView<Rule> tableView;
+    private TableView<?> tableView;
 
     @FXML
-    private TableColumn<Rule,String> ruleClm;
+    private TableColumn<?, ?> ruleClm;
 
     @FXML
     private Button addRuleBtn;
@@ -37,10 +42,10 @@ public class HelloController {
     private Tab timeTab;
 
     @FXML
-    private ChoiceBox<Integer> hoursChoiceId;
+    private ChoiceBox<?> hoursChoiceId;
 
     @FXML
-    private ChoiceBox<Integer> minuteChoiceId;
+    private ChoiceBox<?> minuteChoiceId;
 
     @FXML
     private Button continueBtn;
@@ -68,4 +73,8 @@ public class HelloController {
 
     @FXML
     private Button backBtn2;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        backBtn2.setText("Ciao");}
 }
