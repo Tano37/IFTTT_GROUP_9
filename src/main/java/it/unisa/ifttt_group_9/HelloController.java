@@ -19,10 +19,10 @@ public class HelloController {
     private AnchorPane ancorPane1;
 
     @FXML
-    private TableView<?> tableView;
+    private TableView<Rule> tableView;
 
     @FXML
-    private TableColumn<?, ?> ruleClm;
+    private TableColumn<Rule,String> ruleClm;
 
     @FXML
     private Button addRuleBtn;
@@ -37,10 +37,10 @@ public class HelloController {
     private Tab timeTab;
 
     @FXML
-    private ChoiceBox<?> hoursChoiceId;
+    private ChoiceBox<Integer> hoursChoiceId;
 
     @FXML
-    private ChoiceBox<?> minuteChoiceId;
+    private ChoiceBox<Integer> minuteChoiceId;
 
     @FXML
     private Button continueBtn;
