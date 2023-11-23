@@ -10,6 +10,13 @@ public class ActionText implements Action{
     }
 
     @Override
+    public String toString() {
+        return "ActionText{" +
+                "text='" + text + '\'' +
+                '}';
+    }
+
+    @Override
     public void executeAction() {
 
 

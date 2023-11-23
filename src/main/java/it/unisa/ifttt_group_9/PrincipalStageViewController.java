@@ -3,6 +3,7 @@ package it.unisa.ifttt_group_9;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -99,10 +100,9 @@ public class PrincipalStageViewController implements Initializable {
         );
         confirmBtn.disableProperty().bind(bb1);
 
-        //Bindings.bindContent(rulesList, RuleManager.getInstance().getRuleList());
-        //ruleClm.setCellValueFactory(new PropertyValueFactory("ruleName"));
+        ruleClm.setCellValueFactory(new PropertyValueFactory("ruleName"));
         rulesTable.setItems(rulesList);
-
+        Bindings.bindContent(RuleManager.getInstance().getRuleList(), rulesList);
 
         ObservableList<Integer> hoursList = FXCollections.observableArrayList();
         for (int i = 0; i <= 23; i++) {
@@ -178,6 +178,7 @@ public class PrincipalStageViewController implements Initializable {
         }*/
 
         Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
+        rulesList.add(createdRule);
         selectedTrigger = null;
         selectedAction = null;
 
@@ -185,6 +186,8 @@ public class PrincipalStageViewController implements Initializable {
         minuteChoiceId.setValue(null);
         textMessageId.clear();
         nameRuleText.clear();
+
+        System.out.println(RuleManager.getInstance().toString());
     }
 
 }

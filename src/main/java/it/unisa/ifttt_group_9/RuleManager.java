@@ -25,7 +25,8 @@ public class RuleManager {
         return ruleList;
     }
 
-    /* @Override
+    @Override
     public String toString(){ return ruleList.toString(); }
-     */
+
+
 }

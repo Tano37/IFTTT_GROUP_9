@@ -9,12 +9,14 @@ public class Rule {
         this.ruleName=ruleName;
         this.ruleTrigger=ruleTrigger;
         this.ruleAction=ruleAction;
-
-        //aggiunta automatica della regola alla lista delle regole
-        RuleManager.getInstance().addRule(this);
     }
 
     public String getRuleName() {
         return ruleName;
+    }
+
+    @Override
+    public String toString(){
+        return "Rule: " + this.ruleName + "" + this.ruleTrigger.toString() + "" + this.ruleAction.toString();
     }
 }
