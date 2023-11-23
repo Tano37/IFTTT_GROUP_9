@@ -1,5 +1,9 @@
 package it.unisa.ifttt_group_9;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,10 +28,10 @@ public class PrincipalStageViewController implements Initializable {
     private AnchorPane ancorPane1;
 
     @FXML
-    private TableView<?> tableView;
+    private TableView<Rule> tableView;
 
     @FXML
-    private TableColumn<?, ?> ruleClm;
+    private TableColumn<Rule, String> ruleClm;
 
     @FXML
     private Button addRuleBtn;
@@ -42,10 +46,10 @@ public class PrincipalStageViewController implements Initializable {
     private Tab timeTab;
 
     @FXML
-    private ChoiceBox<?> hoursChoiceId;
+    private ChoiceBox<Integer> hoursChoiceId;
 
     @FXML
-    private ChoiceBox<?> minuteChoiceId;
+    private ChoiceBox<Integer> minuteChoiceId;
 
     @FXML
     private Button continueBtn;
@@ -76,5 +80,24 @@ public class PrincipalStageViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        backBtn2.setText("Ciao");}
+
+        ObservableList<Integer> hoursList = FXCollections.observableArrayList();
+        for (int i = 0; i <= 23; i++) {
+            hoursList.add(i);
+        }
+        hoursChoiceId.setItems(hoursList);
+
+        ObservableList<Integer> minuteList = FXCollections.observableArrayList();
+        for (int i = 0; i <= 59; i++) {
+            minuteList.add(i);
+        }
+        minuteChoiceId.setItems(minuteList);
+
+        BooleanBinding bb = Bindings.or(
+                hoursChoiceId.valueProperty().isNull(),
+                minuteChoiceId.valueProperty().isNull()
+        );
+        continueBtn.disableProperty().bind(bb);
+
+    }
 }
