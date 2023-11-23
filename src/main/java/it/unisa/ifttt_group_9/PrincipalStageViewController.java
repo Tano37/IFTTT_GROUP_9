@@ -4,15 +4,10 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
@@ -28,7 +23,7 @@ public class PrincipalStageViewController implements Initializable {
     private AnchorPane ancorPane1;
 
     @FXML
-    private TableView<Rule> tableView;
+    private TableView<Rule> rulesTable;
 
     @FXML
     private TableColumn<Rule, String> ruleClm;
@@ -78,9 +73,14 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     private Button backBtn2;
 
+    private ObservableList<Rule> rulesList;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        rulesList= FXCollections.observableArrayList();
+        rulesTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        rulesTable.setItems(rulesList);
         ObservableList<Integer> hoursList = FXCollections.observableArrayList();
         for (int i = 0; i <= 23; i++) {
             hoursList.add(i);
@@ -100,4 +100,35 @@ public class PrincipalStageViewController implements Initializable {
         continueBtn.disableProperty().bind(bb);
 
     }
+    @FXML
+    void addRuleAction(ActionEvent event) {
+        ancorPane1.visibleProperty().setValue(false);
+        ancorPane2.visibleProperty().setValue(true);
+
+    }
+
+    @FXML
+    void back1Action(ActionEvent event) {
+        ancorPane2.visibleProperty().setValue(false);
+        ancorPane1.visibleProperty().setValue(true);
+
+    }
+
+    @FXML
+    void back2Action(ActionEvent event) {
+        ancorPane3.visibleProperty().setValue(false);
+        ancorPane2.visibleProperty().setValue(true);
+    }
+
+    @FXML
+    void confirmAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void continueAction(ActionEvent event) {
+        ancorPane2.visibleProperty().setValue(false);
+        ancorPane3.visibleProperty().setValue(true);
+    }
+
 }
