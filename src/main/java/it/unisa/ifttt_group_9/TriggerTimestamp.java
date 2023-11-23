@@ -30,5 +30,4 @@ public class TriggerTimestamp implements Trigger {
         int m= now.getMinute();
         return (h==this.hour && m==this.minute);
     }
-
 }

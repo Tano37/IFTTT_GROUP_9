@@ -24,4 +24,8 @@ public class RuleManager {
     public List<Rule> getRuleList() {
         return ruleList;
     }
+
+    /* @Override
+    public String toString(){ return ruleList.toString(); }
+     */
 }

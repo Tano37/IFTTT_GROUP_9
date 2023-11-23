@@ -56,7 +56,7 @@ public class PrincipalStageViewController implements Initializable {
     private AnchorPane ancorPane3;
 
     @FXML
-    private TabPane tabPane11;
+    private TabPane tabPane2;
 
     @FXML
     private Tab textMessageTab;
@@ -79,6 +79,8 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     private TextField nameRuleText;
 
+    private Trigger selectedTrigger;
+    private Action selectedAction;
     private ObservableList<Rule> rulesList;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -96,6 +98,7 @@ public class PrincipalStageViewController implements Initializable {
         confirmBtn.disableProperty().bind(bb1);
 
         rulesTable.setItems(rulesList);
+
         ObservableList<Integer> hoursList = FXCollections.observableArrayList();
         for (int i = 0; i <= 23; i++) {
             hoursList.add(i);
@@ -126,24 +129,55 @@ public class PrincipalStageViewController implements Initializable {
     void back1Action(ActionEvent event) {
         ancorPane2.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
-
-    }
-
-    @FXML
-    void back2Action(ActionEvent event) {
-        ancorPane3.visibleProperty().setValue(false);
-        ancorPane2.visibleProperty().setValue(true);
-    }
-
-    @FXML
-    void confirmAction(ActionEvent event) {
-
+        hoursChoiceId.setValue(null);
+        minuteChoiceId.setValue(null);
+        selectedTrigger = null;
     }
 
     @FXML
     void continueAction(ActionEvent event) {
         ancorPane2.visibleProperty().setValue(false);
         ancorPane3.visibleProperty().setValue(true);
+
+        String tabId = tabPane1.getSelectionModel().getSelectedItem().getId();
+
+        if (tabId.equals("timeTab")) {
+            TriggerFactory factory = new TriggerTimestampFactory();
+            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue());
+            /*questa variabile selectedTrigger andrà riazzerata una volta creata definitivamente la regola
+            e alla regola andrà messo il check che i campi trigger e action siano diversi da null*/
+        }
+        //qui andranno il resto degli if per gli altri trigger
+    }
+
+    @FXML
+    void back2Action(ActionEvent event) {
+        ancorPane3.visibleProperty().setValue(false);
+        ancorPane2.visibleProperty().setValue(true);
+        selectedAction = null;
+    }
+
+    @FXML
+    void confirmAction(ActionEvent event) {
+        ancorPane3.visibleProperty().setValue(false);
+        ancorPane1.visibleProperty().setValue(true);
+
+        String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
+
+        if(tabId.equals("textMessageTab")) {
+            ActionFactory factory = new ActionTextFactory();
+            selectedAction = factory.createAction(textMessageId.getText());
+        }
+        /*else if(tabId.equals("audioTab")){
+
+        }*/
+
+        Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
+        selectedTrigger = null;
+        selectedAction = null;
+
+        textMessageId.clear();
+        nameRuleText.clear();
     }
 
 }
