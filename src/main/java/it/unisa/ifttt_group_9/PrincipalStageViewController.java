@@ -68,10 +68,16 @@ public class PrincipalStageViewController implements Initializable {
     private Tab audioTab;
 
     @FXML
+    private ComboBox<String> audioChoice;
+
+    @FXML
     private Button confirmBtn;
 
     @FXML
     private Button backBtn2;
+
+    @FXML
+    private TextField nameRuleText;
 
     private ObservableList<Rule> rulesList;
     @Override
@@ -79,6 +85,15 @@ public class PrincipalStageViewController implements Initializable {
 
         rulesList= FXCollections.observableArrayList();
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        BooleanBinding bb1 = Bindings.or(
+                nameRuleText.textProperty().isEmpty(),
+                Bindings.and(
+                        textMessageId.textProperty().isEmpty(),
+                        audioChoice.valueProperty().isNull()
+                )
+        );
+        confirmBtn.disableProperty().bind(bb1);
 
         rulesTable.setItems(rulesList);
         ObservableList<Integer> hoursList = FXCollections.observableArrayList();
