@@ -10,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -97,7 +99,10 @@ public class PrincipalStageViewController implements Initializable {
         );
         confirmBtn.disableProperty().bind(bb1);
 
+        //Bindings.bindContent(rulesList, RuleManager.getInstance().getRuleList());
+        //ruleClm.setCellValueFactory(new PropertyValueFactory("ruleName"));
         rulesTable.setItems(rulesList);
+
 
         ObservableList<Integer> hoursList = FXCollections.observableArrayList();
         for (int i = 0; i <= 23; i++) {
@@ -176,6 +181,8 @@ public class PrincipalStageViewController implements Initializable {
         selectedTrigger = null;
         selectedAction = null;
 
+        hoursChoiceId.setValue(null);
+        minuteChoiceId.setValue(null);
         textMessageId.clear();
         nameRuleText.clear();
     }

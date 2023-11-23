@@ -13,4 +13,8 @@ public class Rule {
         //aggiunta automatica della regola alla lista delle regole
         RuleManager.getInstance().addRule(this);
     }
+
+    public String getRuleName() {
+        return ruleName;
+    }
 }
