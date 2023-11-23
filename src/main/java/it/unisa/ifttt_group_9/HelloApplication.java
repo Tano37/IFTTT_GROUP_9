@@ -21,7 +21,6 @@ public class HelloApplication extends Application {
     //commento di davide
     // commento giuseppe
     public static void main(String[] args) {
-        ActionText actionText = new ActionText("Ciao");
-        actionText.executeAction();
+        launch();
     }
 }
