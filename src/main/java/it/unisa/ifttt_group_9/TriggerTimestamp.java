@@ -4,6 +4,7 @@ import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 
 import java.time.LocalTime;
 
+//Concrete Product (AbstractFactory)
 public class TriggerTimestamp implements Trigger {
     int hour;
     int minute;
