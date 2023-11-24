@@ -24,8 +24,21 @@ class TriggerTimestampTest {
     public void testTriggerTimestamp(){
         assertThrows(IllegalTimeException.class,
                 () -> {
-                    TriggerTimestamp trigger = new TriggerTimestamp(24, 61);
+                    TriggerTimestamp trigger = new TriggerTimestamp(23, 60);
                 });
+        assertThrows(IllegalTimeException.class,
+                () -> {
+                    TriggerTimestamp trigger = new TriggerTimestamp(24, 59);
+                });
+        assertThrows(IllegalTimeException.class,
+                () -> {
+                    TriggerTimestamp trigger = new TriggerTimestamp(23, -1);
+                });
+        assertThrows(IllegalTimeException.class,
+                () -> {
+                    TriggerTimestamp trigger = new TriggerTimestamp(-1, 59);
+                });
+
     }
 
 }
