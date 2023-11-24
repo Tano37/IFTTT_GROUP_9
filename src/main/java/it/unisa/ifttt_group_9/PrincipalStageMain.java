@@ -1,5 +1,8 @@
 package it.unisa.ifttt_group_9;
 
+
+
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,19 +10,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+//import resources.it.unisa.ifttt_group_9.ActionTextView.fxml;
+
+public class PrincipalStageMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello world Giuseppe!ciaoo");
+        FXMLLoader fxmlLoader = new FXMLLoader(PrincipalStageMain.class.getResource("PrincipalStage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Rules Menager");
         stage.setScene(scene);
         stage.show();
     }
-// dsnfjdsifdnsofjadsojfhdishfpidhsfahsfihadsiuhfu
-    //cjhj
-    //commento di davide
-    // commento giuseppe
+
     public static void main(String[] args) {
         launch();
     }
