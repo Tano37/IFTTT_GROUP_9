@@ -10,14 +10,11 @@ public class ActionText implements Action{
     }
 
     @Override
-    public String toString() {
-        return "ActionText{" +
-                "text='" + text + '\'' +
-                '}';
-    }
-
-    @Override
-    public void executeAction() {
+    public void executeAction(){
+        //mostro la view ActionTextView quando viene eseguito il metodo
+        //il controllore della View è il ActionTextViewController
+        //il modello è questo file (ActionText)
+        ActionTextView.show();
 
 
     }
