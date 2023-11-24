@@ -189,10 +189,12 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane1.visibleProperty().setValue(true);
 
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
+       // System.out.println(tabId);
 
         if(tabId.equals("textMessageTab")) {
             ActionFactory factory = new ActionTextFactory();
             selectedAction = factory.createAction(textMessageId.getText());
+           //System.out.println(selectedAction.toString());
         }
         /*else if(tabId.equals("audioTab")){
 
