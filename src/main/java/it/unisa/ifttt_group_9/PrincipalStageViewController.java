@@ -1,5 +1,8 @@
 package it.unisa.ifttt_group_9;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
@@ -12,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Duration;
 
 
 import java.net.URL;
@@ -122,6 +126,23 @@ public class PrincipalStageViewController implements Initializable {
         );
         continueBtn.disableProperty().bind(bb);
 
+        //CONTROLLO TRIGGER (MIGLIORIE DA APPLICARE )
+        Timeline timeline=new Timeline(new KeyFrame(
+                Duration.minutes(1), e->{
+
+            for(Rule r : rulesList){
+                if(r.ruleTrigger.evaluate()){
+                    System.out.println("Azione");
+                    r.ruleAction.executeAction();
+
+                }
+            }
+        })
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+
+
     }
     @FXML
     void addRuleAction(ActionEvent event) {
@@ -168,10 +189,12 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane1.visibleProperty().setValue(true);
 
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
+       // System.out.println(tabId);
 
         if(tabId.equals("textMessageTab")) {
             ActionFactory factory = new ActionTextFactory();
             selectedAction = factory.createAction(textMessageId.getText());
+           //System.out.println(selectedAction.toString());
         }
         /*else if(tabId.equals("audioTab")){
 
