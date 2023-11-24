@@ -1,8 +1,5 @@
 package it.unisa.ifttt_group_9;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
@@ -15,12 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Duration;
 
 
 import java.net.URL;
-import java.util.Iterator;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class PrincipalStageViewController implements Initializable {
@@ -106,7 +100,6 @@ public class PrincipalStageViewController implements Initializable {
         );
         confirmBtn.disableProperty().bind(bb1);
 
-
         ruleClm.setCellValueFactory(new PropertyValueFactory("ruleName"));
         rulesTable.setItems(rulesList);
         Bindings.bindContent(RuleManager.getInstance().getRuleList(), rulesList);
@@ -128,20 +121,6 @@ public class PrincipalStageViewController implements Initializable {
                 minuteChoiceId.valueProperty().isNull()
         );
         continueBtn.disableProperty().bind(bb);
-
-        Timeline timeline=new Timeline(new KeyFrame(
-                Duration.minutes(1),e->{
-
-                    for(Rule r : rulesList){
-                        if(r.ruleTrigger.evaluate()){
-                            System.out.println("Azione");
-
-                        }
-                    }
-                })
-        );
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
 
     }
     @FXML
