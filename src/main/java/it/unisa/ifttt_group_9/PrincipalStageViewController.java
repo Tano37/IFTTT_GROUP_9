@@ -126,24 +126,22 @@ public class PrincipalStageViewController implements Initializable {
         );
         continueBtn.disableProperty().bind(bb);
 
-        //CONTROLLO TRIGGER (MIGLIORIE DA APPLICARE )
+        //CONTROLLO TRIGGER (MIGLIORIE DA APPLICARE, INCLUDERE MECCANISMO PER FAR PARTIRE UNA VOLTA I TIMESTAMP TRIGGERS)
         Timeline timeline=new Timeline(new KeyFrame(
                 Duration.minutes(1), e->{
 
             for(Rule r : rulesList){
-                if(r.ruleTrigger.evaluate()){
-                    System.out.println("Azione");
-                    r.ruleAction.executeAction();
-
+                if(r.getRuleTrigger().evaluate()){
+                    RuleExecuteService myService = new RuleExecuteService(r);
+                    myService.start();
                 }
             }
         })
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-
-
     }
+
     @FXML
     void addRuleAction(ActionEvent event) {
         ancorPane1.visibleProperty().setValue(false);

@@ -26,7 +26,8 @@ public class ActionText implements Action{
 
     @Override
     public void executeAction() {
-
-
+        //stampa di prova
+        System.out.println(this.text);
+        ActionTextView.show();
     }
 }

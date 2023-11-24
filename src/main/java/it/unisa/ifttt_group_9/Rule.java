@@ -1,9 +1,9 @@
 package it.unisa.ifttt_group_9;
 
 public class Rule {
-    String ruleName;
-    Trigger ruleTrigger;
-    Action ruleAction;
+    private String ruleName;
+    private Trigger ruleTrigger;
+    private Action ruleAction;
 
     public Rule(String ruleName, Trigger ruleTrigger, Action ruleAction){
         this.ruleName=ruleName;
@@ -13,6 +13,14 @@ public class Rule {
 
     public String getRuleName() {
         return ruleName;
+    }
+
+    public Trigger getRuleTrigger() {
+        return ruleTrigger;
+    }
+
+    public Action getRuleAction() {
+        return ruleAction;
     }
 
     @Override
