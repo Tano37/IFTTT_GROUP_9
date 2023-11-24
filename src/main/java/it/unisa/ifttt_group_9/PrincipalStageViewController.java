@@ -133,6 +133,7 @@ public class PrincipalStageViewController implements Initializable {
             for(Rule r : rulesList){
                 if(r.ruleTrigger.evaluate()){
                     System.out.println("Azione");
+                    r.ruleAction.executeAction();
 
                 }
             }
