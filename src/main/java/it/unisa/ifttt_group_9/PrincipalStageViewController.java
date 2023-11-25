@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -98,20 +99,21 @@ public class PrincipalStageViewController implements Initializable {
     private Trigger selectedTrigger;
     private Action selectedAction;
     private ObservableList<Rule> rulesList;
+    private int result = -1;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         rulesList= FXCollections.observableArrayList();
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        /*BooleanBinding bb1 = Bindings.or(
+        BooleanBinding bb1 = Bindings.or(
                 nameRuleText.textProperty().isEmpty(),
                 Bindings.and(
-                        textMessageId.textProperty().isEmpty()/*.and(textMessageId.textProperty().toString().startsWith(" "))
-                        audioChoice.valueProperty().isNull()
+                        textMessageId.textProperty().isEmpty().and(new SimpleBooleanProperty(textMessageId.textProperty().toString().startsWith(" "))),
+                        new SimpleBooleanProperty(result == -1)
                 )
-        );*/
-        //confirmBtn.disableProperty().bind(bb1);
+        );
+        confirmBtn.disableProperty().bind(bb1);
 
         ruleClm.setCellValueFactory(new PropertyValueFactory("ruleName"));
         rulesTable.setItems(rulesList);
@@ -122,6 +124,7 @@ public class PrincipalStageViewController implements Initializable {
             hoursList.add(i);
         }
         hoursChoiceId.setItems(hoursList);
+
 
         ObservableList<Integer> minuteList = FXCollections.observableArrayList();
         for (int i = 0; i <= 59; i++) {
@@ -239,7 +242,7 @@ public class PrincipalStageViewController implements Initializable {
 
 
         // Mostra il selettore di cartelle
-            int result = fileChooser.showOpenDialog(null);
+            result = fileChooser.showOpenDialog(null);
 
             // Verifica se l'utente ha selezionato una cartella
             if (result == JFileChooser.APPROVE_OPTION) {
