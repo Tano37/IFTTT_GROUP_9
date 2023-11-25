@@ -20,12 +20,15 @@
    <children>
       <AnchorPane fx:id="ancorPane1" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <TableView fx:id="rulesTable" prefHeight="236.0" prefWidth="534.0">
+            <TableView fx:id="rulesTable" onMousePressed="#updateActivationState" prefHeight="236.0" prefWidth="534.0">
               <columns>
                 <TableColumn fx:id="ruleClm" prefWidth="121.0" text="Rule" />
               </columns>
             </TableView>
-            <Button fx:id="addRuleBtn" layoutX="227.0" layoutY="254.0" mnemonicParsing="false" onAction="#addRuleAction" text="Add Rule" />
+            <Button fx:id="addRuleBtn" layoutX="330.0" layoutY="254.0" mnemonicParsing="false" onAction="#addRuleAction" prefHeight="25.0" prefWidth="77.0" text="Add Rule" />
+            <Button fx:id="deleteBtn" layoutX="414.0" layoutY="254.0" mnemonicParsing="false" onAction="#deleteRuleAction" text="Delete Rule" />
+            <Button fx:id="activateRuleBtn" layoutX="37.0" layoutY="254.0" mnemonicParsing="false" onAction="#activateRuleAction" prefHeight="25.0" prefWidth="77.0" text="Activate" />
+            <Button fx:id="deactivateRuleBtn" layoutX="121.0" layoutY="254.0" mnemonicParsing="false" onAction="#deactivateRuleAction" prefHeight="25.0" prefWidth="77.0" text="Deactivate" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0" visible="false">

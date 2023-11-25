@@ -5,26 +5,25 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 
+
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
-
-
 import java.net.URL;
 import java.time.LocalTime;
-import java.util.ListIterator;
 import java.util.ResourceBundle;
 
 public class PrincipalStageViewController implements Initializable {
@@ -43,6 +42,14 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     private Button addRuleBtn;
+    @FXML
+    private Button deleteRuleBtn;
+
+    @FXML
+    private Button activateRuleBtn;
+
+    @FXML
+    private Button deactivateRuleBtn;
 
     @FXML
     private AnchorPane ancorPane2;
@@ -92,36 +99,34 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     private TextField nameRuleText;
 
-    @FXML
-    private Button fileChooserBtn;
-
     private Trigger selectedTrigger;
     private Action selectedAction;
     private ObservableList<Rule> rulesList;
     private int result = -1;
+    private JFileChooser fileChooser = new JFileChooser();
 
-    private  JFileChooser fileChooser = new JFileChooser();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         rulesList= FXCollections.observableArrayList();
-        rulesTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        rulesList.add(new Rule("CIap",new TriggerTimestamp(11,11), new ActionText("cIap")));
+        rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         setActualTime();
-
-
 
         BooleanBinding bb1 = Bindings.or(
                 nameRuleText.textProperty().isEmpty(),
-               // Bindings.and(
-                        Bindings.or(
-                                textMessageId.textProperty().isEmpty(),
-                                textMessageId.textProperty().isEqualTo(" ")
-                      )
+                // Bindings.and(
+                Bindings.or(
+                        textMessageId.textProperty().isEmpty(),
+                        textMessageId.textProperty().isEqualTo(" ")
+                )
                 //,
-                     //   new SimpleBooleanProperty(result == -1)
-               // )
+                //   new SimpleBooleanProperty(result == -1)
+                // )
         );
         confirmBtn.disableProperty().bind(bb1);
+        activateRuleBtn.disableProperty().setValue(true);
+        deactivateRuleBtn.disableProperty().setValue(true);
 
         ruleClm.setCellValueFactory(new PropertyValueFactory("ruleName"));
         rulesTable.setItems(rulesList);
@@ -142,11 +147,41 @@ public class PrincipalStageViewController implements Initializable {
         minuteChoiceId.setItems(minuteList);
         minuteChoiceId.autosize();
 
+
+        BooleanBinding bb = Bindings.or(
+                hoursChoiceId.valueProperty().isNull(),
+                minuteChoiceId.valueProperty().isNull()
+        );
         //continueBtn.disableProperty().bind(bb);
+
+        /*rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
+            @Override
+            public void changed(ObservableValue<? extends Rule> observable, Rule oldValue, Rule newValue) {
+                // Esegue l'azione quando un elemento viene selezionato
+                if (newValue != null) {
+                    System.out.println("Elemento selezionato");
+                    activateRuleBtn.disableProperty().setValue(false);
+                    deactivateRuleBtn.disableProperty().setValue(false);
+                }
+                else{
+                    activateRuleBtn.disableProperty().setValue(true);
+                    deactivateRuleBtn.disableProperty().setValue(true);
+                }
+            }
+        });
+         */
+        rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
+            @Override
+            public void changed(ObservableValue<? extends Rule> observable, Rule oldValue, Rule newValue) {
+                handleRuleSelection(newValue);
+            }
+        });
+
+
 
         //CONTROLLO TRIGGER (MIGLIORIE DA APPLICARE, INCLUDERE MECCANISMO PER FAR PARTIRE UNA VOLTA I TIMESTAMP TRIGGERS)
         Timeline timeline=new Timeline(new KeyFrame(
-                Duration.millis(400), e->{
+                Duration.millis(4000), e->{
 
             for(Rule r : rulesList){
                 if(r.getRuleTrigger().evaluate() && !r.getLaunched()){
@@ -174,6 +209,18 @@ public class PrincipalStageViewController implements Initializable {
         hoursChoiceId.setValue(now.getHour());
         minuteChoiceId.setValue(now.getMinute());
     }
+     void handleRuleSelection(Rule newValue) {
+        if (newValue != null) {
+            System.out.println("Elemento selezionato: " + newValue.getRuleName());
+            activateRuleBtn.disableProperty().setValue(false);
+            deactivateRuleBtn.disableProperty().setValue(false);;
+        } else {
+            activateRuleBtn.setDisable(true);
+            deactivateRuleBtn.setDisable(true);
+        }
+    }
+
+
     @FXML
     void addRuleAction(ActionEvent event) {
         ancorPane1.visibleProperty().setValue(false);
@@ -182,10 +229,33 @@ public class PrincipalStageViewController implements Initializable {
     }
 
     @FXML
+    void deleteRuleAction(ActionEvent event) {
+        ObservableList<Rule> selectedItems = rulesTable.getSelectionModel().getSelectedItems();
+        rulesList.removeAll(selectedItems);
+    }
+
+    @FXML
+    void updateActivationState(MouseEvent event) {
+        //
+    }
+
+    @FXML
+    void activateRuleAction(ActionEvent event) {
+        //
+    }
+
+    @FXML
+    void deactivateRuleAction(ActionEvent event) {
+        System.out.println("ECCOMI");
+    }
+
+    @FXML
     void back1Action(ActionEvent event) {
         ancorPane2.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
-        setActualTime();
+        rulesTable.getSelectionModel().clearSelection();
+        hoursChoiceId.setValue(null);
+        minuteChoiceId.setValue(null);
         selectedTrigger = null;
     }
 
@@ -216,6 +286,7 @@ public class PrincipalStageViewController implements Initializable {
     void confirmAction(ActionEvent event) throws IOException {
         ancorPane3.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
+        rulesTable.getSelectionModel().clearSelection();
 
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
        // System.out.println(tabId);
@@ -232,9 +303,7 @@ public class PrincipalStageViewController implements Initializable {
         }
 
         Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
-
         rulesList.add(createdRule);
-
         saveRuleList(rulesList);
         selectedTrigger = null;
         selectedAction = null;
@@ -270,36 +339,6 @@ public class PrincipalStageViewController implements Initializable {
                 }
             }
         }
-
-
-    }
-        @FXML
-        void showFileChooser(ActionEvent event) {
-
-        
-            // Impostazione del selettore di cartelle (invece di file)
-            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("File WAV (*.wav)", "wav");
-
-            // Applicazione del filtro al selettore di file
-            fileChooser.setFileFilter(filter);
-
-
-        // Mostra il selettore di cartelle
-            result = fileChooser.showOpenDialog(null);
-
-            // Verifica se l'utente ha selezionato una cartella
-            if (result == JFileChooser.APPROVE_OPTION) {
-                // Ottieni la cartella selezionata
-                File selectedFolder = fileChooser.getSelectedFile();
-
-                // Stampa il percorso della cartella
-                System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
-                //selectedAction = new ActionAudio(selectedFolder.getPath());
-            } else {
-                System.out.println("Nessuna cartella selezionata.");
-            }
     }
 
 }
