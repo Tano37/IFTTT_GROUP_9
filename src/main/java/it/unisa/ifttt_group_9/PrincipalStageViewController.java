@@ -20,7 +20,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 
 
+import javax.swing.*;
+import java.io.*;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class PrincipalStageViewController implements Initializable {
@@ -99,6 +102,8 @@ public class PrincipalStageViewController implements Initializable {
     private Trigger selectedTrigger;
     private Action selectedAction;
     private ObservableList<Rule> rulesList;
+    private int result = -1;
+    private JFileChooser fileChooser = new JFileChooser();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -106,13 +111,18 @@ public class PrincipalStageViewController implements Initializable {
         rulesList= FXCollections.observableArrayList();
         rulesList.add(new Rule("CIap",new TriggerTimestamp(11,11), new ActionText("cIap")));
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        setActualTime();
 
         BooleanBinding bb1 = Bindings.or(
                 nameRuleText.textProperty().isEmpty(),
-                Bindings.and(
-                        textMessageId.textProperty().isEmpty()/*.and(textMessageId.textProperty().toString().startsWith(" "))*/,
-                        audioChoice.valueProperty().isNull()
+                // Bindings.and(
+                Bindings.or(
+                        textMessageId.textProperty().isEmpty(),
+                        textMessageId.textProperty().isEqualTo(" ")
                 )
+                //,
+                //   new SimpleBooleanProperty(result == -1)
+                // )
         );
         confirmBtn.disableProperty().bind(bb1);
         activateRuleBtn.disableProperty().setValue(true);
@@ -127,18 +137,22 @@ public class PrincipalStageViewController implements Initializable {
             hoursList.add(i);
         }
         hoursChoiceId.setItems(hoursList);
+        hoursChoiceId.autosize();
+
 
         ObservableList<Integer> minuteList = FXCollections.observableArrayList();
         for (int i = 0; i <= 59; i++) {
             minuteList.add(i);
         }
         minuteChoiceId.setItems(minuteList);
+        minuteChoiceId.autosize();
+
 
         BooleanBinding bb = Bindings.or(
                 hoursChoiceId.valueProperty().isNull(),
                 minuteChoiceId.valueProperty().isNull()
         );
-        continueBtn.disableProperty().bind(bb);
+        //continueBtn.disableProperty().bind(bb);
 
         /*rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
             @Override
@@ -182,8 +196,19 @@ public class PrincipalStageViewController implements Initializable {
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+
+        try {
+            loadRuleList(rulesList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    void setActualTime(){
+        LocalTime now= LocalTime.now();
+        hoursChoiceId.setValue(now.getHour());
+        minuteChoiceId.setValue(now.getMinute());
+    }
      void handleRuleSelection(Rule newValue) {
         if (newValue != null) {
             System.out.println("Elemento selezionato: " + newValue.getRuleName());
@@ -258,7 +283,7 @@ public class PrincipalStageViewController implements Initializable {
     }
 
     @FXML
-    void confirmAction(ActionEvent event) {
+    void confirmAction(ActionEvent event) throws IOException {
         ancorPane3.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
         rulesTable.getSelectionModel().clearSelection();
@@ -271,21 +296,49 @@ public class PrincipalStageViewController implements Initializable {
             selectedAction = factory.createAction(textMessageId.getText());
            //System.out.println(selectedAction.toString());
         }
-        /*else if(tabId.equals("audioTab")){
-
-        }*/
+        else if(tabId.equals("audioTab")){
+            ActionAudioFactory factory = new ActionAudioFactory();
+            File selectedFolder = fileChooser.getSelectedFile();
+            selectedAction = factory.createAction(selectedFolder.getPath());
+        }
 
         Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
         rulesList.add(createdRule);
+        saveRuleList(rulesList);
         selectedTrigger = null;
         selectedAction = null;
 
-        hoursChoiceId.setValue(null);
-        minuteChoiceId.setValue(null);
+        setActualTime();
         textMessageId.clear();
         nameRuleText.clear();
 
         System.out.println(RuleManager.getInstance().toString());
+    }
+
+    void saveRuleList(ObservableList<Rule> list) throws IOException {
+        ObjectOutputStream binaryFileOut = new ObjectOutputStream(new FileOutputStream("RULES.dat"));
+        for (Rule rule : list) {
+            binaryFileOut.writeObject(rule);
+        }
+        binaryFileOut.close();
+    }
+
+    void loadRuleList(ObservableList<Rule> list) throws IOException {
+
+        File file = new File("RULES.dat");
+
+        if(file.exists()){
+            ObjectInputStream binaryFileIn = new ObjectInputStream(new FileInputStream("RULES.dat"));
+            while (true) {
+                try {
+                    Rule rule = (Rule) binaryFileIn.readObject();
+                    list.add(rule);
+                } catch (IOException | ClassNotFoundException  e) {
+                    // Fine del file
+                    break;
+                }
+            }
+        }
     }
 
 }
