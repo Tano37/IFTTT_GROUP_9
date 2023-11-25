@@ -12,7 +12,8 @@
                 <TableColumn fx:id="ruleClm" prefWidth="121.0" text="Rule" />
               </columns>
             </TableView>
-            <Button fx:id="addRuleBtn" layoutX="227.0" layoutY="254.0" mnemonicParsing="false" onAction="#addRuleAction" text="Add Rule" />
+            <Button fx:id="addRuleBtn" layoutX="163.0" layoutY="254.0" mnemonicParsing="false" onAction="#addRuleAction" text="Add Rule" />
+            <Button fx:id="deleteBtn" layoutX="289.0" layoutY="254.0" mnemonicParsing="false" onAction="#deleteRuleAction" text="Delete Rule" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0" visible="false">

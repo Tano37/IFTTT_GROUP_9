@@ -37,6 +37,8 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     private Button addRuleBtn;
+    @FXML
+    private Button deleteRuleBtn;
 
     @FXML
     private AnchorPane ancorPane2;
@@ -89,6 +91,7 @@ public class PrincipalStageViewController implements Initializable {
     private Trigger selectedTrigger;
     private Action selectedAction;
     private ObservableList<Rule> rulesList;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -150,6 +153,12 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane1.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
 
+    }
+
+    @FXML
+    void deleteRuleAction(ActionEvent event) {
+        ObservableList<Rule> selectedItems = rulesTable.getSelectionModel().getSelectedItems();
+        rulesList.removeAll(selectedItems);
     }
 
     @FXML

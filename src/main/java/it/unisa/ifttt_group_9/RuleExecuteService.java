@@ -17,7 +17,6 @@ public class RuleExecuteService extends Service<Void> {
         return new Task<>() {
             @Override
             protected Void call() throws Exception {
-                System.out.println("ciaone azione");
                 ruleToExecute.getRuleAction().executeAction();
                 return null;
             }
