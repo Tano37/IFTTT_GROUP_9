@@ -5,6 +5,8 @@ public class Rule {
     private Trigger ruleTrigger;
     private Action ruleAction;
 
+    private Boolean launched = false;
+
     public Rule(String ruleName, Trigger ruleTrigger, Action ruleAction){
         this.ruleName=ruleName;
         this.ruleTrigger=ruleTrigger;
@@ -27,4 +29,14 @@ public class Rule {
     public String toString(){
         return "Rule: " + this.ruleName + "" + this.ruleTrigger.toString() + "" + this.ruleAction.toString();
     }
+
+    public Boolean getLaunched(){
+        return launched;
+    }
+
+    public void setLaunched(Boolean launched){
+        this.launched = launched;
+    }
+
+
 }

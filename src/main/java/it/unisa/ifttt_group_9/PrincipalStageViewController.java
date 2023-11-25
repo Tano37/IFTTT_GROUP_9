@@ -98,7 +98,7 @@ public class PrincipalStageViewController implements Initializable {
         BooleanBinding bb1 = Bindings.or(
                 nameRuleText.textProperty().isEmpty(),
                 Bindings.and(
-                        textMessageId.textProperty().isEmpty(),
+                        textMessageId.textProperty().isEmpty()/*.and(textMessageId.textProperty().toString().startsWith(" "))*/,
                         audioChoice.valueProperty().isNull()
                 )
         );
@@ -128,12 +128,15 @@ public class PrincipalStageViewController implements Initializable {
 
         //CONTROLLO TRIGGER (MIGLIORIE DA APPLICARE, INCLUDERE MECCANISMO PER FAR PARTIRE UNA VOLTA I TIMESTAMP TRIGGERS)
         Timeline timeline=new Timeline(new KeyFrame(
-                Duration.minutes(1), e->{
+                Duration.millis(400), e->{
 
             for(Rule r : rulesList){
-                if(r.getRuleTrigger().evaluate()){
+                if(r.getRuleTrigger().evaluate() && !r.getLaunched()){
+                    r.setLaunched(true);
                     RuleExecuteService myService = new RuleExecuteService(r);
                     myService.start();
+                }else {
+                    r.setLaunched(r.getRuleTrigger().evaluate());
                 }
             }
         })

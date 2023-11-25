@@ -2,6 +2,8 @@ package it.unisa.ifttt_group_9;
 
 import it.unisa.ifttt_group_9.exceptions.IllegalMessageException;
 
+import javax.swing.*;
+
 public class ActionText implements Action{
 
     private String text;
@@ -26,8 +28,14 @@ public class ActionText implements Action{
 
     @Override
     public void executeAction() {
-        //stampa di prova
-        System.out.println(this.text);
-        ActionTextView.show();
+       // Mostra un dialogo con un messaggio e un pulsante "OK"
+        int scelta = JOptionPane.showConfirmDialog(null, text, "Action", JOptionPane.DEFAULT_OPTION);
+
+        // Verifica se l'utente ha premuto "OK"
+       if (scelta == JOptionPane.OK_OPTION) {
+            System.out.println("Hai premuto OK. Chiudendo l'allerta...");
+        } else {
+            System.out.println("Allerta chiusa senza premere OK.");
+        }
     }
 }
