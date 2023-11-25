@@ -17,7 +17,7 @@ public class PrincipalStageMain extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(PrincipalStageMain.class.getResource("PrincipalStage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Rules Menager");
+        stage.setTitle("Rules Manager");
         stage.setScene(scene);
         stage.show();
     }

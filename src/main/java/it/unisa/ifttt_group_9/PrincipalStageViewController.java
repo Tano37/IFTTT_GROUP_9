@@ -19,6 +19,7 @@ import javafx.util.Duration;
 import javafx.stage.FileChooser;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
 
@@ -103,14 +104,14 @@ public class PrincipalStageViewController implements Initializable {
         rulesList= FXCollections.observableArrayList();
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        BooleanBinding bb1 = Bindings.or(
+        /*BooleanBinding bb1 = Bindings.or(
                 nameRuleText.textProperty().isEmpty(),
                 Bindings.and(
-                        textMessageId.textProperty().isEmpty()/*.and(textMessageId.textProperty().toString().startsWith(" "))*/
+                        textMessageId.textProperty().isEmpty()/*.and(textMessageId.textProperty().toString().startsWith(" "))
                         audioChoice.valueProperty().isNull()
                 )
-        );
-        confirmBtn.disableProperty().bind(bb1);
+        );*/
+        //confirmBtn.disableProperty().bind(bb1);
 
         ruleClm.setCellValueFactory(new PropertyValueFactory("ruleName"));
         rulesTable.setItems(rulesList);
@@ -229,9 +230,15 @@ public class PrincipalStageViewController implements Initializable {
             JFileChooser fileChooser = new JFileChooser();
 
             // Impostazione del selettore di cartelle (invece di file)
-            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-            // Mostra il selettore di cartelle
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("File WAV (*.wav)", "wav");
+
+            // Applicazione del filtro al selettore di file
+            fileChooser.setFileFilter(filter);
+
+
+        // Mostra il selettore di cartelle
             int result = fileChooser.showOpenDialog(null);
 
             // Verifica se l'utente ha selezionato una cartella
@@ -241,6 +248,7 @@ public class PrincipalStageViewController implements Initializable {
 
                 // Stampa il percorso della cartella
                 System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
+                selectedAction = new ActionAudio(selectedFolder.getPath());
             } else {
                 System.out.println("Nessuna cartella selezionata.");
             }
