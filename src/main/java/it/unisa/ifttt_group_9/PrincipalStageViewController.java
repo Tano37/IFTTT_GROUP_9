@@ -8,12 +8,12 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -104,7 +104,8 @@ public class PrincipalStageViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         rulesList= FXCollections.observableArrayList();
-        rulesTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        rulesList.add(new Rule("CIap",new TriggerTimestamp(11,11), new ActionText("cIap")));
+        rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         BooleanBinding bb1 = Bindings.or(
                 nameRuleText.textProperty().isEmpty(),
@@ -166,7 +167,7 @@ public class PrincipalStageViewController implements Initializable {
 
         //CONTROLLO TRIGGER (MIGLIORIE DA APPLICARE, INCLUDERE MECCANISMO PER FAR PARTIRE UNA VOLTA I TIMESTAMP TRIGGERS)
         Timeline timeline=new Timeline(new KeyFrame(
-                Duration.millis(400), e->{
+                Duration.millis(4000), e->{
 
             for(Rule r : rulesList){
                 if(r.getRuleTrigger().evaluate() && !r.getLaunched()){
@@ -183,11 +184,11 @@ public class PrincipalStageViewController implements Initializable {
         timeline.play();
     }
 
-    private void handleRuleSelection(Rule newValue) {
+     void handleRuleSelection(Rule newValue) {
         if (newValue != null) {
             System.out.println("Elemento selezionato: " + newValue.getRuleName());
-            activateRuleBtn.setDisable(false);
-            deactivateRuleBtn.setDisable(false);
+            activateRuleBtn.disableProperty().setValue(false);
+            deactivateRuleBtn.disableProperty().setValue(false);;
         } else {
             activateRuleBtn.setDisable(true);
             deactivateRuleBtn.setDisable(true);
@@ -209,7 +210,7 @@ public class PrincipalStageViewController implements Initializable {
     }
 
     @FXML
-    void updateActivationState(ActionEvent event) {
+    void updateActivationState(MouseEvent event) {
         //
     }
 
