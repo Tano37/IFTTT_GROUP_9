@@ -3,7 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import java.net.URL?>
 <StackPane fx:id="stackPaneId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="307.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unisa.ifttt_group_9.PrincipalStageViewController">
+   <stylesheets>
+      <URL value="@Style.css" />
+   </stylesheets>
    <children>
       <AnchorPane fx:id="ancorPane1" prefHeight="200.0" prefWidth="200.0">
          <children>

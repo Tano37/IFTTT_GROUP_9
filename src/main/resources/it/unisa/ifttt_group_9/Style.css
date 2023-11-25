@@ -1,0 +1,36 @@
+/* Styles.css */
+
+#stackPaneId {
+    -fx-background-color: #f4f4f4; /* Cambia il colore di sfondo dello StackPane */
+}
+
+#ancorPane1, #ancorPane2, #ancorPane3 {
+    -fx-background-color: #ffffff; /* Cambia il colore di sfondo degli AnchorPane */
+    -fx-border-color: #dddddd; /* Aggiunge un bordo agli AnchorPane */
+    -fx-border-width: 1px;
+}
+
+#rulesTable {
+    -fx-background-color: #ffffff; /* Cambia il colore di sfondo della TableView */
+}
+
+#addRuleBtn, #continueBtn, #backBtn1, #confirmBtn, #backBtn2 {
+    -fx-background-color: #4CAF50; /* Cambia il colore di sfondo dei pulsanti */
+    -fx-text-fill: #ffffff; /* Cambia il colore del testo dei pulsanti */
+}
+
+#nameRuleText, #textMessageId {
+    -fx-background-color: #f0f0f0; /* Cambia il colore di sfondo dei campi di testo */
+}
+
+#textMessageTab, #audioTab, #timeTab {
+    -fx-background-color: #4CAF50; /* Cambia il colore di sfondo delle schede */
+    -fx-text-fill: #ffffff; /* Cambia il colore del testo delle schede */
+}
+
+#fileChooserBtn {
+    -fx-background-color: #2196F3; /* Cambia il colore di sfondo del pulsante di scelta file */
+    -fx-text-fill: #ffffff; /* Cambia il colore del testo del pulsante di scelta file */
+}
+
+/* Aggiungi altri stili personalizzati secondo le tue preferenze */
