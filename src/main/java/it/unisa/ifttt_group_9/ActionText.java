@@ -3,8 +3,9 @@ package it.unisa.ifttt_group_9;
 import it.unisa.ifttt_group_9.exceptions.IllegalMessageException;
 
 import javax.swing.*;
+import java.io.Serializable;
 
-public class ActionText implements Action{
+public class ActionText implements Action, Serializable {
 
     private String text;
 

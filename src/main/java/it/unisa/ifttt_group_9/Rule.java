@@ -1,6 +1,8 @@
 package it.unisa.ifttt_group_9;
 
-public class Rule {
+import java.io.Serializable;
+
+public class Rule implements Serializable {
     private String ruleName;
     private Trigger ruleTrigger;
     private Action ruleAction;

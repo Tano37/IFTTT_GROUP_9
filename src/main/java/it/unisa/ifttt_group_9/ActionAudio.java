@@ -4,8 +4,9 @@ import javax.sound.sampled.*;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class ActionAudio implements Action{
+public class ActionAudio implements Action, Serializable {
     private String filePath;
     private volatile boolean continuePlaying = true;
 

@@ -2,10 +2,11 @@ package it.unisa.ifttt_group_9;
 
 import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
 //Concrete Product (AbstractFactory)
-public class TriggerTimestamp implements Trigger {
+public class TriggerTimestamp implements Trigger, Serializable {
     int hour;
     int minute;
 

@@ -7,7 +7,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,15 +16,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
-import javafx.stage.FileChooser;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.io.File;
-
+import java.io.*;
 
 
 import java.net.URL;
+import java.time.LocalTime;
+import java.util.ListIterator;
 import java.util.ResourceBundle;
 
 public class PrincipalStageViewController implements Initializable {
@@ -107,6 +106,9 @@ public class PrincipalStageViewController implements Initializable {
 
         rulesList= FXCollections.observableArrayList();
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        setActualTime();
+
+
 
         BooleanBinding bb1 = Bindings.or(
                 nameRuleText.textProperty().isEmpty(),
@@ -129,6 +131,7 @@ public class PrincipalStageViewController implements Initializable {
             hoursList.add(i);
         }
         hoursChoiceId.setItems(hoursList);
+        hoursChoiceId.autosize();
 
 
         ObservableList<Integer> minuteList = FXCollections.observableArrayList();
@@ -136,12 +139,9 @@ public class PrincipalStageViewController implements Initializable {
             minuteList.add(i);
         }
         minuteChoiceId.setItems(minuteList);
+        minuteChoiceId.autosize();
 
-        BooleanBinding bb = Bindings.or(
-                hoursChoiceId.valueProperty().isNull(),
-                minuteChoiceId.valueProperty().isNull()
-        );
-        continueBtn.disableProperty().bind(bb);
+        //continueBtn.disableProperty().bind(bb);
 
         //CONTROLLO TRIGGER (MIGLIORIE DA APPLICARE, INCLUDERE MECCANISMO PER FAR PARTIRE UNA VOLTA I TIMESTAMP TRIGGERS)
         Timeline timeline=new Timeline(new KeyFrame(
@@ -160,8 +160,19 @@ public class PrincipalStageViewController implements Initializable {
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+
+        try {
+            loadRuleList(rulesList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    void setActualTime(){
+        LocalTime now= LocalTime.now();
+        hoursChoiceId.setValue(now.getHour());
+        minuteChoiceId.setValue(now.getMinute());
+    }
     @FXML
     void addRuleAction(ActionEvent event) {
         ancorPane1.visibleProperty().setValue(false);
@@ -173,8 +184,7 @@ public class PrincipalStageViewController implements Initializable {
     void back1Action(ActionEvent event) {
         ancorPane2.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
-        hoursChoiceId.setValue(null);
-        minuteChoiceId.setValue(null);
+        setActualTime();
         selectedTrigger = null;
     }
 
@@ -202,7 +212,7 @@ public class PrincipalStageViewController implements Initializable {
     }
 
     @FXML
-    void confirmAction(ActionEvent event) {
+    void confirmAction(ActionEvent event) throws IOException {
         ancorPane3.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
 
@@ -221,20 +231,49 @@ public class PrincipalStageViewController implements Initializable {
         }
 
         Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
+
         rulesList.add(createdRule);
+
+        saveRuleList(rulesList);
         selectedTrigger = null;
         selectedAction = null;
 
-        hoursChoiceId.setValue(null);
-        minuteChoiceId.setValue(null);
+        setActualTime();
         textMessageId.clear();
         nameRuleText.clear();
 
         System.out.println(RuleManager.getInstance().toString());
     }
 
-    @FXML
-    void showFileChooser(ActionEvent event) {
+    void saveRuleList(ObservableList<Rule> list) throws IOException {
+        ObjectOutputStream binaryFileOut = new ObjectOutputStream(new FileOutputStream("RULES.dat"));
+        for (Rule rule : list) {
+            binaryFileOut.writeObject(rule);
+        }
+        binaryFileOut.close();
+    }
+
+    void loadRuleList(ObservableList<Rule> list) throws IOException {
+
+        File file = new File("RULES.dat");
+
+        if(file.exists()){
+            ObjectInputStream binaryFileIn = new ObjectInputStream(new FileInputStream("RULES.dat"));
+            while (true) {
+                try {
+                    Rule rule = (Rule) binaryFileIn.readObject();
+                    list.add(rule);
+                } catch (IOException | ClassNotFoundException  e) {
+                    // Fine del file
+                    break;
+                }
+            }
+        }
+
+
+    }
+        @FXML
+        void showFileChooser(ActionEvent event) {
 
         
             // Impostazione del selettore di cartelle (invece di file)
