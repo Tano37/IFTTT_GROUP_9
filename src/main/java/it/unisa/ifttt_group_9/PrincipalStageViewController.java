@@ -100,6 +100,8 @@ public class PrincipalStageViewController implements Initializable {
     private Action selectedAction;
     private ObservableList<Rule> rulesList;
     private int result = -1;
+
+    private  JFileChooser fileChooser = new JFileChooser();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -116,7 +118,7 @@ public class PrincipalStageViewController implements Initializable {
                         new SimpleBooleanProperty(result == -1)
                 )
         );
-        confirmBtn.disableProperty().bind(bb1);
+        //confirmBtn.disableProperty().bind(bb1);
 
         ruleClm.setCellValueFactory(new PropertyValueFactory("ruleName"));
         rulesTable.setItems(rulesList);
@@ -212,9 +214,11 @@ public class PrincipalStageViewController implements Initializable {
             selectedAction = factory.createAction(textMessageId.getText());
            //System.out.println(selectedAction.toString());
         }
-        /*else if(tabId.equals("audioTab")){
-
-        }*/
+        else if(tabId.equals("audioTab")){
+            ActionAudioFactory factory = new ActionAudioFactory();
+            File selectedFolder = fileChooser.getSelectedFile();
+            selectedAction = factory.createAction(selectedFolder.getPath());
+        }
 
         Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
         rulesList.add(createdRule);
@@ -232,9 +236,7 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     void showFileChooser(ActionEvent event) {
 
-            // Creazione di un nuovo oggetto JFileChooser
-            JFileChooser fileChooser = new JFileChooser();
-
+        
             // Impostazione del selettore di cartelle (invece di file)
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -254,7 +256,7 @@ public class PrincipalStageViewController implements Initializable {
 
                 // Stampa il percorso della cartella
                 System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
-                selectedAction = new ActionAudio(selectedFolder.getPath());
+                //selectedAction = new ActionAudio(selectedFolder.getPath());
             } else {
                 System.out.println("Nessuna cartella selezionata.");
             }
