@@ -109,7 +109,10 @@ public class PrincipalStageViewController implements Initializable {
         BooleanBinding bb1 = Bindings.or(
                 nameRuleText.textProperty().isEmpty(),
                 Bindings.and(
-                        textMessageId.textProperty().isEmpty().and(new SimpleBooleanProperty(textMessageId.textProperty().toString().startsWith(" "))),
+                        Bindings.or(
+                                textMessageId.textProperty().isEmpty(),
+                                textMessageId.textProperty().isEqualTo(" ")
+                        ),
                         new SimpleBooleanProperty(result == -1)
                 )
         );
