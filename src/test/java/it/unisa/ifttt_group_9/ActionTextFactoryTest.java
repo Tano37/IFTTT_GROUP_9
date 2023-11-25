@@ -8,7 +8,7 @@ class ActionTextFactoryTest {
 
     @Test
     void testCreateAction() {
-        ActionFactory factory = new ActionTextFactory();
+        ActionTextFactory factory = new ActionTextFactory();
         String expectedText = "Test message";
 
         ActionText actionText = factory.createAction(expectedText);

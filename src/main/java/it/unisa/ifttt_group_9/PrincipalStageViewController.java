@@ -16,6 +16,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
+import javafx.stage.FileChooser;
+
+import javax.swing.*;
+import java.io.File;
+
 
 
 import java.net.URL;
@@ -86,6 +91,9 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     private TextField nameRuleText;
 
+    @FXML
+    private Button fileChooserBtn;
+
     private Trigger selectedTrigger;
     private Action selectedAction;
     private ObservableList<Rule> rulesList;
@@ -98,7 +106,7 @@ public class PrincipalStageViewController implements Initializable {
         BooleanBinding bb1 = Bindings.or(
                 nameRuleText.textProperty().isEmpty(),
                 Bindings.and(
-                        textMessageId.textProperty().isEmpty()/*.and(textMessageId.textProperty().toString().startsWith(" "))*/,
+                        textMessageId.textProperty().isEmpty()/*.and(textMessageId.textProperty().toString().startsWith(" "))*/
                         audioChoice.valueProperty().isNull()
                 )
         );
@@ -212,6 +220,30 @@ public class PrincipalStageViewController implements Initializable {
         nameRuleText.clear();
 
         System.out.println(RuleManager.getInstance().toString());
+    }
+
+    @FXML
+    void showFileChooser(ActionEvent event) {
+
+            // Creazione di un nuovo oggetto JFileChooser
+            JFileChooser fileChooser = new JFileChooser();
+
+            // Impostazione del selettore di cartelle (invece di file)
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+            // Mostra il selettore di cartelle
+            int result = fileChooser.showOpenDialog(null);
+
+            // Verifica se l'utente ha selezionato una cartella
+            if (result == JFileChooser.APPROVE_OPTION) {
+                // Ottieni la cartella selezionata
+                File selectedFolder = fileChooser.getSelectedFile();
+
+                // Stampa il percorso della cartella
+                System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
+            } else {
+                System.out.println("Nessuna cartella selezionata.");
+            }
     }
 
 }
