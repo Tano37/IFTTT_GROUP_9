@@ -210,12 +210,12 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     void updateActivationState(ActionEvent event) {
-        System.out.println("ECCOMI");
+        //
     }
 
     @FXML
     void activateRuleAction(ActionEvent event) {
-        System.out.println("ECCOMI");
+        //
     }
 
     @FXML
@@ -227,6 +227,7 @@ public class PrincipalStageViewController implements Initializable {
     void back1Action(ActionEvent event) {
         ancorPane2.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
+        rulesTable.getSelectionModel().clearSelection();
         hoursChoiceId.setValue(null);
         minuteChoiceId.setValue(null);
         selectedTrigger = null;
@@ -259,6 +260,7 @@ public class PrincipalStageViewController implements Initializable {
     void confirmAction(ActionEvent event) {
         ancorPane3.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
+        rulesTable.getSelectionModel().clearSelection();
 
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
        // System.out.println(tabId);
