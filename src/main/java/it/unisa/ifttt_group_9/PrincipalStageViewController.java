@@ -21,12 +21,18 @@ import javafx.util.Duration;
 
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 import java.net.URL;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class PrincipalStageViewController implements Initializable {
+    @FXML
+    private Button fileChooserBtn;
+
+    @FXML
+    private Button deleteBtn;
 
     @FXML
     private StackPane stackPaneId;
@@ -338,6 +344,35 @@ public class PrincipalStageViewController implements Initializable {
                     break;
                 }
             }
+        }
+    }
+
+    @FXML
+    void showFileChooser(ActionEvent event) {
+
+
+        // Impostazione del selettore di cartelle (invece di file)
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("File WAV (*.wav)", "wav");
+
+        // Applicazione del filtro al selettore di file
+        fileChooser.setFileFilter(filter);
+
+
+        // Mostra il selettore di cartelle
+        result = fileChooser.showOpenDialog(null);
+
+        // Verifica se l'utente ha selezionato una cartella
+        if (result == JFileChooser.APPROVE_OPTION) {
+            // Ottieni la cartella selezionata
+            File selectedFolder = fileChooser.getSelectedFile();
+
+            // Stampa il percorso della cartella
+            System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
+            //selectedAction = new ActionAudio(selectedFolder.getPath());
+        } else {
+            System.out.println("Nessuna cartella selezionata.");
         }
     }
 

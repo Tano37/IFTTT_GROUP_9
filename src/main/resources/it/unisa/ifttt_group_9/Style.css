@@ -19,9 +19,14 @@
     -fx-background-color: #4CAF50; /* Cambia il colore di sfondo della TableView */
 }
 
-#addRuleBtn, #continueBtn, #backBtn1, #confirmBtn, #backBtn2 {
+#addRuleBtn, #continueBtn, #backBtn1, #confirmBtn, #backBtn2, #activateRuleBtn, #deactivateRuleBtn {
     -fx-background-color: #4CAF50; /* Cambia il colore di sfondo dei pulsanti */
     -fx-text-fill: #ffffff; /* Cambia il colore del testo dei pulsanti */
+}
+
+#deleteBtn{
+    -fx-background-color: #ff0000; /* Cambia il colore di sfondo dei pulsanti */
+    -fx-text-fill: #ffffff;
 }
 
 #nameRuleText, #textMessageId {
