@@ -5,6 +5,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -39,6 +41,12 @@ public class PrincipalStageViewController implements Initializable {
     private Button addRuleBtn;
     @FXML
     private Button deleteRuleBtn;
+
+    @FXML
+    private Button activateRuleBtn;
+
+    @FXML
+    private Button deactivateRuleBtn;
 
     @FXML
     private AnchorPane ancorPane2;
@@ -106,6 +114,8 @@ public class PrincipalStageViewController implements Initializable {
                 )
         );
         confirmBtn.disableProperty().bind(bb1);
+        activateRuleBtn.disableProperty().setValue(true);
+        deactivateRuleBtn.disableProperty().setValue(true);
 
         ruleClm.setCellValueFactory(new PropertyValueFactory("ruleName"));
         rulesTable.setItems(rulesList);
@@ -129,6 +139,31 @@ public class PrincipalStageViewController implements Initializable {
         );
         continueBtn.disableProperty().bind(bb);
 
+        /*rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
+            @Override
+            public void changed(ObservableValue<? extends Rule> observable, Rule oldValue, Rule newValue) {
+                // Esegue l'azione quando un elemento viene selezionato
+                if (newValue != null) {
+                    System.out.println("Elemento selezionato");
+                    activateRuleBtn.disableProperty().setValue(false);
+                    deactivateRuleBtn.disableProperty().setValue(false);
+                }
+                else{
+                    activateRuleBtn.disableProperty().setValue(true);
+                    deactivateRuleBtn.disableProperty().setValue(true);
+                }
+            }
+        });
+         */
+        rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
+            @Override
+            public void changed(ObservableValue<? extends Rule> observable, Rule oldValue, Rule newValue) {
+                handleRuleSelection(newValue);
+            }
+        });
+
+
+
         //CONTROLLO TRIGGER (MIGLIORIE DA APPLICARE, INCLUDERE MECCANISMO PER FAR PARTIRE UNA VOLTA I TIMESTAMP TRIGGERS)
         Timeline timeline=new Timeline(new KeyFrame(
                 Duration.millis(400), e->{
@@ -148,6 +183,18 @@ public class PrincipalStageViewController implements Initializable {
         timeline.play();
     }
 
+    private void handleRuleSelection(Rule newValue) {
+        if (newValue != null) {
+            System.out.println("Elemento selezionato: " + newValue.getRuleName());
+            activateRuleBtn.setDisable(false);
+            deactivateRuleBtn.setDisable(false);
+        } else {
+            activateRuleBtn.setDisable(true);
+            deactivateRuleBtn.setDisable(true);
+        }
+    }
+
+
     @FXML
     void addRuleAction(ActionEvent event) {
         ancorPane1.visibleProperty().setValue(false);
@@ -159,6 +206,21 @@ public class PrincipalStageViewController implements Initializable {
     void deleteRuleAction(ActionEvent event) {
         ObservableList<Rule> selectedItems = rulesTable.getSelectionModel().getSelectedItems();
         rulesList.removeAll(selectedItems);
+    }
+
+    @FXML
+    void updateActivationState(ActionEvent event) {
+        System.out.println("ECCOMI");
+    }
+
+    @FXML
+    void activateRuleAction(ActionEvent event) {
+        System.out.println("ECCOMI");
+    }
+
+    @FXML
+    void deactivateRuleAction(ActionEvent event) {
+        System.out.println("ECCOMI");
     }
 
     @FXML
