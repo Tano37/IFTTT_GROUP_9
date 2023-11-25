@@ -10,8 +10,13 @@
     -fx-border-width: 1px;
 }
 
+#hoursChoiceId, #minuteChoiceId{
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: #ffffff;
+}
+
 #rulesTable {
-    -fx-background-color: #ffffff; /* Cambia il colore di sfondo della TableView */
+    -fx-background-color: #4CAF50; /* Cambia il colore di sfondo della TableView */
 }
 
 #addRuleBtn, #continueBtn, #backBtn1, #confirmBtn, #backBtn2 {
@@ -34,3 +39,4 @@
 }
 
 /* Aggiungi altri stili personalizzati secondo le tue preferenze */
+
