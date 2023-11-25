@@ -112,15 +112,16 @@ public class PrincipalStageViewController implements Initializable {
 
         BooleanBinding bb1 = Bindings.or(
                 nameRuleText.textProperty().isEmpty(),
-                Bindings.and(
+               // Bindings.and(
                         Bindings.or(
                                 textMessageId.textProperty().isEmpty(),
                                 textMessageId.textProperty().isEqualTo(" ")
-                        ),
-                        new SimpleBooleanProperty(result == -1)
-                )
+                      )
+                //,
+                     //   new SimpleBooleanProperty(result == -1)
+               // )
         );
-        //confirmBtn.disableProperty().bind(bb1);
+        confirmBtn.disableProperty().bind(bb1);
 
         ruleClm.setCellValueFactory(new PropertyValueFactory("ruleName"));
         rulesTable.setItems(rulesList);
