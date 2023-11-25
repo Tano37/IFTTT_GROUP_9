@@ -99,21 +99,24 @@ public class PrincipalStageViewController implements Initializable {
     private Trigger selectedTrigger;
     private Action selectedAction;
     private ObservableList<Rule> rulesList;
-    private int result = -1;
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         rulesList= FXCollections.observableArrayList();
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
+
         BooleanBinding bb1 = Bindings.or(
                 nameRuleText.textProperty().isEmpty(),
-                Bindings.and(
+                //Bindings.and(
                         Bindings.or(
                                 textMessageId.textProperty().isEmpty(),
                                 textMessageId.textProperty().isEqualTo(" ")
-                        ),
-                        new SimpleBooleanProperty(result == -1)
+                       // )
+
                 )
         );
         confirmBtn.disableProperty().bind(bb1);
@@ -209,6 +212,7 @@ public class PrincipalStageViewController implements Initializable {
 
         if(tabId.equals("textMessageTab")) {
             ActionFactory factory = new ActionTextFactory();
+
             selectedAction = factory.createAction(textMessageId.getText());
            //System.out.println(selectedAction.toString());
         }
@@ -245,7 +249,7 @@ public class PrincipalStageViewController implements Initializable {
 
 
         // Mostra il selettore di cartelle
-            result = fileChooser.showOpenDialog(null);
+            int result = fileChooser.showOpenDialog(null);
 
             // Verifica se l'utente ha selezionato una cartella
             if (result == JFileChooser.APPROVE_OPTION) {
