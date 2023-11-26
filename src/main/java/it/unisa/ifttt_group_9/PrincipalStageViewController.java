@@ -125,18 +125,18 @@ public class PrincipalStageViewController implements Initializable {
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         setActualTime();
 
-        BooleanBinding bb1 = Bindings.or(
+        /*BooleanBinding bb1 = Bindings.or(
                 nameRuleText.textProperty().isEmpty(),
                 // Bindings.and(
                 Bindings.or(
                         textMessageId.textProperty().isEmpty(),
                         textMessageId.textProperty().isEqualTo(" ")
-                )
+                ).and(tabPane2.selectionModelProperty().isEqualTo(tabPane2.selectionModelProperty()))
                 //,
                 //   new SimpleBooleanProperty(result == -1)
                 // )
-        );
-        confirmBtn.disableProperty().bind(bb1);
+        );*/
+        confirmBtn.disableProperty().bind(nameRuleText.textProperty().isEmpty());
         activateRuleBtn.disableProperty().setValue(true);
         deactivateRuleBtn.disableProperty().setValue(true);
 
@@ -346,35 +346,70 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     void confirmAction(ActionEvent event) throws IOException {
-        ancorPane3.visibleProperty().setValue(false);
+        /*ancorPane3.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
-        rulesTable.getSelectionModel().clearSelection();
+        rulesTable.getSelectionModel().clearSelection();*/
 
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
        // System.out.println(tabId);
 
         if(tabId.equals("textMessageTab")) {
-            ActionFactory factory = new ActionTextFactory();
-            selectedAction = factory.createAction(textMessageId.getText());
-           //System.out.println(selectedAction.toString());
+            if(textMessageId.getText().isEmpty() || textMessageId.getText().equals(" ")){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Errore");
+                alert.setContentText("Inserisci un testo!");
+                alert.showAndWait();
+            }else {
+                ActionFactory factory = new ActionTextFactory();
+                selectedAction = factory.createAction(textMessageId.getText());
+                //System.out.println(selectedAction.toString());
+
+                Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
+                rulesList.add(createdRule);
+                saveRuleList(rulesList);
+                selectedTrigger = null;
+                selectedAction = null;
+
+                setActualTime();
+                textMessageId.clear();
+                nameRuleText.clear();
+
+                System.out.println(RuleManager.getInstance().toString());
+                ancorPane3.visibleProperty().setValue(false);
+                ancorPane1.visibleProperty().setValue(true);
+                rulesTable.getSelectionModel().clearSelection();
+            }
         }
         else if(tabId.equals("audioTab")){
             ActionAudioFactory factory = new ActionAudioFactory();
-            File selectedFolder = fileChooser.getSelectedFile();
-            selectedAction = factory.createAction(selectedFolder.getPath());
+
+            if (fileChooser.getSelectedFile() == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Errore");
+                alert.setContentText("Inserisci il file audio!");
+                alert.showAndWait();
+
+            }else {
+
+                File selectedFolder = fileChooser.getSelectedFile();
+                selectedAction = factory.createAction(selectedFolder.getPath());
+
+                Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
+                rulesList.add(createdRule);
+                saveRuleList(rulesList);
+                selectedTrigger = null;
+                selectedAction = null;
+
+                setActualTime();
+                textMessageId.clear();
+                nameRuleText.clear();
+
+                System.out.println(RuleManager.getInstance().toString());
+                ancorPane3.visibleProperty().setValue(false);
+                ancorPane1.visibleProperty().setValue(true);
+                rulesTable.getSelectionModel().clearSelection();
+            }
         }
-
-        Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
-        rulesList.add(createdRule);
-        saveRuleList(rulesList);
-        selectedTrigger = null;
-        selectedAction = null;
-
-        setActualTime();
-        textMessageId.clear();
-        nameRuleText.clear();
-
-        System.out.println(RuleManager.getInstance().toString());
     }
 
     void saveRuleList(ObservableList<Rule> list) throws IOException {
