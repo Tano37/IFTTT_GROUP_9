@@ -354,7 +354,7 @@ public class PrincipalStageViewController implements Initializable {
        // System.out.println(tabId);
 
         if(tabId.equals("textMessageTab")) {
-            if(textMessageId.getText().isEmpty() || textMessageId.getText().equals(" ")){
+            if(textMessageId.getText().trim().isEmpty() ){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
                 alert.setContentText("Inserisci un testo!");
