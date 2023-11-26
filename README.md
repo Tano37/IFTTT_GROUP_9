@@ -18,7 +18,7 @@ Below you can check our documentation, in particular:
 
 **-First Sprint Artifacts-**
 
-* [FirstSprintBacklog](https://docs.google.com/spreadsheets/d/1Hcx5yB9i07IhGLzrbRJGqxG6WPGrIOUP/edit?usp=drive_link&ouid=104508030704024094929&rtpof=true&sd=true)
+* [FirstSprintBacklog]([https://docs.google.com/spreadsheets/d/1Hcx5yB9i07IhGLzrbRJGqxG6WPGrIOUP/edit?usp=drive_link&ouid=104508030704024094929&rtpof=true&sd=true](https://docs.google.com/spreadsheets/d/1TEhIiIdwdmEaRiLmnSJNmHXoK-jn6P64Wqg2PT2UCvM/edit?usp=drive_link))
 
 * [FirstSprintRetrospective]()
  
