@@ -12,9 +12,18 @@ Below you can check our documentation, in particular:
 
 * [PowerPoint first presentation](https://docs.google.com/presentation/d/1s5dNPeeb9GDX-69nq0G6VtIf82741l3t/edit?usp=drive_link&ouid=104508030704024094929&rtpof=true&sd=true)
 
-* [Design of the architecture] **Coming Soon...** 
+* [Design of the architecture](https://drive.google.com/file/d/1R0g6mH-w3gTcMtFX7BWPOvjzFV6F3SsN/view?usp=drive_link) 
 
 * [Product Backlog](https://docs.google.com/spreadsheets/d/1E_a1pODM5wcPadScc6v-flNTYtQuco1rU04QWlM8olc/edit?usp=sharing)
+
+**-First Sprint Artifacts-**
+
+* [FirstSprintBacklog](https://docs.google.com/spreadsheets/d/1Hcx5yB9i07IhGLzrbRJGqxG6WPGrIOUP/edit?usp=drive_link&ouid=104508030704024094929&rtpof=true&sd=true)
+
+* [FirstSprintRetrospective]()
+ 
+* [FirstSprintReview](https://docs.google.com/document/d/1obMHVX_5wL8yrKnWu5RzWvBMyrhQ6i9QQ1lKQuWlqmM/edit?usp=drive_link)
+
 
 >That’s been one of my mantras—focus and simplicity. Simple can be harder than complex: You have to work hard to get your thinking clean to make it simple. But it’s worth it in the end because once you get there, you can move mountains.
 >
