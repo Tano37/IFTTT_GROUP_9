@@ -20,9 +20,9 @@ Below you can check our documentation, in particular:
 
 * [FirstSprintBacklog](https://docs.google.com/spreadsheets/d/1TEhIiIdwdmEaRiLmnSJNmHXoK-jn6P64Wqg2PT2UCvM/edit#gid=0)
 
-* [FirstSprintRetrospective]()
- 
 * [FirstSprintReview](https://docs.google.com/document/d/1obMHVX_5wL8yrKnWu5RzWvBMyrhQ6i9QQ1lKQuWlqmM/edit?usp=drive_link)
+
+* [FirstSprintRetrospective](https://docs.google.com/document/d/1obMHVX_5wL8yrKnWu5RzWvBMyrhQ6i9QQ1lKQuWlqmM/edit?usp=drive_link)
 
 
 >That’s been one of my mantras—focus and simplicity. Simple can be harder than complex: You have to work hard to get your thinking clean to make it simple. But it’s worth it in the end because once you get there, you can move mountains.
