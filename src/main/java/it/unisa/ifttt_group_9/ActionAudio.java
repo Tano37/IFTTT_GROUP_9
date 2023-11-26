@@ -36,9 +36,9 @@ public class ActionAudio implements Action, Serializable {
 
         // Verifica se l'utente ha premuto "OK"
         if (scelta == JOptionPane.OK_OPTION) {
-            System.out.println("Hai premuto OK. Chiudendo l'allerta...");
+            System.out.println("You pressed OK. Closing the alert...");
         } else {
-            System.out.println("Allerta chiusa senza premere OK.");
+            System.out.println("Alert closed without pressing OK.");
         }
 
         // Imposta la variabile di stato per terminare la riproduzione
