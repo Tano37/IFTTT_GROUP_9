@@ -184,22 +184,7 @@ public class PrincipalStageViewController implements Initializable {
         );
         //continueBtn.disableProperty().bind(bb);
 
-        /*rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
-            @Override
-            public void changed(ObservableValue<? extends Rule> observable, Rule oldValue, Rule newValue) {
-                // Esegue l'azione quando un elemento viene selezionato
-                if (newValue != null) {
-                    System.out.println("Elemento selezionato");
-                    activateRuleBtn.disableProperty().setValue(false);
-                    deactivateRuleBtn.disableProperty().setValue(false);
-                }
-                else{
-                    activateRuleBtn.disableProperty().setValue(true);
-                    deactivateRuleBtn.disableProperty().setValue(true);
-                }
-            }
-        });
-         */
+
         rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
             @Override
             public void changed(ObservableValue<? extends Rule> observable, Rule oldValue, Rule newValue) {
@@ -269,10 +254,6 @@ public class PrincipalStageViewController implements Initializable {
         rulesList.removeAll(selectedItems);
     }
 
-    @FXML
-    void updateActivationState(MouseEvent event) {
-        //
-    }
 
     @FXML
     void activateRuleAction(ActionEvent event) {
@@ -346,12 +327,11 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     void confirmAction(ActionEvent event) throws IOException {
-        /*ancorPane3.visibleProperty().setValue(false);
+        ancorPane3.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
-        rulesTable.getSelectionModel().clearSelection();*/
+        rulesTable.getSelectionModel().clearSelection();
 
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
-       // System.out.println(tabId);
 
         if(tabId.equals("textMessageTab")) {
             if(textMessageId.getText().trim().isEmpty() ){
@@ -362,7 +342,6 @@ public class PrincipalStageViewController implements Initializable {
             }else {
                 ActionFactory factory = new ActionTextFactory();
                 selectedAction = factory.createAction(textMessageId.getText());
-                //System.out.println(selectedAction.toString());
 
                 Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
                 rulesList.add(createdRule);
@@ -374,10 +353,8 @@ public class PrincipalStageViewController implements Initializable {
                 textMessageId.clear();
                 nameRuleText.clear();
 
+                //Feedback Print
                 System.out.println(RuleManager.getInstance().toString());
-                ancorPane3.visibleProperty().setValue(false);
-                ancorPane1.visibleProperty().setValue(true);
-                rulesTable.getSelectionModel().clearSelection();
             }
         }
         else if(tabId.equals("audioTab")){
