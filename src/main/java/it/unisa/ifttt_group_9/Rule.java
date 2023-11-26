@@ -1,11 +1,16 @@
 package it.unisa.ifttt_group_9;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
 
 public class Rule implements Serializable {
     private String ruleName;
     private Trigger ruleTrigger;
     private Action ruleAction;
+
+    private Boolean status;
 
     private Boolean launched = false;
 
@@ -13,6 +18,7 @@ public class Rule implements Serializable {
         this.ruleName=ruleName;
         this.ruleTrigger=ruleTrigger;
         this.ruleAction=ruleAction;
+        this.status=true;
     }
 
     public String getRuleName() {
@@ -40,5 +46,10 @@ public class Rule implements Serializable {
         this.launched = launched;
     }
 
+    public Boolean getStatus(){ return status; }
+
+    public void setStatus(Boolean status){
+        this.status = status;
+    }
 
 }

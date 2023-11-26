@@ -3,6 +3,7 @@ package it.unisa.ifttt_group_9;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
@@ -45,6 +46,9 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     private TableColumn<Rule, String> ruleClm;
+
+    @FXML
+    private TableColumn<Rule, String> ruleClmStatus;
 
     @FXML
     private Button addRuleBtn;
@@ -111,11 +115,13 @@ public class PrincipalStageViewController implements Initializable {
     private int result = -1;
     private JFileChooser fileChooser = new JFileChooser();
 
+    private Rule selectedRuleForDeactivation;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         rulesList= FXCollections.observableArrayList();
-        rulesList.add(new Rule("CIap",new TriggerTimestamp(11,11), new ActionText("cIap")));
+        //rulesList.add(new Rule("CIap",new TriggerTimestamp(11,11), new ActionText("cIap")));
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         setActualTime();
 
@@ -137,6 +143,24 @@ public class PrincipalStageViewController implements Initializable {
         ruleClm.setCellValueFactory(new PropertyValueFactory("ruleName"));
         rulesTable.setItems(rulesList);
         Bindings.bindContent(RuleManager.getInstance().getRuleList(), rulesList);
+
+        TableColumn<Rule, Boolean> statusColumn = new TableColumn<>("Status");
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        statusColumn.setCellFactory(column -> new TableCell<Rule, Boolean>() {
+            @Override
+            protected void updateItem(Boolean status, boolean empty) {
+                super.updateItem(status, empty);
+                if (empty || status == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(status ? "Activate" : "Deactivate");
+                    setStyle(status ? "-fx-text-fill: green;" : "-fx-text-fill: red;");
+                }
+            }
+        });
+
+        rulesTable.getColumns().add(statusColumn);
 
         ObservableList<Integer> hoursList = FXCollections.observableArrayList();
         for (int i = 0; i <= 23; i++) {
@@ -190,12 +214,16 @@ public class PrincipalStageViewController implements Initializable {
                 Duration.millis(4000), e->{
 
             for(Rule r : rulesList){
-                if(r.getRuleTrigger().evaluate() && !r.getLaunched()){
+
+                if(r.getRuleTrigger().evaluate() && !r.getLaunched() && r.getStatus()){
+                    System.out.print(r.getRuleTrigger().evaluate()+ ":::"+ r.getLaunched());
                     r.setLaunched(true);
                     RuleExecuteService myService = new RuleExecuteService(r);
                     myService.start();
                 }else {
-                    r.setLaunched(r.getRuleTrigger().evaluate());
+                    r.setLaunched(r.getRuleTrigger().evaluate() );
+
+
                 }
             }
         })
@@ -215,16 +243,17 @@ public class PrincipalStageViewController implements Initializable {
         hoursChoiceId.setValue(now.getHour());
         minuteChoiceId.setValue(now.getMinute());
     }
-     void handleRuleSelection(Rule newValue) {
+    void handleRuleSelection(Rule newValue) {
         if (newValue != null) {
             System.out.println("Elemento selezionato: " + newValue.getRuleName());
-            activateRuleBtn.disableProperty().setValue(false);
-            deactivateRuleBtn.disableProperty().setValue(false);;
+            activateRuleBtn.setDisable(newValue.getStatus());
+            deactivateRuleBtn.setDisable(!newValue.getStatus());
         } else {
             activateRuleBtn.setDisable(true);
             deactivateRuleBtn.setDisable(true);
         }
     }
+
 
 
     @FXML
@@ -247,12 +276,39 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     void activateRuleAction(ActionEvent event) {
-        //
+        Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
+
+        if (!selectedItem.getStatus()) {
+            System.out.println("Regola: "+ selectedItem.getRuleName()+ " attivata");
+            selectedItem.setStatus(true);
+            rulesTable.refresh();
+            activateRuleBtn.setDisable(true);
+            deactivateRuleBtn.setDisable(false);
+            try {
+                saveRuleList(rulesList);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
+
 
     @FXML
     void deactivateRuleAction(ActionEvent event) {
-        System.out.println("ECCOMI");
+        Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
+
+        if (selectedItem.getStatus()) {
+            System.out.println("Regola: "+ selectedItem.getRuleName()+ " disattivata");
+            selectedItem.setStatus(false);
+            rulesTable.refresh();
+            activateRuleBtn.setDisable(false);
+            deactivateRuleBtn.setDisable(true);
+            try {
+                saveRuleList(rulesList);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @FXML
