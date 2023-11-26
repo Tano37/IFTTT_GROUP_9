@@ -20,7 +20,7 @@ Below you can check our documentation, in particular:
 
 * [FirstSprintBacklog](https://docs.google.com/spreadsheets/d/1TEhIiIdwdmEaRiLmnSJNmHXoK-jn6P64Wqg2PT2UCvM/edit#gid=0)
 
-* [FirstSprintReview](https://docs.google.com/document/d/1obMHVX_5wL8yrKnWu5RzWvBMyrhQ6i9QQ1lKQuWlqmM/edit?usp=drive_link)
+* [FirstSprintReview]([https://docs.google.com/document/d/1obMHVX_5wL8yrKnWu5RzWvBMyrhQ6i9QQ1lKQuWlqmM/edit?usp=drive_link](https://docs.google.com/document/d/1obMHVX_5wL8yrKnWu5RzWvBMyrhQ6i9QQ1lKQuWlqmM/edit?usp=sharing))
 
 * [FirstSprintRetrospective](https://docs.google.com/document/d/1zfLAGKisEryrYpPd2dxnsctBbLt6Tgd4xMtChPNrTew/edit?usp=drive_link)
 
