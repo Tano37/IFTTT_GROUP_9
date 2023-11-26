@@ -136,6 +136,7 @@ public class PrincipalStageViewController implements Initializable {
                 //   new SimpleBooleanProperty(result == -1)
                 // )
         );*/
+
         confirmBtn.disableProperty().bind(nameRuleText.textProperty().isEmpty());
         activateRuleBtn.disableProperty().setValue(true);
         deactivateRuleBtn.disableProperty().setValue(true);
@@ -201,14 +202,11 @@ public class PrincipalStageViewController implements Initializable {
             for(Rule r : rulesList){
 
                 if(r.getRuleTrigger().evaluate() && !r.getLaunched() && r.getStatus()){
-                    System.out.print(r.getRuleTrigger().evaluate()+ ":::"+ r.getLaunched());
                     r.setLaunched(true);
                     RuleExecuteService myService = new RuleExecuteService(r);
                     myService.start();
                 }else {
                     r.setLaunched(r.getRuleTrigger().evaluate() );
-
-
                 }
             }
         })
@@ -230,7 +228,6 @@ public class PrincipalStageViewController implements Initializable {
     }
     void handleRuleSelection(Rule newValue) {
         if (newValue != null) {
-            System.out.println("Elemento selezionato: " + newValue.getRuleName());
             activateRuleBtn.setDisable(newValue.getStatus());
             deactivateRuleBtn.setDisable(!newValue.getStatus());
         } else {
@@ -245,7 +242,6 @@ public class PrincipalStageViewController implements Initializable {
     void addRuleAction(ActionEvent event) {
         ancorPane1.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
-
     }
 
     @FXML
@@ -260,7 +256,6 @@ public class PrincipalStageViewController implements Initializable {
         Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
 
         if (!selectedItem.getStatus()) {
-            System.out.println("Regola: "+ selectedItem.getRuleName()+ " attivata");
             selectedItem.setStatus(true);
             rulesTable.refresh();
             activateRuleBtn.setDisable(true);
@@ -279,7 +274,6 @@ public class PrincipalStageViewController implements Initializable {
         Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
 
         if (selectedItem.getStatus()) {
-            System.out.println("Regola: "+ selectedItem.getRuleName()+ " disattivata");
             selectedItem.setStatus(false);
             rulesTable.refresh();
             activateRuleBtn.setDisable(false);
@@ -352,9 +346,6 @@ public class PrincipalStageViewController implements Initializable {
                 setActualTime();
                 textMessageId.clear();
                 nameRuleText.clear();
-
-                //Feedback Print
-                System.out.println(RuleManager.getInstance().toString());
             }
         }
         else if(tabId.equals("audioTab")){

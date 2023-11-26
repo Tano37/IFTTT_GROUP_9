@@ -41,7 +41,7 @@ class RuleManagerTest {
 
         List<Rule> ruleList = ruleManager.getRuleList();
 
-        assertTrue(ruleList.contains(rule1), "La regola 1 dovrebbe essere presente nella lista");
-        assertTrue(ruleList.contains(rule2), "La regola 2 dovrebbe essere presente nella lista");
+        assertTrue(ruleList.contains(rule1), "Rule 1 should be present on the list");
+        assertTrue(ruleList.contains(rule2), "Rule 2 should be present on the list");
     }
 }
