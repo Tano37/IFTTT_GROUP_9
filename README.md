@@ -10,11 +10,11 @@ Below you can check our documentation, in particular:
 
 * [PowerPoint first presentation](https://docs.google.com/presentation/d/1s5dNPeeb9GDX-69nq0G6VtIf82741l3t/edit?usp=drive_link&ouid=104508030704024094929&rtpof=true&sd=true)
 
-* [Burndown chart](https://docs.google.com/spreadsheets/d/1-dTMPlXCOvI4Xhb1cHiEuXfK_DByB6Lb/edit?usp=drive_link&ouid=104508030704024094929&rtpof=true&sd=true) _in development..._
+* [Burndown chart](https://docs.google.com/spreadsheets/d/1-dTMPlXCOvI4Xhb1cHiEuXfK_DByB6Lb/edit?usp=drive_link&ouid=104508030704024094929&rtpof=true&sd=true)  _(in development...)_
 
-* [Design of the architecture](https://drive.google.com/file/d/1R0g6mH-w3gTcMtFX7BWPOvjzFV6F3SsN/view?usp=drive_link) _in development..._
+* [Design of the architecture](https://drive.google.com/file/d/1R0g6mH-w3gTcMtFX7BWPOvjzFV6F3SsN/view?usp=drive_link)  _(in development...)_
 
-* [Product Backlog](https://docs.google.com/spreadsheets/d/1E_a1pODM5wcPadScc6v-flNTYtQuco1rU04QWlM8olc/edit?usp=sharing) _grooming..._
+* [Product Backlog](https://docs.google.com/spreadsheets/d/1E_a1pODM5wcPadScc6v-flNTYtQuco1rU04QWlM8olc/edit?usp=sharing)  _(grooming...)_
 
 **-First Sprint Artifacts-**
 
