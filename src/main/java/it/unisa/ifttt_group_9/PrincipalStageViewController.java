@@ -207,12 +207,8 @@ public class PrincipalStageViewController implements Initializable {
             }
         });
 
-
-
-        //CONTROLLO TRIGGER (MIGLIORIE DA APPLICARE, INCLUDERE MECCANISMO PER FAR PARTIRE UNA VOLTA I TIMESTAMP TRIGGERS)
         Timeline timeline=new Timeline(new KeyFrame(
-                Duration.millis(4000), e->{
-
+                Duration.millis(400), e->{
             for(Rule r : rulesList){
 
                 if(r.getRuleTrigger().evaluate() && !r.getLaunched() && r.getStatus()){
@@ -220,10 +216,9 @@ public class PrincipalStageViewController implements Initializable {
                     r.setLaunched(true);
                     RuleExecuteService myService = new RuleExecuteService(r);
                     myService.start();
-                }else {
+
+                } else {
                     r.setLaunched(r.getRuleTrigger().evaluate() );
-
-
                 }
             }
         })
@@ -260,6 +255,7 @@ public class PrincipalStageViewController implements Initializable {
     void addRuleAction(ActionEvent event) {
         ancorPane1.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
+        setActualTime();
 
     }
 
@@ -342,6 +338,8 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane3.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
         selectedAction = null;
+        fileChooser.setSelectedFile(null);
+
     }
 
     @FXML
@@ -393,6 +391,7 @@ public class PrincipalStageViewController implements Initializable {
 
                 File selectedFolder = fileChooser.getSelectedFile();
                 selectedAction = factory.createAction(selectedFolder.getPath());
+                fileChooser.setSelectedFile(null);
 
                 Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
                 rulesList.add(createdRule);
@@ -409,6 +408,7 @@ public class PrincipalStageViewController implements Initializable {
                 ancorPane1.visibleProperty().setValue(true);
                 rulesTable.getSelectionModel().clearSelection();
             }
+
         }
     }
 
@@ -421,7 +421,6 @@ public class PrincipalStageViewController implements Initializable {
     }
 
     void loadRuleList(ObservableList<Rule> list) throws IOException {
-
         File file = new File("RULES.dat");
 
         if(file.exists()){
