@@ -182,7 +182,7 @@ public class PrincipalStageViewController implements Initializable {
                 hoursChoiceId.valueProperty().isNull(),
                 minuteChoiceId.valueProperty().isNull()
         );
-        //continueBtn.disableProperty().bind(bb);
+        continueBtn.disableProperty().bind(bb);
 
         /*rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
             @Override
@@ -260,9 +260,10 @@ public class PrincipalStageViewController implements Initializable {
     }
 
     @FXML
-    void deleteRuleAction(ActionEvent event) {
+    void deleteRuleAction(ActionEvent event) throws IOException {
         ObservableList<Rule> selectedItems = rulesTable.getSelectionModel().getSelectedItems();
         rulesList.removeAll(selectedItems);
+        saveRuleList(rulesList);
     }
 
     @FXML
@@ -280,6 +281,7 @@ public class PrincipalStageViewController implements Initializable {
             rulesTable.refresh();
             activateRuleBtn.setDisable(true);
             deactivateRuleBtn.setDisable(false);
+            selectedItem.setLaunched(false);
             try {
                 saveRuleList(rulesList);
             } catch (IOException e) {
@@ -351,7 +353,7 @@ public class PrincipalStageViewController implements Initializable {
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
        // System.out.println(tabId);
 
-        if(tabId.equals("textMessageTab")) {
+        if(tabId.equals("textMessageTab") && !nameRuleText.getText().trim().isEmpty()) {
             if(textMessageId.getText().trim().isEmpty() ){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
@@ -378,7 +380,7 @@ public class PrincipalStageViewController implements Initializable {
                 rulesTable.getSelectionModel().clearSelection();
             }
         }
-        else if(tabId.equals("audioTab")){
+        else if(tabId.equals("audioTab") && !nameRuleText.getText().trim().isEmpty()){
             ActionAudioFactory factory = new ActionAudioFactory();
 
             if (fileChooser.getSelectedFile() == null){
@@ -408,7 +410,11 @@ public class PrincipalStageViewController implements Initializable {
                 ancorPane1.visibleProperty().setValue(true);
                 rulesTable.getSelectionModel().clearSelection();
             }
-
+        }else if(nameRuleText.getText().trim().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setContentText("Inserisci un nome al file");
+            alert.showAndWait();
         }
     }
 
