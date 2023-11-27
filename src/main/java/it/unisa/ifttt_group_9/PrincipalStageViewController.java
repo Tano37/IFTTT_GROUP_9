@@ -136,7 +136,6 @@ public class PrincipalStageViewController implements Initializable {
                 //   new SimpleBooleanProperty(result == -1)
                 // )
         );*/
-
         confirmBtn.disableProperty().bind(nameRuleText.textProperty().isEmpty());
         activateRuleBtn.disableProperty().setValue(true);
         deactivateRuleBtn.disableProperty().setValue(true);
@@ -183,9 +182,24 @@ public class PrincipalStageViewController implements Initializable {
                 hoursChoiceId.valueProperty().isNull(),
                 minuteChoiceId.valueProperty().isNull()
         );
-        //continueBtn.disableProperty().bind(bb);
+        continueBtn.disableProperty().bind(bb);
 
-
+        /*rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
+            @Override
+            public void changed(ObservableValue<? extends Rule> observable, Rule oldValue, Rule newValue) {
+                // Esegue l'azione quando un elemento viene selezionato
+                if (newValue != null) {
+                    System.out.println("Elemento selezionato");
+                    activateRuleBtn.disableProperty().setValue(false);
+                    deactivateRuleBtn.disableProperty().setValue(false);
+                }
+                else{
+                    activateRuleBtn.disableProperty().setValue(true);
+                    deactivateRuleBtn.disableProperty().setValue(true);
+                }
+            }
+        });
+         */
         rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
             @Override
             public void changed(ObservableValue<? extends Rule> observable, Rule oldValue, Rule newValue) {
@@ -193,19 +207,17 @@ public class PrincipalStageViewController implements Initializable {
             }
         });
 
-
-
-        //CONTROLLO TRIGGER (MIGLIORIE DA APPLICARE, INCLUDERE MECCANISMO PER FAR PARTIRE UNA VOLTA I TIMESTAMP TRIGGERS)
         Timeline timeline=new Timeline(new KeyFrame(
-                Duration.millis(4000), e->{
-
+                Duration.millis(400), e->{
             for(Rule r : rulesList){
 
                 if(r.getRuleTrigger().evaluate() && !r.getLaunched() && r.getStatus()){
+                    System.out.print(r.getRuleTrigger().evaluate()+ ":::"+ r.getLaunched());
                     r.setLaunched(true);
                     RuleExecuteService myService = new RuleExecuteService(r);
                     myService.start();
-                }else {
+
+                } else {
                     r.setLaunched(r.getRuleTrigger().evaluate() );
                 }
             }
@@ -228,6 +240,7 @@ public class PrincipalStageViewController implements Initializable {
     }
     void handleRuleSelection(Rule newValue) {
         if (newValue != null) {
+            System.out.println("Elemento selezionato: " + newValue.getRuleName());
             activateRuleBtn.setDisable(newValue.getStatus());
             deactivateRuleBtn.setDisable(!newValue.getStatus());
         } else {
@@ -242,24 +255,33 @@ public class PrincipalStageViewController implements Initializable {
     void addRuleAction(ActionEvent event) {
         ancorPane1.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
+        setActualTime();
+
     }
 
     @FXML
-    void deleteRuleAction(ActionEvent event) {
+    void deleteRuleAction(ActionEvent event) throws IOException {
         ObservableList<Rule> selectedItems = rulesTable.getSelectionModel().getSelectedItems();
         rulesList.removeAll(selectedItems);
+        saveRuleList(rulesList);
     }
 
+    @FXML
+    void updateActivationState(MouseEvent event) {
+        //
+    }
 
     @FXML
     void activateRuleAction(ActionEvent event) {
         Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
 
         if (!selectedItem.getStatus()) {
+            System.out.println("Regola: "+ selectedItem.getRuleName()+ " attivata");
             selectedItem.setStatus(true);
             rulesTable.refresh();
             activateRuleBtn.setDisable(true);
             deactivateRuleBtn.setDisable(false);
+            selectedItem.setLaunched(false);
             try {
                 saveRuleList(rulesList);
             } catch (IOException e) {
@@ -274,6 +296,7 @@ public class PrincipalStageViewController implements Initializable {
         Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
 
         if (selectedItem.getStatus()) {
+            System.out.println("Regola: "+ selectedItem.getRuleName()+ " disattivata");
             selectedItem.setStatus(false);
             rulesTable.refresh();
             activateRuleBtn.setDisable(false);
@@ -317,17 +340,20 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane3.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
         selectedAction = null;
+        fileChooser.setSelectedFile(null);
+
     }
 
     @FXML
     void confirmAction(ActionEvent event) throws IOException {
-        ancorPane3.visibleProperty().setValue(false);
+        /*ancorPane3.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
-        rulesTable.getSelectionModel().clearSelection();
+        rulesTable.getSelectionModel().clearSelection();*/
 
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
+       // System.out.println(tabId);
 
-        if(tabId.equals("textMessageTab")) {
+        if(tabId.equals("textMessageTab") && !nameRuleText.getText().trim().isEmpty()) {
             if(textMessageId.getText().trim().isEmpty() ){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
@@ -336,31 +362,7 @@ public class PrincipalStageViewController implements Initializable {
             }else {
                 ActionFactory factory = new ActionTextFactory();
                 selectedAction = factory.createAction(textMessageId.getText());
-
-                Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
-                rulesList.add(createdRule);
-                saveRuleList(rulesList);
-                selectedTrigger = null;
-                selectedAction = null;
-
-                setActualTime();
-                textMessageId.clear();
-                nameRuleText.clear();
-            }
-        }
-        else if(tabId.equals("audioTab")){
-            ActionAudioFactory factory = new ActionAudioFactory();
-
-            if (fileChooser.getSelectedFile() == null){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Errore");
-                alert.setContentText("Inserisci il file audio!");
-                alert.showAndWait();
-
-            }else {
-
-                File selectedFolder = fileChooser.getSelectedFile();
-                selectedAction = factory.createAction(selectedFolder.getPath());
+                //System.out.println(selectedAction.toString());
 
                 Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
                 rulesList.add(createdRule);
@@ -378,6 +380,42 @@ public class PrincipalStageViewController implements Initializable {
                 rulesTable.getSelectionModel().clearSelection();
             }
         }
+        else if(tabId.equals("audioTab") && !nameRuleText.getText().trim().isEmpty()){
+            ActionAudioFactory factory = new ActionAudioFactory();
+
+            if (fileChooser.getSelectedFile() == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Errore");
+                alert.setContentText("Inserisci il file audio!");
+                alert.showAndWait();
+
+            }else {
+
+                File selectedFolder = fileChooser.getSelectedFile();
+                selectedAction = factory.createAction(selectedFolder.getPath());
+                fileChooser.setSelectedFile(null);
+
+                Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
+                rulesList.add(createdRule);
+                saveRuleList(rulesList);
+                selectedTrigger = null;
+                selectedAction = null;
+
+                setActualTime();
+                textMessageId.clear();
+                nameRuleText.clear();
+
+                System.out.println(RuleManager.getInstance().toString());
+                ancorPane3.visibleProperty().setValue(false);
+                ancorPane1.visibleProperty().setValue(true);
+                rulesTable.getSelectionModel().clearSelection();
+            }
+        }else if(nameRuleText.getText().trim().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setContentText("Inserisci un nome al file");
+            alert.showAndWait();
+        }
     }
 
     void saveRuleList(ObservableList<Rule> list) throws IOException {
@@ -389,7 +427,6 @@ public class PrincipalStageViewController implements Initializable {
     }
 
     void loadRuleList(ObservableList<Rule> list) throws IOException {
-
         File file = new File("RULES.dat");
 
         if(file.exists()){
