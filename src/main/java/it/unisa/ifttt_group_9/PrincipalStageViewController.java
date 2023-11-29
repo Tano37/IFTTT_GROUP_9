@@ -118,6 +118,10 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     private TextField nameRuleText;
+
+    @FXML
+    private CheckBox fireOnceCheckbox;
+
     @FXML
     private ChoiceBox<Integer> minuteChoiceIdSleep;
     @FXML
