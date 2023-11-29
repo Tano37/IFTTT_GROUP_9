@@ -252,9 +252,12 @@ public class PrincipalStageViewController implements Initializable {
                 Duration.millis(400), e->{
             for(Rule r : rulesList){
                 if (r.getDateUntilSleep() != null) {
-                    LocalDateTime truncatedNow = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-                    LocalDateTime truncatedOtherDateTime = r.getDateUntilSleep().truncatedTo(ChronoUnit.MINUTES);
+                    /*LocalDateTime truncatedNow = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+                    LocalDateTime truncatedOtherDateTime = r.getDateUntilSleep().truncatedTo(ChronoUnit.MINUTES);*/
 
+                    LocalDateTime truncatedNow = LocalDateTime.now();
+                    LocalDateTime truncatedOtherDateTime= r.getDateUntilSleep();
+                    System.out.println("now: "+ truncatedNow+"/other: "+ truncatedOtherDateTime+ "/status: "+ r.getStatus()+ "/name: "+ r.getRuleName());
                     int comparisonResult = truncatedNow.compareTo(truncatedOtherDateTime);
 
                     if (!r.getStatus() && comparisonResult >= 0) {
@@ -262,10 +265,11 @@ public class PrincipalStageViewController implements Initializable {
                         r.setStatus(true);
                         rulesTable.refresh();
                         r.setDateUntilSleep(null);
-                        System.out.println(r.getRuleTrigger().evaluate()+"/"+!r.getLaunched()+"/"+r.getStatus());
+                        r.setLaunched(false);
+                        //System.out.println(r.getRuleTrigger().evaluate()+"/"+!r.getLaunched()+"/"+r.getStatus());
                     }
                 }
-
+                //System.out.printf(r.getRuleTrigger().evaluate()+"//"+!r.getLaunched()+"//"+r.getStatus());
                 if(r.getRuleTrigger().evaluate() && !r.getLaunched() && r.getStatus()){
 
                     r.setLaunched(true);
@@ -374,9 +378,8 @@ public class PrincipalStageViewController implements Initializable {
         Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
         ancorPane1.visibleProperty().setValue(false);
         ancorPane4.visibleProperty().setValue(true);
-
-
     }
+
     @FXML
     void confirmSleepAction(ActionEvent event) {
         ancorPane4.visibleProperty().setValue(false);
@@ -388,12 +391,9 @@ public class PrincipalStageViewController implements Initializable {
         Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
         LocalDateTime dateUntilSleep = LocalDateTime.now();
 
-
-
         dateUntilSleep = dateUntilSleep.plusMinutes(minutesOfSleep);
         dateUntilSleep = dateUntilSleep.plusHours(hoursOfSleep);
         dateUntilSleep = dateUntilSleep.plusDays(daysOfSleep);
-
 
         selectedItem.setDateUntilSleep(dateUntilSleep);
         rulesTable.refresh();
