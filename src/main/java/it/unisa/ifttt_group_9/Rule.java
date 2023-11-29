@@ -13,10 +13,13 @@ public class Rule implements Serializable {
     private Trigger ruleTrigger;
     private Action ruleAction;
 
+    //Activated/Deactivated
     private Boolean status;
 
+    //Control Variable
     private Boolean launched = false;
 
+    //Variable for Rule Sleeping
     private LocalDateTime dateUntilSleep;
 
 
