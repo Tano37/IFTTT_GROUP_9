@@ -1,5 +1,6 @@
 package it.unisa.ifttt_group_9;
 
+import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -32,6 +33,9 @@ public class ActionFileAddString implements Action{
                     // Adds the string
                     bufferedWriter.write(stringToAdd);
 
+
+
+                    JOptionPane.showConfirmDialog(null, "The string has been added", "StringAddition", JOptionPane.DEFAULT_OPTION);
                     // Close theBufferedWriter
                     bufferedWriter.close();
 

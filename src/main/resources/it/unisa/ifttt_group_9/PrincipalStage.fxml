@@ -19,7 +19,7 @@
       <URL value="@Style.css" />
    </stylesheets>
    <children>
-      <AnchorPane fx:id="ancorPane1" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <AnchorPane fx:id="ancorPane1" prefHeight="200.0" prefWidth="200.0">
          <children>
             <TableView fx:id="rulesTable" prefHeight="236.0" prefWidth="534.0">
               <columns>
@@ -70,7 +70,7 @@
             <Label layoutX="289.0" layoutY="52.0" prefHeight="21.0" prefWidth="70.0" text="Minute" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="ancorPane3" focusTraversable="true" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="ancorPane3" focusTraversable="true" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
             <TabPane fx:id="tabPane2" prefHeight="236.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
                <tabs>
@@ -101,11 +101,11 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <Separator layoutX="-40.0" layoutY="185.0" prefHeight="17.0" prefWidth="574.0" />
-                              <ChoiceBox fx:id="fileActionChooser" layoutX="192.0" layoutY="29.0" prefWidth="150.0" />
-                              <Button fx:id="file" layoutX="227.0" layoutY="67.0" mnemonicParsing="false" text="Chose a File" />
-                              <TextField fx:id="fileActionLauchTxt" layoutX="193.0" layoutY="115.0" />
-                              <Label fx:id="fileActionLabel" layoutX="135.0" layoutY="119.0" text="Label" />
-                              <Button fx:id="destDirBtn" layoutX="213.0" layoutY="115.0" mnemonicParsing="false" text="Chose a Dest. Dir." />
+                              <ChoiceBox fx:id="fileActionChooser" layoutX="75.0" layoutY="26.0" prefWidth="150.0" />
+                              <Button fx:id="file" layoutX="292.0" layoutY="26.0" mnemonicParsing="false" onAction="#filePathBtnAction" text="Chose a File" />
+                              <Label fx:id="fileActionLabel" layoutX="40.0" layoutY="88.0" text="Label" />
+                              <Button fx:id="destDirBtn" layoutX="342.0" layoutY="131.0" mnemonicParsing="false" onAction="#destDirBtnAction" text="Chose a Dest. Dir." />
+                              <TextField fx:id="fileActionLaunchTxt" layoutX="34.0" layoutY="131.0" />
                            </children>
                         </AnchorPane>
                      </content>

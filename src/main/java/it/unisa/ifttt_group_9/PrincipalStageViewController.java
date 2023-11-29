@@ -6,6 +6,8 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -150,6 +152,9 @@ public class PrincipalStageViewController implements Initializable {
     private ObservableList<Rule> rulesList;
     private int result = -1;
     private JFileChooser fileChooser = new JFileChooser();
+    private JFileChooser filePathAction = new JFileChooser();
+    private JFileChooser dirPathAction = new JFileChooser();
+
 
     private Rule selectedRuleForDeactivation;
 
@@ -159,7 +164,7 @@ public class PrincipalStageViewController implements Initializable {
         rulesList= FXCollections.observableArrayList();
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         setActualTime();
-        
+
         confirmBtn.disableProperty().bind(nameRuleText.textProperty().isEmpty());
         activateRuleBtn.disableProperty().setValue(true);
         deactivateRuleBtn.disableProperty().setValue(true);
@@ -199,6 +204,39 @@ public class PrincipalStageViewController implements Initializable {
         minuteChoiceId.autosize();
         minuteChoiceIdSleep.setItems(minuteList);
         minuteChoiceIdSleep.autosize();
+
+        ObservableList<String> triggerFileType = FXCollections.observableArrayList();
+        triggerFileType.add("Add String in the end");
+        triggerFileType.add("Copy and Paste");
+        triggerFileType.add("Delete a File");
+        triggerFileType.add("Launch a Program");
+        fileActionChooser.setItems(triggerFileType);
+        fileActionChooser.valueProperty().setValue(triggerFileType.getFirst());
+        fileActionChooser.autosize();
+
+
+
+
+        // Aggiunta di un listener per catturare i cambiamenti nella selezione
+        fileActionChooser.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+
+            if(newValue.equals("Add String in the end")){
+                fileActionLaunchTxt.setVisible(true);
+                destDirBtn.disableProperty().set(true);
+            }
+            else if (newValue.equals("Launch a Program")){
+                fileActionLaunchTxt.setVisible(true);
+                destDirBtn.disableProperty().set(true);
+            }
+            else if(newValue.equals("Copy and Paste") ){
+                fileActionLaunchTxt.setVisible(false);
+                destDirBtn.disableProperty().set(false);
+            } else if ( newValue.equals("Delete a File")) {
+                fileActionLaunchTxt.setVisible(false);
+                destDirBtn.disableProperty().set(true);
+
+            }
+        });
 
 
         BooleanBinding bb = Bindings.or(
@@ -456,6 +494,7 @@ public class PrincipalStageViewController implements Initializable {
         /*ancorPane3.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
         rulesTable.getSelectionModel().clearSelection();*/
+        System.out.println("confermaaaa" );
 
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
        // System.out.println(tabId);
@@ -471,20 +510,7 @@ public class PrincipalStageViewController implements Initializable {
                 selectedAction = factory.createAction(textMessageId.getText());
                 //System.out.println(selectedAction.toString());
 
-                Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
-                rulesList.add(createdRule);
-                saveRuleList(rulesList);
-                selectedTrigger = null;
-                selectedAction = null;
-
-                setActualTime();
-                textMessageId.clear();
-                nameRuleText.clear();
-
-                System.out.println(RuleManager.getInstance().toString());
-                ancorPane3.visibleProperty().setValue(false);
-                ancorPane1.visibleProperty().setValue(true);
-                rulesTable.getSelectionModel().clearSelection();
+                createRule();
             }
         }
         else if(tabId.equals("audioTab") && !nameRuleText.getText().trim().isEmpty()){
@@ -502,26 +528,90 @@ public class PrincipalStageViewController implements Initializable {
                 selectedAction = factory.createAction(selectedFolder.getPath());
                 fileChooser.setSelectedFile(null);
 
-                Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
-                rulesList.add(createdRule);
-                saveRuleList(rulesList);
-                selectedTrigger = null;
-                selectedAction = null;
-
-                setActualTime();
-                textMessageId.clear();
-                nameRuleText.clear();
-
-                System.out.println(RuleManager.getInstance().toString());
-                ancorPane3.visibleProperty().setValue(false);
-                ancorPane1.visibleProperty().setValue(true);
-                rulesTable.getSelectionModel().clearSelection();
+                createRule();
             }
         }else if(nameRuleText.getText().trim().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setContentText("Inserisci un nome al file");
             alert.showAndWait();
+        }
+        else if(tabId.equals("fileTab") && !nameRuleText.getText().trim().isEmpty()){
+
+            if(fileActionChooser.getValue().equals("Add String in the end")){
+
+                if (filePathAction.getSelectedFile() == null){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Errore");
+                    alert.setContentText("Inserisci il file!");
+                    alert.showAndWait();
+                }
+                else{
+
+                    File selectedFolder = filePathAction.getSelectedFile();
+                    String testInFile = fileActionLaunchTxt.getText();
+                    selectedAction = new ActionFileAddString (selectedFolder.getPath(),testInFile);
+                    filePathAction.setSelectedFile(null);
+                    createRule();
+                }
+            }
+            else if(fileActionChooser.getValue().equals("Copy and Paste")){
+
+                if (filePathAction.getSelectedFile() == null){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Errore");
+                    alert.setContentText("Inserisci il file");
+                    alert.showAndWait();
+                }
+                else if (dirPathAction.getSelectedFile() == null){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Errore");
+                    alert.setContentText("Inserisci la cartella di destinazione!");
+                    alert.showAndWait();
+                }
+                else{
+                    File selectedFolder = filePathAction.getSelectedFile();
+                    File dirSelectedFolder = dirPathAction.getSelectedFile();
+
+                    selectedAction = new ActionFileCopy(selectedFolder.getPath(),dirSelectedFolder.getPath());
+                    filePathAction.setSelectedFile(null);
+                    dirPathAction.setSelectedFile(null);
+                    createRule();
+                }
+            }
+            else if(fileActionChooser.getValue().equals("Delete a File")){
+
+                if (filePathAction.getSelectedFile() == null){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Errore");
+                    alert.setContentText("Inserisci il file!");
+                    alert.showAndWait();
+                }
+                else{
+                    File selectedFolder = filePathAction.getSelectedFile();
+                    selectedAction = new ActionFileDelete(selectedFolder.getPath());
+                    filePathAction.setSelectedFile(null);
+                    createRule();
+                }
+            }else if(fileActionChooser.getValue().equals("Launch a File")){
+
+                if (filePathAction.getSelectedFile() == null){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Errore");
+                    alert.setContentText("Inserisci il file!");
+                    alert.showAndWait();
+                }
+                else{
+                    File selectedFolder = filePathAction.getSelectedFile();
+                    String comandi= fileActionLaunchTxt.getText();
+                    selectedAction = new ActionFileLaunch(selectedFolder.getPath(),comandi);
+                    filePathAction.setSelectedFile(null);
+                    fileActionLaunchTxt.clear();
+                    createRule();
+                }
+            }
+
+
         }
     }
 
@@ -556,25 +646,17 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     void showFileChooser(ActionEvent event) {
-
-
         // Impostazione del selettore di cartelle (invece di file)
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
         FileNameExtensionFilter filter = new FileNameExtensionFilter("File WAV (*.wav)", "wav");
-
         // Applicazione del filtro al selettore di file
         fileChooser.setFileFilter(filter);
-
-
         // Mostra il selettore di cartelle
         result = fileChooser.showOpenDialog(null);
-
         // Verifica se l'utente ha selezionato una cartella
         if (result == JFileChooser.APPROVE_OPTION) {
             // Ottieni la cartella selezionata
             File selectedFolder = fileChooser.getSelectedFile();
-
             // Stampa il percorso della cartella
             System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
             //selectedAction = new ActionAudio(selectedFolder.getPath());
@@ -585,12 +667,42 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     void destDirBtnAction(ActionEvent event){
+        dirPathAction.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
+        dirPathAction.showOpenDialog(null);
     }
 
     @FXML
     void filePathBtnAction(ActionEvent event){
 
+        filePathAction.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        filePathAction.showOpenDialog(null);
+
     }
+
+    public void createRule(){
+
+        Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
+        rulesList.add(createdRule);
+        try{
+            saveRuleList(rulesList);
+        }catch (IOException e){
+            System.out.println("Error in the list adding");
+        }
+
+        selectedTrigger = null;
+        selectedAction = null;
+
+        setActualTime();
+        textMessageId.clear();
+        nameRuleText.clear();
+
+        System.out.println(RuleManager.getInstance().toString());
+        ancorPane3.visibleProperty().setValue(false);
+        ancorPane1.visibleProperty().setValue(true);
+        rulesTable.getSelectionModel().clearSelection();
+    }
+
 
 }
