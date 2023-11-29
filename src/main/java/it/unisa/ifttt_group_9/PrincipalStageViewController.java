@@ -279,6 +279,13 @@ public class PrincipalStageViewController implements Initializable {
                     r.setLaunched(true);
                     RuleExecuteService myService = new RuleExecuteService(r);
                     myService.start();
+                    r.setStatus(!r.isFireOnce());
+                    rulesTable.refresh();
+                    try {
+                        saveRuleList(rulesList);
+                    } catch (IOException exc) {
+                        throw new RuntimeException(exc);
+                    }
 
                 } else {
                     r.setLaunched(r.getRuleTrigger().evaluate() );
@@ -469,7 +476,7 @@ public class PrincipalStageViewController implements Initializable {
                 selectedAction = factory.createAction(textMessageId.getText());
                 //System.out.println(selectedAction.toString());
 
-                Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
+                Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction, fireOnceCheckbox.isSelected());
                 rulesList.add(createdRule);
                 saveRuleList(rulesList);
                 selectedTrigger = null;
@@ -478,6 +485,7 @@ public class PrincipalStageViewController implements Initializable {
                 setActualTime();
                 textMessageId.clear();
                 nameRuleText.clear();
+                fireOnceCheckbox.setSelected(false);
 
                 System.out.println(RuleManager.getInstance().toString());
                 ancorPane3.visibleProperty().setValue(false);
@@ -500,7 +508,7 @@ public class PrincipalStageViewController implements Initializable {
                 selectedAction = factory.createAction(selectedFolder.getPath());
                 fileChooser.setSelectedFile(null);
 
-                Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
+                Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction, fireOnceCheckbox.isSelected());
                 rulesList.add(createdRule);
                 saveRuleList(rulesList);
                 selectedTrigger = null;
@@ -509,6 +517,7 @@ public class PrincipalStageViewController implements Initializable {
                 setActualTime();
                 textMessageId.clear();
                 nameRuleText.clear();
+                fireOnceCheckbox.setSelected(false);
 
                 System.out.println(RuleManager.getInstance().toString());
                 ancorPane3.visibleProperty().setValue(false);
