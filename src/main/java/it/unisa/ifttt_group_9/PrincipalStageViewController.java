@@ -128,12 +128,22 @@ public class PrincipalStageViewController implements Initializable {
     private ChoiceBox<Integer> hourChoiceIdSleep;
     @FXML
     private ChoiceBox<Integer> dayChoiceIdSleep;
-    /*@FXML
-    private ChoiceBox<Integer> monthChoiceIdSleep;
-    @FXML
-    private ChoiceBox<Integer> yearChoiceIdSleep;*/
+ 
     @FXML
     private Button confirmSleepBtn;
+
+    @FXML
+    private Tab fileTab;
+    @FXML
+    private ChoiceBox<String> fileActionChooser;
+    @FXML
+    private Button filePathBtn;
+    @FXML
+    private Button destDirBtn;
+    @FXML
+    private TextField fileActionLaunchTxt;
+    @FXML
+    private Label fileActionLabel;
 
     private Trigger selectedTrigger;
     private Action selectedAction;
@@ -147,46 +157,19 @@ public class PrincipalStageViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         rulesList= FXCollections.observableArrayList();
-        //rulesList.add(new Rule("CIap",new TriggerTimestamp(11,11), new ActionText("cIap")));
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         setActualTime();
-
-
-        /*BooleanBinding bb1 = Bindings.or(
-                nameRuleText.textProperty().isEmpty(),
-                // Bindings.and(
-                Bindings.or(
-                        textMessageId.textProperty().isEmpty(),
-                        textMessageId.textProperty().isEqualTo(" ")
-                ).and(tabPane2.selectionModelProperty().isEqualTo(tabPane2.selectionModelProperty()))
-                //,
-                //   new SimpleBooleanProperty(result == -1)
-                // )
-        );*/
+        
         confirmBtn.disableProperty().bind(nameRuleText.textProperty().isEmpty());
         activateRuleBtn.disableProperty().setValue(true);
         deactivateRuleBtn.disableProperty().setValue(true);
         sleepRuleBtn.disableProperty().setValue(true);
 
-        ruleClm.setCellValueFactory(new PropertyValueFactory("ruleName"));
+        ruleClm.setCellValueFactory(new PropertyValueFactory<>("ruleName"));
         rulesTable.setItems(rulesList);
         Bindings.bindContent(RuleManager.getInstance().getRuleList(), rulesList);
 
-        TableColumn<Rule, Boolean> statusColumn = new TableColumn<>("Status");
-        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-        statusColumn.setCellFactory(column -> new TableCell<Rule, Boolean>() {
-            @Override
-            protected void updateItem(Boolean status, boolean empty) {
-                super.updateItem(status, empty);
-                if (empty || status == null) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(status ? "Activate" : "Deactivate");
-                    setStyle(status ? "-fx-text-fill: green;" : "-fx-text-fill: red;");
-                }
-            }
-        });
+        TableColumn<Rule, Boolean> statusColumn = getRuleBooleanTableColumn();
 
         rulesTable.getColumns().add(statusColumn);
 
@@ -294,6 +277,25 @@ public class PrincipalStageViewController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private TableColumn<Rule, Boolean> getRuleBooleanTableColumn() {
+        TableColumn<Rule, Boolean> statusColumn = new TableColumn<>("Status");
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        statusColumn.setCellFactory(column -> new TableCell<Rule, Boolean>() {
+            @Override
+            protected void updateItem(Boolean status, boolean empty) {
+                super.updateItem(status, empty);
+                if (empty || status == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(status ? "Activate" : "Deactivate");
+                    setStyle(status ? "-fx-text-fill: green;" : "-fx-text-fill: red;");
+                }
+            }
+        });
+        return statusColumn;
     }
 
     void setActualTime(){
@@ -579,6 +581,16 @@ public class PrincipalStageViewController implements Initializable {
         } else {
             System.out.println("Nessuna cartella selezionata.");
         }
+    }
+
+    @FXML
+    void destDirBtnAction(ActionEvent event){
+
+    }
+
+    @FXML
+    void filePathBtnAction(ActionEvent event){
+
     }
 
 }
