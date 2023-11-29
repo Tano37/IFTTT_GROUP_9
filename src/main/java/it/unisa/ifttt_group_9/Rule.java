@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Rule implements Serializable {
     private String ruleName;
@@ -14,11 +17,17 @@ public class Rule implements Serializable {
 
     private Boolean launched = false;
 
+    private LocalDateTime dateUntilSleep;
+
+
+
     public Rule(String ruleName, Trigger ruleTrigger, Action ruleAction){
         this.ruleName=ruleName;
         this.ruleTrigger=ruleTrigger;
         this.ruleAction=ruleAction;
         this.status=true;
+        this.dateUntilSleep=null;
+
     }
 
     public String getRuleName() {
@@ -31,6 +40,14 @@ public class Rule implements Serializable {
 
     public Action getRuleAction() {
         return ruleAction;
+    }
+
+    public void setDateUntilSleep(LocalDateTime dateUntilSleep) {
+        this.dateUntilSleep = dateUntilSleep;
+    }
+
+    public LocalDateTime getDateUntilSleep() {
+        return dateUntilSleep;
     }
 
     @Override

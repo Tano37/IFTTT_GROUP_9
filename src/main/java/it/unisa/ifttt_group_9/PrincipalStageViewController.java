@@ -25,7 +25,12 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PrincipalStageViewController implements Initializable {
@@ -62,6 +67,9 @@ public class PrincipalStageViewController implements Initializable {
     private Button deactivateRuleBtn;
 
     @FXML
+    private Button sleepRuleBtn;
+
+    @FXML
     private AnchorPane ancorPane2;
 
     @FXML
@@ -84,6 +92,8 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     private AnchorPane ancorPane3;
+    @FXML
+    private AnchorPane ancorPane4;
 
     @FXML
     private TabPane tabPane2;
@@ -108,6 +118,18 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     private TextField nameRuleText;
+    @FXML
+    private ChoiceBox<Integer> minuteChoiceIdSleep;
+    @FXML
+    private ChoiceBox<Integer> hourChoiceIdSleep;
+    @FXML
+    private ChoiceBox<Integer> dayChoiceIdSleep;
+    /*@FXML
+    private ChoiceBox<Integer> monthChoiceIdSleep;
+    @FXML
+    private ChoiceBox<Integer> yearChoiceIdSleep;*/
+    @FXML
+    private Button confirmSleepBtn;
 
     private Trigger selectedTrigger;
     private Action selectedAction;
@@ -125,6 +147,7 @@ public class PrincipalStageViewController implements Initializable {
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         setActualTime();
 
+
         /*BooleanBinding bb1 = Bindings.or(
                 nameRuleText.textProperty().isEmpty(),
                 // Bindings.and(
@@ -139,6 +162,7 @@ public class PrincipalStageViewController implements Initializable {
         confirmBtn.disableProperty().bind(nameRuleText.textProperty().isEmpty());
         activateRuleBtn.disableProperty().setValue(true);
         deactivateRuleBtn.disableProperty().setValue(true);
+        sleepRuleBtn.disableProperty().setValue(true);
 
         ruleClm.setCellValueFactory(new PropertyValueFactory("ruleName"));
         rulesTable.setItems(rulesList);
@@ -167,7 +191,17 @@ public class PrincipalStageViewController implements Initializable {
             hoursList.add(i);
         }
         hoursChoiceId.setItems(hoursList);
+        hourChoiceIdSleep.setItems(hoursList);
         hoursChoiceId.autosize();
+        hourChoiceIdSleep.autosize();
+
+        ObservableList<Integer> dayList = FXCollections.observableArrayList();
+        for(int i=0; i<=363; i++){
+            dayList.add(i);
+        }
+
+        dayChoiceIdSleep.setItems(dayList);
+        dayChoiceIdSleep.autosize();
 
 
         ObservableList<Integer> minuteList = FXCollections.observableArrayList();
@@ -176,6 +210,8 @@ public class PrincipalStageViewController implements Initializable {
         }
         minuteChoiceId.setItems(minuteList);
         minuteChoiceId.autosize();
+        minuteChoiceIdSleep.setItems(minuteList);
+        minuteChoiceIdSleep.autosize();
 
 
         BooleanBinding bb = Bindings.or(
@@ -183,6 +219,9 @@ public class PrincipalStageViewController implements Initializable {
                 minuteChoiceId.valueProperty().isNull()
         );
         continueBtn.disableProperty().bind(bb);
+        minuteChoiceIdSleep.setValue(0);
+        hourChoiceIdSleep.setValue(0);
+        dayChoiceIdSleep.setValue(0);
 
         /*rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
             @Override
@@ -207,12 +246,28 @@ public class PrincipalStageViewController implements Initializable {
             }
         });
 
+        LocalTime time= LocalTime.now();
+        LocalDate date= LocalDate.now();
         Timeline timeline=new Timeline(new KeyFrame(
                 Duration.millis(400), e->{
             for(Rule r : rulesList){
+                if (r.getDateUntilSleep() != null) {
+                    LocalDateTime truncatedNow = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+                    LocalDateTime truncatedOtherDateTime = r.getDateUntilSleep().truncatedTo(ChronoUnit.MINUTES);
+
+                    int comparisonResult = truncatedNow.compareTo(truncatedOtherDateTime);
+
+                    if (!r.getStatus() && comparisonResult >= 0) {
+
+                        r.setStatus(true);
+                        rulesTable.refresh();
+                        r.setDateUntilSleep(null);
+                        System.out.println(r.getRuleTrigger().evaluate()+"/"+!r.getLaunched()+"/"+r.getStatus());
+                    }
+                }
 
                 if(r.getRuleTrigger().evaluate() && !r.getLaunched() && r.getStatus()){
-                    System.out.print(r.getRuleTrigger().evaluate()+ ":::"+ r.getLaunched());
+
                     r.setLaunched(true);
                     RuleExecuteService myService = new RuleExecuteService(r);
                     myService.start();
@@ -243,9 +298,11 @@ public class PrincipalStageViewController implements Initializable {
             System.out.println("Elemento selezionato: " + newValue.getRuleName());
             activateRuleBtn.setDisable(newValue.getStatus());
             deactivateRuleBtn.setDisable(!newValue.getStatus());
+            sleepRuleBtn.setDisable(!newValue.getStatus());
         } else {
             activateRuleBtn.setDisable(true);
             deactivateRuleBtn.setDisable(true);
+            sleepRuleBtn.setDisable(true);
         }
     }
 
@@ -282,6 +339,7 @@ public class PrincipalStageViewController implements Initializable {
             activateRuleBtn.setDisable(true);
             deactivateRuleBtn.setDisable(false);
             selectedItem.setLaunched(false);
+            sleepRuleBtn.setDisable(false);
             try {
                 saveRuleList(rulesList);
             } catch (IOException e) {
@@ -301,6 +359,8 @@ public class PrincipalStageViewController implements Initializable {
             rulesTable.refresh();
             activateRuleBtn.setDisable(false);
             deactivateRuleBtn.setDisable(true);
+            sleepRuleBtn.setDisable(true);
+            selectedItem.setDateUntilSleep(null);
             try {
                 saveRuleList(rulesList);
             } catch (IOException e) {
@@ -308,6 +368,47 @@ public class PrincipalStageViewController implements Initializable {
             }
         }
     }
+
+    @FXML
+    void sleepRuleAction(ActionEvent event) {
+        Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
+        ancorPane1.visibleProperty().setValue(false);
+        ancorPane4.visibleProperty().setValue(true);
+
+
+    }
+    @FXML
+    void confirmSleepAction(ActionEvent event) {
+        ancorPane4.visibleProperty().setValue(false);
+        ancorPane1.visibleProperty().setValue(true);
+        Integer minutesOfSleep = minuteChoiceIdSleep.getValue();
+        Integer hoursOfSleep = hourChoiceIdSleep.getValue();
+        Integer daysOfSleep = dayChoiceIdSleep.getValue();
+
+        Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
+        LocalDateTime dateUntilSleep = LocalDateTime.now();
+
+
+
+        dateUntilSleep = dateUntilSleep.plusMinutes(minutesOfSleep);
+        dateUntilSleep = dateUntilSleep.plusHours(hoursOfSleep);
+        dateUntilSleep = dateUntilSleep.plusDays(daysOfSleep);
+
+
+        selectedItem.setDateUntilSleep(dateUntilSleep);
+        rulesTable.refresh();
+        selectedItem.setStatus(false);
+        sleepRuleBtn.setDisable(true);
+        deactivateRuleBtn.setDisable(true);
+        activateRuleBtn.setDisable(false);
+        try {
+            saveRuleList(rulesList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
     @FXML
     void back1Action(ActionEvent event) {
@@ -425,6 +526,10 @@ public class PrincipalStageViewController implements Initializable {
         }
         binaryFileOut.close();
     }
+
+
+// ...
+
 
     void loadRuleList(ObservableList<Rule> list) throws IOException {
         File file = new File("RULES.dat");
