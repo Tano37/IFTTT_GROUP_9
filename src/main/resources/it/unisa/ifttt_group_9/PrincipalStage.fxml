@@ -19,7 +19,7 @@
       <URL value="@Style.css" />
    </stylesheets>
    <children>
-      <AnchorPane fx:id="ancorPane1" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="ancorPane1" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
             <TableView fx:id="rulesTable" prefHeight="236.0" prefWidth="534.0">
               <columns>
@@ -33,7 +33,7 @@
             <Button fx:id="sleepRuleBtn" layoutX="211.0" layoutY="254.0" mnemonicParsing="false" onAction="#sleepRuleAction" text="Sleep" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0">
          <children>
             <TabPane fx:id="tabPane1" layoutX="-2.0" prefHeight="236.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
@@ -41,11 +41,15 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="91.0" layoutY="88.0" text="Set Time" />
-                              <Label layoutX="257.0" layoutY="88.0" text=":" />
-                              <ChoiceBox fx:id="hoursChoiceId" layoutX="188.0" layoutY="83.0" prefHeight="31.0" prefWidth="60.0" />
-                              <ChoiceBox fx:id="minuteChoiceId" layoutX="270.0" layoutY="83.0" prefHeight="31.0" prefWidth="60.0" />
+                              <Label layoutX="91.0" layoutY="29.0" text="Set Time" />
+                              <Label layoutX="257.0" layoutY="31.0" text=":" />
+                              <ChoiceBox fx:id="hoursChoiceId" layoutX="187.0" layoutY="24.0" prefHeight="31.0" prefWidth="60.0" />
+                              <ChoiceBox fx:id="minuteChoiceId" layoutX="270.0" layoutY="25.0" prefHeight="31.0" prefWidth="60.0" />
                               <Separator layoutX="3.0" layoutY="192.0" prefHeight="0.0" prefWidth="536.0" />
+                              <ChoiceBox fx:id="dayChoiceId" layoutX="185.0" layoutY="74.0" prefHeight="31.0" prefWidth="144.0" />
+                              <Label layoutX="78.0" layoutY="79.0" text="Day of Week" />
+                              <Label layoutX="73.0" layoutY="129.0" text="Day Of Month" />
+                              <ChoiceBox fx:id="monthChoiceId" layoutX="185.0" layoutY="124.0" prefHeight="31.0" prefWidth="144.0" />
                            </children>
                         </AnchorPane>
                   </content>

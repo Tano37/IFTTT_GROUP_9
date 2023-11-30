@@ -10,7 +10,7 @@
     -fx-border-width: 1px;
 }
 
-#hoursChoiceId, #minuteChoiceId, #hourChoiceIdSleep, #minuteChoiceIdSleep, #dayChoiceIdSleep, #monthChoiceIdSleep, #yearChoiceIdSleep{
+#hoursChoiceId, #minuteChoiceId, #dayChoiceId, #hourChoiceIdSleep, #minuteChoiceIdSleep, #dayChoiceIdSleep, #monthChoiceIdSleep, #yearChoiceIdSleep{
     -fx-background-color: #4CAF50;
     -fx-text-fill: #ffffff;
 }

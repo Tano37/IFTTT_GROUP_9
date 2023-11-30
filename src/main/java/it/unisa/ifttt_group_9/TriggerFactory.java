@@ -1,8 +1,16 @@
 package it.unisa.ifttt_group_9;
 
-//Abstract Factory
-public interface TriggerFactory {
-    TriggerTimestamp createTrigger(int hours, int minutes);  // Factory Method
-    //triggerAltriTipi createTrigger(altri parametri) da implementare nelle specifiche concreteFactories
-    
+// Classe TriggerFactory
+public class TriggerFactory {
+
+
+    public Trigger createTrigger(int hours, int minutes) {
+
+        return new TriggerTimestamp(hours, minutes);
+    }
+    public Trigger createTrigger(int hours, int minutes,int day) {
+
+        return new TriggerDay(hours, minutes, day);
+    }
+
 }

@@ -12,7 +12,7 @@ public class SleepTest {
         PrincipalStageViewController controller = new PrincipalStageViewController();
 
         // Crea un trigger alle 11:05
-        TriggerFactory factoryTrigger = new TriggerTimestampFactory();
+        TriggerFactory factoryTrigger = new TriggerFactory();
         LocalDateTime futureDate = LocalDateTime.now().plusSeconds(3);
         Integer hour = futureDate.getHour();
         Integer minute = futureDate.getMinute();

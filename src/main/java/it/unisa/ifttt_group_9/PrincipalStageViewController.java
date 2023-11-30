@@ -27,10 +27,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -85,6 +82,9 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     private ChoiceBox<Integer> minuteChoiceId;
+
+    @FXML
+    private ChoiceBox<String> dayChoiceId;
 
     @FXML
     private Button continueBtn;
@@ -204,6 +204,15 @@ public class PrincipalStageViewController implements Initializable {
         minuteChoiceId.autosize();
         minuteChoiceIdSleep.setItems(minuteList);
         minuteChoiceIdSleep.autosize();
+
+        ObservableList<String> dayStringList = FXCollections.observableArrayList();
+
+        String[] daysOfWeek = {"Ever", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
+        dayStringList.addAll(daysOfWeek);
+
+        dayChoiceId.setItems(dayStringList);
+        dayChoiceId.setValue("Ever");
 
         ObservableList<String> triggerFileType = FXCollections.observableArrayList();
         triggerFileType.add("Add String in the end");
@@ -463,12 +472,27 @@ public class PrincipalStageViewController implements Initializable {
         String tabId = tabPane1.getSelectionModel().getSelectedItem().getId();
 
         if (tabId.equals("timeTab")) {
-            TriggerFactory factory = new TriggerTimestampFactory();
+            TriggerFactory factory = new TriggerFactory();
+
+            if(dayChoiceId.getValue().equals("Ever")){
+
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue());
             /*questa variabile selectedTrigger andrà riazzerata una volta creata definitivamente la regola
             e alla regola andrà messo il check che i campi trigger e action siano diversi da null*/
         }
+            else{
+                int numberDay=0;
+                for (DayOfWeek day : DayOfWeek.values()) {
+                    if (day.toString().equalsIgnoreCase(dayChoiceId.getValue())) {
+                        numberDay = day.getValue();
+
+                        break; // Esci dal ciclo una volta trovato il giorno corrispondente
+                    }
+                }
+                selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),numberDay);
+            }
         //qui andranno il resto degli if per gli altri trigger
+    }
     }
 
     @FXML
