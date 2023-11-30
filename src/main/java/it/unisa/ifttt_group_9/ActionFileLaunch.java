@@ -2,10 +2,11 @@ package it.unisa.ifttt_group_9;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActionFileLaunch implements Action{
+public class ActionFileLaunch implements Action, Serializable {
 
     String filePath;
     String arguments;

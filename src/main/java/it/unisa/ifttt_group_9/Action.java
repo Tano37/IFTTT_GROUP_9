@@ -1,5 +1,7 @@
 package it.unisa.ifttt_group_9;
 
-public interface Action {
+import java.io.Serializable;
+
+public interface Action extends Serializable {
     public void executeAction();
 }

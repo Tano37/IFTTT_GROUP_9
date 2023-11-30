@@ -580,7 +580,7 @@ public class PrincipalStageViewController implements Initializable {
                     filePathAction.setSelectedFile(null);
                     createRule();
                 }
-            }else if(fileActionChooser.getValue().equals("Launch a File")){
+            }else if(fileActionChooser.getValue().equals("Launch a Program")){
 
                 if (filePathAction.getSelectedFile() == null){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -591,6 +591,7 @@ public class PrincipalStageViewController implements Initializable {
                 else{
                     File selectedFolder = filePathAction.getSelectedFile();
                     String comandi= fileActionLaunchTxt.getText();
+                    System.out.println(comandi);
                     selectedAction = new ActionFileLaunch(selectedFolder.getPath(),comandi);
                     filePathAction.setSelectedFile(null);
                     fileActionLaunchTxt.clear();
