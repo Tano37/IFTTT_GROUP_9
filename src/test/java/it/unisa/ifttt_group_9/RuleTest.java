@@ -11,8 +11,9 @@ class RuleTest {
         String expectedRuleName = "TestRule";
         Trigger trigger=null;
         Action action=null;
+        Boolean fireOnce=false;
 
-        Rule rule = new Rule(expectedRuleName, trigger, action);
+        Rule rule = new Rule(expectedRuleName, trigger, action, fireOnce);
 
         assertNotNull(rule, "Rule instance should be correctly created");
     }
