@@ -22,7 +22,7 @@ public class Rule implements Serializable {
     //Variable for Rule Sleeping
     private LocalDateTime dateUntilSleep;
 
-    private boolean fireOnce;
+    private boolean fireOnce = false;
 
 
 
