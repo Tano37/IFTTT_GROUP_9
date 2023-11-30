@@ -21,7 +21,7 @@ class RuleManagerTest {
         RuleManager ruleManager = RuleManager.getInstance();
         Trigger trigger=null;
         Action action=null;
-        Rule rule = new Rule("TestRule", trigger, action);
+        Rule rule = new Rule("TestRule", trigger, action, false);
 
         ruleManager.addRule(rule);
 
