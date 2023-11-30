@@ -217,7 +217,7 @@ public class PrincipalStageViewController implements Initializable {
 
 
 
-        // Aggiunta di un listener per catturare i cambiamenti nella selezione
+        // Aggiunta di un listener per catturare i cambiamenti nella selezione nella scelta della Action Tigger
         fileActionChooser.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 
             if(newValue.equals("Add String in the end")){
@@ -238,7 +238,7 @@ public class PrincipalStageViewController implements Initializable {
             }
         });
 
-
+        //binding choince box Timestamp trigger whit button
         BooleanBinding bb = Bindings.or(
                 hoursChoiceId.valueProperty().isNull(),
                 minuteChoiceId.valueProperty().isNull()
@@ -248,22 +248,6 @@ public class PrincipalStageViewController implements Initializable {
         hourChoiceIdSleep.setValue(0);
         dayChoiceIdSleep.setValue(0);
 
-        /*rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
-            @Override
-            public void changed(ObservableValue<? extends Rule> observable, Rule oldValue, Rule newValue) {
-                // Esegue l'azione quando un elemento viene selezionato
-                if (newValue != null) {
-                    System.out.println("Elemento selezionato");
-                    activateRuleBtn.disableProperty().setValue(false);
-                    deactivateRuleBtn.disableProperty().setValue(false);
-                }
-                else{
-                    activateRuleBtn.disableProperty().setValue(true);
-                    deactivateRuleBtn.disableProperty().setValue(true);
-                }
-            }
-        });
-         */
         rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
             @Override
             public void changed(ObservableValue<? extends Rule> observable, Rule oldValue, Rule newValue) {
@@ -271,10 +255,10 @@ public class PrincipalStageViewController implements Initializable {
             }
         });
 
-        LocalTime time= LocalTime.now();
-        LocalDate date= LocalDate.now();
+
+        //Controllore di regola
         Timeline timeline=new Timeline(new KeyFrame(
-                Duration.millis(400), e->{
+                Duration.millis(400), e->{  //settaggio del tempo di ripetizione
             for(Rule r : rulesList){
                 if (r.getDateUntilSleep() != null) {
                     /*LocalDateTime truncatedNow = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
@@ -491,13 +475,8 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     void confirmAction(ActionEvent event) throws IOException {
-        /*ancorPane3.visibleProperty().setValue(false);
-        ancorPane1.visibleProperty().setValue(true);
-        rulesTable.getSelectionModel().clearSelection();*/
-        System.out.println("confermaaaa" );
 
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
-       // System.out.println(tabId);
 
         if(tabId.equals("textMessageTab") && !nameRuleText.getText().trim().isEmpty()) {
             if(textMessageId.getText().trim().isEmpty() ){
