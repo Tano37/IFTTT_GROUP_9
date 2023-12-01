@@ -1,16 +1,16 @@
 /* Styles.css */
 
 #stackPaneId {
-    -fx-background-color: #f4f4f4; /* Cambia il colore di sfondo dello StackPane */
+    -fx-background-color: #000000; /* Cambia il colore di sfondo dello StackPane */
 }
 
-#ancorPane1, #ancorPane2, #ancorPane3 {
+#ancorPane1, #ancorPane2, #ancorPane3, #ancorPane4{
     -fx-background-color: #ffffff; /* Cambia il colore di sfondo degli AnchorPane */
-    -fx-border-color: #dddddd; /* Aggiunge un bordo agli AnchorPane */
+    -fx-border-color: #000000; /* Aggiunge un bordo agli AnchorPane */
     -fx-border-width: 1px;
 }
 
-#hoursChoiceId, #minuteChoiceId, #hourChoiceIdSleep, #minuteChoiceIdSleep, #dayChoiceIdSleep, #monthChoiceIdSleep, #yearChoiceIdSleep{
+#hoursChoiceId, #minuteChoiceId, #hourChoiceIdSleep, #minuteChoiceIdSleep, #dayChoiceIdSleep, #monthChoiceIdSleep, #yearChoiceIdSleep, #fileActionChooser{
     -fx-background-color: #4CAF50;
     -fx-text-fill: #ffffff;
 }
@@ -29,19 +29,20 @@
     -fx-text-fill: #ffffff;
 }
 
-#nameRuleText, #textMessageId {
+#nameRuleText, #textMessageId, #fileActionLaunchTxt{
     -fx-background-color: #f0f0f0; /* Cambia il colore di sfondo dei campi di testo */
 }
 
-#textMessageTab, #audioTab, #timeTab {
+#textMessageTab, #audioTab, #timeTab, #fileTab{
     -fx-background-color: #4CAF50; /* Cambia il colore di sfondo delle schede */
     -fx-text-fill: #ffffff; /* Cambia il colore del testo delle schede */
 }
 
-#fileChooserBtn {
+#fileChooserBtn, #file, #destDirBtn{
     -fx-background-color: #2196F3; /* Cambia il colore di sfondo del pulsante di scelta file */
     -fx-text-fill: #ffffff; /* Cambia il colore del testo del pulsante di scelta file */
 }
+
 
 #labelSleep{
 

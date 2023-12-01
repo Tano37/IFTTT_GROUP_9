@@ -21,7 +21,7 @@
    <children>
       <AnchorPane fx:id="ancorPane1" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <TableView fx:id="rulesTable" prefHeight="236.0" prefWidth="534.0">
+            <TableView fx:id="rulesTable" prefHeight="236.0" prefWidth="534.0" visible="false">
               <columns>
                 <TableColumn fx:id="ruleClm" prefWidth="121.0" text="Rule" />
               </columns>
@@ -70,7 +70,7 @@
             <Label layoutX="289.0" layoutY="52.0" prefHeight="21.0" prefWidth="70.0" text="Minute" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="ancorPane3" focusTraversable="true" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <AnchorPane fx:id="ancorPane3" focusTraversable="true" prefHeight="200.0" prefWidth="200.0">
          <children>
             <TabPane fx:id="tabPane2" prefHeight="236.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
                <tabs>
