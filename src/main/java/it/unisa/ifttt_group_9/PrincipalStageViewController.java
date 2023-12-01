@@ -215,26 +215,42 @@ public class PrincipalStageViewController implements Initializable {
         fileActionChooser.autosize();
 
 
-
-
+        FileNameExtensionFilter filter1 = new FileNameExtensionFilter("File TXT (*.txt)", "txt");
+        // Applicazione del filtro al selettore di file
+        filePathAction.setFileFilter(filter1);
+        destDirBtn.disableProperty().set(true);
+        fileActionLabel.textProperty().set("Insert String to Add");
         // Aggiunta di un listener per catturare i cambiamenti nella selezione nella scelta della Action Tigger
         fileActionChooser.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 
             if(newValue.equals("Add String in the end")){
                 fileActionLaunchTxt.setVisible(true);
                 destDirBtn.disableProperty().set(true);
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("File TXT (*.txt)", "txt");
+                // Applicazione del filtro al selettore di file
+                filePathAction.setFileFilter(filter);
+                fileActionLabel.textProperty().set("Insert String to Add");
+                fileActionLabel.setVisible(true);
             }
             else if (newValue.equals("Launch a Program")){
                 fileActionLaunchTxt.setVisible(true);
                 destDirBtn.disableProperty().set(true);
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("File EXE (*.exe)", "exe");
+                // Applicazione del filtro al selettore di file
+                filePathAction.setFileFilter(filter);
+                fileActionLabel.textProperty().set("Insert the Arguments");
+                fileActionLabel.setVisible(true);
             }
             else if(newValue.equals("Copy and Paste") ){
                 fileActionLaunchTxt.setVisible(false);
                 destDirBtn.disableProperty().set(false);
+                filePathAction.resetChoosableFileFilters();
+                fileActionLabel.setVisible(false);
             } else if ( newValue.equals("Delete a File")) {
                 fileActionLaunchTxt.setVisible(false);
                 destDirBtn.disableProperty().set(true);
-
+                filePathAction.resetChoosableFileFilters();
+                fileActionLabel.setVisible(false);
             }
         });
 
