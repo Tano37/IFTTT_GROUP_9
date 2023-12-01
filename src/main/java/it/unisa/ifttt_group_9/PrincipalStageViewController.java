@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.DirectoryChooser;
 import javafx.util.Duration;
 
 
@@ -162,6 +163,14 @@ public class PrincipalStageViewController implements Initializable {
     private JFileChooser filePathAction = new JFileChooser();
     private JFileChooser dirPathAction = new JFileChooser();
 
+    private JFileChooser directoryChooser= new JFileChooser();
+
+    @FXML
+    private Tab existingFileTab;
+    @FXML
+    private Button directoryChoosingBtn;
+    @FXML
+    private TextField fileNameLbl;
 
     private Rule selectedRuleForDeactivation;
 
@@ -508,9 +517,39 @@ public class PrincipalStageViewController implements Initializable {
             System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),0,monthChoiceId.getValue());
             }
+            else if(tabId.equals("existingFileTab")){
+                if (directoryChooser.getSelectedFile() == null || fileNameLbl.getText() == null) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Errore");
+                    alert.setContentText("Compile the fields correctly!");
+                    alert.showAndWait();
+                }else{
+                    selectedTrigger= new TriggerFile(directoryChooser.getSelectedFile().getAbsolutePath(), fileNameLbl.getText());
+                }
+
+            }
         //qui andranno il resto degli if per gli altri trigger
     }
 
+    @FXML
+    void directoryChoosingBtnAction(ActionEvent event) {// Impostazione del selettore di cartelle (invece di file)
+        directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("File WAV (*.wav)", "wav");
+        // Applicazione del filtro al selettore di file
+        directoryChooser.setFileFilter(filter);
+        // Mostra il selettore di cartelle
+        result = directoryChooser.showOpenDialog(null);
+        // Verifica se l'utente ha selezionato una cartella
+        if (result == JFileChooser.APPROVE_OPTION) {
+            // Ottieni la cartella selezionata
+            File selectedFolder = directoryChooser.getSelectedFile();
+            // Stampa il percorso della cartella
+            System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
+            //selectedAction = new ActionAudio(selectedFolder.getPath());
+        } else {
+            System.out.println("Nessuna cartella selezionata.");
+        }
+    }
 
     @FXML
     void back2Action(ActionEvent event) {
