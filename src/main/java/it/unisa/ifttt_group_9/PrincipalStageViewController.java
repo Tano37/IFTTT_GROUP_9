@@ -78,6 +78,11 @@ public class PrincipalStageViewController implements Initializable {
     private Tab timeTab;
 
     @FXML
+    private Tab dayTab;
+    @FXML
+    private Tab monthTab;
+
+    @FXML
     private ChoiceBox<Integer> hoursChoiceId;
 
     @FXML
@@ -130,6 +135,8 @@ public class PrincipalStageViewController implements Initializable {
     private ChoiceBox<Integer> hourChoiceIdSleep;
     @FXML
     private ChoiceBox<Integer> dayChoiceIdSleep;
+    @FXML
+    private ChoiceBox<Integer> monthChoiceId;
  
     @FXML
     private Button confirmSleepBtn;
@@ -195,6 +202,9 @@ public class PrincipalStageViewController implements Initializable {
         dayChoiceIdSleep.setItems(dayList);
         dayChoiceIdSleep.autosize();
 
+        monthChoiceId.setItems(dayList.filtered(value -> value >= 1 && value <= 31));
+        monthChoiceId.autosize();
+
 
         ObservableList<Integer> minuteList = FXCollections.observableArrayList();
         for (int i = 0; i <= 59; i++) {
@@ -256,6 +266,7 @@ public class PrincipalStageViewController implements Initializable {
         minuteChoiceIdSleep.setValue(0);
         hourChoiceIdSleep.setValue(0);
         dayChoiceIdSleep.setValue(0);
+        monthChoiceId.setValue(1);
 
         rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
             @Override
@@ -470,17 +481,17 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane3.visibleProperty().setValue(true);
 
         String tabId = tabPane1.getSelectionModel().getSelectedItem().getId();
-
+        TriggerFactory factory = new TriggerFactory();
         if (tabId.equals("timeTab")) {
-            TriggerFactory factory = new TriggerFactory();
 
-            if(dayChoiceId.getValue().equals("Ever")){
+
+
 
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue());
             /*questa variabile selectedTrigger andrà riazzerata una volta creata definitivamente la regola
             e alla regola andrà messo il check che i campi trigger e action siano diversi da null*/
         }
-            else{
+            else if(tabId.equals("dayTab")){
                 int numberDay=0;
                 for (DayOfWeek day : DayOfWeek.values()) {
                     if (day.toString().equalsIgnoreCase(dayChoiceId.getValue())) {
@@ -491,9 +502,15 @@ public class PrincipalStageViewController implements Initializable {
                 }
                 selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),numberDay);
             }
+            else if(tabId.equals("monthTab")){
+           /* minuteChoiceId.setValue(0);
+            hourChoiceIdSleep.setValue(0);*/
+            System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
+            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),0,monthChoiceId.getValue());
+            }
         //qui andranno il resto degli if per gli altri trigger
     }
-    }
+
 
     @FXML
     void back2Action(ActionEvent event) {

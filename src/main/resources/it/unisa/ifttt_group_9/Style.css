@@ -10,7 +10,7 @@
     -fx-border-width: 1px;
 }
 
-#hoursChoiceId, #minuteChoiceId, #dayChoiceId, #hourChoiceIdSleep, #minuteChoiceIdSleep, #dayChoiceIdSleep, #monthChoiceIdSleep, #yearChoiceIdSleep{
+#hoursChoiceId, #minuteChoiceId, #dayChoiceId, #monthChoiceId,#hourChoiceIdSleep, #minuteChoiceIdSleep, #dayChoiceIdSleep, #monthChoiceIdSleep, #yearChoiceIdSleep{
     -fx-background-color: #4CAF50;
     -fx-text-fill: #ffffff;
 }
@@ -33,7 +33,7 @@
     -fx-background-color: #f0f0f0; /* Cambia il colore di sfondo dei campi di testo */
 }
 
-#textMessageTab, #audioTab, #timeTab {
+#textMessageTab, #audioTab, #timeTab, #dayTab, #monthTab{
     -fx-background-color: #4CAF50; /* Cambia il colore di sfondo delle schede */
     -fx-text-fill: #ffffff; /* Cambia il colore del testo delle schede */
 }

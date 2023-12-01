@@ -7,17 +7,20 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 //Concrete Product (AbstractFactory)
-public class TriggerDay implements Trigger, Serializable {
+public class TriggerMonth implements Trigger, Serializable {
     private int hour;
     private int minute;
-    private int dayWeek;
 
-    public TriggerDay (int hour, int minute, int dayWeek) throws IllegalTimeException {
-        if ((hour < 0 || hour > 23) || (minute < 0 || minute > 59) )
+    private int dayWeek;
+    private int dayMonth;
+
+    public TriggerMonth (int hour, int minute,int dayWeek, int dayMonth) throws IllegalTimeException {
+        if ((hour < 0 || hour > 23) || (minute < 0 || minute > 59) || (dayMonth<0 || dayMonth>31) )
             throw new IllegalTimeException();
         this.hour=hour;
         this.minute=minute;
         this.dayWeek=dayWeek;
+        this.dayMonth=dayMonth;
     }
 
     /*
@@ -32,8 +35,9 @@ public class TriggerDay implements Trigger, Serializable {
         LocalDateTime now= LocalDateTime.now();
         int h= now.getHour();
         int m= now.getMinute();
-        int d= now.getDayOfWeek().getValue();
-        return (h==this.hour && m==this.minute && d==this.dayWeek);
+        int d= now.getDayOfMonth();
+
+        return (h==this.hour && m==this.minute && d==this.dayMonth && this.dayWeek==0);
     }
 
     public int getHour() {
@@ -44,5 +48,5 @@ public class TriggerDay implements Trigger, Serializable {
         return minute;
     }
 
-    public int getDay(){return dayWeek;}
+    public int getDay(){return dayMonth;}
 }

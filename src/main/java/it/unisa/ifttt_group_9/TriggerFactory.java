@@ -8,9 +8,14 @@ public class TriggerFactory {
 
         return new TriggerTimestamp(hours, minutes);
     }
-    public Trigger createTrigger(int hours, int minutes,int day) {
+    public Trigger createTrigger(int hours, int minutes,int dayWeek) {
 
-        return new TriggerDay(hours, minutes, day);
+        return new TriggerDay(hours, minutes, dayWeek);
+    }
+
+    public Trigger createTrigger(int hours, int minutes,int dayWeek,int dayMonth) {
+
+        return new TriggerMonth(hours, minutes, dayWeek,dayMonth);
     }
 
 }
