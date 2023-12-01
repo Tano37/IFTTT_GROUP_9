@@ -21,7 +21,7 @@ class RuleManagerTest {
         RuleManager ruleManager = RuleManager.getInstance();
         Trigger trigger=null;
         Action action=null;
-        Rule rule = new Rule("TestRule", trigger, action);
+        Rule rule = new Rule("TestRule", trigger, action, false);
 
         ruleManager.addRule(rule);
 
@@ -33,8 +33,9 @@ class RuleManagerTest {
         RuleManager ruleManager = RuleManager.getInstance();
         Trigger trigger=null;
         Action action=null;
-        Rule rule1 = new Rule("TestRule1", trigger, action);
-        Rule rule2 = new Rule("TestRule2", trigger, action);
+        Boolean fireOnce=false;
+        Rule rule1 = new Rule("TestRule1", trigger, action, fireOnce);
+        Rule rule2 = new Rule("TestRule2", trigger, action, fireOnce);
 
         ruleManager.addRule(rule1);
         ruleManager.addRule(rule2);

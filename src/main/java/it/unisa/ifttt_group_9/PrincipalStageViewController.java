@@ -215,26 +215,42 @@ public class PrincipalStageViewController implements Initializable {
         fileActionChooser.autosize();
 
 
-
-
+        FileNameExtensionFilter filter1 = new FileNameExtensionFilter("File TXT (*.txt)", "txt");
+        // Applicazione del filtro al selettore di file
+        filePathAction.setFileFilter(filter1);
+        destDirBtn.disableProperty().set(true);
+        fileActionLabel.textProperty().set("Insert String to Add");
         // Aggiunta di un listener per catturare i cambiamenti nella selezione nella scelta della Action Tigger
         fileActionChooser.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 
             if(newValue.equals("Add String in the end")){
                 fileActionLaunchTxt.setVisible(true);
                 destDirBtn.disableProperty().set(true);
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("File TXT (*.txt)", "txt");
+                // Applicazione del filtro al selettore di file
+                filePathAction.setFileFilter(filter);
+                fileActionLabel.textProperty().set("Insert String to Add");
+                fileActionLabel.setVisible(true);
             }
             else if (newValue.equals("Launch a Program")){
                 fileActionLaunchTxt.setVisible(true);
                 destDirBtn.disableProperty().set(true);
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("File EXE (*.exe)", "exe");
+                // Applicazione del filtro al selettore di file
+                filePathAction.setFileFilter(filter);
+                fileActionLabel.textProperty().set("Insert the Arguments");
+                fileActionLabel.setVisible(true);
             }
             else if(newValue.equals("Copy and Paste") ){
                 fileActionLaunchTxt.setVisible(false);
                 destDirBtn.disableProperty().set(false);
+                filePathAction.resetChoosableFileFilters();
+                fileActionLabel.setVisible(false);
             } else if ( newValue.equals("Delete a File")) {
                 fileActionLaunchTxt.setVisible(false);
                 destDirBtn.disableProperty().set(true);
-
+                filePathAction.resetChoosableFileFilters();
+                fileActionLabel.setVisible(false);
             }
         });
 
@@ -284,6 +300,13 @@ public class PrincipalStageViewController implements Initializable {
                     r.setLaunched(true);
                     RuleExecuteService myService = new RuleExecuteService(r);
                     myService.start();
+                    r.setStatus(!r.isFireOnce());
+                    rulesTable.refresh();
+                    try {
+                        saveRuleList(rulesList);
+                    } catch (IOException exc) {
+                        throw new RuntimeException(exc);
+                    }
 
                 } else {
                     r.setLaunched(r.getRuleTrigger().evaluate() );
@@ -489,7 +512,9 @@ public class PrincipalStageViewController implements Initializable {
                 selectedAction = factory.createAction(textMessageId.getText());
                 //System.out.println(selectedAction.toString());
 
+
                 createRule();
+
             }
         }
         else if(tabId.equals("audioTab") && !nameRuleText.getText().trim().isEmpty()){
@@ -506,7 +531,6 @@ public class PrincipalStageViewController implements Initializable {
                 File selectedFolder = fileChooser.getSelectedFile();
                 selectedAction = factory.createAction(selectedFolder.getPath());
                 fileChooser.setSelectedFile(null);
-
                 createRule();
             }
         }else if(nameRuleText.getText().trim().isEmpty()){
@@ -572,7 +596,7 @@ public class PrincipalStageViewController implements Initializable {
                     filePathAction.setSelectedFile(null);
                     createRule();
                 }
-            }else if(fileActionChooser.getValue().equals("Launch a File")){
+            }else if(fileActionChooser.getValue().equals("Launch a Program")){
 
                 if (filePathAction.getSelectedFile() == null){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -583,6 +607,7 @@ public class PrincipalStageViewController implements Initializable {
                 else{
                     File selectedFolder = filePathAction.getSelectedFile();
                     String comandi= fileActionLaunchTxt.getText();
+                    System.out.println(comandi);
                     selectedAction = new ActionFileLaunch(selectedFolder.getPath(),comandi);
                     filePathAction.setSelectedFile(null);
                     fileActionLaunchTxt.clear();
@@ -662,7 +687,7 @@ public class PrincipalStageViewController implements Initializable {
 
     public void createRule(){
 
-        Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction);
+        Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction,fireOnceCheckbox.isSelected());
         rulesList.add(createdRule);
         try{
             saveRuleList(rulesList);

@@ -22,14 +22,17 @@ public class Rule implements Serializable {
     //Variable for Rule Sleeping
     private LocalDateTime dateUntilSleep;
 
+    private boolean fireOnce = false;
 
 
-    public Rule(String ruleName, Trigger ruleTrigger, Action ruleAction){
+
+    public Rule(String ruleName, Trigger ruleTrigger, Action ruleAction, Boolean fireOnce){
         this.ruleName=ruleName;
         this.ruleTrigger=ruleTrigger;
         this.ruleAction=ruleAction;
         this.status=true;
         this.dateUntilSleep=null;
+        this.fireOnce=fireOnce;
 
     }
 
@@ -43,6 +46,10 @@ public class Rule implements Serializable {
 
     public Action getRuleAction() {
         return ruleAction;
+    }
+
+    public boolean isFireOnce() {
+        return fireOnce;
     }
 
     public void setDateUntilSleep(LocalDateTime dateUntilSleep) {
