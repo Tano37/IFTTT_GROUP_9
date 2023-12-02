@@ -7,6 +7,7 @@ import it.unisa.ifttt_group_9.Rule.RuleExecuteService;
 import it.unisa.ifttt_group_9.Rule.RuleManager;
 import it.unisa.ifttt_group_9.Trigger.Trigger;
 import it.unisa.ifttt_group_9.Trigger.TriggerFactory;
+import it.unisa.ifttt_group_9.Trigger.TriggerFile;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -182,6 +183,13 @@ public class PrincipalStageViewController implements Initializable {
     private Button directoryChoosingBtn;
     @FXML
     private TextField fileNameLbl;
+    @FXML
+    private Tab fileDimensionTab;
+    @FXML
+    private Button fileDimensionChooser;
+    @FXML
+    private TextField maxFileDimensionTxt;
+
 
     private Rule selectedRuleForDeactivation;
 
@@ -838,6 +846,11 @@ public class PrincipalStageViewController implements Initializable {
                 }
             }
         }
+    }
+
+    @FXML
+    void fileDimensionChooser(ActionEvent event){
+        System.out.println("Ciao");
     }
 
 
