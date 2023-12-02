@@ -24,8 +24,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
@@ -171,6 +171,17 @@ public class PrincipalStageViewController implements Initializable {
     private JFileChooser filePathAction = new JFileChooser();
     private JFileChooser dirPathAction = new JFileChooser();
 
+    private JFileChooser directoryChooser= new JFileChooser();
+
+    @FXML
+    private TableColumn<Rule, String> triggerStatusClm;
+
+    @FXML
+    private Tab existingFileTab;
+    @FXML
+    private Button directoryChoosingBtn;
+    @FXML
+    private TextField fileNameLbl;
 
     private Rule selectedRuleForDeactivation;
 
@@ -189,6 +200,7 @@ public class PrincipalStageViewController implements Initializable {
         sleepRuleBtn.disableProperty().setValue(true);
 
         ruleClm.setCellValueFactory(new PropertyValueFactory<>("ruleName"));
+        triggerStatusClm.setCellValueFactory(new PropertyValueFactory<>("ruleTriggerEvaluation"));
         rulesTable.setItems(rulesList);
         Bindings.bindContent(RuleManager.getInstance().getRuleList(), rulesList);
 
@@ -304,6 +316,7 @@ public class PrincipalStageViewController implements Initializable {
 
                 } else {
                     r.setLaunched(r.getRuleTrigger().evaluate() );
+                    rulesTable.refresh();
                 }
             }
         })
@@ -538,8 +551,17 @@ public class PrincipalStageViewController implements Initializable {
             hourChoiceIdSleep.setValue(0);*/
             //System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(), 0, monthChoiceId.getValue());
-        } else if (tabId.equals("fullDateTab")) {
+        } else if(tabId.equals("existingFileTab")){
+            if (directoryChooser.getSelectedFile() == null || fileNameLbl.getText() == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Errore");
+                alert.setContentText("Compile the fields correctly!");
+                alert.showAndWait();
+            }else{
+                selectedTrigger= new TriggerFile(directoryChooser.getSelectedFile().getAbsolutePath(), fileNameLbl.getText());
+            }
 
+        } else if (tabId.equals("fullDateTab")) {
            /* boolean ok = false;
             LocalDate fullDateInsert = null;
 
@@ -553,16 +575,12 @@ public class PrincipalStageViewController implements Initializable {
                     ok = true;
                 }
             }
-
-
             int dayInsert=fullDateInsert.getDayOfMonth();
                 int monthInsert=fullDateInsert.getMonth().getValue();
                 int yearInsert=fullDateInsert.getYear();
                 int hourchoise= hoursChoiceId.getValue();
                 int minutechoise= minuteChoiceId.getValue();*/
             //selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),dayInsert,monthInsert,yearInsert);
-
-
         }
     }
 
@@ -578,6 +596,25 @@ public class PrincipalStageViewController implements Initializable {
 
     }
 
+    @FXML
+    void directoryChoosingBtnAction(ActionEvent event) {// Impostazione del selettore di cartelle (invece di file)
+        directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("File WAV (*.wav)", "wav");
+        // Applicazione del filtro al selettore di file
+        directoryChooser.setFileFilter(filter);
+        // Mostra il selettore di cartelle
+        result = directoryChooser.showOpenDialog(null);
+        // Verifica se l'utente ha selezionato una cartella
+        if (result == JFileChooser.APPROVE_OPTION) {
+            // Ottieni la cartella selezionata
+            File selectedFolder = directoryChooser.getSelectedFile();
+            // Stampa il percorso della cartella
+            System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
+            //selectedAction = new ActionAudio(selectedFolder.getPath());
+        } else {
+            System.out.println("Nessuna cartella selezionata.");
+        }
+    }
 
 
     @FXML
