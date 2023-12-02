@@ -556,6 +556,25 @@ public class PrincipalStageViewController implements Initializable {
             }
 
         } else if (tabId.equals("fullDateTab")) {
+           /* boolean ok = false;
+            LocalDate fullDateInsert = null;
+
+            while (!ok) {
+                LocalDate selectedDate = datePickerId.getValue();
+
+                if (selectedDate == null) {
+                    JOptionPane.showConfirmDialog(null, "Inserisci una data valida", "Action", JOptionPane.DEFAULT_OPTION);
+                } else {
+                    fullDateInsert = selectedDate;
+                    ok = true;
+                }
+            }
+            int dayInsert=fullDateInsert.getDayOfMonth();
+                int monthInsert=fullDateInsert.getMonth().getValue();
+                int yearInsert=fullDateInsert.getYear();
+                int hourchoise= hoursChoiceId.getValue();
+                int minutechoise= minuteChoiceId.getValue();*/
+            //selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),dayInsert,monthInsert,yearInsert);
         }
     }
 
