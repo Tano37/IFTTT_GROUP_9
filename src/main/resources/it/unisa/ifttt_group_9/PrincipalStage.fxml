@@ -34,7 +34,7 @@
             <Button fx:id="sleepRuleBtn" layoutX="211.0" layoutY="254.0" mnemonicParsing="false" onAction="#sleepRuleAction" text="Sleep" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
             <TabPane fx:id="tabPane1" layoutX="-2.0" prefHeight="236.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
@@ -78,7 +78,7 @@
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <Label layoutX="145.0" layoutY="49.0" prefHeight="21.0" prefWidth="249.0" text="Select a full date for trigger attivation" />
-                              <DatePicker fx:id="dataPickerId" layoutX="158.0" layoutY="83.0" />
+                              <DatePicker fx:id="dataPickerId" layoutX="158.0" layoutY="83.0" onAction="#getDate" />
                               <Separator layoutY="196.0" prefHeight="0.0" prefWidth="536.0" />
                            </children>
                         </AnchorPane>

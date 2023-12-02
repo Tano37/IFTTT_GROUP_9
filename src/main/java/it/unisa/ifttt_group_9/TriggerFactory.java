@@ -17,5 +17,9 @@ public class TriggerFactory {
 
         return new TriggerMonth(hours, minutes, dayWeek,dayMonth);
     }
+    public Trigger createTrigger(int hours, int minutes,int dayWeek,int dayMonth,int year) {
+
+        return new TriggerFullDate(hours, minutes, dayWeek,dayMonth,year);
+    }
 
 }

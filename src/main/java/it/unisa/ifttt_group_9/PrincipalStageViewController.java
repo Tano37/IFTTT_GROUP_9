@@ -22,7 +22,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
@@ -81,6 +82,10 @@ public class PrincipalStageViewController implements Initializable {
     private Tab dayTab;
     @FXML
     private Tab monthTab;
+    @FXML
+    private Tab fullDateTab;
+    @FXML
+    private DatePicker datePickerId;
 
     @FXML
     private ChoiceBox<Integer> hoursChoiceId;
@@ -90,6 +95,7 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     private ChoiceBox<String> dayChoiceId;
+
 
     @FXML
     private Button continueBtn;
@@ -267,6 +273,12 @@ public class PrincipalStageViewController implements Initializable {
         hourChoiceIdSleep.setValue(0);
         dayChoiceIdSleep.setValue(0);
         monthChoiceId.setValue(1);
+
+
+            /*LocalDate today=LocalDate.now();
+        datePickerId.setValue(today);*/
+
+
 
         rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
             @Override
@@ -485,31 +497,64 @@ public class PrincipalStageViewController implements Initializable {
         if (tabId.equals("timeTab")) {
 
 
-
-
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue());
             /*questa variabile selectedTrigger andrà riazzerata una volta creata definitivamente la regola
             e alla regola andrà messo il check che i campi trigger e action siano diversi da null*/
-        }
-            else if(tabId.equals("dayTab")){
-                int numberDay=0;
-                for (DayOfWeek day : DayOfWeek.values()) {
-                    if (day.toString().equalsIgnoreCase(dayChoiceId.getValue())) {
-                        numberDay = day.getValue();
+        } else if (tabId.equals("dayTab")) {
+            int numberDay = 0;
+            for (DayOfWeek day : DayOfWeek.values()) {
+                if (day.toString().equalsIgnoreCase(dayChoiceId.getValue())) {
+                    numberDay = day.getValue();
 
-                        break; // Esci dal ciclo una volta trovato il giorno corrispondente
-                    }
+                    break; // Esci dal ciclo una volta trovato il giorno corrispondente
                 }
-                selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),numberDay);
             }
-            else if(tabId.equals("monthTab")){
+            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(), numberDay);
+        } else if (tabId.equals("monthTab")) {
            /* minuteChoiceId.setValue(0);
             hourChoiceIdSleep.setValue(0);*/
-            System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
-            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),0,monthChoiceId.getValue());
+            //System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
+            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(), 0, monthChoiceId.getValue());
+        } else if (tabId.equals("fullDateTab")) {
+
+           /* boolean ok = false;
+            LocalDate fullDateInsert = null;
+
+            while (!ok) {
+                LocalDate selectedDate = datePickerId.getValue();
+
+                if (selectedDate == null) {
+                    JOptionPane.showConfirmDialog(null, "Inserisci una data valida", "Action", JOptionPane.DEFAULT_OPTION);
+                } else {
+                    fullDateInsert = selectedDate;
+                    ok = true;
+                }
             }
-        //qui andranno il resto degli if per gli altri trigger
+
+
+            int dayInsert=fullDateInsert.getDayOfMonth();
+                int monthInsert=fullDateInsert.getMonth().getValue();
+                int yearInsert=fullDateInsert.getYear();
+                int hourchoise= hoursChoiceId.getValue();
+                int minutechoise= minuteChoiceId.getValue();*/
+            //selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),dayInsert,monthInsert,yearInsert);
+
+
+        }
     }
+
+    @FXML
+    void getDate(ActionEvent event){
+
+        try {
+            LocalDate fullDateInsert = datePickerId.getValue();
+            System.out.println(fullDateInsert.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 
     @FXML
