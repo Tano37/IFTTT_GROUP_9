@@ -1,5 +1,6 @@
 package it.unisa.ifttt_group_9;
 
+import it.unisa.ifttt_group_9.Trigger.TriggerFileDimension;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,8 +16,8 @@ public class TriggerFileDimensionTest {
         TriggerFileDimension trigger = new TriggerFileDimension();
 
         // Set the file path and maximum size for testing
-        trigger.filePath = filePathTest;
-        trigger.maxSize = 1024; // for example, 1 KB
+        trigger.setFilePath(filePathTest);
+        trigger.setMaxSize(1024); // for example, 1 KB
 
         // Evaluate the trigger
         boolean result = trigger.evaluate();
@@ -31,8 +32,8 @@ public class TriggerFileDimensionTest {
         TriggerFileDimension trigger = new TriggerFileDimension();
 
         // Set the file path and maximum size for testing
-        trigger.filePath = filePathTest;
-        trigger.maxSize = 10866346; // for example, 1 KB
+        trigger.setFilePath(filePathTest);
+        trigger.setMaxSize(10866346); // for example, 1 KB
 
         // Evaluate the trigger
         boolean result = trigger.evaluate();
@@ -47,7 +48,7 @@ public class TriggerFileDimensionTest {
         TriggerFileDimension trigger = new TriggerFileDimension();
 
         // Set a non-existing file path for testing
-        trigger.filePath = "nonExistingPath";
+        trigger.setFilePath("nonExistingPath");
 
         // Evaluate the trigger
         boolean result = trigger.evaluate();

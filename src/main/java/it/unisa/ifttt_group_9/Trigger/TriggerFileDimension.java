@@ -1,11 +1,11 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.Trigger;
 
 import java.io.File;
 
 public class TriggerFileDimension implements Trigger {
 
-    String filePath;
-    long maxSize;
+    private String filePath;
+    private long maxSize;
 
     @Override
     public boolean evaluate() {
@@ -26,5 +26,11 @@ public class TriggerFileDimension implements Trigger {
         }
     }
 
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
+    public void setMaxSize(long maxSize) {
+        this.maxSize = maxSize;
+    }
 }
