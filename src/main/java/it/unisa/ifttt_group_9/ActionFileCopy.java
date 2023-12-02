@@ -30,10 +30,11 @@ public class ActionFileCopy implements Action {
         try {
             // Sposta il file nella nuova posizione
             Files.move(sourcePath, destinationPath.resolve(sourcePath.getFileName()), StandardCopyOption.REPLACE_EXISTING);
-
+            JOptionPane.showConfirmDialog(null, "The file has been copied", "FileCopy", JOptionPane.DEFAULT_OPTION);
 
         } catch (IOException e) {
             System.err.println("Error during file coping " + e.getMessage());
+            JOptionPane.showConfirmDialog(null, "The file HASN'T been copied", "FileCopy", JOptionPane.DEFAULT_OPTION);
         }
     }
 
