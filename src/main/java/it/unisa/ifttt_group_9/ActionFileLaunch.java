@@ -33,7 +33,7 @@ public class ActionFileLaunch implements Action, Serializable {
 
             // Optionally, you can wait for the process to complete
             int exitCode = process.waitFor();
-            JOptionPane.showConfirmDialog(null, "Exit Code: " + exitCode, "FileDelete", JOptionPane.DEFAULT_OPTION);
+            JOptionPane.showConfirmDialog(null, "Exit Code: " + exitCode, "FileLaunch", JOptionPane.DEFAULT_OPTION);
 
 
         } catch (IOException | InterruptedException e) {
