@@ -166,6 +166,9 @@ public class PrincipalStageViewController implements Initializable {
     private JFileChooser directoryChooser= new JFileChooser();
 
     @FXML
+    private TableColumn<Rule, String> triggerStatusClm;
+
+    @FXML
     private Tab existingFileTab;
     @FXML
     private Button directoryChoosingBtn;
@@ -187,6 +190,7 @@ public class PrincipalStageViewController implements Initializable {
         sleepRuleBtn.disableProperty().setValue(true);
 
         ruleClm.setCellValueFactory(new PropertyValueFactory<>("ruleName"));
+        triggerStatusClm.setCellValueFactory(new PropertyValueFactory<>("ruleTriggerEvaluation"));
         rulesTable.setItems(rulesList);
         Bindings.bindContent(RuleManager.getInstance().getRuleList(), rulesList);
 
@@ -323,6 +327,7 @@ public class PrincipalStageViewController implements Initializable {
 
                 } else {
                     r.setLaunched(r.getRuleTrigger().evaluate() );
+                    rulesTable.refresh();
                 }
             }
         })

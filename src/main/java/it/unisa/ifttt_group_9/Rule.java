@@ -44,6 +44,8 @@ public class Rule implements Serializable {
         return ruleTrigger;
     }
 
+    public Boolean getRuleTriggerEvaluation() { return this.ruleTrigger.evaluate(); }
+
     public Action getRuleAction() {
         return ruleAction;
     }
