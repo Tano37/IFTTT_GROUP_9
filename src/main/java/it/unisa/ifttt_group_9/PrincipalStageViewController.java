@@ -22,15 +22,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -81,10 +79,23 @@ public class PrincipalStageViewController implements Initializable {
     private Tab timeTab;
 
     @FXML
+    private Tab dayTab;
+    @FXML
+    private Tab monthTab;
+    @FXML
+    private Tab fullDateTab;
+    @FXML
+    private DatePicker datePickerId;
+
+    @FXML
     private ChoiceBox<Integer> hoursChoiceId;
 
     @FXML
     private ChoiceBox<Integer> minuteChoiceId;
+
+    @FXML
+    private ChoiceBox<String> dayChoiceId;
+
 
     @FXML
     private Button continueBtn;
@@ -130,6 +141,8 @@ public class PrincipalStageViewController implements Initializable {
     private ChoiceBox<Integer> hourChoiceIdSleep;
     @FXML
     private ChoiceBox<Integer> dayChoiceIdSleep;
+    @FXML
+    private ChoiceBox<Integer> monthChoiceId;
  
     @FXML
     private Button confirmSleepBtn;
@@ -195,6 +208,9 @@ public class PrincipalStageViewController implements Initializable {
         dayChoiceIdSleep.setItems(dayList);
         dayChoiceIdSleep.autosize();
 
+        monthChoiceId.setItems(dayList.filtered(value -> value >= 1 && value <= 31));
+        monthChoiceId.autosize();
+
 
         ObservableList<Integer> minuteList = FXCollections.observableArrayList();
         for (int i = 0; i <= 59; i++) {
@@ -204,6 +220,15 @@ public class PrincipalStageViewController implements Initializable {
         minuteChoiceId.autosize();
         minuteChoiceIdSleep.setItems(minuteList);
         minuteChoiceIdSleep.autosize();
+
+        ObservableList<String> dayStringList = FXCollections.observableArrayList();
+
+        String[] daysOfWeek = {"Ever", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
+        dayStringList.addAll(daysOfWeek);
+
+        dayChoiceId.setItems(dayStringList);
+        dayChoiceId.setValue("Ever");
 
         ObservableList<String> triggerFileType = FXCollections.observableArrayList();
         triggerFileType.add("Add String in the end");
@@ -263,6 +288,13 @@ public class PrincipalStageViewController implements Initializable {
         minuteChoiceIdSleep.setValue(0);
         hourChoiceIdSleep.setValue(0);
         dayChoiceIdSleep.setValue(0);
+        monthChoiceId.setValue(1);
+
+
+            /*LocalDate today=LocalDate.now();
+        datePickerId.setValue(today);*/
+
+
 
         rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
             @Override
@@ -477,15 +509,69 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane3.visibleProperty().setValue(true);
 
         String tabId = tabPane1.getSelectionModel().getSelectedItem().getId();
-
+        TriggerFactory factory = new TriggerFactory();
         if (tabId.equals("timeTab")) {
-            TriggerFactory factory = new TriggerTimestampFactory();
+
+
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue());
             /*questa variabile selectedTrigger andrà riazzerata una volta creata definitivamente la regola
             e alla regola andrà messo il check che i campi trigger e action siano diversi da null*/
+        } else if (tabId.equals("dayTab")) {
+            int numberDay = 0;
+            for (DayOfWeek day : DayOfWeek.values()) {
+                if (day.toString().equalsIgnoreCase(dayChoiceId.getValue())) {
+                    numberDay = day.getValue();
+
+                    break; // Esci dal ciclo una volta trovato il giorno corrispondente
+                }
+            }
+            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(), numberDay);
+        } else if (tabId.equals("monthTab")) {
+           /* minuteChoiceId.setValue(0);
+            hourChoiceIdSleep.setValue(0);*/
+            //System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
+            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(), 0, monthChoiceId.getValue());
+        } else if (tabId.equals("fullDateTab")) {
+
+           /* boolean ok = false;
+            LocalDate fullDateInsert = null;
+
+            while (!ok) {
+                LocalDate selectedDate = datePickerId.getValue();
+
+                if (selectedDate == null) {
+                    JOptionPane.showConfirmDialog(null, "Inserisci una data valida", "Action", JOptionPane.DEFAULT_OPTION);
+                } else {
+                    fullDateInsert = selectedDate;
+                    ok = true;
+                }
+            }
+
+
+            int dayInsert=fullDateInsert.getDayOfMonth();
+                int monthInsert=fullDateInsert.getMonth().getValue();
+                int yearInsert=fullDateInsert.getYear();
+                int hourchoise= hoursChoiceId.getValue();
+                int minutechoise= minuteChoiceId.getValue();*/
+            //selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),dayInsert,monthInsert,yearInsert);
+
+
         }
-        //qui andranno il resto degli if per gli altri trigger
     }
+
+    @FXML
+    void getDate(ActionEvent event){
+
+        try {
+            LocalDate fullDateInsert = datePickerId.getValue();
+            System.out.println(fullDateInsert.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
     @FXML
     void back2Action(ActionEvent event) {
