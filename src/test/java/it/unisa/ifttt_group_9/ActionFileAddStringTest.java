@@ -1,8 +1,11 @@
 
 package it.unisa.ifttt_group_9;
+import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,15 +40,8 @@ class ActionFileAddStringTest {
         }
     }
 
-    /*@Test
-    void executeAction_ErrorHandling() {
-        // Arrange
-        String testFilePath = "nonexistentFolder/nonexistentFile.txt";
-        String testStringToAdd = "TestString";
-        ActionFileAddString action = new ActionFileAddString(testFilePath, testStringToAdd);
 
-        // Act and Assert
-        assertThrows(IOException.class, action::executeAction);
-    }*/
+
+
 }
 
