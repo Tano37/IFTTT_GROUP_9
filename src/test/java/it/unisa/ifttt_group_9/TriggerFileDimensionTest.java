@@ -14,11 +14,7 @@ public class TriggerFileDimensionTest {
     @Test
     public void testFileLargerThanMaxSize() {
         // Create an instance of TriggerFileDimension
-        TriggerFileDimension trigger = new TriggerFileDimension();
-
-        // Set the file path and maximum size for testing
-        trigger.setFilePath(filePathTest);
-        trigger.setMaxSize(1024); // for example, 1 KB
+        TriggerFileDimension trigger = new TriggerFileDimension(filePathTest, 1024);
 
         // Evaluate the trigger
         boolean result = trigger.evaluate();
@@ -30,11 +26,8 @@ public class TriggerFileDimensionTest {
     @Test
     public void testFileSmallerOrEqualToMaxSize() {
         // Create an instance of TriggerFileDimension
-        TriggerFileDimension trigger = new TriggerFileDimension();
+        TriggerFileDimension trigger = new TriggerFileDimension(filePathTest, 10866344 + 1);
 
-        // Set the file path and maximum size for testing
-        trigger.setFilePath(filePathTest);
-        trigger.setMaxSize(10866346); // for example, 1 KB
 
         // Evaluate the trigger
         boolean result = trigger.evaluate();
@@ -46,10 +39,7 @@ public class TriggerFileDimensionTest {
     @Test
     public void testNonExistingFile() {
         // Create an instance of TriggerFileDimension
-        TriggerFileDimension trigger = new TriggerFileDimension();
-
-        // Set a non-existing file path for testing
-        trigger.setFilePath("nonExistingPath");
+        TriggerFileDimension trigger = new TriggerFileDimension("NonExistingFilePath", 1024);
 
         // Evaluate the trigger
         boolean result = trigger.evaluate();
