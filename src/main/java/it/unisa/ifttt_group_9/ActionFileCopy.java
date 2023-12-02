@@ -3,6 +3,10 @@ package it.unisa.ifttt_group_9;
 import javax.swing.*;
 import java.io.IOException;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 
 public class ActionFileCopy implements Action {
@@ -17,26 +21,19 @@ public class ActionFileCopy implements Action {
 
     @Override
     public void executeAction() {
-        File sourceFile = new File(filePath);
+        // Percorso del file da spostare
+        Path sourcePath = Paths.get(filePath);
 
-        // Percorso della cartella di destinazione
-        File destinationFolder = new File(destinationDirPath);
+        // Percorso della directory di destinazione
+        Path destinationPath = Paths.get(destinationDirPath);
 
-        try (InputStream inputStream = new FileInputStream(sourceFile);
-             OutputStream outputStream = new FileOutputStream(new File(destinationFolder, sourceFile.getName()))) {
+        try {
+            // Sposta il file nella nuova posizione
+            Files.move(sourcePath, destinationPath.resolve(sourcePath.getFileName()), StandardCopyOption.REPLACE_EXISTING);
 
-            byte[] buffer = new byte[1024];
-            int length;
-
-            // Legge i dati dal file di origine e li scrive nel file di destinazione
-            while ((length = inputStream.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, length);
-            }
-
-            JOptionPane.showConfirmDialog(null, "The file has been copied", "FileCopy", JOptionPane.DEFAULT_OPTION);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error during file coping " + e.getMessage());
         }
     }
 
