@@ -87,7 +87,7 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     private Tab fullDateTab;
     @FXML
-    private DatePicker datePickerId;
+    private DatePicker dataPickerId= new DatePicker();
 
     @FXML
     private ChoiceBox<Integer> hoursChoiceId;
@@ -188,6 +188,8 @@ public class PrincipalStageViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeChoiceBox();
         initializeTable();
+
+        dataPickerId.setValue(LocalDate.now());
 
         rulesList= FXCollections.observableArrayList();
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -561,39 +563,18 @@ public class PrincipalStageViewController implements Initializable {
             }
 
         } else if (tabId.equals("fullDateTab")) {
-           /* boolean ok = false;
-            LocalDate fullDateInsert = null;
+                LocalDate fullDateInsert= dataPickerId.getValue();
 
-            while (!ok) {
-                LocalDate selectedDate = datePickerId.getValue();
-
-                if (selectedDate == null) {
-                    JOptionPane.showConfirmDialog(null, "Inserisci una data valida", "Action", JOptionPane.DEFAULT_OPTION);
-                } else {
-                    fullDateInsert = selectedDate;
-                    ok = true;
-                }
-            }
-            int dayInsert=fullDateInsert.getDayOfMonth();
+                int dayInsert=fullDateInsert.getDayOfMonth();
                 int monthInsert=fullDateInsert.getMonth().getValue();
                 int yearInsert=fullDateInsert.getYear();
                 int hourchoise= hoursChoiceId.getValue();
-                int minutechoise= minuteChoiceId.getValue();*/
-            //selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),dayInsert,monthInsert,yearInsert);
+                int minutechoise= minuteChoiceId.getValue();
+                selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),dayInsert,monthInsert,yearInsert);
         }
     }
 
-    @FXML
-    void getDate(ActionEvent event){
 
-        try {
-            LocalDate fullDateInsert = datePickerId.getValue();
-            System.out.println(fullDateInsert.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
     @FXML
     void directoryChoosingBtnAction(ActionEvent event) {// Impostazione del selettore di cartelle (invece di file)

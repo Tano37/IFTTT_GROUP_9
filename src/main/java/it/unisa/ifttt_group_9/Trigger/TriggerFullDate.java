@@ -43,6 +43,10 @@ public class TriggerFullDate implements Trigger {
         int yearNow=now.getYear();
 
 
+        System.out.println("-----------------");
+        System.out.println(hourNow+"--"+minuteNow+"--"+dayNow+"--"+monthNow+"--"+yearNow);
+        System.out.println(this.hour+"--"+this.minute+"--"+this.dayWeek+"--"+this.dayMonth+"--"+this.year);
+        System.out.println("-----------------");
         return (hourNow == this.hour && minuteNow == this.minute && dayNow == this.dayMonth && monthNow == this.dayWeek && yearNow == this.year);
     }
 
