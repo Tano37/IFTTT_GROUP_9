@@ -1,4 +1,4 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.Action;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 
-public class ActionAudio implements Action, Serializable {
+public class ActionAudio implements Action {
     private String filePath;
     private volatile boolean continuePlaying = true;
 

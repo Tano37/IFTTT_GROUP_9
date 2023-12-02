@@ -1,14 +1,11 @@
 
 package it.unisa.ifttt_group_9;
-import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
+import it.unisa.ifttt_group_9.Action.ActionFileAddString;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 class ActionFileAddStringTest {

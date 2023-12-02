@@ -1,6 +1,6 @@
 package it.unisa.ifttt_group_9;
 
-import it.unisa.ifttt_group_9.TriggerFullDate;
+import it.unisa.ifttt_group_9.Trigger.TriggerFullDate;
 import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 import org.junit.jupiter.api.Test;
 

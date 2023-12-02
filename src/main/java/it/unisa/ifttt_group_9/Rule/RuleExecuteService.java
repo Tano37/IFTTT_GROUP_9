@@ -1,6 +1,6 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.Rule;
 
-import javafx.collections.ObservableList;
+import it.unisa.ifttt_group_9.Rule.Rule;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 

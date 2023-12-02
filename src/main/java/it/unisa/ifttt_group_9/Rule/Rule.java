@@ -1,12 +1,10 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.Rule;
 
-import java.io.IOException;
+import it.unisa.ifttt_group_9.Action.Action;
+import it.unisa.ifttt_group_9.Trigger.Trigger;
+
 import java.io.Serializable;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class Rule implements Serializable {
     private String ruleName;

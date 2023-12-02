@@ -1,11 +1,12 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.Action;
 
+import it.unisa.ifttt_group_9.Action.Action;
 import it.unisa.ifttt_group_9.exceptions.IllegalMessageException;
 
 import javax.swing.*;
 import java.io.Serializable;
 
-public class ActionText implements Action, Serializable {
+public class ActionText implements Action {
 
     private String text;
 

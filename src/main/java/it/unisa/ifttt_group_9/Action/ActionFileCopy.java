@@ -1,8 +1,9 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.Action;
+
+import it.unisa.ifttt_group_9.Action.Action;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;

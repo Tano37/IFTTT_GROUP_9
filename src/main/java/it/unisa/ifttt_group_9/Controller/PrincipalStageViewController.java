@@ -1,13 +1,17 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.Controller;
 
+import it.unisa.ifttt_group_9.Action.Action;
+import it.unisa.ifttt_group_9.Action.*;
+import it.unisa.ifttt_group_9.Rule.Rule;
+import it.unisa.ifttt_group_9.Rule.RuleExecuteService;
+import it.unisa.ifttt_group_9.Rule.RuleManager;
+import it.unisa.ifttt_group_9.Trigger.Trigger;
+import it.unisa.ifttt_group_9.Trigger.TriggerFactory;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,21 +20,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 import java.net.URL;
-import java.time.*;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class PrincipalStageViewController implements Initializable {
@@ -173,6 +176,8 @@ public class PrincipalStageViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        initializeChoiceBox();
+        initializeTable();
 
         rulesList= FXCollections.observableArrayList();
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -191,45 +196,6 @@ public class PrincipalStageViewController implements Initializable {
 
         rulesTable.getColumns().add(statusColumn);
 
-        ObservableList<Integer> hoursList = FXCollections.observableArrayList();
-        for (int i = 0; i <= 23; i++) {
-            hoursList.add(i);
-        }
-        hoursChoiceId.setItems(hoursList);
-        hourChoiceIdSleep.setItems(hoursList);
-        hoursChoiceId.autosize();
-        hourChoiceIdSleep.autosize();
-
-        ObservableList<Integer> dayList = FXCollections.observableArrayList();
-        for(int i=0; i<=363; i++){
-            dayList.add(i);
-        }
-
-        dayChoiceIdSleep.setItems(dayList);
-        dayChoiceIdSleep.autosize();
-
-        monthChoiceId.setItems(dayList.filtered(value -> value >= 1 && value <= 31));
-        monthChoiceId.autosize();
-
-
-        ObservableList<Integer> minuteList = FXCollections.observableArrayList();
-        for (int i = 0; i <= 59; i++) {
-            minuteList.add(i);
-        }
-        minuteChoiceId.setItems(minuteList);
-        minuteChoiceId.autosize();
-        minuteChoiceIdSleep.setItems(minuteList);
-        minuteChoiceIdSleep.autosize();
-
-        ObservableList<String> dayStringList = FXCollections.observableArrayList();
-
-        String[] daysOfWeek = {"Ever", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-
-        dayStringList.addAll(daysOfWeek);
-
-        dayChoiceId.setItems(dayStringList);
-        dayChoiceId.setValue("Ever");
-
         ObservableList<String> triggerFileType = FXCollections.observableArrayList();
         triggerFileType.add("Add String in the end");
         triggerFileType.add("Copy and Paste");
@@ -238,7 +204,6 @@ public class PrincipalStageViewController implements Initializable {
         fileActionChooser.setItems(triggerFileType);
         fileActionChooser.valueProperty().setValue(triggerFileType.getFirst());
         fileActionChooser.autosize();
-
 
         FileNameExtensionFilter filter1 = new FileNameExtensionFilter("File TXT (*.txt)", "txt");
         // Applicazione del filtro al selettore di file
@@ -285,10 +250,7 @@ public class PrincipalStageViewController implements Initializable {
                 minuteChoiceId.valueProperty().isNull()
         );
         continueBtn.disableProperty().bind(bb);
-        minuteChoiceIdSleep.setValue(0);
-        hourChoiceIdSleep.setValue(0);
-        dayChoiceIdSleep.setValue(0);
-        monthChoiceId.setValue(1);
+
 
 
             /*LocalDate today=LocalDate.now();
@@ -354,6 +316,51 @@ public class PrincipalStageViewController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void initializeChoiceBox() {
+       /*Initializes user interface elements.
+         Populate lists used to select minutes, hours, day, month*/
+
+        //Day list
+        ObservableList<Integer> dayList = FXCollections.observableArrayList();
+        for (int i = 0; i <= 363; i++) {
+            dayList.add(i);
+        }
+
+        //Set options for the ChoiceBoxes of minutes and hours
+        minuteChoiceId.setItems(dayList.filtered(value -> value >= 0 && value <= 59));
+        minuteChoiceId.autosize();
+        hoursChoiceId.setItems(dayList.filtered(value -> value >= 0 && value <= 23));
+        hoursChoiceId.autosize();
+
+        //Set options for ChoiceBoxes of minutes, hours, day, month of sleep
+        minuteChoiceIdSleep.setItems(dayList.filtered(value -> value >= 0 && value <= 59));
+        minuteChoiceIdSleep.autosize();
+        hourChoiceIdSleep.setItems(dayList.filtered(value -> value >= 0 && value <= 23));
+        hourChoiceIdSleep.autosize();
+        dayChoiceIdSleep.setItems(dayList);
+        dayChoiceIdSleep.autosize();
+
+        //Set the options for the ChoiceBoxes of day, month, and day of the week
+        monthChoiceId.setItems(dayList.filtered(value -> value >= 1 && value <= 31));
+        monthChoiceId.autosize();
+        ObservableList<String> dayStringList = FXCollections.observableArrayList("Ever", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+        dayChoiceId.setItems(dayStringList);
+        dayChoiceId.autosize();
+
+        //Values to be set of fault at startup
+        dayChoiceId.setValue("Ever");
+        minuteChoiceIdSleep.setValue(0);
+        hourChoiceIdSleep.setValue(0);
+        dayChoiceIdSleep.setValue(0);
+        monthChoiceId.setValue(1);
+    }
+
+    private void initializeTable() {
+        // Inizializza la tabella e le colonne
+        // ...
+
     }
 
     private TableColumn<Rule, Boolean> getRuleBooleanTableColumn() {
@@ -639,7 +646,7 @@ public class PrincipalStageViewController implements Initializable {
 
                     File selectedFolder = filePathAction.getSelectedFile();
                     String testInFile = fileActionLaunchTxt.getText();
-                    selectedAction = new ActionFileAddString (selectedFolder.getPath(),testInFile);
+                    selectedAction = new ActionFileAddString(selectedFolder.getPath(), testInFile);
                     filePathAction.setSelectedFile(null);
                     createRule();
                 }
@@ -705,34 +712,7 @@ public class PrincipalStageViewController implements Initializable {
         }
     }
 
-    void saveRuleList(ObservableList<Rule> list) throws IOException {
-        ObjectOutputStream binaryFileOut = new ObjectOutputStream(new FileOutputStream("RULES.dat"));
-        for (Rule rule : list) {
-            binaryFileOut.writeObject(rule);
-        }
-        binaryFileOut.close();
-    }
 
-
-// ...
-
-
-    void loadRuleList(ObservableList<Rule> list) throws IOException {
-        File file = new File("RULES.dat");
-
-        if(file.exists()){
-            ObjectInputStream binaryFileIn = new ObjectInputStream(new FileInputStream("RULES.dat"));
-            while (true) {
-                try {
-                    Rule rule = (Rule) binaryFileIn.readObject();
-                    list.add(rule);
-                } catch (IOException | ClassNotFoundException  e) {
-                    // Fine del file
-                    break;
-                }
-            }
-        }
-    }
 
     @FXML
     void showFileChooser(ActionEvent event) {
@@ -792,6 +772,35 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane3.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
         rulesTable.getSelectionModel().clearSelection();
+    }
+
+    void saveRuleList(ObservableList<Rule> list) throws IOException {
+        ObjectOutputStream binaryFileOut = new ObjectOutputStream(new FileOutputStream("RULES.dat"));
+        for (Rule rule : list) {
+            binaryFileOut.writeObject(rule);
+        }
+        binaryFileOut.close();
+    }
+
+
+// ...
+
+
+    void loadRuleList(ObservableList<Rule> list) throws IOException {
+        File file = new File("RULES.dat");
+
+        if(file.exists()){
+            ObjectInputStream binaryFileIn = new ObjectInputStream(new FileInputStream("RULES.dat"));
+            while (true) {
+                try {
+                    Rule rule = (Rule) binaryFileIn.readObject();
+                    list.add(rule);
+                } catch (IOException | ClassNotFoundException  e) {
+                    // Fine del file
+                    break;
+                }
+            }
+        }
     }
 
 

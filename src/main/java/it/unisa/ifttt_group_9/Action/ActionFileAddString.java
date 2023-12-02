@@ -1,11 +1,13 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.Action;
+
+import it.unisa.ifttt_group_9.Action.Action;
 
 import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ActionFileAddString implements Action{
+public class ActionFileAddString implements Action {
 
     String filePath;
     String stringToAdd;

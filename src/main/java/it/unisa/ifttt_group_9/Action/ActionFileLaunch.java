@@ -1,4 +1,6 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.Action;
+
+import it.unisa.ifttt_group_9.Action.Action;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -6,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActionFileLaunch implements Action, Serializable {
+public class ActionFileLaunch implements Action {
 
     String filePath;
     String arguments;

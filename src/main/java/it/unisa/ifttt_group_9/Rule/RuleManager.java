@@ -1,5 +1,8 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.Rule;
 
+import javafx.collections.ObservableList;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +30,8 @@ public class RuleManager {
 
     @Override
     public String toString(){ return ruleList.toString(); }
+
+
 
 
 }

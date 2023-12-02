@@ -1,9 +1,11 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.Action;
+
+import it.unisa.ifttt_group_9.Action.Action;
 
 import javax.swing.*;
 import java.io.*;
 
-public class ActionFileDelete implements Action{
+public class ActionFileDelete implements Action {
 
     String filePath;
 

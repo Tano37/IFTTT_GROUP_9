@@ -1,5 +1,9 @@
 package it.unisa.ifttt_group_9;
 
+import it.unisa.ifttt_group_9.Action.Action;
+import it.unisa.ifttt_group_9.Rule.Rule;
+import it.unisa.ifttt_group_9.Rule.RuleManager;
+import it.unisa.ifttt_group_9.Trigger.Trigger;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

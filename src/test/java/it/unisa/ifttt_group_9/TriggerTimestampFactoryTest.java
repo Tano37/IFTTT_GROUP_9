@@ -1,5 +1,7 @@
 package it.unisa.ifttt_group_9;
 
+import it.unisa.ifttt_group_9.Trigger.Trigger;
+import it.unisa.ifttt_group_9.Trigger.TriggerFactory;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
