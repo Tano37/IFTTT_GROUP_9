@@ -36,50 +36,69 @@ import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class PrincipalStageViewController implements Initializable {
+    // Buttons
     @FXML
     private Button fileChooserBtn;
-
     @FXML
     private Button deleteBtn;
-
-    @FXML
-    private StackPane stackPaneId;
-
-    @FXML
-    private AnchorPane ancorPane1;
-
-    @FXML
-    private TableView<Rule> rulesTable;
-
-    @FXML
-    private TableColumn<Rule, String> ruleClm;
-
-    @FXML
-    private TableColumn<Rule, String> ruleClmStatus;
-
     @FXML
     private Button addRuleBtn;
     @FXML
     private Button deleteRuleBtn;
-
     @FXML
     private Button activateRuleBtn;
-
     @FXML
     private Button deactivateRuleBtn;
-
     @FXML
     private Button sleepRuleBtn;
+    @FXML
+    private Button backSleepBtn;
+    @FXML
+    private Button continueBtn;
+    @FXML
+    private Button backBtn1;
+    @FXML
+    private Button confirmBtn;
+    @FXML
+    private Button backBtn2;
+    @FXML
+    private Button confirmSleepBtn;
+    @FXML
+    private Button filePathBtn;
+    @FXML
+    private Button destDirBtn;
+    @FXML
+    private Button directoryChoosingBtn;
+    @FXML
+    private Button fileDimensionChooser;
 
+    // StackPane and AnchorPanes
+    @FXML
+    private StackPane stackPaneId;
+    @FXML
+    private AnchorPane ancorPane1;
     @FXML
     private AnchorPane ancorPane2;
+    @FXML
+    private AnchorPane ancorPane3;
+    @FXML
+    private AnchorPane ancorPane4;
 
+    // TableView and TableColumns
+    @FXML
+    private TableView<Rule> rulesTable;
+    @FXML
+    private TableColumn<Rule, String> ruleClm;
+    @FXML
+    private TableColumn<Rule, String> ruleClmStatus;
+    @FXML
+    private TableColumn<Rule, String> triggerStatusClm;
+
+    // TabPane and Tabs
     @FXML
     private TabPane tabPane1;
-
     @FXML
     private Tab timeTab;
-
     @FXML
     private Tab dayTab;
     @FXML
@@ -87,58 +106,27 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     private Tab fullDateTab;
     @FXML
-    private DatePicker dataPickerId= new DatePicker();
-    @FXML
-    private Button backSleepBtn;
-
-    @FXML
-    private ChoiceBox<Integer> hoursChoiceId;
-
-    @FXML
-    private ChoiceBox<Integer> minuteChoiceId;
-
-    @FXML
-    private ChoiceBox<String> dayChoiceId;
-
-
-    @FXML
-    private Button continueBtn;
-
-    @FXML
-    private Button backBtn1;
-
-    @FXML
-    private AnchorPane ancorPane3;
-    @FXML
-    private AnchorPane ancorPane4;
-
-    @FXML
     private TabPane tabPane2;
-
     @FXML
     private Tab textMessageTab;
-
-    @FXML
-    private TextField textMessageId;
-
     @FXML
     private Tab audioTab;
-
     @FXML
-    private ComboBox<String> audioChoice;
-
+    private Tab fileTab;
     @FXML
-    private Button confirmBtn;
-
+    private Tab existingFileTab;
     @FXML
-    private Button backBtn2;
+    private Tab fileDimensionTab;
 
+    // Date Picker, ChoiceBoxes, ComboBox, CheckBox, TextField, Label
     @FXML
-    private TextField nameRuleText;
-
+    private DatePicker dataPickerId = new DatePicker();
     @FXML
-    private CheckBox fireOnceCheckbox;
-
+    private ChoiceBox<Integer> hoursChoiceId;
+    @FXML
+    private ChoiceBox<Integer> minuteChoiceId;
+    @FXML
+    private ChoiceBox<String> dayChoiceId;
     @FXML
     private ChoiceBox<Integer> minuteChoiceIdSleep;
     @FXML
@@ -147,67 +135,51 @@ public class PrincipalStageViewController implements Initializable {
     private ChoiceBox<Integer> dayChoiceIdSleep;
     @FXML
     private ChoiceBox<Integer> monthChoiceId;
- 
     @FXML
-    private Button confirmSleepBtn;
-
-    @FXML
-    private Tab fileTab;
+    private ChoiceBox<String> audioChoice;
     @FXML
     private ChoiceBox<String> fileActionChooser;
     @FXML
-    private Button filePathBtn;
+    private TextField textMessageId;
     @FXML
-    private Button destDirBtn;
+    private TextField nameRuleText;
     @FXML
     private TextField fileActionLaunchTxt;
     @FXML
+    private TextField fileNameLbl;
+    @FXML
+    private TextField maxFileDimensionTxt;
+    @FXML
     private Label fileActionLabel;
 
-    private Trigger selectedTrigger;
-    private Action selectedAction;
-    private ObservableList<Rule> rulesList;
-    private int result = -1;
+    // Checkboxes
+    @FXML
+    private CheckBox fireOnceCheckbox;
+
+    // JFileChooser
     private JFileChooser fileChooserWav = new JFileChooser();
     private JFileChooser fileChooserTxt = new JFileChooser();
     private JFileChooser directoryChooserActionFile = new JFileChooser();
     private JFileChooser directoryChooserTriggerFileExists = new JFileChooser();
     private JFileChooser fileChooserTriggerFileDimension = new JFileChooser();
 
-    @FXML
-    private TableColumn<Rule, String> triggerStatusClm;
-
-    @FXML
-    private Tab existingFileTab;
-    @FXML
-    private Button directoryChoosingBtn;
-    @FXML
-    private TextField fileNameLbl;
-    @FXML
-    private Tab fileDimensionTab;
-    @FXML
-    private Button fileDimensionChooser;
-    @FXML
-    private TextField maxFileDimensionTxt;
-
-
+    // Other variables
+    private Trigger selectedTrigger;
+    private Action selectedAction;
+    private ObservableList<Rule> rulesList;
+    private int result = -1;
     private Rule selectedRuleForDeactivation;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeChoiceBox();
         initializeTable();
 
-        dataPickerId.setValue(LocalDate.now());
-
         dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
-
-
-
 
         rulesList= FXCollections.observableArrayList();
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        setActualTime();
 
         confirmBtn.disableProperty().bind(nameRuleText.textProperty().isEmpty());
         activateRuleBtn.disableProperty().setValue(true);
@@ -417,11 +389,6 @@ public class PrincipalStageViewController implements Initializable {
         return statusColumn;
     }
 
-    void setActualTime(){
-        LocalTime now= LocalTime.now();
-        hoursChoiceId.setValue(now.getHour());
-        minuteChoiceId.setValue(now.getMinute());
-    }
     void handleRuleSelection(Rule newValue) {
         if (newValue != null) {
             System.out.println("Elemento selezionato: " + newValue.getRuleName());
@@ -441,7 +408,7 @@ public class PrincipalStageViewController implements Initializable {
     void addRuleAction(ActionEvent event) {
         ancorPane1.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
-        setActualTime();
+        fieldsSet();
 
     }
 
@@ -546,9 +513,7 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane2.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
         rulesTable.getSelectionModel().clearSelection();
-        hoursChoiceId.setValue(null);
-        minuteChoiceId.setValue(null);
-        selectedTrigger = null;
+        fieldsSet();
     }
 
     @FXML
@@ -586,6 +551,8 @@ public class PrincipalStageViewController implements Initializable {
         else if(tabId.equals("existingFileTab"))
         {
             if (directoryChooserTriggerFileExists.getSelectedFile() == null || fileNameLbl.getText() == null) {
+                ancorPane2.visibleProperty().setValue(true);
+                ancorPane3.visibleProperty().setValue(false);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
                 alert.setContentText("Compile the fields correctly!");
@@ -598,6 +565,8 @@ public class PrincipalStageViewController implements Initializable {
         else if(tabId.equals("fileDimensionTab"))
         {
             if (fileChooserTriggerFileDimension.getSelectedFile() == null || maxFileDimensionTxt.getText() == null) {
+                ancorPane2.visibleProperty().setValue(true);
+                ancorPane3.visibleProperty().setValue(false);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
                 alert.setContentText("Compile the fields correctly!");
@@ -659,8 +628,6 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane3.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
         selectedAction = null;
-        fileChooserWav.setSelectedFile(null);
-
     }
 
     @FXML
@@ -847,10 +814,6 @@ public class PrincipalStageViewController implements Initializable {
         selectedTrigger = null;
         selectedAction = null;
 
-        setActualTime();
-        textMessageId.clear();
-        nameRuleText.clear();
-
         System.out.println(RuleManager.getInstance().toString());
         ancorPane3.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
@@ -895,6 +858,37 @@ public class PrincipalStageViewController implements Initializable {
 
         fileChooserTriggerFileDimension.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooserTriggerFileDimension.showOpenDialog(dialog);
+    }
+
+    public void fieldsSet(){
+        //Triggers Fields Set
+        hoursChoiceId.setValue(LocalTime.now().getHour());
+        minuteChoiceId.setValue(LocalTime.now().getMinute());
+
+        dayChoiceId.setValue("Ever");
+        monthChoiceId.setValue(1);
+        dataPickerId.setValue(LocalDate.now());
+
+        directoryChooserTriggerFileExists.setSelectedFile(null);
+        fileNameLbl.clear();
+
+        fileChooserTriggerFileDimension.setSelectedFile(null);
+        maxFileDimensionTxt.clear();
+
+        //Actions Fields Set
+        textMessageId.clear();
+
+        fileChooserWav.setSelectedFile(null);
+
+        fileActionChooser.setValue("Add String in the end");
+        fileActionLaunchTxt.clear();
+        fileChooserTxt.setSelectedFile(null);
+        directoryChooserActionFile.setSelectedFile(null);
+
+        //Rule Fields Set
+        fireOnceCheckbox.selectedProperty().setValue(false);
+        nameRuleText.clear();
+
     }
 
     public static class DatePickerDateCell extends javafx.scene.control.DateCell {
