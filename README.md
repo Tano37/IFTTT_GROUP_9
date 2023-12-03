@@ -26,7 +26,7 @@ Below you can check our documentation, in particular:
 
 **-Second Sprint Artifacts-**
 
-*[SecondSprintBacklog](https://docs.google.com/spreadsheets/d/1bD9_ZOfFEPyzp1oblu_rukjx_H_YzaUSqJE9Sq7Gfyo/edit#gid=0)
+* [SecondSprintBacklog](https://docs.google.com/spreadsheets/d/1bD9_ZOfFEPyzp1oblu_rukjx_H_YzaUSqJE9Sq7Gfyo/edit#gid=0)
 
 
 >That’s been one of my mantras—focus and simplicity. Simple can be harder than complex: You have to work hard to get your thinking clean to make it simple. But it’s worth it in the end because once you get there, you can move mountains.
