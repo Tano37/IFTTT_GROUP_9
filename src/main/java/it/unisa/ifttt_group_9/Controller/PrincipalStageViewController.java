@@ -575,8 +575,6 @@ public class PrincipalStageViewController implements Initializable {
         String tabId = tabPane1.getSelectionModel().getSelectedItem().getId();
         TriggerFactory factory = new TriggerFactory();
         if (tabId.equals("timeTab")) {
-
-
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue());
             /*questa variabile selectedTrigger andrà riazzerata una volta creata definitivamente la regola
             e alla regola andrà messo il check che i campi trigger e action siano diversi da null*/
@@ -618,16 +616,23 @@ public class PrincipalStageViewController implements Initializable {
 
         } else if (tabId.equals("fullDateTab")) {
             LocalDate fullDateInsert= dataPickerId.getValue();
-
             int dayInsert=fullDateInsert.getDayOfMonth();
             int monthInsert=fullDateInsert.getMonth().getValue();
             int yearInsert=fullDateInsert.getYear();
             int hourchoise= hoursChoiceId.getValue();
             int minutechoise= minuteChoiceId.getValue();
-
-
-
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),dayInsert,monthInsert,yearInsert);
+        } else if (tabId.equals("controlExitStatusTab")) {
+            if (fileChooserExitStatus.getSelectedFile() == null || valueTextId.getText() == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Errore");
+                alert.setContentText("Compile the fields correctly!");
+                alert.showAndWait();
+            }else{
+                selectedTrigger = new TriggerExitStatus(fileChooserExitStatus.getSelectedFile().getAbsolutePath(),
+                        commandLineTextId.getText(),Integer.parseInt(valueTextId.getText()));
+            }
+            
         }
     }
 
@@ -901,13 +906,13 @@ public class PrincipalStageViewController implements Initializable {
         fileChooserExitStatus.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("File EXE (*.exe)", "exe");
         // Applicazione del filtro al selettore di file
-        fileChooser.setFileFilter(filter);
+        fileChooserExitStatus.setFileFilter(filter);
         // Mostra il selettore di cartelle
-        result = fileChooser.showOpenDialog(null);
+        result = fileChooserExitStatus.showOpenDialog(null);
         // Verifica se l'utente ha selezionato una cartella
         if (result == JFileChooser.APPROVE_OPTION) {
             // Ottieni la cartella selezionata
-            File selectedFolder = fileChooser.getSelectedFile();
+            File selectedFolder = fileChooserExitStatus.getSelectedFile();
             // Stampa il percorso della cartella
             System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
             //selectedAction = new ActionAudio(selectedFolder.getPath());

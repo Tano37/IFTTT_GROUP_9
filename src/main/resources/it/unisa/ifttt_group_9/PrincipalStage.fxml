@@ -20,7 +20,7 @@
         <URL value="@Style.css" />
     </stylesheets>
     <children>
-        <AnchorPane fx:id="ancorPane1" prefHeight="200.0" prefWidth="200.0">
+        <AnchorPane fx:id="ancorPane1" prefHeight="200.0" prefWidth="200.0" visible="false">
             <children>
                 <TableView fx:id="rulesTable" prefHeight="236.0" prefWidth="534.0">
                     <columns>
@@ -35,7 +35,7 @@
                 <Button fx:id="sleepRuleBtn" layoutX="211.0" layoutY="254.0" mnemonicParsing="false" onAction="#sleepRuleAction" text="Sleep" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0" visible="false">
+        <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0">
             <children>
                 <TabPane fx:id="tabPane1" layoutX="-2.0" prefHeight="236.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
