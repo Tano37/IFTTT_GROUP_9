@@ -5,12 +5,7 @@ import it.unisa.ifttt_group_9.Action.*;
 import it.unisa.ifttt_group_9.Rule.Rule;
 import it.unisa.ifttt_group_9.Rule.RuleExecuteService;
 import it.unisa.ifttt_group_9.Rule.RuleManager;
-import it.unisa.ifttt_group_9.Trigger.Trigger;
-import it.unisa.ifttt_group_9.Trigger.TriggerFactory;
-import it.unisa.ifttt_group_9.Trigger.TriggerFile;
-import it.unisa.ifttt_group_9.Trigger.TriggerFileDimension;
 import it.unisa.ifttt_group_9.Trigger.*;
-import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -562,14 +557,14 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane3.visibleProperty().setValue(true);
 
         String tabId = tabPane1.getSelectionModel().getSelectedItem().getId();
-        TriggerFactory factory = new TriggerFactory();
-        if (tabId.equals("timeTab")) {
-
-
-            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue());
+        if (tabId.equals("timeTab"))
+        {
+            selectedTrigger = new TriggerTimestamp(hoursChoiceId.getValue(), minuteChoiceId.getValue());
             /*questa variabile selectedTrigger andrà riazzerata una volta creata definitivamente la regola
             e alla regola andrà messo il check che i campi trigger e action siano diversi da null*/
-        } else if (tabId.equals("dayTab")) {
+        }
+        else if (tabId.equals("dayTab"))
+        {
             int numberDay = 0;
             for (DayOfWeek day : DayOfWeek.values()) {
                 if (day.toString().equalsIgnoreCase(dayChoiceId.getValue())) {
@@ -578,23 +573,30 @@ public class PrincipalStageViewController implements Initializable {
                     break; // Esci dal ciclo una volta trovato il giorno corrispondente
                 }
             }
-            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(), numberDay);
-        } else if (tabId.equals("monthTab")) {
+            selectedTrigger=new TriggerDay(hoursChoiceId.getValue(), minuteChoiceId.getValue(), numberDay);
+        }
+        else if (tabId.equals("monthTab"))
+        {
            /* minuteChoiceId.setValue(0);
             hourChoiceIdSleep.setValue(0);*/
             //System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
-            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(), 0, monthChoiceId.getValue());
-        } else if(tabId.equals("existingFileTab")) {
+            selectedTrigger = new TriggerMonth(hoursChoiceId.getValue(), minuteChoiceId.getValue(), 0,
+                    monthChoiceId.getValue());
+        }
+        else if(tabId.equals("existingFileTab"))
+        {
             if (directoryChooserTriggerFileExists.getSelectedFile() == null || fileNameLbl.getText() == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
                 alert.setContentText("Compile the fields correctly!");
                 alert.showAndWait();
             } else {
-                selectedTrigger = new TriggerFile(directoryChooserTriggerFileExists
-                        .getSelectedFile().getAbsolutePath(), fileNameLbl.getText());
+                selectedTrigger = new TriggerFile(directoryChooserTriggerFileExists.getSelectedFile().getAbsolutePath(),
+                        fileNameLbl.getText());
             }
-        }else if(tabId.equals("fileDimensionTab")){
+        }
+        else if(tabId.equals("fileDimensionTab"))
+        {
             if (fileChooserTriggerFileDimension.getSelectedFile() == null || maxFileDimensionTxt.getText() == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
@@ -605,7 +607,9 @@ public class PrincipalStageViewController implements Initializable {
                         .getSelectedFile().getAbsolutePath(), Long.parseLong(maxFileDimensionTxt.getText()));
             }
 
-        } else if (tabId.equals("fullDateTab")) {
+        }
+        else if (tabId.equals("fullDateTab"))
+        {
             LocalDate fullDateInsert= dataPickerId.getValue();
 
             int dayInsert=fullDateInsert.getDayOfMonth();
@@ -614,9 +618,8 @@ public class PrincipalStageViewController implements Initializable {
             int hourchoise= hoursChoiceId.getValue();
             int minutechoise= minuteChoiceId.getValue();
 
-
-
-            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),dayInsert,monthInsert,yearInsert);
+            selectedTrigger =new TriggerFullDate(hoursChoiceId.getValue(), minuteChoiceId.getValue(), dayInsert,
+                    monthInsert,yearInsert);
         }
     }
 
@@ -665,23 +668,22 @@ public class PrincipalStageViewController implements Initializable {
 
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
 
-        if(tabId.equals("textMessageTab") && !nameRuleText.getText().trim().isEmpty()) {
+        if(tabId.equals("textMessageTab") && !nameRuleText.getText().trim().isEmpty())
+        {
             if(textMessageId.getText().trim().isEmpty() ){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
                 alert.setContentText("Inserisci un testo!");
                 alert.showAndWait();
             }else {
-                ActionFactory factory = new ActionTextFactory();
-                selectedAction = factory.createAction(textMessageId.getText());
+                selectedAction = new ActionText(textMessageId.getText());
                 //System.out.println(selectedAction.toString());
                 createRule();
 
             }
         }
-        else if(tabId.equals("audioTab") && !nameRuleText.getText().trim().isEmpty()){
-            ActionAudioFactory factory = new ActionAudioFactory();
-
+        else if(tabId.equals("audioTab") && !nameRuleText.getText().trim().isEmpty())
+        {
             if (fileChooserWav.getSelectedFile() == null){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
@@ -689,20 +691,21 @@ public class PrincipalStageViewController implements Initializable {
                 alert.showAndWait();
 
             }else {
-
                 File selectedFolder = fileChooserWav.getSelectedFile();
-                selectedAction = factory.createAction(selectedFolder.getPath());
+                selectedAction = new ActionAudio(selectedFolder.getPath());
                 fileChooserWav.setSelectedFile(null);
                 createRule();
             }
-        }else if(nameRuleText.getText().trim().isEmpty()){
+        }
+        else if(nameRuleText.getText().trim().isEmpty())
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setContentText("Inserisci un nome al file");
             alert.showAndWait();
         }
-        else if(tabId.equals("fileTab") && !nameRuleText.getText().trim().isEmpty()){
-
+        else if(tabId.equals("fileTab") && !nameRuleText.getText().trim().isEmpty())
+        {
             if(fileActionChooser.getValue().equals("Add String in the end")){
 
                 if (fileChooserTxt.getSelectedFile() == null){
