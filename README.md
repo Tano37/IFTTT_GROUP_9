@@ -25,6 +25,7 @@ Below you can check our documentation, in particular:
 * [FirstSprintRetrospective](https://docs.google.com/document/d/1zfLAGKisEryrYpPd2dxnsctBbLt6Tgd4xMtChPNrTew/edit?usp=drive_link)
 
 **-Second Sprint Artifacts-**
+
 *[SecondSprintBacklog](https://docs.google.com/spreadsheets/d/1bD9_ZOfFEPyzp1oblu_rukjx_H_YzaUSqJE9Sq7Gfyo/edit#gid=0)
 
 
