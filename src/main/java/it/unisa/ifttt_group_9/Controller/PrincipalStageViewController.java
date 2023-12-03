@@ -161,6 +161,14 @@ public class PrincipalStageViewController implements Initializable {
     private TextField fileActionLaunchTxt;
     @FXML
     private Label fileActionLabel;
+    @FXML
+    private Tab controlExitStatusTab;
+    @FXML
+    private TextField commandLineTextId;
+    @FXML
+    private Button directoryChoosingControllExitStatusBtn;
+    @FXML
+    private TextField valueTextId;
 
     private Trigger selectedTrigger;
     private Action selectedAction;
@@ -171,6 +179,9 @@ public class PrincipalStageViewController implements Initializable {
     private JFileChooser dirPathAction = new JFileChooser();
 
     private JFileChooser directoryChooser= new JFileChooser();
+    private JFileChooser fileChooserExitStatus= new JFileChooser();
+
+
 
     @FXML
     private TableColumn<Rule, String> triggerStatusClm;
@@ -839,5 +850,27 @@ public class PrincipalStageViewController implements Initializable {
         }
     }
 
+    @FXML
+    void directoryChoosingExitStatusBtnAction(ActionEvent event) {
+
+        // Impostazione del selettore di cartelle (invece di file)
+        fileChooserExitStatus.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("File EXE (*.exe)", "exe");
+        // Applicazione del filtro al selettore di file
+        fileChooser.setFileFilter(filter);
+        // Mostra il selettore di cartelle
+        result = fileChooser.showOpenDialog(null);
+        // Verifica se l'utente ha selezionato una cartella
+        if (result == JFileChooser.APPROVE_OPTION) {
+            // Ottieni la cartella selezionata
+            File selectedFolder = fileChooser.getSelectedFile();
+            // Stampa il percorso della cartella
+            System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
+            //selectedAction = new ActionAudio(selectedFolder.getPath());
+        } else {
+            System.out.println("Nessuna cartella selezionata.");
+        }
+
+    }
 
 }

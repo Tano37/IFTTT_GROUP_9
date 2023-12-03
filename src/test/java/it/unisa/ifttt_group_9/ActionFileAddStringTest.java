@@ -30,7 +30,7 @@ class ActionFileAddStringTest {
             // Clean up: Delete the test file
             try {
                 Files.deleteIfExists(Paths.get(testFilePath));
-                System.out.println("ciaooo");
+                //System.out.println("ciaooo");
             } catch (IOException e) {
                 e.printStackTrace(); // Handle or log the exception accordingly
             }
