@@ -1,6 +1,8 @@
 package it.unisa.ifttt_group_9.Action;
 
 import it.unisa.ifttt_group_9.Action.Action;
+import it.unisa.ifttt_group_9.Controller.PanelChooserManager;
+import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
 
 import javax.swing.*;
 import java.io.BufferedWriter;
@@ -36,8 +38,8 @@ public class ActionFileAddString implements Action {
                     bufferedWriter.write(stringToAdd);
 
 
+                    new PanelPopUPManager("StringAddition", "The string has been added").showMessage();
 
-                    JOptionPane.showConfirmDialog(null, "The string has been added", "StringAddition", JOptionPane.DEFAULT_OPTION);
                     // Close theBufferedWriter
                     bufferedWriter.close();
 

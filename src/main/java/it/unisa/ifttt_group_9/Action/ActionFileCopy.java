@@ -1,6 +1,7 @@
 package it.unisa.ifttt_group_9.Action;
 
 import it.unisa.ifttt_group_9.Action.Action;
+import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -31,11 +32,10 @@ public class ActionFileCopy implements Action {
         try {
             // Sposta il file nella nuova posizione
             Files.move(sourcePath, destinationPath.resolve(sourcePath.getFileName()), StandardCopyOption.REPLACE_EXISTING);
-            JOptionPane.showConfirmDialog(null, "The file has been copied", "FileCopy", JOptionPane.DEFAULT_OPTION);
-
+            new PanelPopUPManager(this.getClass().getName(),"The file has been copied");
         } catch (IOException e) {
             System.err.println("Error during file coping " + e.getMessage());
-            JOptionPane.showConfirmDialog(null, "The file HASN'T been copied", "FileCopy", JOptionPane.DEFAULT_OPTION);
+            new PanelPopUPManager(this.getClass().getName(),"The file HASN'T been copied");
         }
     }
 

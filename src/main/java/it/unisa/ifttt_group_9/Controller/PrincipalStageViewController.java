@@ -615,6 +615,9 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     void directoryChoosingBtnAction(ActionEvent event) {// Impostazione del selettore di cartelle (invece di file)
+        JFrame frame = new JFrame("Panel");
+        frame.setAlwaysOnTop(true);
+        JDialog dialog = new JDialog(frame, "Panel", true);
         directoryChooserTriggerFileExists
                 .setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("File WAV (*.wav)", "wav");
@@ -623,7 +626,8 @@ public class PrincipalStageViewController implements Initializable {
                 .setFileFilter(filter);
         // Mostra il selettore di cartelle
         result = directoryChooserTriggerFileExists
-                .showOpenDialog(null);
+                .showOpenDialog(dialog);
+
         // Verifica se l'utente ha selezionato una cartella
         if (result == JFileChooser.APPROVE_OPTION) {
             // Ottieni la cartella selezionata
@@ -772,13 +776,18 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     void showFileChooser(ActionEvent event) {
+
+        JFrame frame = new JFrame("Panel");
+        frame.setAlwaysOnTop(true);
+        JDialog dialog = new JDialog(frame, "Panel", true);
+
         // Impostazione del selettore di cartelle (invece di file)
         fileChooserWav.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("File WAV (*.wav)", "wav");
         // Applicazione del filtro al selettore di file
         fileChooserWav.setFileFilter(filter);
         // Mostra il selettore di cartelle
-        result = fileChooserWav.showOpenDialog(null);
+        result = fileChooserWav.showOpenDialog(dialog);
         // Verifica se l'utente ha selezionato una cartella
         if (result == JFileChooser.APPROVE_OPTION) {
             // Ottieni la cartella selezionata
@@ -793,16 +802,23 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     void destDirBtnAction(ActionEvent event){
+        JFrame frame = new JFrame("Panel");
+        frame.setAlwaysOnTop(true);
+        JDialog dialog = new JDialog(frame, "Panel", true);
         directoryChooserActionFile.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-        directoryChooserActionFile.showOpenDialog(null);
+        directoryChooserActionFile.showOpenDialog(dialog);
     }
 
     @FXML
     void filePathBtnAction(ActionEvent event){
 
+        JFrame frame = new JFrame("Panel");
+        frame.setAlwaysOnTop(true);
+        JDialog dialog = new JDialog(frame, "Panel", true);
+
         fileChooserTxt.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooserTxt.showOpenDialog(null);
+        fileChooserTxt.showOpenDialog(dialog);
 
     }
 
@@ -860,8 +876,13 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     void fileDimensionChooser(ActionEvent event){
+
+        JFrame frame = new JFrame("Panel");
+        frame.setAlwaysOnTop(true);
+        JDialog dialog = new JDialog(frame, "Panel", true);
+
         fileChooserTriggerFileDimension.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooserTriggerFileDimension.showOpenDialog(null);
+        fileChooserTriggerFileDimension.showOpenDialog(dialog);
     }
 
 
