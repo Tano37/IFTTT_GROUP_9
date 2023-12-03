@@ -24,6 +24,14 @@ Below you can check our documentation, in particular:
 
 * [FirstSprintRetrospective](https://docs.google.com/document/d/1zfLAGKisEryrYpPd2dxnsctBbLt6Tgd4xMtChPNrTew/edit?usp=drive_link)
 
+**-Second Sprint Artifacts-**
+
+* [SecondSprintBacklog](https://docs.google.com/spreadsheets/d/1bD9_ZOfFEPyzp1oblu_rukjx_H_YzaUSqJE9Sq7Gfyo/edit#gid=0)
+
+* [SecondSprintReview](https://docs.google.com/document/d/15XlL1gZ-Yak0XkwGzel8OvXpN6-hJnHM2yasSkrTV2I/edit#heading=h.ca4uuvqa0s8c)
+
+* [SecondSprintRetrospective](https://docs.google.com/document/d/1m7eObSMRymUMgdVLmM_xofN-HV2wJfSZsUAU6nx-7Jc/edit)
+
 
 >That’s been one of my mantras—focus and simplicity. Simple can be harder than complex: You have to work hard to get your thinking clean to make it simple. But it’s worth it in the end because once you get there, you can move mountains.
 >

@@ -4,6 +4,7 @@ import it.unisa.ifttt_group_9.Trigger.Trigger;
 import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 //Concrete Product (AbstractFactory)
@@ -17,8 +18,9 @@ public class TriggerFullDate implements Trigger {
     private int year;
 
     public TriggerFullDate (int hour, int minute,int dayWeek, int dayMonth, int year) throws IllegalTimeException {
-        if ((hour < 0 || hour > 23) || (minute < 0 || minute > 59) || (dayMonth<0 || dayMonth>31) )
+        if ((hour < 0 || hour > 23) || (minute < 0 || minute > 59))
             throw new IllegalTimeException();
+
         this.hour=hour;
         this.minute=minute;
         this.dayWeek=dayWeek;
@@ -43,7 +45,8 @@ public class TriggerFullDate implements Trigger {
         int yearNow=now.getYear();
 
 
-        return (hourNow == this.hour && minuteNow == this.minute && dayNow == this.dayMonth && monthNow == this.dayWeek && yearNow == this.year);
+
+        return (hourNow == this.hour && minuteNow == this.minute && dayNow == this.dayWeek && monthNow == this.dayMonth && yearNow == this.year);
     }
 
     public int getHour() {

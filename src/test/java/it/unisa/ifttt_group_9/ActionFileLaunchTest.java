@@ -11,7 +11,7 @@ public class ActionFileLaunchTest {
     @Test
     public void testExecuteAction() {
         // Replace these values with the actual path to your executable and its arguments
-        String executablePath = "\"src\\main\\resources\\it\\unisa\\ifttt_group_9\\draw.exe\"";
+        String executablePath =System.getProperty("user.dir") + "\"src\\main\\resources\\it\\unisa\\ifttt_group_9\\draw.exe\"";
         String arguments = "";
 
         // Create an instance of ActionFileLaunch

@@ -1,6 +1,7 @@
 package it.unisa.ifttt_group_9.Action;
 
 import it.unisa.ifttt_group_9.Action.Action;
+import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class ActionFileLaunch implements Action {
 
             // Optionally, you can wait for the process to complete
             int exitCode = process.waitFor();
-            JOptionPane.showConfirmDialog(null, "Exit Code: " + exitCode, "FileLaunch", JOptionPane.DEFAULT_OPTION);
+            new PanelPopUPManager(this.getClass().getName(),"Exit Code: " + exitCode);
 
 
         } catch (IOException | InterruptedException e) {

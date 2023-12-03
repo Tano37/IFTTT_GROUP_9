@@ -1,5 +1,7 @@
 package it.unisa.ifttt_group_9.Action;
 
+import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
+
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.io.File;
@@ -32,7 +34,7 @@ public class ActionAudio implements Action {
         new Thread(() -> playAudio(filePath)).start();
 
         // Mostra il dialogo pop-up
-        int scelta = JOptionPane.showConfirmDialog(null, name, "Action", JOptionPane.DEFAULT_OPTION);
+        int scelta = new PanelPopUPManager("AudioAction", name).showMessage();
 
         // Verifica se l'utente ha premuto "OK"
         if (scelta == JOptionPane.OK_OPTION) {

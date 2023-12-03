@@ -6,6 +6,31 @@ public class TriggerFileDimension implements Trigger {
 
     private String filePath;
     private long maxSize;
+    public TriggerFileDimension(String filePath, long maxSize) {
+        this.filePath = filePath;
+        this.maxSize = maxSize;
+    }
+
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public long getMaxSize() {
+        return maxSize;
+    }
+
+    public void setMaxSize(long maxSize) {
+        this.maxSize = maxSize;
+    }
+
+
+
+
 
     @Override
     public boolean evaluate() {
@@ -24,13 +49,5 @@ public class TriggerFileDimension implements Trigger {
             System.out.println(filePath + " doesn't exists");
             return false;
         }
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
-    public void setMaxSize(long maxSize) {
-        this.maxSize = maxSize;
     }
 }
