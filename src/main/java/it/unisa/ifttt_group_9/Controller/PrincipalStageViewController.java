@@ -92,6 +92,8 @@ public class PrincipalStageViewController implements Initializable {
     private Tab fullDateTab;
     @FXML
     private DatePicker dataPickerId= new DatePicker();
+    @FXML
+    private Button backSleepBtn;
 
     @FXML
     private ChoiceBox<Integer> hoursChoiceId;
@@ -501,6 +503,12 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane1.visibleProperty().setValue(false);
         ancorPane4.visibleProperty().setValue(true);
     }
+    @FXML
+    void backSleepAction(ActionEvent event){
+        ancorPane1.visibleProperty().setValue(true);
+        ancorPane4.visibleProperty().setValue(false);
+
+    }
 
     @FXML
     void confirmSleepAction(ActionEvent event) {
@@ -592,14 +600,14 @@ public class PrincipalStageViewController implements Initializable {
             }
 
         } else if (tabId.equals("fullDateTab")) {
-                LocalDate fullDateInsert= dataPickerId.getValue();
+            LocalDate fullDateInsert= dataPickerId.getValue();
 
-                int dayInsert=fullDateInsert.getDayOfMonth();
-                int monthInsert=fullDateInsert.getMonth().getValue();
-                int yearInsert=fullDateInsert.getYear();
-                int hourchoise= hoursChoiceId.getValue();
-                int minutechoise= minuteChoiceId.getValue();
-                selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),dayInsert,monthInsert,yearInsert);
+            int dayInsert=fullDateInsert.getDayOfMonth();
+            int monthInsert=fullDateInsert.getMonth().getValue();
+            int yearInsert=fullDateInsert.getYear();
+            int hourchoise= hoursChoiceId.getValue();
+            int minutechoise= minuteChoiceId.getValue();
+            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),dayInsert,monthInsert,yearInsert);
         }
     }
 

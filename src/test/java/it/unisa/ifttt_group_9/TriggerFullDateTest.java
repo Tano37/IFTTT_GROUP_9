@@ -11,55 +11,48 @@ import static org.junit.jupiter.api.Assertions.*;
 class TriggerFullDateTest {
 
     @Test
-    void evaluateShouldReturnTrueWhenDateTimeMatches() throws IllegalTimeException {
-
+    void evaluateTriggerOnMatchingDate() throws IllegalTimeException {
+        // Imposta una data e un'ora che corrispondono a "now" per il test
         int testHour = LocalDateTime.now().getHour();
         int testMinute = LocalDateTime.now().getMinute();
-        int testDayWeek = LocalDateTime.now().getDayOfWeek().getValue();
-        int testDayMonth = LocalDateTime.now().getDayOfMonth();
+        int testDay = LocalDateTime.now().getDayOfMonth(); // Lunedì
+        int testMonth = LocalDateTime.now().getMonth().getValue();
         int testYear = LocalDateTime.now().getYear();
 
-        TriggerFullDate trigger = new TriggerFullDate(testHour, testMinute, testDayWeek, testDayMonth, testYear);
+        // Crea un'istanza di TriggerFullDate con la data e l'ora di test
+        TriggerFullDate trigger = new TriggerFullDate(testHour, testMinute, testDay, testMonth, testYear);
 
-        assertTrue(trigger.evaluate());
-    }
+        // Valuta il trigger sulla data impostata
+        boolean result = trigger.evaluate();
 
-    /*@Test
-    void evaluateShouldReturnFalseWhenDateTimeDoesNotMatch() throws IllegalTimeException {
-        int testHour = 12;
-        int testMinute = 30;
-        int testDayWeek = 2;
-        int testDayMonth = 15;
-        int testYear = 2023;
-
-        TriggerFullDate trigger = new TriggerFullDate(testHour, testMinute, testDayWeek, testDayMonth, testYear);
-
-        // Change the current date to a different one
-        //setCurrentDateTime(trigger, 2023, 3, 1, 10, 0);
-
-        assertFalse(trigger.evaluate());
+        // Verifica che il risultato sia vero, poiché la data corrisponde
+        assertTrue(result);
     }
 
     @Test
-    void evaluateShouldReturnFalseWhenDateTimeMatchesButHourIsDifferent() throws IllegalTimeException {
-        int testHour = 12;
-        int testMinute = 30;
-        int testDayWeek = 2;
-        int testDayMonth = 15;
+    void evaluateTriggerOnNonMatchingDate() throws IllegalTimeException {
+        // Imposta una data e un'ora che NON corrispondono a "now" per il test
+        int testHour = 10;
+        int testMinute = 45;
+        int testDayOfWeek = 4; // Giovedì
+        int testDayOfMonth = 20;
         int testYear = 2023;
 
-        TriggerFullDate trigger = new TriggerFullDate(testHour, testMinute, testDayWeek, testDayMonth, testYear);
+        // Crea un'istanza di TriggerFullDate con la data e l'ora di test
+        TriggerFullDate trigger = new TriggerFullDate(testHour, testMinute, testDayOfWeek, testDayOfMonth, testYear);
 
-        // Change the current hour to make it different
-        //setCurrentDateTime(trigger, 2023, 2, 15, 13, 0);
+        // Valuta il trigger sulla data impostata
+        boolean result = trigger.evaluate();
 
-        assertFalse(trigger.evaluate());
+        // Verifica che il risultato sia falso, poiché la data NON corrisponde
+        assertFalse(result);
     }
 
-    // Add more tests as needed...
-
-    // Helper method to set the current date and time for testing
-    /*private void setCurrentDateTime(TriggerFullDate trigger, int year, int month, int dayOfMonth, int hour, int minute) {
-        trigger.setCurrentDateTime(LocalDateTime.of(year, month, dayOfMonth, hour, minute));
-    }*/
+    @Test
+    void constructorWithInvalidTimeThrowsException() {
+        // Prova a creare un'istanza con un'ora, un minuto o un giorno del mese non validi
+        assertThrows(IllegalTimeException.class, () -> new TriggerFullDate(-1, 30, 2, 15, 2023));
+        assertThrows(IllegalTimeException.class, () -> new TriggerFullDate(15, 60, 2, 15, 2023));
+        assertThrows(IllegalTimeException.class, () -> new TriggerFullDate(15, 30, 2, 40, 2023));
+    }
 }

@@ -6,6 +6,10 @@ public class TriggerFileDimension implements Trigger {
 
     private String filePath;
     private long maxSize;
+    public TriggerFileDimension(String filePath, long maxSize) {
+        this.filePath = filePath;
+        this.maxSize = maxSize;
+    }
 
 
     public String getFilePath() {
@@ -24,12 +28,9 @@ public class TriggerFileDimension implements Trigger {
         this.maxSize = maxSize;
     }
 
-    private long maxSize;
+    //private long maxSize;
 
-    public TriggerFileDimension(String filePath, long maxSize) {
-        this.filePath = filePath;
-        this.maxSize = maxSize;
-    }
+
 
     @Override
     public boolean evaluate() {
@@ -50,11 +51,11 @@ public class TriggerFileDimension implements Trigger {
         }
     }
 
-    public void setFilePath(String filePath) {
+   /* public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
 
     public void setMaxSize(long maxSize) {
         this.maxSize = maxSize;
-    }
+    }*/
 }
