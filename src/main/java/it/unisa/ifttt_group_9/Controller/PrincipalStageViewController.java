@@ -10,6 +10,7 @@ import it.unisa.ifttt_group_9.Trigger.TriggerFactory;
 import it.unisa.ifttt_group_9.Trigger.TriggerFile;
 import it.unisa.ifttt_group_9.Trigger.TriggerFileDimension;
 import it.unisa.ifttt_group_9.Trigger.*;
+import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -203,6 +204,11 @@ public class PrincipalStageViewController implements Initializable {
         initializeTable();
 
         dataPickerId.setValue(LocalDate.now());
+
+        dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
+
+
+
 
         rulesList= FXCollections.observableArrayList();
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -607,6 +613,9 @@ public class PrincipalStageViewController implements Initializable {
             int yearInsert=fullDateInsert.getYear();
             int hourchoise= hoursChoiceId.getValue();
             int minutechoise= minuteChoiceId.getValue();
+
+
+
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),dayInsert,monthInsert,yearInsert);
         }
     }
@@ -883,6 +892,16 @@ public class PrincipalStageViewController implements Initializable {
 
         fileChooserTriggerFileDimension.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooserTriggerFileDimension.showOpenDialog(dialog);
+    }
+
+    public static class DatePickerDateCell extends javafx.scene.control.DateCell {
+        @Override
+        public void updateItem(LocalDate item, boolean empty) {
+            super.updateItem(item, empty);
+
+            // Disabilita la selezione delle date precedenti alla data odierna
+            setDisable(item.isBefore(LocalDate.now()));
+        }
     }
 
 
