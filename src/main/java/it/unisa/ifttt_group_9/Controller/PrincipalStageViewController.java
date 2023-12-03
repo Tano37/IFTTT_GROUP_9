@@ -550,7 +550,7 @@ public class PrincipalStageViewController implements Initializable {
         }
         else if(tabId.equals("existingFileTab"))
         {
-            if (directoryChooserTriggerFileExists.getSelectedFile() == null || fileNameLbl.getText() == null) {
+            if (directoryChooserTriggerFileExists.getSelectedFile() == null || textIsNotValid(fileNameLbl.getText()) ) {
                 ancorPane2.visibleProperty().setValue(true);
                 ancorPane3.visibleProperty().setValue(false);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -564,7 +564,7 @@ public class PrincipalStageViewController implements Initializable {
         }
         else if(tabId.equals("fileDimensionTab"))
         {
-            if (fileChooserTriggerFileDimension.getSelectedFile() == null || maxFileDimensionTxt.getText() == null) {
+            if (fileChooserTriggerFileDimension.getSelectedFile() == null || textIsNotValid(maxFileDimensionTxt.getText())) {
                 ancorPane2.visibleProperty().setValue(true);
                 ancorPane3.visibleProperty().setValue(false);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -675,10 +675,10 @@ public class PrincipalStageViewController implements Initializable {
         {
             if(fileActionChooser.getValue().equals("Add String in the end")){
 
-                if (fileChooserTxt.getSelectedFile() == null){
+                if (fileChooserTxt.getSelectedFile() == null || textIsNotValid(fileActionLaunchTxt.getText())){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Errore");
-                    alert.setContentText("Inserisci il file!");
+                    alert.setTitle("Error");
+                    alert.setContentText("Compile the fields correctly!");
                     alert.showAndWait();
                 }
                 else{
@@ -694,14 +694,14 @@ public class PrincipalStageViewController implements Initializable {
 
                 if (fileChooserTxt.getSelectedFile() == null){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Errore");
-                    alert.setContentText("Inserisci il file");
+                    alert.setTitle("Error");
+                    alert.setContentText("Select source file!");
                     alert.showAndWait();
                 }
                 else if (directoryChooserActionFile.getSelectedFile() == null){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Errore");
-                    alert.setContentText("Inserisci la cartella di destinazione!");
+                    alert.setTitle("Error");
+                    alert.setContentText("Select destination file!");
                     alert.showAndWait();
                 }
                 else{
@@ -718,8 +718,8 @@ public class PrincipalStageViewController implements Initializable {
 
                 if (fileChooserTxt.getSelectedFile() == null){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Errore");
-                    alert.setContentText("Inserisci il file!");
+                    alert.setTitle("Error");
+                    alert.setContentText("Select the file to delete!");
                     alert.showAndWait();
                 }
                 else{
@@ -730,10 +730,10 @@ public class PrincipalStageViewController implements Initializable {
                 }
             }else if(fileActionChooser.getValue().equals("Launch a Program")){
 
-                if (fileChooserTxt.getSelectedFile() == null){
+                if (fileChooserTxt.getSelectedFile() == null || textIsNotValid(fileActionLaunchTxt.getText())){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Errore");
-                    alert.setContentText("Inserisci il file!");
+                    alert.setTitle("Error");
+                    alert.setContentText("Select the file!");
                     alert.showAndWait();
                 }
                 else{
@@ -858,6 +858,13 @@ public class PrincipalStageViewController implements Initializable {
 
         fileChooserTriggerFileDimension.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooserTriggerFileDimension.showOpenDialog(dialog);
+    }
+
+    public boolean textIsNotValid(String text){
+        if (text == null || text.equals(""))
+            return true;
+        else
+            return false;
     }
 
     public void fieldsSet(){
