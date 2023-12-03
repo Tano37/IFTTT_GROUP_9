@@ -28,7 +28,7 @@ public class TriggerFileDimension implements Trigger {
         this.maxSize = maxSize;
     }
 
-    //private long maxSize;
+
 
 
 
@@ -50,12 +50,4 @@ public class TriggerFileDimension implements Trigger {
             return false;
         }
     }
-
-   /* public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
-    public void setMaxSize(long maxSize) {
-        this.maxSize = maxSize;
-    }*/
 }
