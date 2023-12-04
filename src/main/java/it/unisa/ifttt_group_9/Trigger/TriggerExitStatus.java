@@ -38,11 +38,11 @@ public class TriggerExitStatus implements Trigger {
         myTrigger.setOnSucceeded(e -> {
             exitValue = myTrigger.getValue(); // Assegna il valore alla variabile di istanza
             evaluationResult.set(exitValue == exitExpected);
-            System.out.println(exitValue);
+            System.out.println("Usacita: " + exitValue + ", Atteso: " + exitExpected);
         });
         myTrigger.start();
 
-        System.out.println(evaluationResult.get());
+        System.out.println("Risultato confronto: " + evaluationResult.get());
 
         return evaluationResult.get();
     }
