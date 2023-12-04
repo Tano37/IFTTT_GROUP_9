@@ -2,6 +2,7 @@ package it.unisa.ifttt_group_9.Controller;
 
 import it.unisa.ifttt_group_9.Action.Action;
 import it.unisa.ifttt_group_9.Action.*;
+import it.unisa.ifttt_group_9.Counter;
 import it.unisa.ifttt_group_9.Rule.Rule;
 import it.unisa.ifttt_group_9.Rule.RuleExecuteService;
 import it.unisa.ifttt_group_9.Rule.RuleManager;
@@ -71,6 +72,10 @@ public class PrincipalStageViewController implements Initializable {
     private Button directoryChoosingBtn;
     @FXML
     private Button fileDimensionChooser;
+    @FXML
+    private Button counterBtn;
+    @FXML
+    private Button backCounterBtn;
 
     // StackPane and AnchorPanes
     @FXML
@@ -83,6 +88,10 @@ public class PrincipalStageViewController implements Initializable {
     private AnchorPane ancorPane3;
     @FXML
     private AnchorPane ancorPane4;
+    @FXML
+    private AnchorPane ancorPaneCounterTable;
+    @FXML
+    private AnchorPane ancorPaneAddCounter;
 
     // TableView and TableColumns
     @FXML
@@ -93,6 +102,16 @@ public class PrincipalStageViewController implements Initializable {
     private TableColumn<Rule, String> ruleClmStatus;
     @FXML
     private TableColumn<Rule, String> triggerStatusClm;
+    @FXML
+    private TableView<Counter> counterTable;
+    @FXML
+    private TableColumn<Counter,String> counterClm;
+    @FXML
+    private TableColumn<Counter,Integer> valueCounterClm;
+    @FXML
+    private Button addCounterBtn;
+    @FXML
+    private Button deleteCounterBtn;
 
     // TabPane and Tabs
     @FXML
@@ -858,6 +877,33 @@ public class PrincipalStageViewController implements Initializable {
 
         fileChooserTriggerFileDimension.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooserTriggerFileDimension.showOpenDialog(dialog);
+    }
+
+    @FXML
+    void counterAction(ActionEvent event){
+       /* ancorPane1.visibleProperty().setValue(false);
+        ancorPaneCounterTable.visibleProperty().setValue(true);*/
+
+    }
+    @FXML
+    void backCounterAction(ActionEvent event){
+       /* ancorPaneCounterTable.visibleProperty().setValue(false);
+        ancorPane1.visibleProperty().setValue(true);*/
+        System.out.println("ciao");
+
+    }
+    @FXML
+    void addCounterAction(ActionEvent event){
+       /* ancorPaneCounterTable.visibleProperty().setValue(false);
+        ancorPaneAddCounter.visibleProperty().setValue(true);*/
+        System.out.println("ciao");
+
+
+    }
+    @FXML
+    void deleteCounterAction(ActionEvent event){
+        System.out.println("ciao");
+
     }
 
     public boolean textIsNotValid(String text){
