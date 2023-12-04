@@ -46,7 +46,7 @@ public class TriggerFileDimension implements Trigger {
             return fileSize > maxSize;
 
         } else {
-            System.out.println(filePath + " doesn't exists");
+           // System.out.println(filePath + " doesn't exists");
             return false;
         }
     }
