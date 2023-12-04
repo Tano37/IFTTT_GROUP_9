@@ -206,6 +206,7 @@ public class PrincipalStageViewController implements Initializable {
         rulesList= FXCollections.observableArrayList();
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
+
         confirmBtn.disableProperty().bind(nameRuleText.textProperty().isEmpty());
         activateRuleBtn.disableProperty().setValue(true);
         deactivateRuleBtn.disableProperty().setValue(true);
@@ -403,6 +404,7 @@ public class PrincipalStageViewController implements Initializable {
         // Impostazione della ObservableList come modello della TableView
         counterTable.setItems(counterList);
         Bindings.bindContent(CounterManager.getInstance().getCounterList(), counterList);
+
     }
 
 
