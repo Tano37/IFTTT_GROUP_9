@@ -41,7 +41,9 @@ public class TriggerExitStatus implements Trigger {
 
         TriggerExecuteService myTrigger = new TriggerExecuteService(this);
         myTrigger.setOnSucceeded(e -> {
-            System.out.println("Risultato esecuzione: "+ this.getExitValue()+"risultato confrontato="+ this.getExitExpected());
+
+            //System.out.println("Risultato esecuzione: "+ this.getExitValue()+"risultato confrontato="+ this.getExitExpected());
+
         });
         myTrigger.start();
 
