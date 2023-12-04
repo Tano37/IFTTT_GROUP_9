@@ -3,6 +3,7 @@ package it.unisa.ifttt_group_9.Controller;
 import it.unisa.ifttt_group_9.Action.Action;
 import it.unisa.ifttt_group_9.Action.*;
 import it.unisa.ifttt_group_9.Counter;
+import it.unisa.ifttt_group_9.CounterManager;
 import it.unisa.ifttt_group_9.Rule.Rule;
 import it.unisa.ifttt_group_9.Rule.RuleExecuteService;
 import it.unisa.ifttt_group_9.Rule.RuleManager;
@@ -23,7 +24,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import javax.swing.*;
@@ -186,6 +189,8 @@ public class PrincipalStageViewController implements Initializable {
     private Trigger selectedTrigger;
     private Action selectedAction;
     private ObservableList<Rule> rulesList;
+
+    private ObservableList<Counter> counterList = FXCollections.observableArrayList();
     private int result = -1;
     private Rule selectedRuleForDeactivation;
 
@@ -193,7 +198,8 @@ public class PrincipalStageViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeChoiceBox();
-        initializeTable();
+        //initializeTable();
+        initializecounterTable();
 
         dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
 
@@ -383,11 +389,22 @@ public class PrincipalStageViewController implements Initializable {
         monthChoiceId.setValue(1);
     }
 
-    private void initializeTable() {
-        // Inizializza la tabella e le colonne
-        // ...
+    private void initializecounterTable() {
+        // Creazione delle colonne
+        TableColumn<Counter, String> counterClm = new TableColumn<>("name");
+        counterClm.setCellValueFactory(new PropertyValueFactory<>("name"));
 
+        TableColumn<Counter, Integer> valueCounterClm = new TableColumn<>("value");
+        valueCounterClm.setCellValueFactory(new PropertyValueFactory<>("value"));
+
+        // Associare le colonne alla TableView
+        counterTable.getColumns().addAll(counterClm, valueCounterClm);
+
+        // Impostazione della ObservableList come modello della TableView
+        counterTable.setItems(counterList);
+        Bindings.bindContent(CounterManager.getInstance().getCounterList(), counterList);
     }
+
 
     private TableColumn<Rule, Boolean> getRuleBooleanTableColumn() {
         TableColumn<Rule, Boolean> statusColumn = new TableColumn<>("Status");
@@ -881,28 +898,84 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     void counterAction(ActionEvent event){
-       /* ancorPane1.visibleProperty().setValue(false);
-        ancorPaneCounterTable.visibleProperty().setValue(true);*/
+
+        ancorPane1.visibleProperty().setValue(false);
+        ancorPaneCounterTable.visibleProperty().setValue(true);
 
     }
     @FXML
     void backCounterAction(ActionEvent event){
-       /* ancorPaneCounterTable.visibleProperty().setValue(false);
-        ancorPane1.visibleProperty().setValue(true);*/
+        ancorPaneCounterTable.visibleProperty().setValue(false);
+        ancorPane1.visibleProperty().setValue(true);
         System.out.println("ciao");
 
     }
     @FXML
-    void addCounterAction(ActionEvent event){
-       /* ancorPaneCounterTable.visibleProperty().setValue(false);
-        ancorPaneAddCounter.visibleProperty().setValue(true);*/
-        System.out.println("ciao");
+    void addCounterAction(ActionEvent event) {
+       // Counter count=null;
+        // Creazione dei campi di testo
+        TextField name = new TextField();
+        TextField value = new TextField();
+
+// Creazione delle etichette
+        Label nameLabel = new Label("Name:");
+        Label valueLabel = new Label("Value:");
+
+// Creazione del contenitore HBox per ciascuna coppia etichetta-campo di testo
+        HBox nameBox = new HBox(nameLabel, name);
+        HBox valueBox = new HBox(valueLabel, value);
+
+// Creazione del contenitore VBox per contenere tutte le coppie
+        VBox container = new VBox(nameBox, valueBox);
+
+// Creazione della finestra di dialogo
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Create a counter");
+        dialog.setHeaderText("Insert name and value:");
+
+// Impostazione del contenitore come contenuto della finestra di dialogo
+        dialog.getDialogPane().setContent(container);
+
+// Ottieni il pulsante OK
+        Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
+        okButton.setDisable(true); // Disabilita il pulsante OK all'inizio
+
+// Aggiungi un listener per il cambiamento nel campo di testo del valore
+        value.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                // Prova a convertire il testo in un numero
+                Integer.parseInt(newValue);
+                okButton.setDisable(false); // Abilita il pulsante OK se il testo può essere convertito in un numero
+            } catch (NumberFormatException e) {
+                // Il testo non può essere convertito in un numero
+                okButton.setDisable(true); // Disabilita il pulsante OK
+            }
+        });
+
+// Mostra la finestra di dialogo e attendi la sua chiusura
+        dialog.showAndWait().ifPresent(response -> {
+            // response contiene il valore inserito dall'utente (OK è stato premuto)
+            String enteredName = name.getText();
+            Integer enteredValue = Integer.parseInt(value.getText());
+
+            // Ora puoi utilizzare enteredName e enteredValue come desideri
+            Counter count = new Counter(enteredName, enteredValue);
+            if (counterList != null) {
+                System.out.println("ciasi");
+                counterList.add(count);
+                System.out.println("dshuisaudhsaouidhosaiuhdioasuhdiouashdiuha");
+            }
+        });
+
 
 
     }
+
     @FXML
     void deleteCounterAction(ActionEvent event){
-        System.out.println("ciao");
+        ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
+        counterList.removeAll(selectedItems);
+
 
     }
 
