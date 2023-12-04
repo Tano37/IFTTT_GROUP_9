@@ -37,7 +37,7 @@ public class TriggerExitStatus implements Trigger {
         TriggerExecuteService myTrigger = new TriggerExecuteService(this);
         myTrigger.setOnSucceeded(e -> {
             exitValue = myTrigger.getValue(); // Assegna il valore alla variabile di istanza
-            evaluationResult.set(exitValue == exitExpected);
+            evaluationResult.set(((Integer) exitValue).equals((Integer) exitExpected));
             System.out.println("Usacita: " + exitValue + ", Atteso: " + exitExpected);
         });
         myTrigger.start();
