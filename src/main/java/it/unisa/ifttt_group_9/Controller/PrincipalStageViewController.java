@@ -589,7 +589,7 @@ public class PrincipalStageViewController implements Initializable {
             }
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(), numberDay);
         } else if (tabId.equals("monthTab")) {
-           /* minuteChoiceId.setValue(0);
+            /* minuteChoiceId.setValue(0);
             hourChoiceIdSleep.setValue(0);*/
             //System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(), 0, monthChoiceId.getValue());
@@ -629,6 +629,7 @@ public class PrincipalStageViewController implements Initializable {
                 alert.setContentText("Compile the fields correctly!");
                 alert.showAndWait();
             }else{
+
                 selectedTrigger = new TriggerExitStatus(fileChooserExitStatus.getSelectedFile().getAbsolutePath(),
                         commandLineTextId.getText(),Integer.parseInt(valueTextId.getText()));
             }

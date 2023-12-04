@@ -1,7 +1,6 @@
 package it.unisa.ifttt_group_9.Trigger;
 
-import java.io.IOException;
-import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TriggerExitStatus implements Trigger {
     private String stringPath;
@@ -14,29 +13,31 @@ public class TriggerExitStatus implements Trigger {
         this.exitStatus = exitStatus;
     }
 
+
+    public String getStringPath() {
+        return stringPath;
+    }
+
+    public String getCommandLine() {
+        return commandLine;
+    }
+
+    public int getExitStatus() {
+        return exitStatus;
+    }
+
     @Override
     public boolean evaluate() {
-        try {
-            // Creare il processo usando ProcessBuilder
-            ProcessBuilder processBuilder = new ProcessBuilder();
 
-            // Aggiungere il percorso dell'eseguibile e gli eventuali argomenti
-            processBuilder.command(Arrays.asList(this.stringPath, this.commandLine));
 
-            // Eseguire il processo
-            Process process = processBuilder.start();
+        TriggerExecuteService myTrigger = new TriggerExecuteService(this);
+        myTrigger.setOnSucceeded(e->{
+                myTrigger.getValue();
+                });
+        myTrigger.start();
 
-            // Attendere che il processo termini
-            int exitStatus1 = process.waitFor();
-
-            // Controllare se l'exit status è uguale al valore atteso
-            return exitStatus1 == this.exitStatus;
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            System.out.println("Il programma ha lanciato un  eccezione; non può essere eseguito!");
-            return false;
-        }
+        //return exitStatus1 == this.exitStatus;
+        return false;
 
     }
 }
