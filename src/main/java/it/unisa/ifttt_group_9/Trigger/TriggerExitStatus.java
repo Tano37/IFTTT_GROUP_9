@@ -14,6 +14,11 @@ public class TriggerExitStatus implements Trigger {
         this.exitExpected = exitStatus;
     }
 
+
+    public void setExitValue(int exitValue) {
+        this.exitValue = exitValue;
+    }
+
     public String getStringPath() {
         return stringPath;
     }
@@ -36,14 +41,12 @@ public class TriggerExitStatus implements Trigger {
 
         TriggerExecuteService myTrigger = new TriggerExecuteService(this);
         myTrigger.setOnSucceeded(e -> {
-            exitValue = myTrigger.getValue(); // Assegna il valore alla variabile di istanza
-            evaluationResult.set(exitValue == exitExpected);
-            System.out.println("Usacita: " + exitValue + ", Atteso: " + exitExpected);
+            System.out.println("Risultato esecuzione: "+ this.getExitValue()+"risultato confrontato="+ this.getExitExpected());
         });
         myTrigger.start();
 
-        System.out.println("Risultato confronto: " + evaluationResult.get());
 
-        return evaluationResult.get();
+
+        return this.getExitExpected()==this.getExitValue();
     }
 }

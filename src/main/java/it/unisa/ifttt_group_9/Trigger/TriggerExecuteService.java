@@ -3,10 +3,9 @@ package it.unisa.ifttt_group_9.Trigger;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-import java.io.IOException;
 import java.util.Arrays;
 
-public class TriggerExecuteService extends Service<Integer> {
+public class TriggerExecuteService extends Service<Void> {
     private TriggerExitStatus triggerSelected;
 
     public TriggerExecuteService(TriggerExitStatus triggerSelected) {
@@ -15,10 +14,10 @@ public class TriggerExecuteService extends Service<Integer> {
 
 
     @Override
-    protected Task<Integer> createTask() {
-        return new Task<Integer>() {
+    protected Task<Void> createTask() {
+        return new Task<>() {
             @Override
-            protected Integer call() throws Exception {
+            protected Void call() throws Exception {
                 int exitStatus1;
 
                     ProcessBuilder processBuilder = new ProcessBuilder();
@@ -28,12 +27,10 @@ public class TriggerExecuteService extends Service<Integer> {
 
                     // Eseguire il processo
                     Process process = processBuilder.start();
-
-                    // Attendere che il processo termini
-                    //System.out.println(process.waitFor());
+                    triggerSelected.setExitValue(process.waitFor());
 
 
-                return process.waitFor();
+                return null;
             }
         };
     }
