@@ -5,14 +5,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class TriggerExitStatus implements Trigger {
     private String stringPath;
     private String commandLine;
-    private int exitStatus;
+    private int exitExpected;
+    private int exitValue; // Variabile di istanza per memorizzare il valore restituito
 
     public TriggerExitStatus(String stringPath, String commandLine, int exitStatus) {
         this.stringPath = stringPath;
         this.commandLine = commandLine;
-        this.exitStatus = exitStatus;
+        this.exitExpected = exitStatus;
     }
-
 
     public String getStringPath() {
         return stringPath;
@@ -22,22 +22,28 @@ public class TriggerExitStatus implements Trigger {
         return commandLine;
     }
 
-    public int getExitStatus() {
-        return exitStatus;
+    public int getExitExpected() {
+        return exitExpected;
+    }
+
+    public int getExitValue() {
+        return exitValue;
     }
 
     @Override
     public boolean evaluate() {
-
+        AtomicBoolean evaluationResult = new AtomicBoolean(false);
 
         TriggerExecuteService myTrigger = new TriggerExecuteService(this);
-        myTrigger.setOnSucceeded(e->{
-                myTrigger.getValue();
-                });
+        myTrigger.setOnSucceeded(e -> {
+            exitValue = myTrigger.getValue(); // Assegna il valore alla variabile di istanza
+            evaluationResult.set(exitValue == exitExpected);
+            System.out.println(exitValue);
+        });
         myTrigger.start();
 
-        //return exitStatus1 == this.exitStatus;
-        return false;
+        System.out.println(evaluationResult.get());
 
+        return evaluationResult.get();
     }
 }
