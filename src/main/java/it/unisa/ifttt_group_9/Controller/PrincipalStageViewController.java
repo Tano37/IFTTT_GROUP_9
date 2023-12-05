@@ -623,7 +623,9 @@ public class PrincipalStageViewController implements Initializable {
                 changeAncorPane2_3();
             }
 
-        } else if (tabId.equals("fullDateTab")) {
+        }
+        else if (tabId.equals("fullDateTab"))
+        {
             LocalDate fullDateInsert= dataPickerId.getValue();
             int dayInsert=fullDateInsert.getDayOfMonth();
             int monthInsert=fullDateInsert.getMonth().getValue();
@@ -633,7 +635,9 @@ public class PrincipalStageViewController implements Initializable {
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(),
                     minuteChoiceId.getValue(),dayInsert,monthInsert,yearInsert);
             changeAncorPane2_3();
-        } else if (tabId.equals("controlExitStatusTab")) {
+        }
+        else if (tabId.equals("controlExitStatusTab"))
+        {
             if (fileChooserExitStatus.getSelectedFile() == null || valueTextId.getText().isEmpty() ) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
