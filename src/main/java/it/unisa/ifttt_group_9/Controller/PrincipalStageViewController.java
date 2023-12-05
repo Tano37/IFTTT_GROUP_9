@@ -567,10 +567,14 @@ public class PrincipalStageViewController implements Initializable {
         selectedTrigger = null;
     }
 
-    @FXML
-    void continueAction(ActionEvent event) {
+    public void changeAncorPane2_3() {
         ancorPane2.visibleProperty().setValue(false);
         ancorPane3.visibleProperty().setValue(true);
+    }
+
+    @FXML
+    void continueAction(ActionEvent event) {
+
 
         String tabId = tabPane1.getSelectionModel().getSelectedItem().getId();
         TriggerFactory factory = new TriggerFactory();
@@ -578,6 +582,7 @@ public class PrincipalStageViewController implements Initializable {
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue());
             /*questa variabile selectedTrigger andrà riazzerata una volta creata definitivamente la regola
             e alla regola andrà messo il check che i campi trigger e action siano diversi da null*/
+            changeAncorPane2_3();
         } else if (tabId.equals("dayTab")) {
             int numberDay = 0;
             for (DayOfWeek day : DayOfWeek.values()) {
@@ -588,11 +593,13 @@ public class PrincipalStageViewController implements Initializable {
                 }
             }
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(), numberDay);
+            changeAncorPane2_3();
         } else if (tabId.equals("monthTab")) {
             /* minuteChoiceId.setValue(0);
             hourChoiceIdSleep.setValue(0);*/
             //System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
             selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(), 0, monthChoiceId.getValue());
+            changeAncorPane2_3();
         } else if(tabId.equals("existingFileTab")) {
             if (directoryChooserTriggerFileExists.getSelectedFile() == null || fileNameLbl.getText() == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -602,6 +609,7 @@ public class PrincipalStageViewController implements Initializable {
             } else {
                 selectedTrigger = new TriggerFile(directoryChooserTriggerFileExists
                         .getSelectedFile().getAbsolutePath(), fileNameLbl.getText());
+                changeAncorPane2_3();
             }
         }else if(tabId.equals("fileDimensionTab")){
             if (fileChooserTriggerFileDimension.getSelectedFile() == null || maxFileDimensionTxt.getText() == null) {
@@ -612,6 +620,7 @@ public class PrincipalStageViewController implements Initializable {
             }else{
                 selectedTrigger= new TriggerFileDimension(fileChooserTriggerFileDimension
                         .getSelectedFile().getAbsolutePath(), Long.parseLong(maxFileDimensionTxt.getText()));
+                changeAncorPane2_3();
             }
 
         } else if (tabId.equals("fullDateTab")) {
@@ -621,9 +630,11 @@ public class PrincipalStageViewController implements Initializable {
             int yearInsert=fullDateInsert.getYear();
             int hourchoise= hoursChoiceId.getValue();
             int minutechoise= minuteChoiceId.getValue();
-            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(),dayInsert,monthInsert,yearInsert);
+            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(),
+                    minuteChoiceId.getValue(),dayInsert,monthInsert,yearInsert);
+            changeAncorPane2_3();
         } else if (tabId.equals("controlExitStatusTab")) {
-            if (fileChooserExitStatus.getSelectedFile() == null || valueTextId.getText() == null) {
+            if (fileChooserExitStatus.getSelectedFile() == null || valueTextId.getText().isEmpty() ) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
                 alert.setContentText("Compile the fields correctly!");
@@ -632,6 +643,7 @@ public class PrincipalStageViewController implements Initializable {
 
                 selectedTrigger = new TriggerExitStatus(fileChooserExitStatus.getSelectedFile().getAbsolutePath(),
                         commandLineTextId.getText(),Integer.parseInt(valueTextId.getText()));
+                changeAncorPane2_3();
             }
             
         }
