@@ -599,8 +599,9 @@ public class PrincipalStageViewController implements Initializable {
             selectedTrigger =new TriggerFullDate(hoursChoiceId.getValue(), minuteChoiceId.getValue(), dayInsert,
                     monthInsert,yearInsert);
         }
-        else if (tabId.equals("controlExitStatusTab")) {
-            if (fileChooserExitStatus.getSelectedFile() == null || valueTextId.getText().isEmpty() ) {
+        else if (tabId.equals("controlExitStatusTab"))
+        {
+            if (fileChooserExitStatus.getSelectedFile() == null || textIsNotValid(valueTextId.getText()) ) {
                 ancorPane2.visibleProperty().setValue(true);
                 ancorPane3.visibleProperty().setValue(false);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -906,6 +907,10 @@ public class PrincipalStageViewController implements Initializable {
 
         fileChooserTriggerFileDimension.setSelectedFile(null);
         maxFileDimensionTxt.clear();
+
+        fileChooserExitStatus.setSelectedFile(null);
+        commandLineTextId.clear();
+        valueTextId.clear();
 
         //Actions Fields Set
         textMessageId.clear();

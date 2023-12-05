@@ -1,9 +1,11 @@
 package it.unisa.ifttt_group_9;
 
 import it.unisa.ifttt_group_9.Action.Action;
+import it.unisa.ifttt_group_9.Action.ActionText;
 import it.unisa.ifttt_group_9.Controller.PrincipalStageViewController;
 import it.unisa.ifttt_group_9.Rule.Rule;
 import it.unisa.ifttt_group_9.Trigger.Trigger;
+import it.unisa.ifttt_group_9.Trigger.TriggerTimestamp;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,15 +18,13 @@ public class SleepTest {
         PrincipalStageViewController controller = new PrincipalStageViewController();
 
         // Crea un trigger alle 11:05
-        TriggerFactory factoryTrigger = new TriggerFactory();
         LocalDateTime futureDate = LocalDateTime.now().plusSeconds(3);
         Integer hour = futureDate.getHour();
         Integer minute = futureDate.getMinute();
-        Trigger trigger = factoryTrigger.createTrigger(hour, minute);
+        Trigger trigger = new TriggerTimestamp(hour, minute);
 
         // Crea un'azione di test
-        ActionFactory factoryAction = new ActionTextFactory();
-        Action action = factoryAction.createAction("ProvaAction");
+        Action action = new ActionText("ProvaAction");
 
         // Crea una regola con il trigger e l'azione
         Rule testRule = new Rule("TestRule", trigger, action, false);
