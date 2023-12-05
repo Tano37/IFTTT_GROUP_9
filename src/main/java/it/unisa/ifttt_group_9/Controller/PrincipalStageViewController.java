@@ -162,6 +162,14 @@ public class PrincipalStageViewController implements Initializable {
     private JFileChooser directoryChooserActionFile = new JFileChooser();
     private JFileChooser directoryChooserTriggerFileExists = new JFileChooser();
     private JFileChooser fileChooserTriggerFileDimension = new JFileChooser();
+    @FXML
+    private Tab controlExitStatusTab;
+    @FXML
+    private TextField commandLineTextId;
+    @FXML
+    private Button directoryChoosingControllExitStatusBtn;
+    @FXML
+    private TextField valueTextId;
 
     // Other variables
     private Trigger selectedTrigger;
