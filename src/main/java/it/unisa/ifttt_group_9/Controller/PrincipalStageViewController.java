@@ -5,12 +5,7 @@ import it.unisa.ifttt_group_9.Action.*;
 import it.unisa.ifttt_group_9.Rule.Rule;
 import it.unisa.ifttt_group_9.Rule.RuleExecuteService;
 import it.unisa.ifttt_group_9.Rule.RuleManager;
-import it.unisa.ifttt_group_9.Trigger.Trigger;
-import it.unisa.ifttt_group_9.Trigger.TriggerFactory;
-import it.unisa.ifttt_group_9.Trigger.TriggerFile;
-import it.unisa.ifttt_group_9.Trigger.TriggerFileDimension;
 import it.unisa.ifttt_group_9.Trigger.*;
-import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -41,50 +36,69 @@ import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class PrincipalStageViewController implements Initializable {
+    // Buttons
     @FXML
     private Button fileChooserBtn;
-
     @FXML
     private Button deleteBtn;
-
-    @FXML
-    private StackPane stackPaneId;
-
-    @FXML
-    private AnchorPane ancorPane1;
-
-    @FXML
-    private TableView<Rule> rulesTable;
-
-    @FXML
-    private TableColumn<Rule, String> ruleClm;
-
-    @FXML
-    private TableColumn<Rule, String> ruleClmStatus;
-
     @FXML
     private Button addRuleBtn;
     @FXML
     private Button deleteRuleBtn;
-
     @FXML
     private Button activateRuleBtn;
-
     @FXML
     private Button deactivateRuleBtn;
-
     @FXML
     private Button sleepRuleBtn;
+    @FXML
+    private Button backSleepBtn;
+    @FXML
+    private Button continueBtn;
+    @FXML
+    private Button backBtn1;
+    @FXML
+    private Button confirmBtn;
+    @FXML
+    private Button backBtn2;
+    @FXML
+    private Button confirmSleepBtn;
+    @FXML
+    private Button filePathBtn;
+    @FXML
+    private Button destDirBtn;
+    @FXML
+    private Button directoryChoosingBtn;
+    @FXML
+    private Button fileDimensionChooser;
 
+    // StackPane and AnchorPanes
+    @FXML
+    private StackPane stackPaneId;
+    @FXML
+    private AnchorPane ancorPane1;
     @FXML
     private AnchorPane ancorPane2;
+    @FXML
+    private AnchorPane ancorPane3;
+    @FXML
+    private AnchorPane ancorPane4;
 
+    // TableView and TableColumns
+    @FXML
+    private TableView<Rule> rulesTable;
+    @FXML
+    private TableColumn<Rule, String> ruleClm;
+    @FXML
+    private TableColumn<Rule, String> ruleClmStatus;
+    @FXML
+    private TableColumn<Rule, String> triggerStatusClm;
+
+    // TabPane and Tabs
     @FXML
     private TabPane tabPane1;
-
     @FXML
     private Tab timeTab;
-
     @FXML
     private Tab dayTab;
     @FXML
@@ -92,58 +106,27 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     private Tab fullDateTab;
     @FXML
-    private DatePicker dataPickerId= new DatePicker();
-    @FXML
-    private Button backSleepBtn;
-
-    @FXML
-    private ChoiceBox<Integer> hoursChoiceId;
-
-    @FXML
-    private ChoiceBox<Integer> minuteChoiceId;
-
-    @FXML
-    private ChoiceBox<String> dayChoiceId;
-
-
-    @FXML
-    private Button continueBtn;
-
-    @FXML
-    private Button backBtn1;
-
-    @FXML
-    private AnchorPane ancorPane3;
-    @FXML
-    private AnchorPane ancorPane4;
-
-    @FXML
     private TabPane tabPane2;
-
     @FXML
     private Tab textMessageTab;
-
-    @FXML
-    private TextField textMessageId;
-
     @FXML
     private Tab audioTab;
-
     @FXML
-    private ComboBox<String> audioChoice;
-
+    private Tab fileTab;
     @FXML
-    private Button confirmBtn;
-
+    private Tab existingFileTab;
     @FXML
-    private Button backBtn2;
+    private Tab fileDimensionTab;
 
+    // Date Picker, ChoiceBoxes, ComboBox, CheckBox, TextField, Label
     @FXML
-    private TextField nameRuleText;
-
+    private DatePicker dataPickerId = new DatePicker();
     @FXML
-    private CheckBox fireOnceCheckbox;
-
+    private ChoiceBox<Integer> hoursChoiceId;
+    @FXML
+    private ChoiceBox<Integer> minuteChoiceId;
+    @FXML
+    private ChoiceBox<String> dayChoiceId;
     @FXML
     private ChoiceBox<Integer> minuteChoiceIdSleep;
     @FXML
@@ -152,20 +135,20 @@ public class PrincipalStageViewController implements Initializable {
     private ChoiceBox<Integer> dayChoiceIdSleep;
     @FXML
     private ChoiceBox<Integer> monthChoiceId;
- 
     @FXML
-    private Button confirmSleepBtn;
-
-    @FXML
-    private Tab fileTab;
+    private ChoiceBox<String> audioChoice;
     @FXML
     private ChoiceBox<String> fileActionChooser;
     @FXML
-    private Button filePathBtn;
+    private TextField textMessageId;
     @FXML
-    private Button destDirBtn;
+    private TextField nameRuleText;
     @FXML
     private TextField fileActionLaunchTxt;
+    @FXML
+    private TextField fileNameLbl;
+    @FXML
+    private TextField maxFileDimensionTxt;
     @FXML
     private Label fileActionLabel;
     @FXML
@@ -177,11 +160,11 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     private TextField valueTextId;
 
-    private Trigger selectedTrigger;
-    private Action selectedAction;
-    private ObservableList<Rule> rulesList;
-    private int result = -1;
+    // Checkboxes
+    @FXML
+    private CheckBox fireOnceCheckbox;
 
+    // JFileChooser
     private JFileChooser fileChooserWav = new JFileChooser();
     private JFileChooser fileChooserTxt = new JFileChooser();
     private JFileChooser directoryChooserActionFile = new JFileChooser();
@@ -190,40 +173,23 @@ public class PrincipalStageViewController implements Initializable {
     private JFileChooser fileChooserExitStatus= new JFileChooser();
 
 
-    @FXML
-    private TableColumn<Rule, String> triggerStatusClm;
-
-    @FXML
-    private Tab existingFileTab;
-    @FXML
-    private Button directoryChoosingBtn;
-    @FXML
-    private TextField fileNameLbl;
-    @FXML
-    private Tab fileDimensionTab;
-    @FXML
-    private Button fileDimensionChooser;
-    @FXML
-    private TextField maxFileDimensionTxt;
-
-
+    // Other variables
+    private Trigger selectedTrigger;
+    private Action selectedAction;
+    private ObservableList<Rule> rulesList;
+    private int result = -1;
     private Rule selectedRuleForDeactivation;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeChoiceBox();
         initializeTable();
 
-        dataPickerId.setValue(LocalDate.now());
-
         dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
-
-
-
 
         rulesList= FXCollections.observableArrayList();
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        setActualTime();
 
         confirmBtn.disableProperty().bind(nameRuleText.textProperty().isEmpty());
         activateRuleBtn.disableProperty().setValue(true);
@@ -433,11 +399,6 @@ public class PrincipalStageViewController implements Initializable {
         return statusColumn;
     }
 
-    void setActualTime(){
-        LocalTime now= LocalTime.now();
-        hoursChoiceId.setValue(now.getHour());
-        minuteChoiceId.setValue(now.getMinute());
-    }
     void handleRuleSelection(Rule newValue) {
         if (newValue != null) {
             System.out.println("Elemento selezionato: " + newValue.getRuleName());
@@ -457,7 +418,7 @@ public class PrincipalStageViewController implements Initializable {
     void addRuleAction(ActionEvent event) {
         ancorPane1.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
-        setActualTime();
+        fieldsSet();
 
     }
 
@@ -562,9 +523,7 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane2.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
         rulesTable.getSelectionModel().clearSelection();
-        hoursChoiceId.setValue(null);
-        minuteChoiceId.setValue(null);
-        selectedTrigger = null;
+        fieldsSet();
     }
 
     public void changeAncorPane2_3() {
@@ -577,13 +536,14 @@ public class PrincipalStageViewController implements Initializable {
 
 
         String tabId = tabPane1.getSelectionModel().getSelectedItem().getId();
-        TriggerFactory factory = new TriggerFactory();
-        if (tabId.equals("timeTab")) {
-            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue());
+        if (tabId.equals("timeTab"))
+        {
+            selectedTrigger = new TriggerTimestamp(hoursChoiceId.getValue(), minuteChoiceId.getValue());
             /*questa variabile selectedTrigger andrà riazzerata una volta creata definitivamente la regola
             e alla regola andrà messo il check che i campi trigger e action siano diversi da null*/
-            changeAncorPane2_3();
-        } else if (tabId.equals("dayTab")) {
+        }
+        else if (tabId.equals("dayTab"))
+        {
             int numberDay = 0;
             for (DayOfWeek day : DayOfWeek.values()) {
                 if (day.toString().equalsIgnoreCase(dayChoiceId.getValue())) {
@@ -592,27 +552,35 @@ public class PrincipalStageViewController implements Initializable {
                     break; // Esci dal ciclo una volta trovato il giorno corrispondente
                 }
             }
-            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(), numberDay);
-            changeAncorPane2_3();
-        } else if (tabId.equals("monthTab")) {
-            /* minuteChoiceId.setValue(0);
+            selectedTrigger=new TriggerDay(hoursChoiceId.getValue(), minuteChoiceId.getValue(), numberDay);
+        }
+        else if (tabId.equals("monthTab"))
+        {
+           /* minuteChoiceId.setValue(0);
             hourChoiceIdSleep.setValue(0);*/
             //System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
-            selectedTrigger = factory.createTrigger(hoursChoiceId.getValue(), minuteChoiceId.getValue(), 0, monthChoiceId.getValue());
-            changeAncorPane2_3();
-        } else if(tabId.equals("existingFileTab")) {
-            if (directoryChooserTriggerFileExists.getSelectedFile() == null || fileNameLbl.getText() == null) {
+            selectedTrigger = new TriggerMonth(hoursChoiceId.getValue(), minuteChoiceId.getValue(), 0,
+                    monthChoiceId.getValue());
+        }
+        else if(tabId.equals("existingFileTab"))
+        {
+            if (directoryChooserTriggerFileExists.getSelectedFile() == null || textIsNotValid(fileNameLbl.getText()) ) {
+                ancorPane2.visibleProperty().setValue(true);
+                ancorPane3.visibleProperty().setValue(false);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
                 alert.setContentText("Compile the fields correctly!");
                 alert.showAndWait();
             } else {
-                selectedTrigger = new TriggerFile(directoryChooserTriggerFileExists
-                        .getSelectedFile().getAbsolutePath(), fileNameLbl.getText());
-                changeAncorPane2_3();
+                selectedTrigger = new TriggerFile(directoryChooserTriggerFileExists.getSelectedFile().getAbsolutePath(),
+                        fileNameLbl.getText());
             }
-        }else if(tabId.equals("fileDimensionTab")){
-            if (fileChooserTriggerFileDimension.getSelectedFile() == null || maxFileDimensionTxt.getText() == null) {
+        }
+        else if(tabId.equals("fileDimensionTab"))
+        {
+            if (fileChooserTriggerFileDimension.getSelectedFile() == null || textIsNotValid(maxFileDimensionTxt.getText())) {
+                ancorPane2.visibleProperty().setValue(true);
+                ancorPane3.visibleProperty().setValue(false);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
                 alert.setContentText("Compile the fields correctly!");
@@ -645,11 +613,10 @@ public class PrincipalStageViewController implements Initializable {
                 alert.showAndWait();
             }else{
 
-                selectedTrigger = new TriggerExitStatus(fileChooserExitStatus.getSelectedFile().getAbsolutePath(),
-                        commandLineTextId.getText(),Integer.parseInt(valueTextId.getText()));
-                changeAncorPane2_3();
-            }
-            
+
+            selectedTrigger =new TriggerFullDate(hoursChoiceId.getValue(), minuteChoiceId.getValue(), dayInsert,
+                    monthInsert,yearInsert);
+
         }
     }
 
@@ -689,8 +656,6 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane3.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
         selectedAction = null;
-        fileChooserWav.setSelectedFile(null);
-
     }
 
     @FXML
@@ -698,23 +663,22 @@ public class PrincipalStageViewController implements Initializable {
 
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
 
-        if(tabId.equals("textMessageTab") && !nameRuleText.getText().trim().isEmpty()) {
+        if(tabId.equals("textMessageTab") && !nameRuleText.getText().trim().isEmpty())
+        {
             if(textMessageId.getText().trim().isEmpty() ){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
                 alert.setContentText("Inserisci un testo!");
                 alert.showAndWait();
             }else {
-                ActionFactory factory = new ActionTextFactory();
-                selectedAction = factory.createAction(textMessageId.getText());
+                selectedAction = new ActionText(textMessageId.getText());
                 //System.out.println(selectedAction.toString());
                 createRule();
 
             }
         }
-        else if(tabId.equals("audioTab") && !nameRuleText.getText().trim().isEmpty()){
-            ActionAudioFactory factory = new ActionAudioFactory();
-
+        else if(tabId.equals("audioTab") && !nameRuleText.getText().trim().isEmpty())
+        {
             if (fileChooserWav.getSelectedFile() == null){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
@@ -722,26 +686,27 @@ public class PrincipalStageViewController implements Initializable {
                 alert.showAndWait();
 
             }else {
-
                 File selectedFolder = fileChooserWav.getSelectedFile();
-                selectedAction = factory.createAction(selectedFolder.getPath());
+                selectedAction = new ActionAudio(selectedFolder.getPath());
                 fileChooserWav.setSelectedFile(null);
                 createRule();
             }
-        }else if(nameRuleText.getText().trim().isEmpty()){
+        }
+        else if(nameRuleText.getText().trim().isEmpty())
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setContentText("Inserisci un nome al file");
             alert.showAndWait();
         }
-        else if(tabId.equals("fileTab") && !nameRuleText.getText().trim().isEmpty()){
-
+        else if(tabId.equals("fileTab") && !nameRuleText.getText().trim().isEmpty())
+        {
             if(fileActionChooser.getValue().equals("Add String in the end")){
 
-                if (fileChooserTxt.getSelectedFile() == null){
+                if (fileChooserTxt.getSelectedFile() == null || textIsNotValid(fileActionLaunchTxt.getText())){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Errore");
-                    alert.setContentText("Inserisci il file!");
+                    alert.setTitle("Error");
+                    alert.setContentText("Compile the fields correctly!");
                     alert.showAndWait();
                 }
                 else{
@@ -757,14 +722,14 @@ public class PrincipalStageViewController implements Initializable {
 
                 if (fileChooserTxt.getSelectedFile() == null){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Errore");
-                    alert.setContentText("Inserisci il file");
+                    alert.setTitle("Error");
+                    alert.setContentText("Select source file!");
                     alert.showAndWait();
                 }
                 else if (directoryChooserActionFile.getSelectedFile() == null){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Errore");
-                    alert.setContentText("Inserisci la cartella di destinazione!");
+                    alert.setTitle("Error");
+                    alert.setContentText("Select destination file!");
                     alert.showAndWait();
                 }
                 else{
@@ -781,8 +746,8 @@ public class PrincipalStageViewController implements Initializable {
 
                 if (fileChooserTxt.getSelectedFile() == null){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Errore");
-                    alert.setContentText("Inserisci il file!");
+                    alert.setTitle("Error");
+                    alert.setContentText("Select the file to delete!");
                     alert.showAndWait();
                 }
                 else{
@@ -793,10 +758,10 @@ public class PrincipalStageViewController implements Initializable {
                 }
             }else if(fileActionChooser.getValue().equals("Launch a Program")){
 
-                if (fileChooserTxt.getSelectedFile() == null){
+                if (fileChooserTxt.getSelectedFile() == null || textIsNotValid(fileActionLaunchTxt.getText())){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Errore");
-                    alert.setContentText("Inserisci il file!");
+                    alert.setTitle("Error");
+                    alert.setContentText("Select the file!");
                     alert.showAndWait();
                 }
                 else{
@@ -877,10 +842,6 @@ public class PrincipalStageViewController implements Initializable {
         selectedTrigger = null;
         selectedAction = null;
 
-        setActualTime();
-        textMessageId.clear();
-        nameRuleText.clear();
-
         System.out.println(RuleManager.getInstance().toString());
         ancorPane3.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
@@ -947,6 +908,44 @@ public class PrincipalStageViewController implements Initializable {
 
         fileChooserTriggerFileDimension.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooserTriggerFileDimension.showOpenDialog(dialog);
+    }
+
+    public boolean textIsNotValid(String text){
+        if (text == null || text.equals(""))
+            return true;
+        else
+            return false;
+    }
+
+    public void fieldsSet(){
+        //Triggers Fields Set
+        hoursChoiceId.setValue(LocalTime.now().getHour());
+        minuteChoiceId.setValue(LocalTime.now().getMinute());
+
+        dayChoiceId.setValue("Ever");
+        monthChoiceId.setValue(1);
+        dataPickerId.setValue(LocalDate.now());
+
+        directoryChooserTriggerFileExists.setSelectedFile(null);
+        fileNameLbl.clear();
+
+        fileChooserTriggerFileDimension.setSelectedFile(null);
+        maxFileDimensionTxt.clear();
+
+        //Actions Fields Set
+        textMessageId.clear();
+
+        fileChooserWav.setSelectedFile(null);
+
+        fileActionChooser.setValue("Add String in the end");
+        fileActionLaunchTxt.clear();
+        fileChooserTxt.setSelectedFile(null);
+        directoryChooserActionFile.setSelectedFile(null);
+
+        //Rule Fields Set
+        fireOnceCheckbox.selectedProperty().setValue(false);
+        nameRuleText.clear();
+
     }
 
     public static class DatePickerDateCell extends javafx.scene.control.DateCell {
