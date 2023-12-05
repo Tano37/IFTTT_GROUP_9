@@ -601,6 +601,8 @@ public class PrincipalStageViewController implements Initializable {
         }
         else if (tabId.equals("controlExitStatusTab")) {
             if (fileChooserExitStatus.getSelectedFile() == null || valueTextId.getText().isEmpty() ) {
+                ancorPane2.visibleProperty().setValue(true);
+                ancorPane3.visibleProperty().setValue(false);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
                 alert.setContentText("Compile the fields correctly!");
