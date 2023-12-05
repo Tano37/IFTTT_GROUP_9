@@ -162,6 +162,7 @@ public class PrincipalStageViewController implements Initializable {
     private JFileChooser directoryChooserActionFile = new JFileChooser();
     private JFileChooser directoryChooserTriggerFileExists = new JFileChooser();
     private JFileChooser fileChooserTriggerFileDimension = new JFileChooser();
+    private JFileChooser fileChooserExitStatus= new JFileChooser();
     @FXML
     private Tab controlExitStatusTab;
     @FXML
@@ -607,7 +608,7 @@ public class PrincipalStageViewController implements Initializable {
 
                 selectedTrigger = new TriggerExitStatus(fileChooserExitStatus.getSelectedFile().getAbsolutePath(),
                         commandLineTextId.getText(),Integer.parseInt(valueTextId.getText()));
-                changeAncorPane2_3();
+
             }
 
         }
