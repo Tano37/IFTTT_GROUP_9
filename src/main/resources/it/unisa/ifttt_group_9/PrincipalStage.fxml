@@ -111,6 +111,20 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
+                        <Tab fx:id="controlExitStatusTab" text="Control Exit Status">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <Label layoutX="85.0" layoutY="78.0" text="Command Line :" />
+                                        <TextField fx:id="commandLineTextId" layoutX="210.0" layoutY="73.0" prefHeight="25.0" prefWidth="180.0" />
+                                        <Button fx:id="directoryChoosingControllExitStatusBtn" layoutX="211.0" layoutY="26.0" mnemonicParsing="false" onAction="#directoryChoosingExitStatusBtnAction" prefHeight="25.0" prefWidth="178.0" text="Choose a Directory" />
+                                        <Label layoutX="129.0" layoutY="31.0" text="Directory:" />
+                                        <TextField fx:id="valueTextId" layoutX="210.0" layoutY="124.0" prefHeight="25.0" prefWidth="180.0" />
+                                        <Label layoutX="85.0" layoutY="129.0" text="Referring Value" />
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
                     </tabs>
                 </TabPane>
                 <Button fx:id="continueBtn" layoutX="265.0" layoutY="247.0" mnemonicParsing="false" onAction="#continueAction" text="Continue" />
