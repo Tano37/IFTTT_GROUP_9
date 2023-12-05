@@ -589,6 +589,19 @@ public class PrincipalStageViewController implements Initializable {
 
             selectedTrigger =new TriggerFullDate(hoursChoiceId.getValue(), minuteChoiceId.getValue(), dayInsert,
                     monthInsert,yearInsert);
+        }else if (tabId.equals("controlExitStatusTab")) {
+            if (fileChooserExitStatus.getSelectedFile() == null || valueTextId.getText().isEmpty() ) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Errore");
+                alert.setContentText("Compile the fields correctly!");
+                alert.showAndWait();
+            }else{
+
+                selectedTrigger = new TriggerExitStatus(fileChooserExitStatus.getSelectedFile().getAbsolutePath(),
+                        commandLineTextId.getText(),Integer.parseInt(valueTextId.getText()));
+                changeAncorPane2_3();
+            }
+
         }
     }
 
