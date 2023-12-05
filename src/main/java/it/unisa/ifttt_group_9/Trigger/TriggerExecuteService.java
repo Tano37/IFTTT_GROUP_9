@@ -77,6 +77,7 @@ public class TriggerExecuteService  extends Service<Void> {
                     String processErrorOutput = errorOutput.toString();
                     System.err.println("Output degli errori del processo:\n" + processErrorOutput);
                 }
+                
 
 //----------------/
 
