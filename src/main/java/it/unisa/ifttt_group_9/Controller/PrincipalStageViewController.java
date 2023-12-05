@@ -928,6 +928,28 @@ public class PrincipalStageViewController implements Initializable {
             setDisable(item.isBefore(LocalDate.now()));
         }
     }
+    @FXML
+    void directoryChoosingExitStatusBtnAction(ActionEvent event) {
+
+        // Impostazione del selettore di cartelle (invece di file)
+        fileChooserExitStatus.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("File EXE (*.exe)", "exe");
+        // Applicazione del filtro al selettore di file
+        fileChooserExitStatus.setFileFilter(filter);
+        // Mostra il selettore di cartelle
+        result = fileChooserExitStatus.showOpenDialog(null);
+        // Verifica se l'utente ha selezionato una cartella
+        if (result == JFileChooser.APPROVE_OPTION) {
+            // Ottieni la cartella selezionata
+            File selectedFolder = fileChooserExitStatus.getSelectedFile();
+            // Stampa il percorso della cartella
+            System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
+            //selectedAction = new ActionAudio(selectedFolder.getPath());
+        } else {
+            System.out.println("Nessuna cartella selezionata.");
+        }
+
+    }
 
 
 }
