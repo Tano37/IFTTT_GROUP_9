@@ -1,6 +1,8 @@
 package it.unisa.ifttt_group_9;
 
-public class Counter {
+import java.io.Serializable;
+
+public class Counter implements Serializable {
     private String name;
     private int value;
 

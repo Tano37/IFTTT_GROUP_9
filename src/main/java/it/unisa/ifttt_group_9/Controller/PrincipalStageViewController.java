@@ -2,6 +2,7 @@ package it.unisa.ifttt_group_9.Controller;
 
 import it.unisa.ifttt_group_9.Action.Action;
 import it.unisa.ifttt_group_9.Action.*;
+import it.unisa.ifttt_group_9.ControllerCounter;
 import it.unisa.ifttt_group_9.Counter;
 import it.unisa.ifttt_group_9.CounterManager;
 import it.unisa.ifttt_group_9.Rule.Rule;
@@ -21,6 +22,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -31,6 +35,7 @@ import javafx.util.Duration;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.time.DayOfWeek;
@@ -193,6 +198,7 @@ public class PrincipalStageViewController implements Initializable {
     private ObservableList<Counter> counterList = FXCollections.observableArrayList();
     private int result = -1;
     private Rule selectedRuleForDeactivation;
+    private ControllerCounter controller= new ControllerCounter(counterList);
 
 
     @Override
@@ -404,6 +410,12 @@ public class PrincipalStageViewController implements Initializable {
         // Impostazione della ObservableList come modello della TableView
         counterTable.setItems(counterList);
         Bindings.bindContent(CounterManager.getInstance().getCounterList(), counterList);
+        try {
+            controller.loadCounterList(counterList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 
@@ -914,69 +926,18 @@ public class PrincipalStageViewController implements Initializable {
     }
     @FXML
     void addCounterAction(ActionEvent event) {
-       // Counter count=null;
-        // Creazione dei campi di testo
-        TextField name = new TextField();
-        TextField value = new TextField();
-
-// Creazione delle etichette
-        Label nameLabel = new Label("Name:");
-        Label valueLabel = new Label("Value:");
-
-// Creazione del contenitore HBox per ciascuna coppia etichetta-campo di testo
-        HBox nameBox = new HBox(nameLabel, name);
-        HBox valueBox = new HBox(valueLabel, value);
-
-// Creazione del contenitore VBox per contenere tutte le coppie
-        VBox container = new VBox(nameBox, valueBox);
-
-// Creazione della finestra di dialogo
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Create a counter");
-        dialog.setHeaderText("Insert name and value:");
-
-// Impostazione del contenitore come contenuto della finestra di dialogo
-        dialog.getDialogPane().setContent(container);
-
-// Ottieni il pulsante OK
-        Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
-        okButton.setDisable(true); // Disabilita il pulsante OK all'inizio
-
-// Aggiungi un listener per il cambiamento nel campo di testo del valore
-        value.textProperty().addListener((observable, oldValue, newValue) -> {
-            try {
-                // Prova a convertire il testo in un numero
-                Integer.parseInt(newValue);
-                okButton.setDisable(false); // Abilita il pulsante OK se il testo può essere convertito in un numero
-            } catch (NumberFormatException e) {
-                // Il testo non può essere convertito in un numero
-                okButton.setDisable(true); // Disabilita il pulsante OK
-            }
-        });
-
-// Mostra la finestra di dialogo e attendi la sua chiusura
-        dialog.showAndWait().ifPresent(response -> {
-            // response contiene il valore inserito dall'utente (OK è stato premuto)
-            String enteredName = name.getText();
-            Integer enteredValue = Integer.parseInt(value.getText());
-
-            // Ora puoi utilizzare enteredName e enteredValue come desideri
-            Counter count = new Counter(enteredName, enteredValue);
-            if (counterList != null) {
-                System.out.println("ciasi");
-                counterList.add(count);
-                System.out.println("dshuisaudhsaouidhosaiuhdioasuhdiouashdiuha");
-            }
-        });
-
-
-
+       // ControllerCounter controller= new ControllerCounter(counterList);
+        controller.creation();
     }
 
     @FXML
     void deleteCounterAction(ActionEvent event){
+        //ControllerCounter controller= new ControllerCounter(counterList);
         ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
-        counterList.removeAll(selectedItems);
+        System.out.println(selectedItems.toString());
+        controller.delete(selectedItems);
+
+
 
 
     }
