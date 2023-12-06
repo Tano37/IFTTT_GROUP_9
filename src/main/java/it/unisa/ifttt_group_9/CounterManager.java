@@ -28,9 +28,9 @@ public class CounterManager {
         return counterList;
     }
 
-    public int getCounterValue(String counterName){
-        return counterList.
-    }
+    //public int getCounterValue(String counterName){
+        //return counterList.
+    //}
 
     public static String counterSubstitution(String text){
         String[] items = text.split(" ");
