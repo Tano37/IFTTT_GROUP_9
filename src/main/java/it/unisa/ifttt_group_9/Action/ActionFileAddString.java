@@ -31,7 +31,7 @@ public class ActionFileAddString implements Action {
         if (this.variableSubstitution) {
             this.stringToAdd = CounterManager.counterSubstitution(this.stringToAdd);
         }
-        
+
         try {
 
                    // Opens the file with th option to append on true
