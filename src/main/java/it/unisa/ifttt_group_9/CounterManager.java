@@ -35,8 +35,15 @@ public class CounterManager {
     public static String counterSubstitution(String text){
         String[] items = text.split(" ");
 
+        String elaboratedString = null;
         // Scorri e stampa le parole
         for (String item : items) {
+            String expressionItem = null;
+            String variableName = null;
+            if(item.startsWith("$")){
+                variableName = item.substring(1);
+            }
+            elaboratedString.concat(variableName + " ");
 
         }
         return null;
