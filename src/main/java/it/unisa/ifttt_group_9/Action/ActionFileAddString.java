@@ -1,20 +1,23 @@
 package it.unisa.ifttt_group_9.Action;
 
-import it.unisa.ifttt_group_9.Action.Action;
-import it.unisa.ifttt_group_9.Controller.PanelChooserManager;
 import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
 
-import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ActionFileAddString implements Action {
+public class ActionFileAddString extends ActionDecorator {
 
     String filePath;
     String stringToAdd;
 
+    public ActionFileAddString(String filePath, String stringToAdd, Action action) {
+        super(action);
+        this.filePath = filePath;
+        this.stringToAdd = stringToAdd;
+    }
     public ActionFileAddString(String filePath, String stringToAdd) {
+        super(null);
         this.filePath = filePath;
         this.stringToAdd = stringToAdd;
     }
@@ -45,6 +48,8 @@ public class ActionFileAddString implements Action {
 
                 } catch (IOException e) {
                     System.err.println("Error during the adding of the string " + e.getMessage());
+                } finally {
+                    super.executeAction();
                 }
     }
 }

@@ -1,16 +1,19 @@
 package it.unisa.ifttt_group_9.Action;
 
-import it.unisa.ifttt_group_9.Action.Action;
 import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
 
-import javax.swing.*;
-import java.io.*;
+import java.io.File;
 
-public class ActionFileDelete implements Action {
+public class ActionFileDelete extends ActionDecorator {
 
     String filePath;
 
+    public ActionFileDelete(String filePath, Action action) {
+        super(action);
+        this.filePath = filePath;
+    }
     public ActionFileDelete(String filePath){
+        super(null);
         this.filePath = filePath;
     }
 
@@ -26,5 +29,6 @@ public class ActionFileDelete implements Action {
             new PanelPopUPManager(this.getClass().getName(),"The file HASN'T been removed");
 
         }
+        super.executeAction();
     }
 }

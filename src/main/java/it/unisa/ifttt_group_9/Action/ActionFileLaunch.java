@@ -1,20 +1,24 @@
 package it.unisa.ifttt_group_9.Action;
 
-import it.unisa.ifttt_group_9.Action.Action;
 import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
 
-import javax.swing.*;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActionFileLaunch implements Action {
+public class ActionFileLaunch extends ActionDecorator {
 
     String filePath;
     String arguments;
 
-    public ActionFileLaunch(String filePath, String arguments){
+    public ActionFileLaunch(String filePath, String arguments, Action action) {
+        super(action);
+        this.filePath = filePath;
+        this.arguments = arguments;
+    }
+
+    public ActionFileLaunch(String filePath, String arguments) {
+        super(null);
         this.filePath = filePath;
         this.arguments = arguments;
     }
@@ -33,6 +37,7 @@ public class ActionFileLaunch implements Action {
         try {
             // Start the process
             Process process = processBuilder.start();
+            super.executeAction();
 
             // Optionally, you can wait for the process to complete
             int exitCode = process.waitFor();

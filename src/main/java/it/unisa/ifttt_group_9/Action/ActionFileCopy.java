@@ -1,9 +1,7 @@
 package it.unisa.ifttt_group_9.Action;
 
-import it.unisa.ifttt_group_9.Action.Action;
 import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,12 +9,18 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 
-public class ActionFileCopy implements Action {
+public class ActionFileCopy extends ActionDecorator {
 
     String filePath;
     String destinationDirPath;
 
+    public ActionFileCopy(String filePath, String destinationDirPath, Action action) {
+        super(action);
+        this.destinationDirPath = destinationDirPath;
+        this.filePath = filePath;
+    }
     public ActionFileCopy(String filePath, String destinationDirPath) {
+        super(null);
         this.destinationDirPath = destinationDirPath;
         this.filePath = filePath;
     }
@@ -36,6 +40,8 @@ public class ActionFileCopy implements Action {
         } catch (IOException e) {
             System.err.println("Error during file coping " + e.getMessage());
             new PanelPopUPManager(this.getClass().getName(),"The file HASN'T been copied");
+        } finally {
+            super.executeAction();
         }
     }
 

@@ -6,22 +6,28 @@ import javax.sound.sampled.*;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 
-public class ActionAudio implements Action {
+public class ActionAudio extends ActionDecorator {
     private String filePath;
     private volatile boolean continuePlaying = true;
 
+    public ActionAudio(String filePath, Action action) {
+        super(action);
+        this.filePath = filePath;
+    }
     public ActionAudio(String filePath) {
+        super(null);
         this.filePath = filePath;
     }
 
     @Override
     public void executeAction() {
+        //super.executeAction in the function playAudio...
         playAudioWithPopup(filePath);
     }
 
     public String getFilePath() {
+
         return filePath;
     }
 
@@ -32,7 +38,7 @@ public class ActionAudio implements Action {
 
         // Avvia un thread per la riproduzione audio
         new Thread(() -> playAudio(filePath)).start();
-
+        super.executeAction();
         // Mostra il dialogo pop-up
         int scelta = new PanelPopUPManager("AudioAction", name).showMessage();
 
