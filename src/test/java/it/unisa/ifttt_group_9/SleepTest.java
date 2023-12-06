@@ -24,7 +24,7 @@ public class SleepTest {
         Trigger trigger = new TriggerTimestamp(hour, minute);
 
         // Crea un'azione di test
-        Action action = new ActionText("ProvaAction");
+        Action action = new ActionText("ProvaAction", false);
 
         // Crea una regola con il trigger e l'azione
         Rule testRule = new Rule("TestRule", trigger, action, false);
