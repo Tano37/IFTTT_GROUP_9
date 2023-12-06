@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.*;
+import java.util.Optional;
 
 public class ControllerCounter implements Serializable {
     ObservableList<Counter> counterList;
@@ -78,7 +79,14 @@ public class ControllerCounter implements Serializable {
     }
     public void delete(ObservableList<Counter> selectedItems){
         counterList.removeAll(selectedItems);
+        try {
+            saveCounterList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    // Funzione per salvare la lista di contatori su un file binario
     public void saveCounterList() throws IOException {
         ObjectOutputStream binaryFileOut = new ObjectOutputStream(new FileOutputStream("COUNTERS.dat"));
         for (Counter counter : counterList) {
@@ -87,23 +95,77 @@ public class ControllerCounter implements Serializable {
         binaryFileOut.close();
     }
 
-    public void loadCounterList(ObservableList<Counter> listCounter) throws IOException {
-        File file = new File("COUNTER.dat");
+    // Funzione per caricare la lista di contatori da un file binario
+    public void loadCounterList() throws IOException {
+        File file = new File("COUNTERS.dat");
 
-        if(file.exists()){
-            ObjectInputStream binaryFileIn = new ObjectInputStream(new FileInputStream("COUNTER.dat"));
+        if (file.exists()) {
+            ObjectInputStream binaryFileIn = new ObjectInputStream(new FileInputStream("COUNTERS.dat"));
             while (true) {
                 try {
                     Counter counter = (Counter) binaryFileIn.readObject();
-                    listCounter.add(counter);
-                } catch (IOException | ClassNotFoundException  e) {
+                    counterList.add(counter);
+                } catch (IOException | ClassNotFoundException e) {
                     // Fine del file
                     break;
                 }
             }
         }
-
     }
+
+    public void update(ObservableList<Counter> countersToModify) {
+        // Creazione della finestra di dialogo
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Modifica dei Contatori");
+        dialog.setHeaderText("Inserisci i nuovi valori per i contatori:");
+
+        // Mostra la finestra di dialogo e attendi la risposta dell'utente
+        Optional<String> result = dialog.showAndWait();
+
+        // Processa la risposta dell'utente
+        result.ifPresent(newValues -> {
+            try {
+                // Dividi la stringa contenente i nuovi valori per i contatori
+                String[] newValuesArray = newValues.split(",");
+
+                // Verifica che il numero di nuovi valori corrisponda al numero di contatori
+                if (newValuesArray.length == countersToModify.size()) {
+                    // Aggiorna i valori dei contatori
+                    for (int i = 0; i < countersToModify.size(); i++) {
+                        Counter counter = countersToModify.get(i);
+                        int newCounterValue = Integer.parseInt(newValuesArray[i]);
+                        counter.setValue(newCounterValue);
+                    }
+
+                    // Aggiorna la visualizzazione o esegui altre operazioni necessarie
+                    // Esempio: Aggiorna la TableView se stai utilizzando una TableView
+                    // tableView.refresh();
+
+                } else {
+                    showAlert("Errore", "Il numero di nuovi valori non corrisponde al numero di contatori.");
+                }
+
+            } catch (NumberFormatException e) {
+                // Gestisci il caso in cui l'utente inserisce un valore non valido
+                showAlert("Errore", "Inserisci valori validi per i contatori.");
+            }
+        });
+        try {
+            saveCounterList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Metodo di utilità per mostrare una finestra di dialogo di avviso
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
 
 
 

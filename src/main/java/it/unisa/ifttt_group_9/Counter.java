@@ -28,5 +28,8 @@ public class Counter implements Serializable {
     }
 
 
-
+    @Override
+    public String toString() {
+        return "name='" + name + '\'' + ", value=" + value;
+    }
 }

@@ -84,6 +84,8 @@ public class PrincipalStageViewController implements Initializable {
     private Button counterBtn;
     @FXML
     private Button backCounterBtn;
+    @FXML
+    private Button modifeCounterBtn;
 
     // StackPane and AnchorPanes
     @FXML
@@ -120,6 +122,10 @@ public class PrincipalStageViewController implements Initializable {
     private Button addCounterBtn;
     @FXML
     private Button deleteCounterBtn;
+    @FXML
+    private Button chooseCounterBtn;
+    @FXML
+    private Button selectCounterForTriggerBtn;
 
     // TabPane and Tabs
     @FXML
@@ -144,6 +150,8 @@ public class PrincipalStageViewController implements Initializable {
     private Tab existingFileTab;
     @FXML
     private Tab fileDimensionTab;
+    @FXML
+    private Tab counterTab;
 
     // Date Picker, ChoiceBoxes, ComboBox, CheckBox, TextField, Label
     @FXML
@@ -166,6 +174,9 @@ public class PrincipalStageViewController implements Initializable {
     private ChoiceBox<String> audioChoice;
     @FXML
     private ChoiceBox<String> fileActionChooser;
+
+    @FXML
+    private ChoiceBox<String> chooserActionCounterId;
     @FXML
     private TextField textMessageId;
     @FXML
@@ -176,6 +187,8 @@ public class PrincipalStageViewController implements Initializable {
     private TextField fileNameLbl;
     @FXML
     private TextField maxFileDimensionTxt;
+    @FXML
+    private TextField valueInsertByUser;
     @FXML
     private Label fileActionLabel;
 
@@ -198,15 +211,17 @@ public class PrincipalStageViewController implements Initializable {
     private ObservableList<Counter> counterList = FXCollections.observableArrayList();
     private int result = -1;
     private Rule selectedRuleForDeactivation;
-    private ControllerCounter controller= new ControllerCounter(counterList);
+    private ControllerCounter controllerCounter= new ControllerCounter(counterList);
+    private Counter selectedCounter;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         initializeChoiceBox();
         //initializeTable();
         initializecounterTable();
-
+        selectCounterForTriggerBtn.setVisible(false);
         dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
 
         rulesList= FXCollections.observableArrayList();
@@ -387,6 +402,8 @@ public class PrincipalStageViewController implements Initializable {
         ObservableList<String> dayStringList = FXCollections.observableArrayList("Ever", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
         dayChoiceId.setItems(dayStringList);
         dayChoiceId.autosize();
+        ObservableList<String> compareValue=FXCollections.observableArrayList("greater","less","equal");
+        chooserActionCounterId.setItems(compareValue);
 
         //Values to be set of fault at startup
         dayChoiceId.setValue("Ever");
@@ -394,9 +411,16 @@ public class PrincipalStageViewController implements Initializable {
         hourChoiceIdSleep.setValue(0);
         dayChoiceIdSleep.setValue(0);
         monthChoiceId.setValue(1);
+        chooserActionCounterId.setValue("greater");
     }
 
     private void initializecounterTable() {
+        try {
+            // Chiamata alla funzione di caricamento
+            controllerCounter.loadCounterList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         // Creazione delle colonne
         TableColumn<Counter, String> counterClm = new TableColumn<>("name");
         counterClm.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -410,13 +434,6 @@ public class PrincipalStageViewController implements Initializable {
         // Impostazione della ObservableList come modello della TableView
         counterTable.setItems(counterList);
         Bindings.bindContent(CounterManager.getInstance().getCounterList(), counterList);
-        try {
-            controller.loadCounterList(counterList);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
     }
 
 
@@ -639,6 +656,13 @@ public class PrincipalStageViewController implements Initializable {
 
             selectedTrigger =new TriggerFullDate(hoursChoiceId.getValue(), minuteChoiceId.getValue(), dayInsert,
                     monthInsert,yearInsert);
+        }
+        else if(tabId.equals("counterTab")){
+            Counter counterInsert=selectedCounter;
+            Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
+            String chooserActionCounter= chooserActionCounterId.getValue();
+            TriggerCounter tiggerCounter=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter);
+
         }
     }
 
@@ -927,7 +951,7 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     void addCounterAction(ActionEvent event) {
        // ControllerCounter controller= new ControllerCounter(counterList);
-        controller.creation();
+        controllerCounter.creation();
     }
 
     @FXML
@@ -935,10 +959,36 @@ public class PrincipalStageViewController implements Initializable {
         //ControllerCounter controller= new ControllerCounter(counterList);
         ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
         System.out.println(selectedItems.toString());
-        controller.delete(selectedItems);
+        controllerCounter.delete(selectedItems);
+    }
+    @FXML
+    void modifeCounterAction(ActionEvent event){
+        ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
+        controllerCounter.update(selectedItems);
+        counterTable.refresh();
+
+    }
+    @FXML
+    void chooseCounterAction(ActionEvent event){
+        ancorPane1.visibleProperty().setValue(false);
+        ancorPane2.visibleProperty().setValue(false);
+        ancorPaneCounterTable.visibleProperty().setValue(true);
+        addCounterBtn.setVisible(false);
+        deleteCounterBtn.setVisible(false);
+        backCounterBtn.setVisible(false);
+        modifeCounterBtn.setVisible(false);
+        selectCounterForTriggerBtn.setVisible(true);
 
 
+    }
+    @FXML
+    void selectCounterForTriggerAction(ActionEvent event){
+        ancorPaneCounterTable.visibleProperty().setValue(false);
+        ancorPane2.visibleProperty().setValue(true);
 
+        ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
+        chooseCounterBtn.setText(selectedItems.toString());
+        selectedCounter = selectedItems.get(0);
 
     }
 
