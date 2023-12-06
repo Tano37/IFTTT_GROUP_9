@@ -18,6 +18,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,6 +37,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class PrincipalStageViewController implements Initializable {
@@ -219,9 +221,9 @@ public class PrincipalStageViewController implements Initializable {
     private ObservableList<Rule> rulesList;
     private int result = -1;
     private Rule selectedRuleForDeactivation;
-    private ObservableList<Counter> counterList = FXCollections.observableArrayList();
+    private ObservableMap<String, Counter> counterMap= FXCollections.observableHashMap();
 
-    private ControllerCounter controllerCounter= new ControllerCounter(counterList);
+    private ControllerCounter controllerCounter= new ControllerCounter(counterMap);
     private Counter selectedCounter, selectedCounter2;
 
 
@@ -368,12 +370,12 @@ public class PrincipalStageViewController implements Initializable {
                     r.setLaunched(r.getRuleTrigger().evaluate() );
                     rulesTable.refresh();
                 }
-                for(Counter c: counterList){
+                for (ObservableMap.Entry<String, Counter> entry : counterMap.entrySet()) {
                     //System.out.println(r.getCounter().getName()+"=="+c.getName()+"|||"+r.getCounter().getValue()+"=="+c.getValue());
                     if(r.getCounter()!=null){
-                    if(r.getCounter().getName().equals(c.getName()) && r.getCounter().getValue()!=c.getValue()){
+                    if(r.getCounter().getName().equals(entry.getValue().getName()) && r.getCounter().getValue()!=entry.getValue().getValue()){
                         r.setLaunched(false);
-                        r.getCounter().setValue(c.getValue());
+                        r.getCounter().setValue(entry.getValue().getValue());
                     }}
 
                 }
@@ -444,7 +446,7 @@ public class PrincipalStageViewController implements Initializable {
     private void initializecounterTable() {
         try {
             // Chiamata alla funzione di caricamento
-            controllerCounter.loadCounterList();
+            controllerCounter.loadCounterMap();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -459,8 +461,8 @@ public class PrincipalStageViewController implements Initializable {
         counterTable.getColumns().addAll(counterClm, valueCounterClm);
 
         // Impostazione della ObservableList come modello della TableView
-        counterTable.setItems(counterList);
-        Bindings.bindContent(CounterManager.getInstance().getCounterList(), counterList);
+        counterTable.setItems(FXCollections.observableArrayList(counterMap.values()));
+        Bindings.bindContent(CounterManager.getInstance().getCounterMap(), counterMap);
     }
 
     private TableColumn<Rule, Boolean> getRuleBooleanTableColumn() {
@@ -1099,14 +1101,14 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     void deleteCounterAction(ActionEvent event){
         //ControllerCounter controller= new ControllerCounter(counterList);
-        ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
+        ObservableMap<String, Counter> selectedItems = (ObservableMap<String, Counter>) counterTable.getSelectionModel().getSelectedItems();
         System.out.println(selectedItems.toString());
         controllerCounter.delete(selectedItems);
     }
     @FXML
     void modifeCounterAction(ActionEvent event){
-        ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
-        controllerCounter.update(selectedItems);
+        Counter selectedItem = (Counter) counterTable.getSelectionModel().getSelectedItems();
+        controllerCounter.update(selectedItem);
         counterTable.refresh();
 
     }

@@ -3,6 +3,7 @@ package it.unisa.ifttt_group_9;
 import it.unisa.ifttt_group_9.Rule.Rule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -11,10 +12,11 @@ import java.io.*;
 import java.util.Optional;
 
 public class ControllerCounter implements Serializable {
-    ObservableList<Counter> counterList;
 
-    public ControllerCounter(ObservableList<Counter> counterList) {
-        this.counterList = counterList;
+    ObservableMap<String, Counter> counterMap;
+
+    public ControllerCounter(ObservableMap<String, Counter> counterMap) {
+        this.counterMap= counterMap;
     }
 
     public void creation(){
@@ -66,37 +68,41 @@ public class ControllerCounter implements Serializable {
 
             // Ora puoi utilizzare enteredName e enteredValue come desideri
             Counter count = new Counter(enteredName, enteredValue);
-            if (counterList != null) {
-
-                counterList.add(count);
+            if (counterMap != null) {
+                counterMap.put(count.getName(),count);
                 try {
-                    saveCounterList();
+                    saveCounterMap();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
         });
     }
-    public void delete(ObservableList<Counter> selectedItems){
-        counterList.removeAll(selectedItems);
+    public void delete(ObservableMap<String, Counter> selectedItems){
+        counterMap.remove(selectedItems);
         try {
-            saveCounterList();
+            saveCounterMap();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     // Funzione per salvare la lista di contatori su un file binario
-    public void saveCounterList() throws IOException {
-        ObjectOutputStream binaryFileOut = new ObjectOutputStream(new FileOutputStream("COUNTERS.dat"));
-        for (Counter counter : counterList) {
-            binaryFileOut.writeObject(counter);
+    public void saveCounterMap() throws IOException {
+        try (ObjectOutputStream binaryFileOut = new ObjectOutputStream(new FileOutputStream("COUNTERS.dat"))) {
+            // Itera sulla ObservableMap e scrivi gli oggetti Counter nel file binario
+            for (ObservableMap.Entry<String, Counter> entry : counterMap.entrySet()) {
+                Counter counter = entry.getValue();
+                binaryFileOut.writeObject(counter);
+            }
+            System.out.println("Scrittura nel file binario completata con successo.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        binaryFileOut.close();
     }
 
     // Funzione per caricare la lista di contatori da un file binario
-    public void loadCounterList() throws IOException {
+    public void loadCounterMap() throws IOException {
         File file = new File("COUNTERS.dat");
 
         if (file.exists()) {
@@ -104,7 +110,7 @@ public class ControllerCounter implements Serializable {
             while (true) {
                 try {
                     Counter counter = (Counter) binaryFileIn.readObject();
-                    counterList.add(counter);
+                    counterMap.put(counter.getName(), counter);
                 } catch (IOException | ClassNotFoundException e) {
                     // Fine del file
                     break;
@@ -113,48 +119,38 @@ public class ControllerCounter implements Serializable {
         }
     }
 
-    public void update(ObservableList<Counter> countersToModify) {
+    public void update(Counter counterToModify) {
         // Creazione della finestra di dialogo
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Modifica dei Contatori");
-        dialog.setHeaderText("Inserisci i nuovi valori per i contatori:");
+        dialog.setTitle("Modifica del Contatore");
+        dialog.setHeaderText("Inserisci il nuovo valore per il contatore:");
 
         // Mostra la finestra di dialogo e attendi la risposta dell'utente
         Optional<String> result = dialog.showAndWait();
 
         // Processa la risposta dell'utente
-        result.ifPresent(newValues -> {
+        result.ifPresent(newValue -> {
             try {
-                // Dividi la stringa contenente i nuovi valori per i contatori
-                String[] newValuesArray = newValues.split(",");
+                // Converte la stringa contenente il nuovo valore del contatore
+                int newCounterValue = Integer.parseInt(newValue);
 
-                // Verifica che il numero di nuovi valori corrisponda al numero di contatori
-                if (newValuesArray.length == countersToModify.size()) {
-                    // Aggiorna i valori dei contatori
-                    for (int i = 0; i < countersToModify.size(); i++) {
-                        Counter counter = countersToModify.get(i);
-                        int newCounterValue = Integer.parseInt(newValuesArray[i]);
-                        counter.setValue(newCounterValue);
-                    }
+                // Aggiorna il valore del contatore
+                counterToModify.setValue(newCounterValue);
 
-                    // Aggiorna la visualizzazione o esegui altre operazioni necessarie
-                    // Esempio: Aggiorna la TableView se stai utilizzando una TableView
-                    // tableView.refresh();
+                // Aggiorna la visualizzazione o esegui altre operazioni necessarie
+                // Esempio: Aggiorna l'interfaccia utente se necessario
 
-                } else {
-                    showAlert("Errore", "Il numero di nuovi valori non corrisponde al numero di contatori.");
+                try {
+                    saveCounterMap(); // Salva i dati aggiornati
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
 
             } catch (NumberFormatException e) {
                 // Gestisci il caso in cui l'utente inserisce un valore non valido
-                showAlert("Errore", "Inserisci valori validi per i contatori.");
+                showAlert("Errore", "Inserisci un valore valido per il contatore.");
             }
         });
-        try {
-            saveCounterList();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     // Metodo di utilità per mostrare una finestra di dialogo di avviso

@@ -4,7 +4,9 @@ import it.unisa.ifttt_group_9.Rule.Rule;
 import it.unisa.ifttt_group_9.Rule.RuleManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CounterManager {
     //applicazione del pattern singleton
@@ -14,21 +16,21 @@ public class CounterManager {
             instance = new CounterManager();
         return instance;
     }
-    private List<Counter> counterList;
+    private Map<String, Counter> counterMap;
 
     private CounterManager() {
-        counterList = new ArrayList<>(); //conviene un altra struttura dati?
+        counterMap = new HashMap<>(); //conviene un altra struttura dati?
     }
 
     public void addRule(Counter counter) {
-        counterList.add(counter);
+        counterMap.put(counter.getName(), counter);
     }
 
-    public List<Counter> getCounterList() {
-        return counterList;
+    public Map<String, Counter> getCounterMap() {
+        return counterMap;
     }
 
-    public int getCounterValue(String counterName){
+    /* public int getCounterValue(String counterName){
         return counterList.
     }
 
@@ -43,17 +45,17 @@ public class CounterManager {
             if(item.startsWith("$")){
                 variableName = item.substring(1);
                 elaboratedString.concat(getCounterValue(variableName) + " ");
-                /*
-                if errore che non esiste la variabile fare return stringa di avviso impostata;
-                 */
+
+                //if errore che non esiste la variabile fare return stringa di avviso impostata;
+
             }
             else{
                 elaboratedString.concat(expressionItem + " ");
             }
         }
         return elaboratedString;
-    }
+    }*/
 
     @Override
-    public String toString(){ return counterList.toString(); }
+    public String toString(){ return counterMap.toString(); }
 }
