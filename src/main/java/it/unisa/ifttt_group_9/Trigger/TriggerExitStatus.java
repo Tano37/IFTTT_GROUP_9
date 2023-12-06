@@ -2,13 +2,20 @@ package it.unisa.ifttt_group_9.Trigger;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class TriggerExitStatus implements Trigger {
+public class TriggerExitStatus extends AbstractTriggerDecorator{
     private String stringPath;
     private String commandLine;
     private int exitExpected;
     private int exitValue; // Variabile di istanza per memorizzare il valore restituito
 
+    public TriggerExitStatus(String stringPath, String commandLine, int exitStatus, boolean negate) {
+        super(negate);
+        this.stringPath = stringPath;
+        this.commandLine = commandLine;
+        this.exitExpected = exitStatus;
+    }
     public TriggerExitStatus(String stringPath, String commandLine, int exitStatus) {
+        super(false);
         this.stringPath = stringPath;
         this.commandLine = commandLine;
         this.exitExpected = exitStatus;
@@ -48,7 +55,7 @@ public class TriggerExitStatus implements Trigger {
         myTrigger.start();
 
 
+        return (negate == (this.getExitExpected() != this.getExitValue()));
 
-        return this.getExitExpected()==this.getExitValue();
     }
 }

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 //Concrete Product (AbstractFactory)
-public class TriggerFullDate implements Trigger {
+public class TriggerFullDate extends AbstractTriggerDecorator {
     private int hour;
     private int minute;
 
@@ -17,7 +17,8 @@ public class TriggerFullDate implements Trigger {
 
     private int year;
 
-    public TriggerFullDate (int hour, int minute,int dayWeek, int dayMonth, int year) throws IllegalTimeException {
+    public TriggerFullDate (int hour, int minute,int dayWeek, int dayMonth, int year, boolean negate) throws IllegalTimeException {
+        super(negate);
         if ((hour < 0 || hour > 23) || (minute < 0 || minute > 59))
             throw new IllegalTimeException();
 
@@ -28,12 +29,24 @@ public class TriggerFullDate implements Trigger {
         this.year=year;
     }
 
-    /*
+    public TriggerFullDate (int hour, int minute,int dayWeek, int dayMonth, int year) throws IllegalTimeException {
+        super(false);
+        if ((hour < 0 || hour > 23) || (minute < 0 || minute > 59))
+            throw new IllegalTimeException();
+
+        this.hour=hour;
+        this.minute=minute;
+        this.dayWeek=dayWeek;
+        this.dayMonth=dayMonth;
+        this.year=year;
+    }
+
+
     public void setTime (int hour, int minute){
         this.hour=hour;
         this.minute=minute;
     }
-    */
+
 
     @Override
     public boolean evaluate(){
@@ -46,7 +59,7 @@ public class TriggerFullDate implements Trigger {
 
 
 
-        return (hourNow == this.hour && minuteNow == this.minute && dayNow == this.dayWeek && monthNow == this.dayMonth && yearNow == this.year);
+        return negate != (hourNow == this.hour && minuteNow == this.minute && dayNow == this.dayWeek && monthNow == this.dayMonth && yearNow == this.year);
     }
 
     public int getHour() {

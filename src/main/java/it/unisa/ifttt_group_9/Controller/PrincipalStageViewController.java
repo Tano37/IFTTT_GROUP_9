@@ -155,6 +155,8 @@ public class PrincipalStageViewController implements Initializable {
     // Checkboxes
     @FXML
     private CheckBox fireOnceCheckbox;
+    @FXML
+    private CheckBox negateTriggerCheckBox;
 
     // JFileChooser
     private JFileChooser fileChooserWav = new JFileChooser();
@@ -615,6 +617,10 @@ public class PrincipalStageViewController implements Initializable {
 
             }
 
+        }
+
+        if (negateTriggerCheckBox.isSelected()){
+            selectedTrigger.negate();
         }
     }
 

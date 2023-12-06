@@ -2,11 +2,20 @@ package it.unisa.ifttt_group_9.Trigger;
 
 import java.io.File;
 
-public class TriggerFileDimension implements Trigger {
+public class TriggerFileDimension extends AbstractTriggerDecorator {
 
     private String filePath;
     private long maxSize;
+
+
+    public TriggerFileDimension(String filePath, long maxSize, boolean negate) {
+        super(negate);
+        this.filePath = filePath;
+        this.maxSize = maxSize;
+    }
+
     public TriggerFileDimension(String filePath, long maxSize) {
+        super(false);
         this.filePath = filePath;
         this.maxSize = maxSize;
     }
@@ -43,11 +52,11 @@ public class TriggerFileDimension implements Trigger {
             // Get the file size in bytes
             long fileSize = file.length();
 
-            return fileSize > maxSize;
+            return negate != fileSize > maxSize;
 
         } else {
             System.out.println(filePath + " doesn't exists");
-            return false;
+            return negate;
         }
     }
 }

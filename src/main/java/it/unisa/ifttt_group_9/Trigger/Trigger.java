@@ -5,4 +5,6 @@ import java.io.Serializable;
 //Abstract Product (AbstractFactory)
 public interface Trigger extends Serializable {
     public boolean evaluate();
+
+    void negate();
 }
