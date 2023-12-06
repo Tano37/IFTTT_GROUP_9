@@ -656,6 +656,7 @@ public class PrincipalStageViewController implements Initializable {
         selectedAction = null;
     }
 
+    
     @FXML
     void confirmAction(ActionEvent event) throws IOException {
 
@@ -827,9 +828,17 @@ public class PrincipalStageViewController implements Initializable {
 
     }
 
+
+    public void selectedActionBilding(){
+
+
+
+    }
+
     public void createRule(){
 
-        Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger, selectedAction,fireOnceCheckbox.isSelected());
+        Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger,
+                selectedAction,fireOnceCheckbox.isSelected());
         rulesList.add(createdRule);
         try{
             saveRuleList(rulesList);
