@@ -8,11 +8,14 @@ public class AbstractTriggerDecorator implements Trigger{
         this.negate = negate;
     }
 
-    public void setNegate(boolean negate){
-        this.negate = negate;
-    }
+
 
     public boolean evaluate() {
         return false;
+    }
+
+    @Override
+    public void negate() {
+        this.negate = true;
     }
 }
