@@ -2,6 +2,9 @@ package it.unisa.ifttt_group_9.Controller;
 
 import it.unisa.ifttt_group_9.Action.Action;
 import it.unisa.ifttt_group_9.Action.*;
+import it.unisa.ifttt_group_9.ControllerCounter;
+import it.unisa.ifttt_group_9.Counter;
+import it.unisa.ifttt_group_9.CounterManager;
 import it.unisa.ifttt_group_9.Rule.Rule;
 import it.unisa.ifttt_group_9.Rule.RuleExecuteService;
 import it.unisa.ifttt_group_9.Rule.RuleManager;
@@ -71,6 +74,12 @@ public class PrincipalStageViewController implements Initializable {
     private Button directoryChoosingBtn;
     @FXML
     private Button fileDimensionChooser;
+    @FXML
+    private Button counterBtn;
+    @FXML
+    private Button backCounterBtn;
+    @FXML
+    private Button modifeCounterBtn;
 
     // StackPane and AnchorPanes
     @FXML
@@ -83,6 +92,8 @@ public class PrincipalStageViewController implements Initializable {
     private AnchorPane ancorPane3;
     @FXML
     private AnchorPane ancorPane4;
+    @FXML
+    private AnchorPane ancorPaneCounterTable;
 
     // TableView and TableColumns
     @FXML
@@ -93,6 +104,20 @@ public class PrincipalStageViewController implements Initializable {
     private TableColumn<Rule, String> ruleClmStatus;
     @FXML
     private TableColumn<Rule, String> triggerStatusClm;
+    @FXML
+    private TableView<Counter> counterTable;
+    @FXML
+    private TableColumn<Counter,String> counterClm;
+    @FXML
+    private TableColumn<Counter,Integer> valueCounterClm;
+    @FXML
+    private Button addCounterBtn;
+    @FXML
+    private Button deleteCounterBtn;
+    @FXML
+    private Button chooseCounterBtn;
+    @FXML
+    private Button selectCounterForTriggerBtn;
 
     // TabPane and Tabs
     @FXML
@@ -117,6 +142,8 @@ public class PrincipalStageViewController implements Initializable {
     private Tab existingFileTab;
     @FXML
     private Tab fileDimensionTab;
+    @FXML
+    private Tab counterTab;
 
     // Date Picker, ChoiceBoxes, ComboBox, CheckBox, TextField, Label
     @FXML
@@ -140,6 +167,8 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     private ChoiceBox<String> fileActionChooser;
     @FXML
+    private ChoiceBox<String> chooserActionCounterId;
+    @FXML
     private TextField textMessageId;
     @FXML
     private TextField nameRuleText;
@@ -149,6 +178,8 @@ public class PrincipalStageViewController implements Initializable {
     private TextField fileNameLbl;
     @FXML
     private TextField maxFileDimensionTxt;
+    @FXML
+    private TextField valueInsertByUser;
     @FXML
     private Label fileActionLabel;
 
@@ -178,12 +209,18 @@ public class PrincipalStageViewController implements Initializable {
     private ObservableList<Rule> rulesList;
     private int result = -1;
     private Rule selectedRuleForDeactivation;
+    private ObservableList<Counter> counterList = FXCollections.observableArrayList();
+
+    private ControllerCounter controllerCounter= new ControllerCounter(counterList);
+    private Counter selectedCounter;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeChoiceBox();
-        initializeTable();
+        //initializeTable();
+        initializecounterTable();
+        selectCounterForTriggerBtn.setVisible(false);
 
         dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
 
@@ -365,6 +402,10 @@ public class PrincipalStageViewController implements Initializable {
         dayChoiceId.setItems(dayStringList);
         dayChoiceId.autosize();
 
+        ObservableList<String> compareValue=FXCollections.observableArrayList("greater","less","equal");
+        chooserActionCounterId.setItems(compareValue);
+        chooserActionCounterId.setValue("greater");
+
         //Values to be set of fault at startup
         dayChoiceId.setValue("Ever");
         minuteChoiceIdSleep.setValue(0);
@@ -373,10 +414,26 @@ public class PrincipalStageViewController implements Initializable {
         monthChoiceId.setValue(1);
     }
 
-    private void initializeTable() {
-        // Inizializza la tabella e le colonne
-        // ...
+    private void initializecounterTable() {
+        try {
+            // Chiamata alla funzione di caricamento
+            controllerCounter.loadCounterList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        // Creazione delle colonne
+        TableColumn<Counter, String> counterClm = new TableColumn<>("name");
+        counterClm.setCellValueFactory(new PropertyValueFactory<>("name"));
 
+        TableColumn<Counter, Integer> valueCounterClm = new TableColumn<>("value");
+        valueCounterClm.setCellValueFactory(new PropertyValueFactory<>("value"));
+
+        // Associare le colonne alla TableView
+        counterTable.getColumns().addAll(counterClm, valueCounterClm);
+
+        // Impostazione della ObservableList come modello della TableView
+        counterTable.setItems(counterList);
+        Bindings.bindContent(CounterManager.getInstance().getCounterList(), counterList);
     }
 
     private TableColumn<Rule, Boolean> getRuleBooleanTableColumn() {
@@ -614,6 +671,18 @@ public class PrincipalStageViewController implements Initializable {
                         commandLineTextId.getText(),Integer.parseInt(valueTextId.getText()));
 
             }
+
+        }
+        else if(tabId.equals("counterTab")){
+            Counter counterInsert=selectedCounter;
+            Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
+            String chooserActionCounter= chooserActionCounterId.getValue();
+            selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter);
+            addCounterBtn.setVisible(true);
+            deleteCounterBtn.setVisible(true);
+            backCounterBtn.setVisible(true);
+            modifeCounterBtn.setVisible(true);
+            selectCounterForTriggerBtn.setVisible(false);
 
         }
     }
@@ -957,6 +1026,63 @@ public class PrincipalStageViewController implements Initializable {
         } else {
             System.out.println("Nessuna cartella selezionata.");
         }
+
+    }
+    @FXML
+    void counterAction(ActionEvent event){
+
+        ancorPane1.visibleProperty().setValue(false);
+        ancorPaneCounterTable.visibleProperty().setValue(true);
+
+    }
+    @FXML
+    void backCounterAction(ActionEvent event){
+        ancorPaneCounterTable.visibleProperty().setValue(false);
+        ancorPane1.visibleProperty().setValue(true);
+        System.out.println("ciao");
+
+    }
+    @FXML
+    void addCounterAction(ActionEvent event) {
+        // ControllerCounter controller= new ControllerCounter(counterList);
+        controllerCounter.creation();
+    }
+
+    @FXML
+    void deleteCounterAction(ActionEvent event){
+        //ControllerCounter controller= new ControllerCounter(counterList);
+        ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
+        System.out.println(selectedItems.toString());
+        controllerCounter.delete(selectedItems);
+    }
+    @FXML
+    void modifeCounterAction(ActionEvent event){
+        ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
+        controllerCounter.update(selectedItems);
+        counterTable.refresh();
+
+    }
+    @FXML
+    void chooseCounterAction(ActionEvent event){
+        ancorPane1.visibleProperty().setValue(false);
+        ancorPane2.visibleProperty().setValue(false);
+        ancorPaneCounterTable.visibleProperty().setValue(true);
+        addCounterBtn.setVisible(false);
+        deleteCounterBtn.setVisible(false);
+        backCounterBtn.setVisible(false);
+        modifeCounterBtn.setVisible(false);
+        selectCounterForTriggerBtn.setVisible(true);
+
+
+    }
+    @FXML
+    void selectCounterForTriggerAction(ActionEvent event){
+        ancorPaneCounterTable.visibleProperty().setValue(false);
+        ancorPane2.visibleProperty().setValue(true);
+
+        ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
+        chooseCounterBtn.setText(selectedItems.toString());
+        selectedCounter = selectedItems.get(0);
 
     }
 
