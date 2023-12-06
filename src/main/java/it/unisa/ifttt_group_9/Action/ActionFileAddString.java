@@ -26,6 +26,7 @@ public class ActionFileAddString extends ActionDecorator {
         this.variabileSubstitution=variabileSubstitution;
     }
 
+
     public String getFilePath() {
         return filePath;
     }
@@ -55,5 +56,15 @@ public class ActionFileAddString extends ActionDecorator {
                 } finally {
                     super.executeAction();
                 }
+    }
+
+    @Override
+    public String toString() {
+        return "ActionFileAddString{" +
+                "filePath='" + filePath + '\'' +
+                ", stringToAdd='" + stringToAdd + '\'' +
+                ", variabileSubstitution=" + variabileSubstitution +
+                "\n" + tempAction +
+                '}';
     }
 }

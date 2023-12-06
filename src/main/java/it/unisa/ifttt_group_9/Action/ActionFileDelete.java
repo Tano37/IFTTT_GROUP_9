@@ -31,4 +31,12 @@ public class ActionFileDelete extends ActionDecorator {
         }
         super.executeAction();
     }
+
+    @Override
+    public String toString() {
+        return "ActionFileDelete{" +
+                "filePath='" + filePath + '\'' +
+                "\n" + tempAction +
+                '}';
+    }
 }

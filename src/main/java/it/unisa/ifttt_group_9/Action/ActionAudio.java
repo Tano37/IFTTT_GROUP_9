@@ -27,7 +27,6 @@ public class ActionAudio extends ActionDecorator {
     }
 
     public String getFilePath() {
-
         return filePath;
     }
 
@@ -98,5 +97,14 @@ public class ActionAudio extends ActionDecorator {
         System.out.println(file.getPath());
         audio.executeAction();
 
+    }
+
+    @Override
+    public String toString() {
+        return "ActionAudio{" +
+                "filePath='" + filePath + '\'' +
+                ", continuePlaying=" + continuePlaying +
+                "\n" + tempAction +
+                '}';
     }
 }

@@ -45,6 +45,14 @@ public class ActionFileCopy extends ActionDecorator {
         }
     }
 
+    @Override
+    public String toString() {
+        return "ActionFileCopy{" +
+                "filePath='" + filePath + '\'' +
+                ", destinationDirPath='" + destinationDirPath + '\'' +
+                "\n" + tempAction +
+                '}';
+    }
 }
 
 

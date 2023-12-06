@@ -1,6 +1,7 @@
 package it.unisa.ifttt_group_9;
 
 import it.unisa.ifttt_group_9.Action.Action;
+import it.unisa.ifttt_group_9.Action.ActionDecorator;
 import it.unisa.ifttt_group_9.Action.ActionText;
 import it.unisa.ifttt_group_9.Controller.PrincipalStageViewController;
 import it.unisa.ifttt_group_9.Rule.Rule;
@@ -24,7 +25,7 @@ public class SleepTest {
         Trigger trigger = new TriggerTimestamp(hour, minute);
 
         // Crea un'azione di test
-        Action action = new ActionText("ProvaAction");
+        Action action = new ActionText("ProvaAction",null);
 
         // Crea una regola con il trigger e l'azione
         Rule testRule = new Rule("TestRule", trigger, action, false);

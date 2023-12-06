@@ -52,4 +52,14 @@ public class ActionFileLaunch extends ActionDecorator {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public String toString() {
+        return "ActionFileLaunch{" +
+                "filePath='" + filePath + '\'' +
+                ", arguments='" + arguments + '\'' +
+                ", variabileSubstitution=" + variabileSubstitution +
+                "\n" + tempAction +
+                '}';
+    }
 }
