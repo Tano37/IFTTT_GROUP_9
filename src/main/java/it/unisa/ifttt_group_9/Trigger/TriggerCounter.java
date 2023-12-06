@@ -16,7 +16,6 @@ public class TriggerCounter implements Trigger{
     @Override
     public boolean evaluate() {
         if(valueOfComparation.equals("greater")){
-
             return this.integerInsertByUser>counterToCompare.getValue();
         }
         else if (valueOfComparation.equals("less")) {

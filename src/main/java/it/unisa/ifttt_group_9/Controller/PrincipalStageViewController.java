@@ -228,6 +228,7 @@ public class PrincipalStageViewController implements Initializable {
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 
+
         confirmBtn.disableProperty().bind(nameRuleText.textProperty().isEmpty());
         activateRuleBtn.disableProperty().setValue(true);
         deactivateRuleBtn.disableProperty().setValue(true);
@@ -336,7 +337,6 @@ public class PrincipalStageViewController implements Initializable {
                 }
                 //System.out.printf(r.getRuleTrigger().evaluate()+"//"+!r.getLaunched()+"//"+r.getStatus());
                 if(r.getRuleTrigger().evaluate() && !r.getLaunched() && r.getStatus()){
-
                     r.setLaunched(true);
                     RuleExecuteService myService = new RuleExecuteService(r);
                     myService.start();
