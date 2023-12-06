@@ -8,18 +8,22 @@ import java.io.IOException;
 
 public class ActionFileAddString extends ActionDecorator {
 
-    String filePath;
-    String stringToAdd;
+    private String filePath;
+    private String stringToAdd;
+    private Boolean variabileSubstitution;
 
-    public ActionFileAddString(String filePath, String stringToAdd, Action action) {
+
+    public ActionFileAddString(String filePath, String stringToAdd, Action action, Boolean variabileSubstitution) {
         super(action);
         this.filePath = filePath;
         this.stringToAdd = stringToAdd;
+        this.variabileSubstitution=variabileSubstitution;
     }
-    public ActionFileAddString(String filePath, String stringToAdd) {
+    public ActionFileAddString(String filePath, String stringToAdd, Boolean variabileSubstitution) {
         super(null);
         this.filePath = filePath;
         this.stringToAdd = stringToAdd;
+        this.variabileSubstitution=variabileSubstitution;
     }
 
     public String getFilePath() {

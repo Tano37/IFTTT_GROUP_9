@@ -7,18 +7,21 @@ import javax.swing.*;
 public class ActionText extends ActionDecorator {
 
     private String text;
+    private Boolean variableSubstitution;
 
-    public ActionText(String text, Action action) throws IllegalMessageException {
+    public ActionText(String text, Action action, Boolean variableSubstitution) throws IllegalMessageException {
         super(action);
         if (text == null || text.trim().isEmpty()) {
             throw new IllegalMessageException("Il testo dell'azione non può essere nullo o vuoto");
         }
         this.text = text;
+        this.variableSubstitution=variableSubstitution;
     }
 
-    public ActionText(String text) {
+    public ActionText(String text, Boolean variableSubstitution) {
         super(null);
         this.text = text;
+        this.variableSubstitution=variableSubstitution;
     }
 
 
