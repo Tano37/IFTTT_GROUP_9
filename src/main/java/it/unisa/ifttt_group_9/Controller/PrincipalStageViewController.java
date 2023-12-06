@@ -670,7 +670,6 @@ public class PrincipalStageViewController implements Initializable {
                 alert.showAndWait();
             }else {
                 selectedAction = new ActionText(textMessageId.getText(), selectedAction);
-
             }
         }
         else if(tabId.equals("audioTab"))
@@ -693,8 +692,7 @@ public class PrincipalStageViewController implements Initializable {
             alert.setTitle("Errore");
             alert.setContentText("Inserisci un nome al file");
             alert.showAndWait();
-        }
-        else if(tabId.equals("fileTab") && !nameRuleText.getText().trim().isEmpty())
+        } else if (tabId.equals("fileTab"))
         {
             if(fileActionChooser.getValue().equals("Add String in the end")){
 
@@ -708,9 +706,9 @@ public class PrincipalStageViewController implements Initializable {
 
                     File selectedFolder = fileChooserTxt.getSelectedFile();
                     String testInFile = fileActionLaunchTxt.getText();
-                    selectedAction = new ActionFileAddString(selectedFolder.getPath(), testInFile);
+                    selectedAction = new ActionFileAddString(selectedFolder.getPath(), testInFile, selectedAction);
                     fileChooserTxt.setSelectedFile(null);
-                    createRule();
+
                 }
             }
             else if(fileActionChooser.getValue().equals("Copy and Paste")){
@@ -731,10 +729,10 @@ public class PrincipalStageViewController implements Initializable {
                     File selectedFolder = fileChooserTxt.getSelectedFile();
                     File dirSelectedFolder = directoryChooserActionFile.getSelectedFile();
 
-                    selectedAction = new ActionFileCopy(selectedFolder.getPath(),dirSelectedFolder.getPath());
+                    selectedAction = new ActionFileCopy(selectedFolder.getPath(), dirSelectedFolder.getPath(), selectedAction);
                     fileChooserTxt.setSelectedFile(null);
                     directoryChooserActionFile.setSelectedFile(null);
-                    createRule();
+
                 }
             }
             else if(fileActionChooser.getValue().equals("Delete a File")){
@@ -747,9 +745,9 @@ public class PrincipalStageViewController implements Initializable {
                 }
                 else{
                     File selectedFolder = fileChooserTxt.getSelectedFile();
-                    selectedAction = new ActionFileDelete(selectedFolder.getPath());
+                    selectedAction = new ActionFileDelete(selectedFolder.getPath(), selectedAction);
                     fileChooserTxt.setSelectedFile(null);
-                    createRule();
+
                 }
             }else if(fileActionChooser.getValue().equals("Launch a Program")){
 
@@ -761,12 +759,11 @@ public class PrincipalStageViewController implements Initializable {
                 }
                 else{
                     File selectedFolder = fileChooserTxt.getSelectedFile();
-                    String comandi= fileActionLaunchTxt.getText();
-                    System.out.println(comandi);
-                    selectedAction = new ActionFileLaunch(selectedFolder.getPath(),comandi);
+                    String commands = fileActionLaunchTxt.getText();
+                    System.out.println(commands);
+                    selectedAction = new ActionFileLaunch(selectedFolder.getPath(), commands, selectedAction);
                     fileChooserTxt.setSelectedFile(null);
                     fileActionLaunchTxt.clear();
-                    createRule();
                 }
             }
 
@@ -779,120 +776,112 @@ public class PrincipalStageViewController implements Initializable {
     void confirmAction(ActionEvent event) throws IOException {
 
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
+        if (!nameRuleText.getText().trim().isEmpty()) {
 
-        if(tabId.equals("textMessageTab") && !nameRuleText.getText().trim().isEmpty())
-        {
-            if(textMessageId.getText().trim().isEmpty() ){
+
+            if (tabId.equals("textMessageTab")) {
+                if (textMessageId.getText().trim().isEmpty()) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Errore");
+                    alert.setContentText("Inserisci un testo!");
+                    alert.showAndWait();
+                } else {
+                    selectedAction = new ActionText(textMessageId.getText(), selectedAction);
+                    createRule();
+                }
+            } else if (tabId.equals("audioTab")) {
+                if (fileChooserWav.getSelectedFile() == null) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Errore");
+                    alert.setContentText("Inserisci il file audio!");
+                    alert.showAndWait();
+
+                } else {
+                    File selectedFolder = fileChooserWav.getSelectedFile();
+                    selectedAction = new ActionAudio(selectedFolder.getPath(), selectedAction);
+                    fileChooserWav.setSelectedFile(null);
+                    createRule();
+                }
+            } else if (nameRuleText.getText().trim().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
-                alert.setContentText("Inserisci un testo!");
+                alert.setContentText("Inserisci un nome al file");
                 alert.showAndWait();
-            }else {
-                selectedAction = new ActionText(textMessageId.getText(),selectedAction);
-                //System.out.println(selectedAction.toString());
-                createRule();
+            } else if (tabId.equals("fileTab")) {
+                if (fileActionChooser.getValue().equals("Add String in the end")) {
+
+                    if (fileChooserTxt.getSelectedFile() == null || textIsNotValid(fileActionLaunchTxt.getText())) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setContentText("Compile the fields correctly!");
+                        alert.showAndWait();
+                    } else {
+
+                        File selectedFolder = fileChooserTxt.getSelectedFile();
+                        String testInFile = fileActionLaunchTxt.getText();
+                        selectedAction = new ActionFileAddString(selectedFolder.getPath(), testInFile, selectedAction);
+                        fileChooserTxt.setSelectedFile(null);
+                        createRule();
+
+
+                    }
+                } else if (fileActionChooser.getValue().equals("Copy and Paste")) {
+
+                    if (fileChooserTxt.getSelectedFile() == null) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setContentText("Select source file!");
+                        alert.showAndWait();
+                    } else if (directoryChooserActionFile.getSelectedFile() == null) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setContentText("Select destination file!");
+                        alert.showAndWait();
+                    } else {
+                        File selectedFolder = fileChooserTxt.getSelectedFile();
+                        File dirSelectedFolder = directoryChooserActionFile.getSelectedFile();
+
+                        selectedAction = new ActionFileCopy(selectedFolder.getPath(), dirSelectedFolder.getPath(), selectedAction);
+                        fileChooserTxt.setSelectedFile(null);
+                        directoryChooserActionFile.setSelectedFile(null);
+                        createRule();
+
+
+                    }
+                } else if (fileActionChooser.getValue().equals("Delete a File")) {
+
+                    if (fileChooserTxt.getSelectedFile() == null) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setContentText("Select the file to delete!");
+                        alert.showAndWait();
+                    } else {
+                        File selectedFolder = fileChooserTxt.getSelectedFile();
+                        selectedAction = new ActionFileDelete(selectedFolder.getPath(), selectedAction);
+                        fileChooserTxt.setSelectedFile(null);
+                        createRule();
+                    }
+                } else if (fileActionChooser.getValue().equals("Launch a Program")) {
+
+                    if (fileChooserTxt.getSelectedFile() == null || textIsNotValid(fileActionLaunchTxt.getText())) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setContentText("Select the file!");
+                        alert.showAndWait();
+                    } else {
+                        File selectedFolder = fileChooserTxt.getSelectedFile();
+                        String commands = fileActionLaunchTxt.getText();
+                        System.out.println(commands);
+                        selectedAction = new ActionFileLaunch(selectedFolder.getPath(), commands, selectedAction);
+                        fileChooserTxt.setSelectedFile(null);
+                        fileActionLaunchTxt.clear();
+                        createRule();
+
+                    }
+                }
+
 
             }
-        }
-        else if(tabId.equals("audioTab") && !nameRuleText.getText().trim().isEmpty())
-        {
-            if (fileChooserWav.getSelectedFile() == null){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Errore");
-                alert.setContentText("Inserisci il file audio!");
-                alert.showAndWait();
-
-            }else {
-                File selectedFolder = fileChooserWav.getSelectedFile();
-                selectedAction = new ActionAudio(selectedFolder.getPath());
-                fileChooserWav.setSelectedFile(null);
-                createRule();
-            }
-        }
-        else if(nameRuleText.getText().trim().isEmpty())
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setContentText("Inserisci un nome al file");
-            alert.showAndWait();
-        }
-        else if(tabId.equals("fileTab") && !nameRuleText.getText().trim().isEmpty())
-        {
-            if(fileActionChooser.getValue().equals("Add String in the end")){
-
-                if (fileChooserTxt.getSelectedFile() == null || textIsNotValid(fileActionLaunchTxt.getText())){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("Compile the fields correctly!");
-                    alert.showAndWait();
-                }
-                else{
-
-                    File selectedFolder = fileChooserTxt.getSelectedFile();
-                    String testInFile = fileActionLaunchTxt.getText();
-                    selectedAction = new ActionFileAddString(selectedFolder.getPath(), testInFile);
-                    fileChooserTxt.setSelectedFile(null);
-                    createRule();
-                }
-            }
-            else if(fileActionChooser.getValue().equals("Copy and Paste")){
-
-                if (fileChooserTxt.getSelectedFile() == null){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("Select source file!");
-                    alert.showAndWait();
-                }
-                else if (directoryChooserActionFile.getSelectedFile() == null){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("Select destination file!");
-                    alert.showAndWait();
-                }
-                else{
-                    File selectedFolder = fileChooserTxt.getSelectedFile();
-                    File dirSelectedFolder = directoryChooserActionFile.getSelectedFile();
-
-                    selectedAction = new ActionFileCopy(selectedFolder.getPath(),dirSelectedFolder.getPath());
-                    fileChooserTxt.setSelectedFile(null);
-                    directoryChooserActionFile.setSelectedFile(null);
-                    createRule();
-                }
-            }
-            else if(fileActionChooser.getValue().equals("Delete a File")){
-
-                if (fileChooserTxt.getSelectedFile() == null){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("Select the file to delete!");
-                    alert.showAndWait();
-                }
-                else{
-                    File selectedFolder = fileChooserTxt.getSelectedFile();
-                    selectedAction = new ActionFileDelete(selectedFolder.getPath());
-                    fileChooserTxt.setSelectedFile(null);
-                    createRule();
-                }
-            }else if(fileActionChooser.getValue().equals("Launch a Program")){
-
-                if (fileChooserTxt.getSelectedFile() == null || textIsNotValid(fileActionLaunchTxt.getText())){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("Select the file!");
-                    alert.showAndWait();
-                }
-                else{
-                    File selectedFolder = fileChooserTxt.getSelectedFile();
-                    String comandi= fileActionLaunchTxt.getText();
-                    System.out.println(comandi);
-                    selectedAction = new ActionFileLaunch(selectedFolder.getPath(),comandi);
-                    fileChooserTxt.setSelectedFile(null);
-                    fileActionLaunchTxt.clear();
-                    createRule();
-                }
-            }
-
-
         }
     }
 
