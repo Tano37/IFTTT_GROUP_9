@@ -80,6 +80,11 @@ public class PrincipalStageViewController implements Initializable {
     private Button backCounterBtn;
     @FXML
     private Button modifeCounterBtn;
+    @FXML
+    private Button valueInsertByUserBtn;
+
+    @FXML
+    private CheckBox changeCounterField;
 
     // StackPane and AnchorPanes
     @FXML
@@ -217,15 +222,17 @@ public class PrincipalStageViewController implements Initializable {
     private ObservableList<Counter> counterList = FXCollections.observableArrayList();
 
     private ControllerCounter controllerCounter= new ControllerCounter(counterList);
-    private Counter selectedCounter;
+    private Counter selectedCounter, selectedCounter2;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         initializeChoiceBox();
         //initializeTable();
         initializecounterTable();
         selectCounterForTriggerBtn.setVisible(false);
+        valueInsertByUserBtn.visibleProperty().set(false);
 
         dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
 
@@ -245,8 +252,7 @@ public class PrincipalStageViewController implements Initializable {
         TableColumn<Rule, Boolean> statusColumn = getRuleBooleanTableColumn();
 
         rulesTable.getColumns().add(statusColumn);
-
-        ObservableList<String> triggerFileType = FXCollections.observableArrayList();
+      ObservableList<String> triggerFileType = FXCollections.observableArrayList();
         triggerFileType.add("Add String in the end");
         triggerFileType.add("Copy and Paste");
         triggerFileType.add("Delete a File");
@@ -329,6 +335,7 @@ public class PrincipalStageViewController implements Initializable {
                     System.out.println("now: "+ truncatedNow+"/other: "+ truncatedOtherDateTime+ "/status: "+ r.getStatus()+ "/name: "+ r.getRuleName());
                     int comparisonResult = truncatedNow.compareTo(truncatedOtherDateTime);
 
+
                     if (!r.getStatus() && comparisonResult >= 0) {
 
                         r.setStatus(true);
@@ -339,6 +346,11 @@ public class PrincipalStageViewController implements Initializable {
                     }
                 }
                 //System.out.printf(r.getRuleTrigger().evaluate()+"//"+!r.getLaunched()+"//"+r.getStatus());
+               // System.out.println(r.getRuleTrigger().evaluate() +"//"+!r.getLaunched() +"//"+ r.getStatus());
+
+
+
+
                 if(r.getRuleTrigger().evaluate() && !r.getLaunched() && r.getStatus()){
 
                     r.setLaunched(true);
@@ -356,6 +368,15 @@ public class PrincipalStageViewController implements Initializable {
                     r.setLaunched(r.getRuleTrigger().evaluate() );
                     rulesTable.refresh();
                 }
+                for(Counter c: counterList){
+                    //System.out.println(r.getCounter().getName()+"=="+c.getName()+"|||"+r.getCounter().getValue()+"=="+c.getValue());
+                    if(r.getCounter()!=null){
+                    if(r.getCounter().getName().equals(c.getName()) && r.getCounter().getValue()!=c.getValue()){
+                        r.setLaunched(false);
+                        r.getCounter().setValue(c.getValue());
+                    }}
+
+                }
             }
         })
         );
@@ -367,6 +388,7 @@ public class PrincipalStageViewController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
 
         maxFileDimensionTxt.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
@@ -679,10 +701,22 @@ public class PrincipalStageViewController implements Initializable {
 
         }
         else if(tabId.equals("counterTab")){
-            Counter counterInsert=selectedCounter;
-            Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
-            String chooserActionCounter= chooserActionCounterId.getValue();
-            selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter);
+            if(changeCounterField.selectedProperty().get()){
+                Counter counterInsert=selectedCounter;
+                Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
+                String chooserActionCounter= chooserActionCounterId.getValue();
+                selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter);
+
+            }
+            if(!changeCounterField.selectedProperty().get()){
+                Counter counterInsert=selectedCounter;
+                Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
+                String chooserActionCounter= chooserActionCounterId.getValue();
+                selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter);
+
+
+            }
+
             addCounterBtn.setVisible(true);
             deleteCounterBtn.setVisible(true);
             backCounterBtn.setVisible(true);
@@ -849,6 +883,7 @@ public class PrincipalStageViewController implements Initializable {
 
 
         }
+
     }
 
 
@@ -918,6 +953,12 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane3.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
         rulesTable.getSelectionModel().clearSelection();
+
+        System.out.println(selectedCounter);
+        if(selectedCounter!=null)
+            createdRule.setCounter(selectedCounter);
+        selectedCounter=null;
+        System.out.println(createdRule.getCounter());
     }
 
     void saveRuleList(ObservableList<Rule> list) throws IOException {
@@ -1091,6 +1132,31 @@ public class PrincipalStageViewController implements Initializable {
         chooseCounterBtn.setText(selectedItems.toString());
         selectedCounter = selectedItems.get(0);
 
+
+    }
+    @FXML
+    void valueInsertByUserBtnAction(ActionEvent event){
+        ancorPaneCounterTable.visibleProperty().setValue(false);
+        ancorPane2.visibleProperty().setValue(true);
+
+        ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
+        chooseCounterBtn.setText(selectedItems.toString());
+        selectedCounter2 = selectedItems.get(0);
+
+    }
+    @FXML
+    void changeCounterFieldAction(ActionEvent event){
+        if(changeCounterField.selectedProperty().get()){
+            valueInsertByUser.visibleProperty().set(false);
+            valueInsertByUserBtn.visibleProperty().set(true);
+
+        }
+        if(!changeCounterField.selectedProperty().get()){
+
+            valueInsertByUserBtn.visibleProperty().set(false);
+            valueInsertByUser.visibleProperty().set(true);
+
+        }
     }
 
 

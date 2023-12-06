@@ -1,6 +1,7 @@
 package it.unisa.ifttt_group_9.Rule;
 
 import it.unisa.ifttt_group_9.Action.Action;
+import it.unisa.ifttt_group_9.Counter;
 import it.unisa.ifttt_group_9.Trigger.Trigger;
 
 import java.io.Serializable;
@@ -22,6 +23,8 @@ public class Rule implements Serializable {
 
     private boolean fireOnce = false;
 
+    private Counter counter=null;
+
 
 
     public Rule(String ruleName, Trigger ruleTrigger, Action ruleAction, Boolean fireOnce){
@@ -32,6 +35,14 @@ public class Rule implements Serializable {
         this.dateUntilSleep=null;
         this.fireOnce=fireOnce;
 
+    }
+
+    public Counter getCounter() {
+        return counter;
+    }
+
+    public void setCounter(Counter counter) {
+        this.counter = counter;
     }
 
     public String getRuleName() {
