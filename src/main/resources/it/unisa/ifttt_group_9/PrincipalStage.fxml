@@ -30,9 +30,9 @@
                 </TableView>
                 <Button fx:id="addRuleBtn" layoutX="330.0" layoutY="254.0" mnemonicParsing="false" onAction="#addRuleAction" prefHeight="25.0" prefWidth="77.0" text="Add Rule" />
                 <Button fx:id="deleteBtn" layoutX="414.0" layoutY="254.0" mnemonicParsing="false" onAction="#deleteRuleAction" text="Delete Rule" />
-                <Button fx:id="activateRuleBtn" layoutX="37.0" layoutY="254.0" mnemonicParsing="false" onAction="#activateRuleAction" prefHeight="25.0" prefWidth="77.0" text="Activate" />
-                <Button fx:id="deactivateRuleBtn" layoutX="121.0" layoutY="254.0" mnemonicParsing="false" onAction="#deactivateRuleAction" prefHeight="25.0" prefWidth="77.0" text="Deactivate" />
-                <Button fx:id="sleepRuleBtn" layoutX="211.0" layoutY="254.0" mnemonicParsing="false" onAction="#sleepRuleAction" text="Sleep" />
+                <Button fx:id="activateRuleBtn" layoutX="14.0" layoutY="254.0" mnemonicParsing="false" onAction="#activateRuleAction" prefHeight="25.0" prefWidth="77.0" text="Activate" />
+                <Button fx:id="deactivateRuleBtn" layoutX="95.0" layoutY="254.0" mnemonicParsing="false" onAction="#deactivateRuleAction" prefHeight="25.0" prefWidth="77.0" text="Deactivate" />
+                <Button fx:id="sleepRuleBtn" layoutX="179.0" layoutY="254.0" mnemonicParsing="false" onAction="#sleepRuleAction" text="Sleep" />
                 <Button fx:id="counterBtn" layoutX="248.0" layoutY="254.0" mnemonicParsing="false" onAction="#counterAction" text="Counter" />
             </children>
         </AnchorPane>
