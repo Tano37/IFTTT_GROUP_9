@@ -80,6 +80,11 @@ public class PrincipalStageViewController implements Initializable {
     private Button backCounterBtn;
     @FXML
     private Button modifeCounterBtn;
+    @FXML
+    private Button valueInsertByUserBtn;
+
+    @FXML
+    private CheckBox changeCounterField;
 
     // StackPane and AnchorPanes
     @FXML
@@ -212,7 +217,7 @@ public class PrincipalStageViewController implements Initializable {
     private ObservableList<Counter> counterList = FXCollections.observableArrayList();
 
     private ControllerCounter controllerCounter= new ControllerCounter(counterList);
-    private Counter selectedCounter;
+    private Counter selectedCounter, selectedCounter2;
 
 
     @Override
@@ -222,6 +227,7 @@ public class PrincipalStageViewController implements Initializable {
         //initializeTable();
         initializecounterTable();
         selectCounterForTriggerBtn.setVisible(false);
+        valueInsertByUserBtn.visibleProperty().set(false);
 
         dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
 
@@ -359,10 +365,11 @@ public class PrincipalStageViewController implements Initializable {
                 }
                 for(Counter c: counterList){
                     //System.out.println(r.getCounter().getName()+"=="+c.getName()+"|||"+r.getCounter().getValue()+"=="+c.getValue());
+                    if(r.getCounter()!=null){
                     if(r.getCounter().getName().equals(c.getName()) && r.getCounter().getValue()!=c.getValue()){
                         r.setLaunched(false);
                         r.getCounter().setValue(c.getValue());
-                    }
+                    }}
 
                 }
             }
@@ -689,10 +696,22 @@ public class PrincipalStageViewController implements Initializable {
 
         }
         else if(tabId.equals("counterTab")){
-            Counter counterInsert=selectedCounter;
-            Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
-            String chooserActionCounter= chooserActionCounterId.getValue();
-            selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter);
+            if(changeCounterField.selectedProperty().get()){
+                Counter counterInsert=selectedCounter;
+                Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
+                String chooserActionCounter= chooserActionCounterId.getValue();
+                selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter);
+
+            }
+            if(!changeCounterField.selectedProperty().get()){
+                Counter counterInsert=selectedCounter;
+                Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
+                String chooserActionCounter= chooserActionCounterId.getValue();
+                selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter);
+
+
+            }
+
             addCounterBtn.setVisible(true);
             deleteCounterBtn.setVisible(true);
             backCounterBtn.setVisible(true);
@@ -1107,6 +1126,30 @@ public class PrincipalStageViewController implements Initializable {
         selectedCounter = selectedItems.get(0);
 
 
+    }
+    @FXML
+    void valueInsertByUserBtnAction(ActionEvent event){
+        ancorPaneCounterTable.visibleProperty().setValue(false);
+        ancorPane2.visibleProperty().setValue(true);
+
+        ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
+        chooseCounterBtn.setText(selectedItems.toString());
+        selectedCounter2 = selectedItems.get(0);
+
+    }
+    @FXML
+    void changeCounterFieldAction(ActionEvent event){
+        if(changeCounterField.selectedProperty().get()){
+            valueInsertByUser.visibleProperty().set(false);
+            valueInsertByUserBtn.visibleProperty().set(true);
+
+        }
+        if(!changeCounterField.selectedProperty().get()){
+
+            valueInsertByUserBtn.visibleProperty().set(false);
+            valueInsertByUser.visibleProperty().set(true);
+
+        }
     }
 
 
