@@ -221,6 +221,8 @@ public class PrincipalStageViewController implements Initializable {
     private Rule selectedRuleForDeactivation;
     private ObservableList<Counter> counterList = FXCollections.observableArrayList();
 
+    private 
+
     private ControllerCounter controllerCounter= new ControllerCounter(counterList);
     private Counter selectedCounter, selectedCounter2;
 
@@ -769,7 +771,6 @@ public class PrincipalStageViewController implements Initializable {
     void confirmAction(ActionEvent event) throws IOException {
 
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
-
         if(tabId.equals("textMessageTab") && !nameRuleText.getText().trim().isEmpty())
         {
             if(textMessageId.getText().trim().isEmpty() ){
