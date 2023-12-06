@@ -2,6 +2,7 @@ package it.unisa.ifttt_group_9.Action;
 
 import it.unisa.ifttt_group_9.Action.Action;
 import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
+import it.unisa.ifttt_group_9.CounterManager;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -13,16 +14,19 @@ public class ActionFileLaunch implements Action {
 
     private String filePath;
     private String arguments;
-    private Boolean variabileSubstitution;
+    private Boolean variableSubstitution;
 
-    public ActionFileLaunch(String filePath, String arguments, Boolean variabileSubstitution){
+    public ActionFileLaunch(String filePath, String arguments, Boolean variableSubstitution){
         this.filePath = filePath;
         this.arguments = arguments;
-        this.variabileSubstitution=variabileSubstitution;
+        this.variableSubstitution=variableSubstitution;
     }
 
     @Override
     public void executeAction() {
+
+        if (this.variableSubstitution)
+            this.arguments= CounterManager.counterSubstitution(this.arguments);
         // Command and arguments
         List<String> command = new ArrayList<>();
         command.add(filePath);  // Replace with the actual path to your executable

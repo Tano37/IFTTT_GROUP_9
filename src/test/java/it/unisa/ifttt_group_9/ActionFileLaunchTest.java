@@ -13,9 +13,10 @@ public class ActionFileLaunchTest {
         // Replace these values with the actual path to your executable and its arguments
         String executablePath =System.getProperty("user.dir") + "\"src\\main\\resources\\it\\unisa\\ifttt_group_9\\draw.exe\"";
         String arguments = "";
+        Boolean variableSubstitution = false;
 
         // Create an instance of ActionFileLaunch
-        ActionFileLaunch actionFileLaunch = new ActionFileLaunch(executablePath, arguments);
+        ActionFileLaunch actionFileLaunch = new ActionFileLaunch(executablePath, arguments, variableSubstitution);
 
         // Execute the action
         try {
