@@ -15,30 +15,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="stackPaneId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="307.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unisa.ifttt_group_9.Controller.PrincipalStageViewController">
+<StackPane fx:id="stackPaneId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unisa.ifttt_group_9.Controller.PrincipalStageViewController">
     <stylesheets>
         <URL value="@Style.css" />
     </stylesheets>
     <children>
-        <AnchorPane fx:id="ancorPane1" prefHeight="200.0" prefWidth="200.0">
-            <children>
-                <TableView fx:id="rulesTable" prefHeight="236.0" prefWidth="534.0">
-                    <columns>
-                        <TableColumn fx:id="ruleClm" prefWidth="121.0" text="Rule" />
-                        <TableColumn fx:id="triggerStatusClm" prefWidth="101.0" text="Trigger Status" />
-                    </columns>
-                </TableView>
-                <Button fx:id="addRuleBtn" layoutX="330.0" layoutY="254.0" mnemonicParsing="false" onAction="#addRuleAction" prefHeight="25.0" prefWidth="77.0" text="Add Rule" />
-                <Button fx:id="deleteBtn" layoutX="414.0" layoutY="254.0" mnemonicParsing="false" onAction="#deleteRuleAction" text="Delete Rule" />
-                <Button fx:id="activateRuleBtn" layoutX="37.0" layoutY="254.0" mnemonicParsing="false" onAction="#activateRuleAction" prefHeight="25.0" prefWidth="77.0" text="Activate" />
-                <Button fx:id="deactivateRuleBtn" layoutX="121.0" layoutY="254.0" mnemonicParsing="false" onAction="#deactivateRuleAction" prefHeight="25.0" prefWidth="77.0" text="Deactivate" />
-                <Button fx:id="sleepRuleBtn" layoutX="211.0" layoutY="254.0" mnemonicParsing="false" onAction="#sleepRuleAction" text="Sleep" />
-                <Button fx:id="counterBtn" layoutX="248.0" layoutY="254.0" mnemonicParsing="false" onAction="#counterAction" text="Counter" />
-            </children>
-        </AnchorPane>
         <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0" visible="false">
             <children>
-                <TabPane fx:id="tabPane1" layoutX="-2.0" prefHeight="236.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="tabPane1" layoutX="-2.0" prefHeight="280.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab fx:id="timeTab" text="Time">
                             <content>
@@ -48,7 +32,7 @@
                                         <Label layoutX="263.0" layoutY="95.0" text=":" />
                                         <ChoiceBox fx:id="hoursChoiceId" layoutX="194.0" layoutY="90.0" prefHeight="31.0" prefWidth="60.0" />
                                         <ChoiceBox fx:id="minuteChoiceId" layoutX="275.0" layoutY="90.0" prefHeight="31.0" prefWidth="60.0" />
-                                        <Separator layoutX="2.0" layoutY="196.0" prefHeight="0.0" prefWidth="536.0" />
+                                        <Separator layoutX="2.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -58,7 +42,7 @@
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
                                         <ChoiceBox fx:id="dayChoiceId" layoutX="211.0" layoutY="83.0" prefHeight="31.0" prefWidth="144.0" />
-                                        <Separator layoutX="7.0" layoutY="196.0" prefHeight="0.0" prefWidth="536.0" />
+                                        <Separator layoutX="7.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
                                         <Label layoutX="117.0" layoutY="87.0" text="Day of Week:" />
                                     </children>
                                 </AnchorPane>
@@ -68,7 +52,7 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <Separator layoutX="7.0" layoutY="196.0" prefHeight="0.0" prefWidth="536.0" />
+                                        <Separator layoutX="7.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
                                         <Label layoutX="94.0" layoutY="88.0" text="Day Of Month:" />
                                         <ChoiceBox fx:id="monthChoiceId" layoutX="203.0" layoutY="83.0" prefHeight="31.0" prefWidth="144.0" />
                                     </children>
@@ -81,7 +65,7 @@
                                     <children>
                                         <Label layoutX="145.0" layoutY="49.0" prefHeight="21.0" prefWidth="249.0" text="Select a full date for trigger attivation" />
                                         <DatePicker fx:id="dataPickerId" layoutX="158.0" layoutY="83.0" />
-                                        <Separator layoutY="196.0" prefHeight="0.0" prefWidth="536.0" />
+                                        <Separator layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -94,7 +78,7 @@
                                         <TextField fx:id="fileNameLbl" layoutX="229.0" layoutY="109.0" prefHeight="25.0" prefWidth="180.0" />
                                         <Button fx:id="directoryChoosingBtn" layoutX="229.0" layoutY="57.0" mnemonicParsing="false" onAction="#directoryChoosingBtnAction" prefHeight="25.0" prefWidth="178.0" text="Choose a Directory" />
                                         <Label layoutX="152.0" layoutY="61.0" text="Directory:" />
-                                        <Separator layoutX="-1.0" layoutY="196.0" prefHeight="0.0" prefWidth="536.0" />
+                                        <Separator layoutX="-1.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -107,7 +91,7 @@
                                         <TextField fx:id="maxFileDimensionTxt" layoutX="229.0" layoutY="109.0" prefHeight="25.0" prefWidth="180.0" />
                                         <Button fx:id="fileDimensionChooseFileBtn" layoutX="229.0" layoutY="57.0" mnemonicParsing="false" onAction="#fileDimensionChooser" prefHeight="25.0" prefWidth="178.0" text="Choose a File" />
                                         <Label layoutX="185.0" layoutY="61.0" text="File:" />
-                                        <Separator layoutX="1.0" layoutY="196.0" prefHeight="0.0" prefWidth="536.0" />
+                                        <Separator layoutX="1.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -123,6 +107,7 @@
                                         <TextField fx:id="valueTextId" layoutX="226.0" layoutY="124.0" prefHeight="25.0" prefWidth="180.0" />
                                         <Label layoutX="130.0" layoutY="128.0" prefHeight="17.0" prefWidth="93.0" text="Expected Value :" />
                               <Label layoutX="109.0" layoutY="176.0" text="Attention: Commands must be separated by a single Comma" />
+                              <Separator layoutX="2.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -136,7 +121,7 @@
                                         <Label layoutX="9.0" layoutY="104.0" text="Choose a counter to compare" />
                                         <Label layoutX="31.0" layoutY="143.0" prefHeight="21.0" prefWidth="152.0" text="Choose the action" />
                                         <ChoiceBox fx:id="chooserActionCounterId" layoutX="206.0" layoutY="138.0" prefWidth="150.0" />
-                                        <Separator layoutX="-1.0" layoutY="196.0" prefHeight="0.0" prefWidth="536.0" />
+                                        <Separator layoutX="-1.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
                                         <Button fx:id="chooseCounterBtn" layoutX="206.0" layoutY="99.0" mnemonicParsing="false" onAction="#chooseCounterAction" prefHeight="31.0" prefWidth="152.0" text="Button" />
                                     </children>
                                 </AnchorPane>
@@ -144,8 +129,8 @@
                         </Tab>
                     </tabs>
                 </TabPane>
-                <Button fx:id="continueBtn" layoutX="265.0" layoutY="247.0" mnemonicParsing="false" onAction="#continueAction" text="Continue" />
-                <Button fx:id="backBtn1" layoutX="191.0" layoutY="247.0" mnemonicParsing="false" onAction="#back1Action" text="Back" />
+                <Button fx:id="continueBtn" layoutX="270.0" layoutY="318.0" mnemonicParsing="false" onAction="#continueAction" text="Continue" />
+                <Button fx:id="backBtn1" layoutX="196.0" layoutY="318.0" mnemonicParsing="false" onAction="#back1Action" text="Back" />
             </children>
         </AnchorPane>
         <AnchorPane fx:id="ancorPane4" prefHeight="200.0" prefWidth="200.0" visible="false">
@@ -164,17 +149,18 @@
                 <Separator layoutX="2.0" layoutY="226.0" prefHeight="0.0" prefWidth="536.0" AnchorPane.bottomAnchor="78.0" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="ancorPane3" focusTraversable="true" prefHeight="200.0" prefWidth="200.0" visible="false">
+        <AnchorPane fx:id="ancorPane3" focusTraversable="true" prefHeight="200.0" prefWidth="200.0">
             <children>
-                <TabPane fx:id="tabPane2" prefHeight="236.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="tabPane2" prefHeight="267.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab fx:id="textMessageTab" text="Text Message">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="133.0" prefWidth="534.0">
                                     <children>
-                                        <Label layoutX="65.0" layoutY="88.0" text="Insert Text Message" />
+                                        <Label layoutX="92.0" layoutY="87.0" text="Insert Text Message:" />
                                         <TextField fx:id="textMessageId" layoutX="220.0" layoutY="83.0" />
-                                        <Separator layoutX="-12.0" layoutY="192.0" prefHeight="3.0" prefWidth="553.0" />
+                              <CheckBox fx:id="varsubActionTextCb" layoutX="190.0" layoutY="146.0" mnemonicParsing="false" text="Use Variable Substitution ($)" />
+                              <Separator layoutX="-25.0" layoutY="230.0" prefHeight="17.0" prefWidth="574.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -185,21 +171,22 @@
                                     <children>
                                         <Label layoutX="79.0" layoutY="88.0" text="Choose an Audio(.wav)" />
                                         <Button fx:id="fileChooserBtn" layoutX="213.0" layoutY="83.0" mnemonicParsing="false" onAction="#showFileChooser" prefHeight="31.0" prefWidth="171.0" text="Chose a WAV File" />
-                                        <Separator layoutX="-40.0" layoutY="185.0" prefHeight="17.0" prefWidth="574.0" />
+                                        <Separator layoutX="-40.0" layoutY="230.0" prefHeight="17.0" prefWidth="574.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
                         </Tab>
                         <Tab fx:id="fileTab" text="File Action">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="534.0">
                                     <children>
-                                        <Separator layoutX="-40.0" layoutY="185.0" prefHeight="17.0" prefWidth="574.0" />
-                                        <ChoiceBox fx:id="fileActionChooser" layoutX="75.0" layoutY="26.0" prefWidth="150.0" />
-                                        <Button fx:id="file" layoutX="292.0" layoutY="26.0" mnemonicParsing="false" onAction="#filePathBtnAction" text="Chose a File" />
-                                        <Label fx:id="fileActionLabel" layoutX="40.0" layoutY="88.0" text="Label" />
-                                        <Button fx:id="destDirBtn" layoutX="342.0" layoutY="131.0" mnemonicParsing="false" onAction="#destDirBtnAction" text="Chose a Dest. Dir." />
+                                        <Separator layoutX="-40.0" layoutY="230.0" prefHeight="17.0" prefWidth="574.0" />
+                                        <ChoiceBox fx:id="fileActionChooser" layoutX="34.0" layoutY="26.0" prefWidth="150.0" />
+                                        <Button fx:id="file" layoutX="267.0" layoutY="26.0" mnemonicParsing="false" onAction="#filePathBtnAction" text="Chose a File" />
+                                        <Label fx:id="fileActionLabel" layoutX="34.0" layoutY="104.0" text="Insert String:" />
+                                        <Button fx:id="destDirBtn" layoutX="383.0" layoutY="26.0" mnemonicParsing="false" onAction="#destDirBtnAction" text="Chose a Dest. Dir." />
                                         <TextField fx:id="fileActionLaunchTxt" layoutX="34.0" layoutY="131.0" />
+                              <CheckBox fx:id="varsubActionFileCb" layoutX="271.0" layoutY="135.0" mnemonicParsing="false" text="Use Variable Substitution ($)" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -207,11 +194,11 @@
 
                     </tabs>
                 </TabPane>
-                <Button fx:id="confirmBtn" layoutX="409.0" layoutY="257.0" mnemonicParsing="false" onAction="#confirmAction" text="Confirm" />
-                <Button fx:id="backBtn2" layoutX="77.0" layoutY="257.0" mnemonicParsing="false" onAction="#back2Action" text="Back" />
-                <TextField fx:id="nameRuleText" layoutX="137.0" layoutY="255.0" />
-                <Label layoutX="137.0" layoutY="236.0" text="Name of the Rule" />
-                <CheckBox fx:id="fireOnceCheckbox" layoutX="295.0" layoutY="259.0" mnemonicParsing="false" text="Fire Rule Once" />
+                <Button fx:id="confirmBtn" layoutX="405.0" layoutY="316.0" mnemonicParsing="false" onAction="#confirmAction" text="Confirm" />
+                <Button fx:id="backBtn2" layoutX="73.0" layoutY="316.0" mnemonicParsing="false" onAction="#back2Action" text="Back" />
+                <TextField fx:id="nameRuleText" layoutX="133.0" layoutY="314.0" />
+                <Label layoutX="133.0" layoutY="295.0" text="Name of the Rule" />
+                <CheckBox fx:id="fireOnceCheckbox" layoutX="291.0" layoutY="318.0" mnemonicParsing="false" text="Fire Rule Once" />
             </children>
         </AnchorPane>
         <AnchorPane fx:id="ancorPaneCounterTable" prefHeight="200.0" prefWidth="200.0" visible="false">
@@ -222,6 +209,22 @@
                 <Button fx:id="backCounterBtn" layoutX="37.0" layoutY="262.0" mnemonicParsing="false" onAction="#backCounterAction" prefHeight="31.0" prefWidth="138.0" text="Back" />
                 <Button fx:id="modifeCounterBtn" layoutX="212.0" layoutY="262.0" mnemonicParsing="false" onAction="#modifeCounterAction" text="modifi" />
                 <Button fx:id="selectCounterForTriggerBtn" layoutX="363.0" layoutY="262.0" mnemonicParsing="false" onAction="#selectCounterForTriggerAction" text="Select and continue" />
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="ancorPane1" prefHeight="368.0" prefWidth="536.0" visible="false">
+            <children>
+                <TableView fx:id="rulesTable" prefHeight="267.0" prefWidth="534.0">
+                    <columns>
+                        <TableColumn fx:id="ruleClm" prefWidth="121.0" text="Rule" />
+                        <TableColumn fx:id="triggerStatusClm" prefWidth="101.0" text="Trigger Status" />
+                    </columns>
+                </TableView>
+                <Button fx:id="addRuleBtn" layoutX="414.0" layoutY="283.0" mnemonicParsing="false" onAction="#addRuleAction" prefHeight="25.0" prefWidth="77.0" text="Add Rule" />
+                <Button fx:id="deleteBtn" layoutX="414.0" layoutY="350.0" mnemonicParsing="false" onAction="#deleteRuleAction" text="Delete Rule" />
+                <Button fx:id="activateRuleBtn" layoutX="26.0" layoutY="283.0" mnemonicParsing="false" onAction="#activateRuleAction" prefHeight="25.0" prefWidth="108.0" text="Activate Rule" />
+                <Button fx:id="deactivateRuleBtn" layoutX="26.0" layoutY="317.0" mnemonicParsing="false" onAction="#deactivateRuleAction" prefHeight="25.0" prefWidth="108.0" text="Deactivate Rule" />
+                <Button fx:id="sleepRuleBtn" layoutX="26.0" layoutY="350.0" mnemonicParsing="false" onAction="#sleepRuleAction" prefHeight="25.0" prefWidth="108.0" text="Sleep Rule" />
+                <Button fx:id="counterBtn" layoutX="235.0" layoutY="317.0" mnemonicParsing="false" onAction="#counterAction" text="Counters" />
             </children>
         </AnchorPane>
     </children>

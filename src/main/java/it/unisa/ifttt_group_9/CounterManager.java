@@ -28,6 +28,20 @@ public class CounterManager {
         return counterList;
     }
 
+    public int getCounterValue(String counterName){
+        return counterList.
+    }
+
+    public static String counterSubstitution(String text){
+        String[] items = text.split(" ");
+
+        // Scorri e stampa le parole
+        for (String item : items) {
+
+        }
+        return null;
+    }
+
     @Override
     public String toString(){ return counterList.toString(); }
 }

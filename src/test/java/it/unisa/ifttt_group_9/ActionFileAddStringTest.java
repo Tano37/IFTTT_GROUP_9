@@ -15,7 +15,8 @@ class ActionFileAddStringTest {
         // Arrange
         String testFilePath = "testFile.txt";
         String testStringToAdd = "TestString";
-        ActionFileAddString action = new ActionFileAddString(testFilePath, testStringToAdd);
+        Boolean variabileSubstitution = false;
+        ActionFileAddString action = new ActionFileAddString(testFilePath, testStringToAdd, variabileSubstitution);
 
         // Act
         action.executeAction();

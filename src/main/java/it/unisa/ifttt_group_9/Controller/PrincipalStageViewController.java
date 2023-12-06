@@ -186,6 +186,11 @@ public class PrincipalStageViewController implements Initializable {
     // Checkboxes
     @FXML
     private CheckBox fireOnceCheckbox;
+    @FXML
+    private CheckBox varsubActionTextCb;
+    @FXML
+    private CheckBox varsubActionFileCb;
+
 
     // JFileChooser
     private JFileChooser fileChooserWav = new JFileChooser();
@@ -738,7 +743,7 @@ public class PrincipalStageViewController implements Initializable {
                 alert.setContentText("Inserisci un testo!");
                 alert.showAndWait();
             }else {
-                selectedAction = new ActionText(textMessageId.getText());
+                selectedAction = new ActionText(textMessageId.getText(), varsubActionTextCb.isSelected());
                 //System.out.println(selectedAction.toString());
                 createRule();
 
@@ -780,7 +785,7 @@ public class PrincipalStageViewController implements Initializable {
 
                     File selectedFolder = fileChooserTxt.getSelectedFile();
                     String testInFile = fileActionLaunchTxt.getText();
-                    selectedAction = new ActionFileAddString(selectedFolder.getPath(), testInFile);
+                    selectedAction = new ActionFileAddString(selectedFolder.getPath(), testInFile, varsubActionFileCb.isSelected());
                     fileChooserTxt.setSelectedFile(null);
                     createRule();
                 }
@@ -835,7 +840,7 @@ public class PrincipalStageViewController implements Initializable {
                     File selectedFolder = fileChooserTxt.getSelectedFile();
                     String comandi= fileActionLaunchTxt.getText();
                     System.out.println(comandi);
-                    selectedAction = new ActionFileLaunch(selectedFolder.getPath(),comandi);
+                    selectedAction = new ActionFileLaunch(selectedFolder.getPath(),comandi, varsubActionFileCb.isSelected());
                     fileChooserTxt.setSelectedFile(null);
                     fileActionLaunchTxt.clear();
                     createRule();
@@ -983,6 +988,7 @@ public class PrincipalStageViewController implements Initializable {
 
         //Actions Fields Set
         textMessageId.clear();
+        varsubActionTextCb.setSelected(false);
 
         fileChooserWav.setSelectedFile(null);
 
@@ -990,6 +996,7 @@ public class PrincipalStageViewController implements Initializable {
         fileActionLaunchTxt.clear();
         fileChooserTxt.setSelectedFile(null);
         directoryChooserActionFile.setSelectedFile(null);
+        varsubActionFileCb.setSelected(false);
 
         //Rule Fields Set
         fireOnceCheckbox.selectedProperty().setValue(false);

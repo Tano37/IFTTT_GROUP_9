@@ -11,12 +11,14 @@ import java.io.IOException;
 
 public class ActionFileAddString implements Action {
 
-    String filePath;
-    String stringToAdd;
+    private String filePath;
+    private String stringToAdd;
+    private Boolean variabileSubstitution;
 
-    public ActionFileAddString(String filePath, String stringToAdd) {
+    public ActionFileAddString(String filePath, String stringToAdd, Boolean variabileSubstitution) {
         this.filePath = filePath;
         this.stringToAdd = stringToAdd;
+        this.variabileSubstitution=variabileSubstitution;
     }
 
     public String getFilePath() {

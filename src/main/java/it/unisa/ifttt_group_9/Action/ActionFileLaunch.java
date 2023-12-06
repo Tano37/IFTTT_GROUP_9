@@ -11,12 +11,14 @@ import java.util.List;
 
 public class ActionFileLaunch implements Action {
 
-    String filePath;
-    String arguments;
+    private String filePath;
+    private String arguments;
+    private Boolean variabileSubstitution;
 
-    public ActionFileLaunch(String filePath, String arguments){
+    public ActionFileLaunch(String filePath, String arguments, Boolean variabileSubstitution){
         this.filePath = filePath;
         this.arguments = arguments;
+        this.variabileSubstitution=variabileSubstitution;
     }
 
     @Override

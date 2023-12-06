@@ -8,12 +8,14 @@ import javax.swing.*;
 public class ActionText implements Action {
 
     private String text;
+    private Boolean variableSubstitution;
 
-    public ActionText(String text) throws IllegalMessageException {
+    public ActionText(String text, Boolean variableSubstitution) throws IllegalMessageException {
         if (text == null || text.trim().isEmpty()) {
             throw new IllegalMessageException("Il testo dell'azione non può essere nullo o vuoto");
         }
         this.text = text;
+        this.variableSubstitution=variableSubstitution;
     }
 
     @Override
