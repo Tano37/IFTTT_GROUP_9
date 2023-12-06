@@ -42,11 +42,16 @@ public class CounterManager {
             String variableName = null;
             if(item.startsWith("$")){
                 variableName = item.substring(1);
+                elaboratedString.concat(getCounterValue(variableName) + " ");
+                /*
+                if errore che non esiste la variabile fare return stringa di avviso impostata;
+                 */
             }
-            elaboratedString.concat(variableName + " ");
-
+            else{
+                elaboratedString.concat(expressionItem + " ");
+            }
         }
-        return null;
+        return elaboratedString;
     }
 
     @Override
