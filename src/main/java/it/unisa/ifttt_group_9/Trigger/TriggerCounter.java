@@ -29,28 +29,30 @@ public class TriggerCounter extends TriggerDecorator{
 
     @Override
     public boolean evaluate() {
-        if(valueOfComparation.equals("greater")){
-            if(precTriggerAndOr){
-                return negate != this.integerInsertByUser>counterToCompare.getValue() && super.evaluate();
+        switch (valueOfComparation) {
+            case "greater" -> {
+                if (precTriggerAndOr) {
+                    return negate != this.integerInsertByUser > counterToCompare.getValue() && super.evaluate();
 
-            }else {
-                return negate != this.integerInsertByUser>counterToCompare.getValue() || super.evaluate();
+                } else {
+                    return negate != this.integerInsertByUser > counterToCompare.getValue() || super.evaluate();
+                }
             }
-        }
-        else if (valueOfComparation.equals("less")) {
-            if(precTriggerAndOr){
-                return negate != this.integerInsertByUser<counterToCompare.getValue() && super.evaluate();
+            case "less" -> {
+                if (precTriggerAndOr) {
+                    return negate != this.integerInsertByUser < counterToCompare.getValue() && super.evaluate();
 
-            }else {
-                return negate != this.integerInsertByUser<counterToCompare.getValue() || super.evaluate();
+                } else {
+                    return negate != this.integerInsertByUser < counterToCompare.getValue() || super.evaluate();
+                }
             }
-        }
-        else if (valueOfComparation.equals("equal")) {
-            if(precTriggerAndOr){
-                return negate != (this.integerInsertByUser==counterToCompare.getValue()) && super.evaluate();
+            case "equal" -> {
+                if (precTriggerAndOr) {
+                    return negate != (this.integerInsertByUser == counterToCompare.getValue()) && super.evaluate();
 
-            }else {
-                return negate != (this.integerInsertByUser==counterToCompare.getValue()) || super.evaluate();
+                } else {
+                    return negate != (this.integerInsertByUser == counterToCompare.getValue()) || super.evaluate();
+                }
             }
         }
         return negate;
