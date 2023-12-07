@@ -28,8 +28,8 @@
                         <TableColumn fx:id="triggerStatusClm" prefWidth="101.0" text="Trigger Status" />
                     </columns>
                 </TableView>
-                <Button fx:id="addRuleBtn" layoutX="424.0" layoutY="292.0" mnemonicParsing="false" onAction="#addRuleAction" prefHeight="25.0" prefWidth="77.0" text="Add Rule" />
-                <Button fx:id="deleteBtn" layoutX="414.0" layoutY="350.0" mnemonicParsing="false" onAction="#deleteRuleAction" text="Delete Rule" />
+                <Button fx:id="addRuleBtn" layoutX="393.0" layoutY="283.0" mnemonicParsing="false" onAction="#addRuleAction" prefHeight="31.0" prefWidth="96.0" text="Add Rule" />
+                <Button fx:id="deleteBtn" layoutX="393.0" layoutY="350.0" mnemonicParsing="false" onAction="#deleteRuleAction" text="Delete Rule" />
                 <Button fx:id="activateRuleBtn" layoutX="26.0" layoutY="283.0" mnemonicParsing="false" onAction="#activateRuleAction" prefHeight="25.0" prefWidth="108.0" text="Activate Rule" />
                 <Button fx:id="deactivateRuleBtn" layoutX="26.0" layoutY="317.0" mnemonicParsing="false" onAction="#deactivateRuleAction" prefHeight="25.0" prefWidth="108.0" text="Deactivate Rule" />
                 <Button fx:id="sleepRuleBtn" layoutX="26.0" layoutY="350.0" mnemonicParsing="false" onAction="#sleepRuleAction" prefHeight="25.0" prefWidth="108.0" text="Sleep Rule" />
@@ -37,7 +37,7 @@
                 <Button fx:id="withActionBtn" layoutX="227.0" layoutY="350.0" mnemonicParsing="false" onAction="#createWithAction" text="With action" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0">
+        <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0" visible="false">
             <children>
                 <TabPane fx:id="tabPane1" layoutX="-2.0" prefHeight="280.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
@@ -104,10 +104,10 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <Label layoutX="99.0" layoutY="113.0" text="Max File Dimension:" />
+                                        <Label layoutX="73.0" layoutY="114.0" prefHeight="21.0" prefWidth="138.0" text="Max File Dimension:" />
                                         <TextField fx:id="maxFileDimensionTxt" layoutX="229.0" layoutY="109.0" prefHeight="25.0" prefWidth="180.0" />
                                         <Button fx:id="fileDimensionChooseFileBtn" layoutX="229.0" layoutY="57.0" mnemonicParsing="false" onAction="#fileDimensionChooser" prefHeight="25.0" prefWidth="178.0" text="Choose a File" />
-                                        <Label layoutX="185.0" layoutY="61.0" text="File:" />
+                                        <Label layoutX="185.0" layoutY="62.0" text="File:" />
                                         <Separator layoutX="1.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
                                     </children>
                                 </AnchorPane>
@@ -117,13 +117,13 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <Label layoutX="127.0" layoutY="77.0" text="Command Line :" />
+                                        <Label layoutX="88.0" layoutY="78.0" text="Command Line :" />
                                         <TextField fx:id="commandLineTextId" layoutX="226.0" layoutY="73.0" prefHeight="25.0" prefWidth="180.0" />
                                         <Button fx:id="directoryChoosingControllExitStatusBtn" layoutX="227.0" layoutY="26.0" mnemonicParsing="false" onAction="#directoryChoosingExitStatusBtnAction" prefHeight="25.0" prefWidth="178.0" text="Choose a Directory" />
-                                        <Label layoutX="127.0" layoutY="30.0" text="Directory:" />
+                                        <Label layoutX="88.0" layoutY="31.0" text="Directory:" />
                                         <TextField fx:id="valueTextId" layoutX="226.0" layoutY="124.0" prefHeight="25.0" prefWidth="180.0" />
-                                        <Label layoutX="130.0" layoutY="128.0" prefHeight="17.0" prefWidth="93.0" text="Expected Value :" />
-                              <Label layoutX="109.0" layoutY="176.0" text="Attention: Commands must be separated by a single Comma" />
+                                        <Label layoutX="88.0" layoutY="129.0" prefHeight="21.0" prefWidth="121.0" text="Expected Value :" />
+                              <Label layoutX="75.0" layoutY="176.0" text="Attention: Commands must be separated by a single Comma" />
                               <Separator layoutX="2.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
                                     </children>
                                 </AnchorPane>
@@ -133,29 +133,31 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <TextField fx:id="valueInsertByUser" layoutX="205.0" layoutY="28.0" prefHeight="31.0" prefWidth="152.0" promptText="Field Accept only Integer" />
-                                        <Label layoutX="14.0" layoutY="32.0" prefHeight="21.0" prefWidth="187.0" text="Insert a integer to compare" />
-                                        <Label layoutX="9.0" layoutY="72.0" text="Choose a counter to compare" />
+                                        <TextField fx:id="valueInsertByUser" layoutX="281.0" layoutY="27.0" prefHeight="31.0" prefWidth="152.0" promptText="Field Accept only Integer" />
+                                        <Label layoutX="34.0" layoutY="32.0" prefHeight="21.0" prefWidth="187.0" text="Insert a integer to compare" />
+                                        <Label layoutX="31.0" layoutY="72.0" text="Choose a counter to compare" />
                                         <Label layoutX="31.0" layoutY="109.0" prefHeight="21.0" prefWidth="152.0" text="Choose the action" />
-                                        <ChoiceBox fx:id="chooserActionCounterId" layoutX="206.0" layoutY="107.0" prefWidth="150.0" />
+                                        <ChoiceBox fx:id="chooserActionCounterId" layoutX="282.0" layoutY="104.0" prefWidth="150.0" />
                                         <Separator layoutX="-1.0" layoutY="196.0" prefHeight="0.0" prefWidth="536.0" />
-                                        <Button fx:id="chooseCounterBtn" layoutX="206.0" layoutY="67.0" mnemonicParsing="false" onAction="#chooseCounterAction" prefHeight="31.0" prefWidth="152.0" text="Select a Counter 2" />
-                                        <CheckBox fx:id="changeCounterField" layoutX="80.0" layoutY="162.0" mnemonicParsing="false" onAction="#changeCounterFieldAction" prefHeight="21.0" prefWidth="402.0" text="Click here if u wanna comparte with another counter" />
+                                        <Button fx:id="chooseCounterBtn" layoutX="281.0" layoutY="67.0" mnemonicParsing="false" onAction="#chooseCounterAction" prefHeight="31.0" prefWidth="152.0" text="Select a Counter 2" />
+                                        <CheckBox fx:id="changeCounterField" layoutX="76.0" layoutY="149.0" mnemonicParsing="false" onAction="#changeCounterFieldAction" prefHeight="21.0" prefWidth="402.0" text="Click here if u wanna comparte with another counter" />
                               <Label layoutX="118.0" layoutY="4.0" text="The first value is comparade with the second " />
-                              <Button fx:id="valueInsertByUserBtn" layoutX="205.0" layoutY="27.0" mnemonicParsing="false" onAction="#valueInsertByUserBtnAction" prefHeight="31.0" prefWidth="151.0" text="Select a counter 1" />
+                              <Button fx:id="valueInsertByUserBtn" layoutX="281.0" layoutY="27.0" mnemonicParsing="false" onAction="#valueInsertByUserBtnAction" prefHeight="31.0" prefWidth="151.0" text="Select a counter 1" />
                               <Label fx:id="counterConfrontationLbl1" layoutX="115.0" layoutY="217.0" prefHeight="21.0" prefWidth="363.0" text="Nothing" />
                               <Label fx:id="counterConfrontationLbl3" layoutX="116.0" layoutY="217.0" prefHeight="21.0" prefWidth="256.0" text="Nothing" />
+                              <Label fx:id="counterConfrontationLbl2" layoutX="115.0" layoutY="196.0" prefHeight="21.0" prefWidth="363.0" text="Nothing" />
                                     </children>
                                 </AnchorPane>
                             </content>
                         </Tab>
                     </tabs>
                 </TabPane>
-                <Button fx:id="continueBtn" layoutX="265.0" layoutY="247.0" mnemonicParsing="false" onAction="#continueAction" text="Continue" />
-                <Button fx:id="backBtn1" layoutX="191.0" layoutY="247.0" mnemonicParsing="false" onAction="#back1Action" text="Back" />
+                <<Button fx:id="continueBtn" layoutX="428.0" layoutY="342.0" mnemonicParsing="false" onAction="#continueAction" text="Continue" />
+                <Button fx:id="backBtn1" layoutX="40.0" layoutY="342.0" mnemonicParsing="false" onAction="#back1Action" text="Back" />
             <CheckBox fx:id="negateTriggerCheckBox" layoutX="357.0" layoutY="251.0" mnemonicParsing="false" text="Not Trigger" />
             <Label fx:id="counterConfrontationLbl2" layoutX="113.0" layoutY="280.0" prefHeight="21.0" prefWidth="363.0" text="Nothing" />
                 
+
             </children>
         </AnchorPane>
         <AnchorPane fx:id="ancorPane4" prefHeight="200.0" prefWidth="200.0" visible="false">
