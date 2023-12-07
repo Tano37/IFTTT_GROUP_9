@@ -38,7 +38,7 @@
     -fx-text-fill: #ffffff; /* Cambia il colore del testo delle schede */
 }
 
-#fileChooserBtn {
+#fileChooserBtn, #withActionBtn {
     -fx-background-color: #2196F3; /* Cambia il colore di sfondo del pulsante di scelta file */
     -fx-text-fill: #ffffff; /* Cambia il colore del testo del pulsante di scelta file */
 }

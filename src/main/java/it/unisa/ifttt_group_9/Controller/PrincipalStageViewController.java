@@ -71,6 +71,8 @@ public class PrincipalStageViewController implements Initializable {
     private Button directoryChoosingBtn;
     @FXML
     private Button fileDimensionChooser;
+    @FXML
+    private Button withActionBtn;
 
     // StackPane and AnchorPanes
     @FXML
@@ -198,6 +200,7 @@ public class PrincipalStageViewController implements Initializable {
         activateRuleBtn.disableProperty().setValue(true);
         deactivateRuleBtn.disableProperty().setValue(true);
         sleepRuleBtn.disableProperty().setValue(true);
+        withActionBtn.disableProperty().setValue(true);
 
         ruleClm.setCellValueFactory(new PropertyValueFactory<>("ruleName"));
         triggerStatusClm.setCellValueFactory(new PropertyValueFactory<>("ruleTriggerEvaluation"));
@@ -408,10 +411,12 @@ public class PrincipalStageViewController implements Initializable {
             activateRuleBtn.setDisable(newValue.getStatus());
             deactivateRuleBtn.setDisable(!newValue.getStatus());
             sleepRuleBtn.setDisable(!newValue.getStatus());
+            withActionBtn.setDisable(false);
         } else {
             activateRuleBtn.setDisable(true);
             deactivateRuleBtn.setDisable(true);
             sleepRuleBtn.setDisable(true);
+            withActionBtn.setDisable(true);
         }
     }
 
@@ -421,7 +426,7 @@ public class PrincipalStageViewController implements Initializable {
     void addRuleAction(ActionEvent event) {
         ancorPane1.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
-        fieldsSet();
+        fieldReset();
 
     }
 
@@ -485,6 +490,13 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane4.visibleProperty().setValue(true);
     }
     @FXML
+    void createWithAction(ActionEvent event){
+        Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
+        selectedAction = selectedItem.getRuleAction();
+        ancorPane1.visibleProperty().setValue(false);
+        ancorPane2.visibleProperty().setValue(true);
+    }
+    @FXML
     void backSleepAction(ActionEvent event){
         ancorPane1.visibleProperty().setValue(true);
         ancorPane4.visibleProperty().setValue(false);
@@ -526,7 +538,7 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane2.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
         rulesTable.getSelectionModel().clearSelection();
-        fieldsSet();
+        fieldReset();
     }
 
     @FXML
@@ -1004,13 +1016,13 @@ public class PrincipalStageViewController implements Initializable {
     }
 
     public boolean textIsNotValid(String text){
-        if (text == null || text.equals(""))
+        if (text == null || text.isEmpty())
             return true;
         else
             return false;
     }
 
-    public void fieldsSet(){
+    public void fieldReset(){
         //Triggers Fields Set
         hoursChoiceId.setValue(LocalTime.now().getHour());
         minuteChoiceId.setValue(LocalTime.now().getMinute());
