@@ -19,7 +19,7 @@ public class ActionFileLaunch extends ActionDecorator {
         super(action);
         this.filePath = filePath;
         this.arguments = arguments;
-        this.variabileSubstitution=variabileSubstitution;
+        this.variableSubstitution=variabileSubstitution;
     }
 
     public ActionFileLaunch(String filePath, String arguments,Boolean variabileSubstitution) {
@@ -64,7 +64,7 @@ public class ActionFileLaunch extends ActionDecorator {
         return "ActionFileLaunch{" +
                 "filePath='" + filePath + '\'' +
                 ", arguments='" + arguments + '\'' +
-                ", variabileSubstitution=" + variabileSubstitution +
+                ", variabileSubstitution=" + variableSubstitution +
                 "\n" + tempAction +
                 '}';
     }

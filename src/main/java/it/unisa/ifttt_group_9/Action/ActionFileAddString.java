@@ -24,7 +24,7 @@ public class ActionFileAddString extends ActionDecorator {
         super(null);
         this.filePath = filePath;
         this.stringToAdd = stringToAdd;
-        this.variabileSubstitution=variabileSubstitution;
+        this.variableSubstitution=variabileSubstitution;
     }
 
 
@@ -67,7 +67,7 @@ public class ActionFileAddString extends ActionDecorator {
         return "ActionFileAddString{" +
                 "filePath='" + filePath + '\'' +
                 ", stringToAdd='" + stringToAdd + '\'' +
-                ", variabileSubstitution=" + variabileSubstitution +
+                ", variabileSubstitution=" + variableSubstitution +
                 "\n" + tempAction +
                 '}';
     }
