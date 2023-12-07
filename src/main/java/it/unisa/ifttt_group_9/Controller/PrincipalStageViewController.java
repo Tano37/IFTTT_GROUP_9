@@ -198,6 +198,9 @@ public class PrincipalStageViewController implements Initializable {
     private CheckBox varsubActionTextCb;
     @FXML
     private CheckBox varsubActionFileCb;
+    @FXML
+    private Label counterConfrontationLbl2, counterConfrontationLbl1, counterConfrontationLbl3;
+
 
 
     // JFileChooser
@@ -252,6 +255,8 @@ public class PrincipalStageViewController implements Initializable {
             if(valueInsertByUserBtn.getText().isEmpty()){
                 continueBtn.setDisable(true);
             }
+            counterConfrontationLbl3.setVisible(false);
+            counterConfrontationLbl1.textProperty().bind(Bindings.concat("Valore attuale: ", valueInsertByUser.textProperty()));
 
         dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
 
@@ -318,13 +323,21 @@ public class PrincipalStageViewController implements Initializable {
                 fileActionLabel.setVisible(false);
             }
         });
-
+        valueInsertByUser.textProperty().setValue("0");
         //binding choince box Timestamp trigger whit button
         BooleanBinding bb = Bindings.or(
                 hoursChoiceId.valueProperty().isNull(),
                 minuteChoiceId.valueProperty().isNull()
+
         );
-        continueBtn.disableProperty().bind(bb);
+        BooleanBinding bbb=Bindings.or(
+                bb,
+                valueInsertByUser.textProperty().isEmpty()
+        );
+
+
+        continueBtn.disableProperty().bind(bbb);
+
 
 
 
@@ -727,6 +740,7 @@ public class PrincipalStageViewController implements Initializable {
                 selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter);
 
 
+
             }
 
             addCounterBtn.setVisible(true);
@@ -734,8 +748,11 @@ public class PrincipalStageViewController implements Initializable {
             backCounterBtn.setVisible(true);
             modifeCounterBtn.setVisible(true);
             selectCounterForTriggerBtn.setVisible(false);
-            valueInsertByUserBtn.setText("select a counter 1");
-            selectCounterForTriggerBtn.setText("select a counter 2");
+          //  counterConfrontationLbl1.setText("Nothing");
+            counterConfrontationLbl2.setText("Nothing");
+
+            counterConfrontationLbl3.setText("Nothing");
+
 
         }
     }
@@ -1146,6 +1163,7 @@ public class PrincipalStageViewController implements Initializable {
         ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
         chooseCounterBtn.setText(selectedItems.toString());
         selectedCounter = selectedItems.get(0);
+        counterConfrontationLbl2.setText("Name: "+ selectedCounter.getName()+" - Value: "+selectedCounter.getValue());
 
 
     }
@@ -1172,6 +1190,8 @@ public class PrincipalStageViewController implements Initializable {
         valueInsertByUserBtn.setText(selectedItems.toString());
         selectedCounter2 = selectedItems.get(0);
 
+        counterConfrontationLbl3.setText("Name: "+ selectedCounter2.getName()+" - Value: "+selectedCounter2.getValue());
+
 
     }
     @FXML
@@ -1179,12 +1199,16 @@ public class PrincipalStageViewController implements Initializable {
         if(changeCounterField.selectedProperty().get()){
             valueInsertByUser.visibleProperty().set(false);
             valueInsertByUserBtn.visibleProperty().set(true);
+            counterConfrontationLbl1.setVisible(false);
+            counterConfrontationLbl3.setVisible(true);
 
         }
         if(!changeCounterField.selectedProperty().get()){
 
             valueInsertByUserBtn.visibleProperty().set(false);
             valueInsertByUser.visibleProperty().set(true);
+            counterConfrontationLbl3.setVisible(false);
+            counterConfrontationLbl1.setVisible(true);
 
         }
     }
