@@ -27,6 +27,11 @@ public class TriggerFile extends TriggerDecorator {
     @Override
     public boolean evaluate() {
         File file = new File(directoryPath, fileName);
-        return negate != file.exists();
+        if(precTriggerAndOr){
+            return negate != file.exists() && super.evaluate();
+        }else {
+            return negate != file.exists() || super.evaluate();
+        }
+
     }
 }

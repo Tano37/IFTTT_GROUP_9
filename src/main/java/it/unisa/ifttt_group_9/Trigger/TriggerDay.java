@@ -50,7 +50,12 @@ public class TriggerDay extends TriggerDecorator {
         int h= now.getHour();
         int m= now.getMinute();
         int d= now.getDayOfWeek().getValue();
-        return negate != (h == this.hour && m == this.minute && d == this.dayWeek);
+        if(precTriggerAndOr){
+            return negate != (h == this.hour && m == this.minute && d == this.dayWeek) && super.evaluate();
+        }else{
+            return negate != (h == this.hour && m == this.minute && d == this.dayWeek) || super.evaluate();
+
+        }
     }
 
     public int getHour() {
