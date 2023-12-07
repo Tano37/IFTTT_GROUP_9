@@ -29,6 +29,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import javafx.util.converter.IntegerStringConverter;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -84,6 +85,9 @@ public class PrincipalStageViewController implements Initializable {
     private Button modifeCounterBtn;
     @FXML
     private Button valueInsertByUserBtn;
+    @FXML
+    private Button selectCounterForTriggerBtn2;
+    
     @FXML
     private CheckBox changeCounterField;
     @FXML
@@ -211,6 +215,9 @@ public class PrincipalStageViewController implements Initializable {
     private CheckBox varsubActionFileCb;
     @FXML
     private CheckBox negateTriggerCheckBox;
+    @FXML
+    private Label counterConfrontationLbl2, counterConfrontationLbl1, counterConfrontationLbl3;
+
 
 
     // JFileChooser
@@ -244,6 +251,24 @@ public class PrincipalStageViewController implements Initializable {
         initializecounterTable();
         selectCounterForTriggerBtn.setVisible(false);
         valueInsertByUserBtn.visibleProperty().set(false);
+        selectCounterForTriggerBtn2.setVisible(false);
+            valueInsertByUser.setTextFormatter(new javafx.scene.control.TextFormatter<>(new IntegerStringConverter(), null, c ->
+            {
+                if (c.isContentChange()) {
+                    String newText = c.getControlNewText();
+                    if (newText.matches("-?\\d*")) {
+                        // Accetta solo stringhe che rappresentano numeri interi (positivi o negativi)
+                        return c;
+                    }
+                }
+                // Non accettare il cambiamento
+                return null;
+            }));
+            if(valueInsertByUserBtn.getText().isEmpty()){
+                continueBtn.setDisable(true);
+            }
+            counterConfrontationLbl3.setVisible(false);
+            counterConfrontationLbl1.textProperty().bind(Bindings.concat("Valore attuale: ", valueInsertByUser.textProperty()));
 
         dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
 
@@ -311,13 +336,21 @@ public class PrincipalStageViewController implements Initializable {
                 fileActionLabel.setVisible(false);
             }
         });
-
+        valueInsertByUser.textProperty().setValue("0");
         //binding choince box Timestamp trigger whit button
         BooleanBinding bb = Bindings.or(
                 hoursChoiceId.valueProperty().isNull(),
                 minuteChoiceId.valueProperty().isNull()
+
         );
-        continueBtn.disableProperty().bind(bb);
+        BooleanBinding bbb=Bindings.or(
+                bb,
+                valueInsertByUser.textProperty().isEmpty()
+        );
+
+
+        continueBtn.disableProperty().bind(bbb);
+
 
             /*LocalDate today=LocalDate.now();
         datePickerId.setValue(today);*/
@@ -379,15 +412,8 @@ public class PrincipalStageViewController implements Initializable {
                     r.setLaunched(r.getRuleTrigger().evaluate() );
                     rulesTable.refresh();
                 }
-                for(Counter c: counterList){
-                    //System.out.println(r.getCounter().getName()+"=="+c.getName()+"|||"+r.getCounter().getValue()+"=="+c.getValue());
-                    if(r.getCounter()!=null){
-                    if(r.getCounter().getName().equals(c.getName()) && r.getCounter().getValue()!=c.getValue()){
-                        r.setLaunched(false);
-                        r.getCounter().setValue(c.getValue());
-                    }}
 
-                }
+
             }
         })
         );
@@ -710,25 +736,34 @@ public class PrincipalStageViewController implements Initializable {
 
             }
 
-        } else if (tabId.equals("counterTab")) {
-            if (changeCounterField.selectedProperty().get()) {
-                Counter counterInsert = selectedCounter;
-                Integer valueInsert = Integer.parseInt(valueInsertByUser.textProperty().getValue());
-                String chooserActionCounter = chooserActionCounterId.getValue();
-                selectedTrigger = new TriggerCounter(valueInsert, selectedCounter, chooserActionCounter);
+        }
+        else if(tabId.equals("counterTab")){
+            if(changeCounterField.selectedProperty().get()){
+                Counter counterInsert=selectedCounter;
+                Counter counterInsert2=selectedCounter2;
+                String chooserActionCounter= chooserActionCounterId.getValue();
+                selectedTrigger=new TriggerCounterCompareCounter(selectedCounter2,selectedCounter,chooserActionCounter);
 
             }
-            if (!changeCounterField.selectedProperty().get()) {
-                Counter counterInsert = selectedCounter;
-                Integer valueInsert = Integer.parseInt(valueInsertByUser.textProperty().getValue());
-                String chooserActionCounter = chooserActionCounterId.getValue();
-                selectedTrigger = new TriggerCounter(valueInsert, selectedCounter, chooserActionCounter);
+            if(!changeCounterField.selectedProperty().get()){
+                Counter counterInsert=selectedCounter;
+                Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
+                String chooserActionCounter= chooserActionCounterId.getValue();
+                selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter);
+
+
+
             }
             addCounterBtn.setVisible(true);
             deleteCounterBtn.setVisible(true);
             backCounterBtn.setVisible(true);
             modifeCounterBtn.setVisible(true);
             selectCounterForTriggerBtn.setVisible(false);
+          //  counterConfrontationLbl1.setText("Nothing");
+            counterConfrontationLbl2.setText("Nothing");
+
+            counterConfrontationLbl3.setText("Nothing");
+
 
             if (negateTriggerCheckBox.isSelected()) {
                 selectedTrigger.negate();
@@ -1185,6 +1220,7 @@ public class PrincipalStageViewController implements Initializable {
         deleteCounterBtn.setVisible(false);
         backCounterBtn.setVisible(false);
         modifeCounterBtn.setVisible(false);
+        selectCounterForTriggerBtn2.setVisible(false);
         selectCounterForTriggerBtn.setVisible(true);
     }
     @FXML
@@ -1194,24 +1230,51 @@ public class PrincipalStageViewController implements Initializable {
         ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
         chooseCounterBtn.setText(selectedItems.toString());
         selectedCounter = selectedItems.get(0);
+        counterConfrontationLbl2.setText("Name: "+ selectedCounter.getName()+" - Value: "+selectedCounter.getValue());
+
+
     }
     @FXML
     void valueInsertByUserBtnAction(ActionEvent event){
+        ancorPane1.visibleProperty().setValue(false);
+        ancorPane2.visibleProperty().setValue(false);
+        ancorPaneCounterTable.visibleProperty().setValue(true);
+        addCounterBtn.setVisible(false);
+        deleteCounterBtn.setVisible(false);
+        backCounterBtn.setVisible(false);
+        modifeCounterBtn.setVisible(false);
+        selectCounterForTriggerBtn2.setVisible(true);
+
+        selectCounterForTriggerBtn.setVisible(false);
+
+    }
+    @FXML
+    void selectCounterForTrigger2Action(ActionEvent event){
         ancorPaneCounterTable.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
         ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
-        chooseCounterBtn.setText(selectedItems.toString());
+        valueInsertByUserBtn.setText(selectedItems.toString());
         selectedCounter2 = selectedItems.get(0);
+
+        counterConfrontationLbl3.setText("Name: "+ selectedCounter2.getName()+" - Value: "+selectedCounter2.getValue());
+
+
     }
     @FXML
     void changeCounterFieldAction(ActionEvent event){
         if(changeCounterField.selectedProperty().get()){
             valueInsertByUser.visibleProperty().set(false);
             valueInsertByUserBtn.visibleProperty().set(true);
+            counterConfrontationLbl1.setVisible(false);
+            counterConfrontationLbl3.setVisible(true);
+
         }
         if(!changeCounterField.selectedProperty().get()){
             valueInsertByUserBtn.visibleProperty().set(false);
             valueInsertByUser.visibleProperty().set(true);
+            counterConfrontationLbl3.setVisible(false);
+            counterConfrontationLbl1.setVisible(true);
+
         }
     }
 }

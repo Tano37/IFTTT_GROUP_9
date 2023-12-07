@@ -15,7 +15,7 @@ public class TriggerCounterCompareCounter extends TriggerDecorator{
 
     @Override
     public boolean evaluate() {
-       /* if(valueOfComparation.equals("greater")){
+        if(valueOfComparation.equals("greater")){
             return this.counter1.getValue()>counter2.getValue();
         }
         else if (valueOfComparation.equals("less")) {
@@ -24,7 +24,7 @@ public class TriggerCounterCompareCounter extends TriggerDecorator{
         else if (valueOfComparation.equals("equal")) {
             return this.counter1.getValue()==counter2.getValue();
 
-        }*/
+        }
         return false;
     }
 }

@@ -37,7 +37,7 @@
                 <Button fx:id="withActionBtn" layoutX="227.0" layoutY="350.0" mnemonicParsing="false" onAction="#createWithAction" text="With action" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0" visible="false">
+        <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0">
             <children>
                 <TabPane fx:id="tabPane1" layoutX="-2.0" prefHeight="280.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
@@ -133,16 +133,18 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <TextField fx:id="valueInsertByUser" layoutX="205.0" layoutY="28.0" prefHeight="31.0" prefWidth="152.0" />
+                                        <TextField fx:id="valueInsertByUser" layoutX="205.0" layoutY="28.0" prefHeight="31.0" prefWidth="152.0" promptText="Field Accept only Integer" />
                                         <Label layoutX="14.0" layoutY="32.0" prefHeight="21.0" prefWidth="187.0" text="Insert a integer to compare" />
                                         <Label layoutX="9.0" layoutY="72.0" text="Choose a counter to compare" />
                                         <Label layoutX="31.0" layoutY="109.0" prefHeight="21.0" prefWidth="152.0" text="Choose the action" />
                                         <ChoiceBox fx:id="chooserActionCounterId" layoutX="206.0" layoutY="107.0" prefWidth="150.0" />
                                         <Separator layoutX="-1.0" layoutY="196.0" prefHeight="0.0" prefWidth="536.0" />
-                                        <Button fx:id="chooseCounterBtn" layoutX="206.0" layoutY="67.0" mnemonicParsing="false" onAction="#chooseCounterAction" prefHeight="31.0" prefWidth="152.0" text="Select a Counter" />
+                                        <Button fx:id="chooseCounterBtn" layoutX="206.0" layoutY="67.0" mnemonicParsing="false" onAction="#chooseCounterAction" prefHeight="31.0" prefWidth="152.0" text="Select a Counter 2" />
                                         <CheckBox fx:id="changeCounterField" layoutX="80.0" layoutY="162.0" mnemonicParsing="false" onAction="#changeCounterFieldAction" prefHeight="21.0" prefWidth="402.0" text="Click here if u wanna comparte with another counter" />
                               <Label layoutX="118.0" layoutY="4.0" text="The first value is comparade with the second " />
-                              <Button fx:id="valueInsertByUserBtn" layoutX="205.0" layoutY="27.0" mnemonicParsing="false" onAction="#valueInsertByUserBtnAction" prefHeight="31.0" prefWidth="151.0" text="Select a counter" />
+                              <Button fx:id="valueInsertByUserBtn" layoutX="205.0" layoutY="27.0" mnemonicParsing="false" onAction="#valueInsertByUserBtnAction" prefHeight="31.0" prefWidth="151.0" text="Select a counter 1" />
+                              <Label fx:id="counterConfrontationLbl1" layoutX="115.0" layoutY="217.0" prefHeight="21.0" prefWidth="363.0" text="Nothing" />
+                              <Label fx:id="counterConfrontationLbl3" layoutX="116.0" layoutY="217.0" prefHeight="21.0" prefWidth="256.0" text="Nothing" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -152,6 +154,8 @@
                 <Button fx:id="continueBtn" layoutX="265.0" layoutY="247.0" mnemonicParsing="false" onAction="#continueAction" text="Continue" />
                 <Button fx:id="backBtn1" layoutX="191.0" layoutY="247.0" mnemonicParsing="false" onAction="#back1Action" text="Back" />
             <CheckBox fx:id="negateTriggerCheckBox" layoutX="357.0" layoutY="251.0" mnemonicParsing="false" text="Not Trigger" />
+            <Label fx:id="counterConfrontationLbl2" layoutX="113.0" layoutY="280.0" prefHeight="21.0" prefWidth="363.0" text="Nothing" />
+                
             </children>
         </AnchorPane>
         <AnchorPane fx:id="ancorPane4" prefHeight="200.0" prefWidth="200.0" visible="false">
@@ -231,6 +235,18 @@
                 <TextField fx:id="nameRuleText" layoutX="335.0" layoutY="303.0" />
             <Button fx:id="addActionBtn" layoutX="209.0" layoutY="341.0" mnemonicParsing="false" onAction="#concateneteAction" text="Add Action" />
                 <Label layoutX="336.0" layoutY="281.0" text="Name of the Rule" />
+                <CheckBox fx:id="fireOnceCheckbox" layoutX="291.0" layoutY="318.0" mnemonicParsing="false" text="Fire Rule Once" />
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="ancorPaneCounterTable" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <children>
+                <TableView fx:id="counterTable" prefHeight="248.0" prefWidth="534.0" />
+                <Button fx:id="addCounterBtn" layoutX="417.0" layoutY="262.0" mnemonicParsing="false" onAction="#addCounterAction" text="Add Counter" />
+                <Button fx:id="deleteCounterBtn" layoutX="284.0" layoutY="262.0" mnemonicParsing="false" onAction="#deleteCounterAction" text="Delete Counter" />
+                <Button fx:id="backCounterBtn" layoutX="37.0" layoutY="262.0" mnemonicParsing="false" onAction="#backCounterAction" prefHeight="31.0" prefWidth="138.0" text="Back" />
+                <Button fx:id="modifeCounterBtn" layoutX="212.0" layoutY="262.0" mnemonicParsing="false" onAction="#modifeCounterAction" text="modifi" />
+                <Button fx:id="selectCounterForTriggerBtn" layoutX="363.0" layoutY="262.0" mnemonicParsing="false" onAction="#selectCounterForTriggerAction" text="Select and continue" />
+            <Button fx:id="selectCounterForTriggerBtn2" layoutX="364.0" layoutY="261.0" mnemonicParsing="false" onAction="#selectCounterForTrigger2Action" text="Select and continue" />
             </children>
         </AnchorPane>
     </children>
