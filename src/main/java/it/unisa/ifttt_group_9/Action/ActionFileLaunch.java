@@ -1,6 +1,7 @@
 package it.unisa.ifttt_group_9.Action;
 
 import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
+import it.unisa.ifttt_group_9.CounterManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +11,8 @@ public class ActionFileLaunch extends ActionDecorator {
 
     private String filePath;
     private String arguments;
-    private Boolean variabileSubstitution;
+    private Boolean variableSubstitution;
+
 
 
     public ActionFileLaunch(String filePath, String arguments, Action action,Boolean variabileSubstitution) {
@@ -22,13 +24,17 @@ public class ActionFileLaunch extends ActionDecorator {
 
     public ActionFileLaunch(String filePath, String arguments,Boolean variabileSubstitution) {
         super(null);
+
         this.filePath = filePath;
         this.arguments = arguments;
-        this.variabileSubstitution=variabileSubstitution;
+        this.variableSubstitution=variableSubstitution;
     }
 
     @Override
     public void executeAction() {
+
+        if (this.variableSubstitution)
+            this.arguments= CounterManager.counterSubstitution(this.arguments);
         // Command and arguments
         List<String> command = new ArrayList<>();
         command.add(filePath);  // Replace with the actual path to your executable

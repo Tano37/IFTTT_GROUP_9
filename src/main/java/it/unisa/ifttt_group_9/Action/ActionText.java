@@ -1,5 +1,8 @@
 package it.unisa.ifttt_group_9.Action;
 
+
+import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
+import it.unisa.ifttt_group_9.CounterManager;
 import it.unisa.ifttt_group_9.exceptions.IllegalMessageException;
 
 import javax.swing.*;
@@ -40,9 +43,14 @@ public class ActionText extends ActionDecorator {
 
     @Override
     public void executeAction() {
-        // Mostra un dialogo con un messaggio e un pulsante "OK"
-        int scelta = JOptionPane.showConfirmDialog(null, text, "Action", JOptionPane.DEFAULT_OPTION);
+
         super.executeAction();
+
+        if (this.variableSubstitution)
+            this.text= CounterManager.counterSubstitution(this.text);
+
+        PanelPopUPManager panelPopUPManager = new PanelPopUPManager("ActionText", text);
+        int scelta = panelPopUPManager.showMessage();
         // Verifica se l'utente ha premuto "OK"
         if (scelta == JOptionPane.OK_OPTION) {
             System.out.println("You pressed OK. Closing the alert...");

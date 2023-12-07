@@ -4,6 +4,7 @@ import it.unisa.ifttt_group_9.Rule.Rule;
 import it.unisa.ifttt_group_9.Rule.RuleManager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class CounterManager {
@@ -28,25 +29,39 @@ public class CounterManager {
         return counterList;
     }
 
-    //public int getCounterValue(String counterName){
-        //return counterList.
-    //}
+    public Counter getCounterByName(String counterName){
+        for (Counter element : getCounterList()) {
+            if (element.getName().equals(counterName))
+                return element;
+        }
+        return null;
+    }
+
 
     public static String counterSubstitution(String text){
         String[] items = text.split(" ");
 
-        String elaboratedString = null;
+        String elaboratedString = "";
         // Scorri e stampa le parole
         for (String item : items) {
-            String expressionItem = null;
-            String variableName = null;
+            //System.out.println("item: " + item);
             if(item.startsWith("$")){
-                variableName = item.substring(1);
+                String variableName = item.substring(1);
+                //System.out.println("substring: " + item.substring(1));
+                //System.out.println("valore del substring: " + CounterManager.getInstance().getCounterByName(variableName).getValue());
+                Counter counterToSubstitute= CounterManager.getInstance().getCounterByName(variableName);
+                if (counterToSubstitute == null)
+                    return ("Almeno un counter desiderato non è disponibile non è disponibile per l'output: " + text);
+                elaboratedString=elaboratedString.concat(counterToSubstitute.getValue() + " ");
+                //System.out.println(counterToSubstitute.getValue());
             }
-            elaboratedString.concat(variableName + " ");
-
+            else{
+                elaboratedString=elaboratedString.concat(item + " ");
+                //System.out.println(expressionItem);
+            }
         }
-        return null;
+        System.out.println("eccola " + elaboratedString);
+        return elaboratedString;
     }
 
     @Override

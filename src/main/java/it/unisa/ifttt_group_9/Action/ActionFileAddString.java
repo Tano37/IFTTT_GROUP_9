@@ -1,6 +1,7 @@
 package it.unisa.ifttt_group_9.Action;
 
 import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
+import it.unisa.ifttt_group_9.CounterManager;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -10,14 +11,14 @@ public class ActionFileAddString extends ActionDecorator {
 
     private String filePath;
     private String stringToAdd;
-    private Boolean variabileSubstitution;
+    private Boolean variableSubstitution;
 
 
     public ActionFileAddString(String filePath, String stringToAdd, Action action, Boolean variabileSubstitution) {
         super(action);
         this.filePath = filePath;
         this.stringToAdd = stringToAdd;
-        this.variabileSubstitution=variabileSubstitution;
+        this.variableSubstitution=variableSubstitution;
     }
     public ActionFileAddString(String filePath, String stringToAdd, Boolean variabileSubstitution) {
         super(null);
@@ -33,10 +34,13 @@ public class ActionFileAddString extends ActionDecorator {
 
     @Override
     public void executeAction() {
+        if (this.variableSubstitution) {
+            this.stringToAdd = CounterManager.counterSubstitution(this.stringToAdd);
+        }
 
-                try {
+        try {
 
-                    // Opens the file with th option to append on true
+                   // Opens the file with th option to append on true
                     FileWriter fileWriter = new FileWriter(filePath, true);
 
                     // BufferWriter to write on the file
