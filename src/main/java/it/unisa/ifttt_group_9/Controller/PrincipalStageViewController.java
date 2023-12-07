@@ -82,6 +82,8 @@ public class PrincipalStageViewController implements Initializable {
     private Button modifeCounterBtn;
     @FXML
     private Button valueInsertByUserBtn;
+    @FXML
+    private Button selectCounterForTriggerBtn2;
 
     @FXML
     private CheckBox changeCounterField;
@@ -233,6 +235,7 @@ public class PrincipalStageViewController implements Initializable {
         initializecounterTable();
         selectCounterForTriggerBtn.setVisible(false);
         valueInsertByUserBtn.visibleProperty().set(false);
+        selectCounterForTriggerBtn2.setVisible(false);
 
         dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
 
@@ -368,7 +371,9 @@ public class PrincipalStageViewController implements Initializable {
                     r.setLaunched(r.getRuleTrigger().evaluate() );
                     rulesTable.refresh();
                 }
+
                 for(Counter c: counterList){
+
                     //System.out.println(r.getCounter().getName()+"=="+c.getName()+"|||"+r.getCounter().getValue()+"=="+c.getValue());
                     if(r.getCounter()!=null){
                     if(r.getCounter().getName().equals(c.getName()) && r.getCounter().getValue()!=c.getValue()){
@@ -703,9 +708,9 @@ public class PrincipalStageViewController implements Initializable {
         else if(tabId.equals("counterTab")){
             if(changeCounterField.selectedProperty().get()){
                 Counter counterInsert=selectedCounter;
-                Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
+                Counter counterInsert2=selectedCounter2;
                 String chooserActionCounter= chooserActionCounterId.getValue();
-                selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter);
+                selectedTrigger=new TriggerCounterCompareCounter(selectedCounter2,selectedCounter,chooserActionCounter);
 
             }
             if(!changeCounterField.selectedProperty().get()){
@@ -1119,6 +1124,7 @@ public class PrincipalStageViewController implements Initializable {
         deleteCounterBtn.setVisible(false);
         backCounterBtn.setVisible(false);
         modifeCounterBtn.setVisible(false);
+        selectCounterForTriggerBtn2.setVisible(false);
         selectCounterForTriggerBtn.setVisible(true);
 
 
@@ -1136,12 +1142,27 @@ public class PrincipalStageViewController implements Initializable {
     }
     @FXML
     void valueInsertByUserBtnAction(ActionEvent event){
+        ancorPane1.visibleProperty().setValue(false);
+        ancorPane2.visibleProperty().setValue(false);
+        ancorPaneCounterTable.visibleProperty().setValue(true);
+        addCounterBtn.setVisible(false);
+        deleteCounterBtn.setVisible(false);
+        backCounterBtn.setVisible(false);
+        modifeCounterBtn.setVisible(false);
+        selectCounterForTriggerBtn2.setVisible(true);
+
+        selectCounterForTriggerBtn.setVisible(false);
+
+    }
+    @FXML
+    void selectCounterForTrigger2Action(ActionEvent event){
         ancorPaneCounterTable.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
 
         ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
-        chooseCounterBtn.setText(selectedItems.toString());
+        valueInsertByUserBtn.setText(selectedItems.toString());
         selectedCounter2 = selectedItems.get(0);
+
 
     }
     @FXML

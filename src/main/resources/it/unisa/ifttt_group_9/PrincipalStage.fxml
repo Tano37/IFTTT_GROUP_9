@@ -20,7 +20,7 @@
         <URL value="@Style.css" />
     </stylesheets>
     <children>
-        <AnchorPane fx:id="ancorPane1" prefHeight="368.0" prefWidth="536.0">
+        <AnchorPane fx:id="ancorPane1" prefHeight="368.0" prefWidth="536.0" visible="false">
             <children>
                 <TableView fx:id="rulesTable" prefHeight="267.0" prefWidth="534.0">
                     <columns>
@@ -220,7 +220,7 @@
                 <CheckBox fx:id="fireOnceCheckbox" layoutX="291.0" layoutY="318.0" mnemonicParsing="false" text="Fire Rule Once" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="ancorPaneCounterTable" prefHeight="200.0" prefWidth="200.0" visible="false">
+        <AnchorPane fx:id="ancorPaneCounterTable" prefHeight="200.0" prefWidth="200.0">
             <children>
                 <TableView fx:id="counterTable" prefHeight="248.0" prefWidth="534.0" />
                 <Button fx:id="addCounterBtn" layoutX="417.0" layoutY="262.0" mnemonicParsing="false" onAction="#addCounterAction" text="Add Counter" />
@@ -228,6 +228,7 @@
                 <Button fx:id="backCounterBtn" layoutX="37.0" layoutY="262.0" mnemonicParsing="false" onAction="#backCounterAction" prefHeight="31.0" prefWidth="138.0" text="Back" />
                 <Button fx:id="modifeCounterBtn" layoutX="212.0" layoutY="262.0" mnemonicParsing="false" onAction="#modifeCounterAction" text="modifi" />
                 <Button fx:id="selectCounterForTriggerBtn" layoutX="363.0" layoutY="262.0" mnemonicParsing="false" onAction="#selectCounterForTriggerAction" text="Select and continue" />
+            <Button fx:id="selectCounterForTriggerBtn2" layoutX="364.0" layoutY="261.0" mnemonicParsing="false" onAction="#selectCounterForTrigger2Action" text="Select and continue" />
             </children>
         </AnchorPane>
     </children>
