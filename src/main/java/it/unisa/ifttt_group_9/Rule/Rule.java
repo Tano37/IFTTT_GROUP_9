@@ -6,8 +6,6 @@ import it.unisa.ifttt_group_9.Trigger.Trigger;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Rule implements Serializable {
     private String ruleName;
@@ -25,7 +23,7 @@ public class Rule implements Serializable {
 
     private boolean fireOnce = false;
 
-    private ArrayList<Counter> arrayListOfCOunters;
+    private Counter counter=null;
 
 
 
@@ -36,16 +34,15 @@ public class Rule implements Serializable {
         this.status=true;
         this.dateUntilSleep=null;
         this.fireOnce=fireOnce;
-         this.arrayListOfCOunters= new ArrayList<>();
 
     }
 
-    public ArrayList<Counter> getCounter() {
-        return arrayListOfCOunters;
+    public Counter getCounter() {
+        return counter;
     }
 
     public void setCounter(Counter counter) {
-        this.arrayListOfCOunters.add(counter);
+        this.counter = counter;
     }
 
     public String getRuleName() {

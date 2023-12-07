@@ -20,7 +20,7 @@
         <URL value="@Style.css" />
     </stylesheets>
     <children>
-        <AnchorPane fx:id="ancorPane1" prefHeight="368.0" prefWidth="536.0" visible="false">
+        <AnchorPane fx:id="ancorPane1" prefHeight="368.0" prefWidth="536.0">
             <children>
                 <TableView fx:id="rulesTable" prefHeight="267.0" prefWidth="534.0">
                     <columns>
@@ -132,7 +132,7 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <TextField fx:id="valueInsertByUser" layoutX="205.0" layoutY="28.0" prefHeight="31.0" prefWidth="152.0" />
+                                        <TextField fx:id="valueInsertByUser" layoutX="205.0" layoutY="28.0" prefHeight="31.0" prefWidth="152.0" promptText="Field Accept only Integer" />
                                         <Label layoutX="14.0" layoutY="32.0" prefHeight="21.0" prefWidth="187.0" text="Insert a integer to compare" />
                                         <Label layoutX="9.0" layoutY="72.0" text="Choose a counter to compare" />
                                         <Label layoutX="31.0" layoutY="109.0" prefHeight="21.0" prefWidth="152.0" text="Choose the action" />
@@ -220,7 +220,7 @@
                 <CheckBox fx:id="fireOnceCheckbox" layoutX="291.0" layoutY="318.0" mnemonicParsing="false" text="Fire Rule Once" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="ancorPaneCounterTable" prefHeight="200.0" prefWidth="200.0">
+        <AnchorPane fx:id="ancorPaneCounterTable" prefHeight="200.0" prefWidth="200.0" visible="false">
             <children>
                 <TableView fx:id="counterTable" prefHeight="248.0" prefWidth="534.0" />
                 <Button fx:id="addCounterBtn" layoutX="417.0" layoutY="262.0" mnemonicParsing="false" onAction="#addCounterAction" text="Add Counter" />

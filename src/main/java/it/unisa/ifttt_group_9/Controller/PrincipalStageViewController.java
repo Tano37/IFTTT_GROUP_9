@@ -27,6 +27,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import javafx.util.converter.IntegerStringConverter;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -236,6 +237,18 @@ public class PrincipalStageViewController implements Initializable {
         selectCounterForTriggerBtn.setVisible(false);
         valueInsertByUserBtn.visibleProperty().set(false);
         selectCounterForTriggerBtn2.setVisible(false);
+            valueInsertByUser.setTextFormatter(new javafx.scene.control.TextFormatter<>(new IntegerStringConverter(), null, c ->
+            {
+                if (c.isContentChange()) {
+                    String newText = c.getControlNewText();
+                    if (newText.matches("-?\\d*")) {
+                        // Accetta solo stringhe che rappresentano numeri interi (positivi o negativi)
+                        return c;
+                    }
+                }
+                // Non accettare il cambiamento
+                return null;
+            }));
 
         dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
 
@@ -372,16 +385,7 @@ public class PrincipalStageViewController implements Initializable {
                     rulesTable.refresh();
                 }
 
-                for(Counter c: counterList){
 
-                    //System.out.println(r.getCounter().getName()+"=="+c.getName()+"|||"+r.getCounter().getValue()+"=="+c.getValue());
-                    if(r.getCounter()!=null){
-                    if(r.getCounter().getName().equals(c.getName()) && r.getCounter().getValue()!=c.getValue()){
-                        r.setLaunched(false);
-                        r.getCounter().setValue(c.getValue());
-                    }}
-
-                }
             }
         })
         );
