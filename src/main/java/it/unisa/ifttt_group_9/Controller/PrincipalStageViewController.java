@@ -173,6 +173,8 @@ public class PrincipalStageViewController implements Initializable {
     private Button directoryChoosingControllExitStatusBtn;
     @FXML
     private TextField valueTextId;
+    @FXML
+    private Button addActionBtn;
 
     // Other variables
     private Trigger selectedTrigger;
@@ -676,6 +678,7 @@ public class PrincipalStageViewController implements Initializable {
                 alert.showAndWait();
             }else {
                 selectedAction = new ActionText(textMessageId.getText(), selectedAction);
+                textMessageId.clear();
             }
         }
         else if(tabId.equals("audioTab"))

@@ -1,16 +1,23 @@
 package it.unisa.ifttt_group_9.Trigger;
 
-import it.unisa.ifttt_group_9.Trigger.Trigger;
 import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 //Concrete Product (AbstractFactory)
-public class TriggerDay extends AbstractTriggerDecorator{
+public class TriggerDay extends TriggerDecorator {
     private int hour;
     private int minute;
     private int dayWeek;
+
+    public TriggerDay (int hour, int minute, int dayWeek, boolean negate, Trigger trigger, boolean nextTriggerAndOr) throws IllegalTimeException {
+        super(negate, trigger, nextTriggerAndOr);
+        if ((hour < 0 || hour > 23) || (minute < 0 || minute > 59) )
+            throw new IllegalTimeException();
+        this.hour=hour;
+        this.minute=minute;
+        this.dayWeek=dayWeek;
+    }
 
 
     public TriggerDay (int hour, int minute, int dayWeek, boolean negate) throws IllegalTimeException {
@@ -23,7 +30,6 @@ public class TriggerDay extends AbstractTriggerDecorator{
     }
 
     public TriggerDay (int hour, int minute, int dayWeek) throws IllegalTimeException {
-        super(false);
         if ((hour < 0 || hour > 23) || (minute < 0 || minute > 59) )
             throw new IllegalTimeException();
         this.hour=hour;

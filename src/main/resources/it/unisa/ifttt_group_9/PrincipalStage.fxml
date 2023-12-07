@@ -20,7 +20,7 @@
         <URL value="@Style.css" />
     </stylesheets>
     <children>
-        <AnchorPane fx:id="ancorPane1" prefHeight="200.0" prefWidth="200.0">
+        <AnchorPane fx:id="ancorPane1" prefHeight="200.0" prefWidth="200.0" visible="false">
             <children>
                 <TableView fx:id="rulesTable" prefHeight="236.0" prefWidth="534.0">
                     <columns>
@@ -35,7 +35,7 @@
                 <Button fx:id="sleepRuleBtn" layoutX="211.0" layoutY="254.0" mnemonicParsing="false" onAction="#sleepRuleAction" text="Sleep" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0" visible="false">
+        <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0">
             <children>
                 <TabPane fx:id="tabPane1" layoutX="-2.0" prefHeight="236.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
@@ -130,6 +130,7 @@
                 </TabPane>
                 <Button fx:id="continueBtn" layoutX="265.0" layoutY="247.0" mnemonicParsing="false" onAction="#continueAction" text="Continue" />
                 <Button fx:id="backBtn1" layoutX="191.0" layoutY="247.0" mnemonicParsing="false" onAction="#back1Action" text="Back" />
+            <CheckBox fx:id="negateTriggerCheckBox" layoutX="357.0" layoutY="251.0" mnemonicParsing="false" text="Not Trigger" />
             </children>
         </AnchorPane>
         <AnchorPane fx:id="ancorPane4" prefHeight="200.0" prefWidth="200.0" visible="false">
@@ -195,6 +196,7 @@
                 <TextField fx:id="nameRuleText" layoutX="137.0" layoutY="255.0" />
                 <Label layoutX="137.0" layoutY="236.0" text="Name of the Rule" />
                 <CheckBox fx:id="fireOnceCheckbox" layoutX="295.0" layoutY="259.0" mnemonicParsing="false" text="Fire Rule Once" />
+            <Button fx:id="addActionBtn" layoutX="470.0" layoutY="257.0" mnemonicParsing="false" onAction="#concateneteAction" text="Add Action" />
             </children>
         </AnchorPane>
     </children>

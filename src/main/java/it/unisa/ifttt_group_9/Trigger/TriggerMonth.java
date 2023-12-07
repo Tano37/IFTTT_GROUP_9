@@ -1,19 +1,26 @@
 package it.unisa.ifttt_group_9.Trigger;
 
-import it.unisa.ifttt_group_9.Trigger.Trigger;
 import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 //Concrete Product (AbstractFactory)
-public class TriggerMonth extends AbstractTriggerDecorator {
+public class TriggerMonth extends TriggerDecorator {
     private int hour;
     private int minute;
 
     private int dayWeek;
     private int dayMonth;
 
+    public TriggerMonth (int hour, int minute,int dayWeek, int dayMonth, boolean negate, Trigger trigger, boolean nextTriggerAndOr) {
+        super(negate, trigger, nextTriggerAndOr);
+        if ((hour < 0 || hour > 23) || (minute < 0 || minute > 59) || (dayMonth<0 || dayMonth>31) )
+            throw new IllegalTimeException();
+        this.hour=hour;
+        this.minute=minute;
+        this.dayWeek=dayWeek;
+        this.dayMonth=dayMonth;
+    }
     public TriggerMonth (int hour, int minute,int dayWeek, int dayMonth, boolean negate) throws IllegalTimeException {
         super(negate);
         if ((hour < 0 || hour > 23) || (minute < 0 || minute > 59) || (dayMonth<0 || dayMonth>31) )
@@ -25,7 +32,6 @@ public class TriggerMonth extends AbstractTriggerDecorator {
     }
 
     public TriggerMonth (int hour, int minute,int dayWeek, int dayMonth) throws IllegalTimeException {
-        super(false);
         if ((hour < 0 || hour > 23) || (minute < 0 || minute > 59) || (dayMonth<0 || dayMonth>31) )
             throw new IllegalTimeException();
         this.hour=hour;
