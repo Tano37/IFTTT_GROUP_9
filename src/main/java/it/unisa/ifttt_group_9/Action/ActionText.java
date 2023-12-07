@@ -53,9 +53,6 @@ public class ActionText extends ActionDecorator {
 
         if (this.variableSubstitution)
             this.text= CounterManager.counterSubstitution(this.text);
-
-        PanelPopUPManager panelPopUPManager = new PanelPopUPManager("ActionText", text);
-        int scelta = panelPopUPManager.showMessage();
         // Verifica se l'utente ha premuto "OK"
         if (scelta == JOptionPane.OK_OPTION) {
             System.out.println("You pressed OK. Closing the alert...");

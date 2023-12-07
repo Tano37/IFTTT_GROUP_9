@@ -2,7 +2,7 @@ package it.unisa.ifttt_group_9.Trigger;
 
 import it.unisa.ifttt_group_9.Counter;
 
-public class TriggerCounter implements Trigger{
+public class TriggerCounter extends TriggerDecorator{
     private int integerInsertByUser;
     private Counter counterToCompare;
     private String valueOfComparation;
