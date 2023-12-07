@@ -249,6 +249,9 @@ public class PrincipalStageViewController implements Initializable {
                 // Non accettare il cambiamento
                 return null;
             }));
+            if(valueInsertByUserBtn.getText().isEmpty()){
+                continueBtn.setDisable(true);
+            }
 
         dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
 
@@ -731,6 +734,8 @@ public class PrincipalStageViewController implements Initializable {
             backCounterBtn.setVisible(true);
             modifeCounterBtn.setVisible(true);
             selectCounterForTriggerBtn.setVisible(false);
+            valueInsertByUserBtn.setText("select a counter 1");
+            selectCounterForTriggerBtn.setText("select a counter 2");
 
         }
     }
