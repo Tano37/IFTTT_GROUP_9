@@ -160,22 +160,6 @@
 
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="ancorPane4" prefHeight="200.0" prefWidth="200.0" visible="false">
-            <children>
-                <ChoiceBox fx:id="hourChoiceIdSleep" layoutX="195.0" layoutY="73.0" prefHeight="30.0" prefWidth="70.0" />
-                <ChoiceBox fx:id="dayChoiceIdSleep" layoutX="196.0" layoutY="129.0" prefHeight="31.0" prefWidth="152.0" />
-                <ChoiceBox fx:id="minuteChoiceIdSleep" layoutX="276.0" layoutY="75.0" prefHeight="30.0" prefWidth="70.0" />
-                <Label layoutX="146.0" layoutY="131.0" text="Day" />
-                <Label layoutX="142.0" layoutY="78.0" text="Time" />
-                <Label layoutX="270.0" layoutY="80.0" text=":" />
-                <Button fx:id="confirmSleepBtn" layoutX="276.0" layoutY="250.0" mnemonicParsing="false" onAction="#confirmSleepAction" text="Confirm" />
-                <Label layoutX="136.0" layoutY="14.0" prefHeight="21.0" prefWidth="279.0" text="Set time for a period of sleep for a trigger" />
-                <Label layoutX="214.0" layoutY="52.0" prefHeight="21.0" prefWidth="40.0" text="Hour" />
-                <Label layoutX="289.0" layoutY="52.0" prefHeight="21.0" prefWidth="70.0" text="Minute" />
-                <Button fx:id="backSleepBtn" layoutX="195.0" layoutY="249.0" mnemonicParsing="false" onAction="#backSleepAction" prefHeight="31.0" prefWidth="70.0" text="Back" />
-                <Separator layoutX="2.0" layoutY="226.0" prefHeight="0.0" prefWidth="536.0" AnchorPane.bottomAnchor="78.0" />
-            </children>
-        </AnchorPane>
         <AnchorPane fx:id="ancorPane3" focusTraversable="true" prefHeight="397.0" prefWidth="573.0" visible="false">
             <children>
                 <TabPane fx:id="tabPane2" prefHeight="267.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
@@ -229,7 +213,7 @@
                 <CheckBox fx:id="fireOnceCheckbox" layoutX="30.0" layoutY="308.0" mnemonicParsing="false" text="Fire Rule Once" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="ancorPaneCounterTable" prefHeight="200.0" prefWidth="200.0">
+        <AnchorPane fx:id="ancorPaneCounterTable" prefHeight="200.0" prefWidth="200.0" visible="false">
             <children>
                 <TableView fx:id="counterTable" prefHeight="248.0" prefWidth="534.0" />
                 <Button fx:id="addCounterBtn" layoutX="407.0" layoutY="337.0" mnemonicParsing="false" onAction="#addCounterAction" text="Add Counter" />
@@ -238,6 +222,22 @@
                 <Button fx:id="modifeCounterBtn" layoutX="196.0" layoutY="337.0" mnemonicParsing="false" onAction="#modifeCounterAction" text="Edit" />
                 <Button fx:id="selectCounterForTriggerBtn" layoutX="166.0" layoutY="255.0" mnemonicParsing="false" onAction="#selectCounterForTriggerAction" text="Select and continue" />
             <Button fx:id="selectCounterForTriggerBtn2" layoutX="349.0" layoutY="255.0" mnemonicParsing="false" onAction="#selectCounterForTrigger2Action" text="Select and continue" />
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="ancorPane4" prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <ChoiceBox fx:id="hourChoiceIdSleep" layoutX="194.0" layoutY="115.0" prefHeight="30.0" prefWidth="70.0" />
+                <ChoiceBox fx:id="dayChoiceIdSleep" layoutX="189.0" layoutY="168.0" prefHeight="31.0" prefWidth="152.0" />
+                <ChoiceBox fx:id="minuteChoiceIdSleep" layoutX="275.0" layoutY="117.0" prefHeight="30.0" prefWidth="70.0" />
+                <Label layoutX="146.0" layoutY="173.0" text="Day" />
+                <Label layoutX="141.0" layoutY="120.0" text="Time" />
+                <Label layoutX="269.0" layoutY="122.0" text=":" />
+                <Button fx:id="confirmSleepBtn" layoutX="415.0" layoutY="338.0" mnemonicParsing="false" onAction="#confirmSleepAction" text="Confirm" />
+                <Label layoutX="135.0" layoutY="56.0" prefHeight="21.0" prefWidth="279.0" text="Set time for a period of sleep for a trigger" />
+                <Label layoutX="213.0" layoutY="94.0" prefHeight="21.0" prefWidth="40.0" text="Hour" />
+                <Label layoutX="288.0" layoutY="94.0" prefHeight="21.0" prefWidth="70.0" text="Minute" />
+                <Button fx:id="backSleepBtn" layoutX="36.0" layoutY="338.0" mnemonicParsing="false" onAction="#backSleepAction" prefHeight="31.0" prefWidth="70.0" text="Back" />
+                <Separator layoutX="2.0" layoutY="226.0" prefHeight="0.0" prefWidth="536.0" AnchorPane.bottomAnchor="78.0" />
             </children>
         </AnchorPane>
     </children>
