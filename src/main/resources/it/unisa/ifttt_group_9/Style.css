@@ -19,7 +19,7 @@
     -fx-background-color: #4CAF50; /* Cambia il colore di sfondo della TableView */
 }
 
-#addRuleBtn, #continueBtn, #backBtn1, #confirmBtn, #backBtn2, #activateRuleBtn, #deactivateRuleBtn, #sleepRuleBtn, #confirmSleepBtn, #backSleepBtn, #file, #destDirBtn{
+#addRuleBtn, #continueBtn, #backBtn1, #confirmBtn, #backBtn2, #activateRuleBtn, #deactivateRuleBtn, #sleepRuleBtn, #confirmSleepBtn, #backSleepBtn, #file, #destDirBtn, #addActionBtn{
     -fx-background-color: #4CAF50; /* Cambia il colore di sfondo dei pulsanti */
     -fx-text-fill: #ffffff; /* Cambia il colore del testo dei pulsanti */
 }
@@ -38,7 +38,7 @@
     -fx-text-fill: #ffffff; /* Cambia il colore del testo delle schede */
 }
 
-#fileChooserBtn {
+#fileChooserBtn, #withActionBtn {
     -fx-background-color: #2196F3; /* Cambia il colore di sfondo del pulsante di scelta file */
     -fx-text-fill: #ffffff; /* Cambia il colore del testo del pulsante di scelta file */
 }
