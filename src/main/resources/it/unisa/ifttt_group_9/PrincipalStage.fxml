@@ -174,16 +174,6 @@
                 <Separator layoutX="2.0" layoutY="226.0" prefHeight="0.0" prefWidth="536.0" AnchorPane.bottomAnchor="78.0" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="ancorPaneCounterTable" prefHeight="200.0" prefWidth="200.0" visible="false">
-            <children>
-                <TableView fx:id="counterTable" prefHeight="248.0" prefWidth="534.0" />
-                <Button fx:id="addCounterBtn" layoutX="417.0" layoutY="262.0" mnemonicParsing="false" onAction="#addCounterAction" text="Add Counter" />
-                <Button fx:id="deleteCounterBtn" layoutX="284.0" layoutY="262.0" mnemonicParsing="false" onAction="#deleteCounterAction" text="Delete Counter" />
-                <Button fx:id="backCounterBtn" layoutX="37.0" layoutY="262.0" mnemonicParsing="false" onAction="#backCounterAction" prefHeight="31.0" prefWidth="138.0" text="Back" />
-                <Button fx:id="modifeCounterBtn" layoutX="212.0" layoutY="262.0" mnemonicParsing="false" onAction="#modifeCounterAction" text="modifi" />
-                <Button fx:id="selectCounterForTriggerBtn" layoutX="363.0" layoutY="262.0" mnemonicParsing="false" onAction="#selectCounterForTriggerAction" text="Select and continue" />
-            </children>
-        </AnchorPane>
         <AnchorPane fx:id="ancorPane3" focusTraversable="true" prefHeight="397.0" prefWidth="573.0" visible="false">
             <children>
                 <TabPane fx:id="tabPane2" prefHeight="267.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
@@ -196,7 +186,6 @@
                                         <TextField fx:id="textMessageId" layoutX="220.0" layoutY="83.0" />
                               <CheckBox fx:id="varsubActionTextCb" layoutX="165.0" layoutY="181.0" mnemonicParsing="false" text="Use Variable Substitution ($)" />
                               <Separator layoutX="-25.0" layoutY="230.0" prefHeight="17.0" prefWidth="574.0" />
-                                  <CheckBox fx:id="fireOnceCheckbox" layoutX="129.0" layoutY="238.0" mnemonicParsing="false" text="Fire Rule Once" />
                                     </children>
                                 </AnchorPane>
                             </content>
