@@ -101,10 +101,6 @@ public class ActionAudio extends ActionDecorator {
 
     @Override
     public String toString() {
-        return "ActionAudio{" +
-                "filePath='" + filePath + '\'' +
-                ", continuePlaying=" + continuePlaying +
-                "\n" + tempAction +
-                '}';
+        return "{ActionAudio: " + filePath + " }\n" + super.toString();
     }
 }

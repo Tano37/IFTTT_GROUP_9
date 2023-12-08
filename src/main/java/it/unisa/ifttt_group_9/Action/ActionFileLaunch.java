@@ -61,11 +61,6 @@ public class ActionFileLaunch extends ActionDecorator {
 
     @Override
     public String toString() {
-        return "ActionFileLaunch{" +
-                "filePath='" + filePath + '\'' +
-                ", arguments='" + arguments + '\'' +
-                ", variabileSubstitution=" + variableSubstitution +
-                "\n" + tempAction +
-                '}';
+        return "{ActionFileLaunch: " + filePath + " }\n" + super.toString();
     }
 }

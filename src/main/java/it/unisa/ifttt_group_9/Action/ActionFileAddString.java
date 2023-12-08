@@ -64,11 +64,6 @@ public class ActionFileAddString extends ActionDecorator {
 
     @Override
     public String toString() {
-        return "ActionFileAddString{" +
-                "filePath='" + filePath + '\'' +
-                ", stringToAdd='" + stringToAdd + '\'' +
-                ", variabileSubstitution=" + variableSubstitution +
-                "\n" + tempAction +
-                '}';
+        return "{ActionFileAddString: " + stringToAdd + " }\n" + super.toString();
     }
 }
