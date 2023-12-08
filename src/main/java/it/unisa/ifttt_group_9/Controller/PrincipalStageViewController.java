@@ -605,6 +605,7 @@ public class PrincipalStageViewController implements Initializable {
         selectedAction = selectedItem.getRuleAction();
         ancorPane1.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
+        fieldReset();
     }
     @FXML
     void backSleepAction(ActionEvent event){
@@ -649,6 +650,7 @@ public class PrincipalStageViewController implements Initializable {
         ancorPane1.visibleProperty().setValue(true);
         rulesTable.getSelectionModel().clearSelection();
         fieldReset();
+        selectedAction=null;
     }
 
     void viewOfAction(){
@@ -804,7 +806,6 @@ public class PrincipalStageViewController implements Initializable {
     void back2Action(ActionEvent event) {
         ancorPane3.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
-        selectedAction = null;
     }
 
     
@@ -889,7 +890,8 @@ public class PrincipalStageViewController implements Initializable {
                     fileChooserTxt.setSelectedFile(null);
                 }
             }else if(fileActionChooser.getValue().equals("Launch a Program")){
-                if (fileChooserTxt.getSelectedFile() == null || textIsNotValid(fileActionLaunchTxt.getText())){
+                if (fileChooserTxt.getSelectedFile() == null ){
+                    System.out.println(fileChooserTxt.getSelectedFile().getPath());
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setContentText("Select the file!");
@@ -897,7 +899,6 @@ public class PrincipalStageViewController implements Initializable {
                 }else{
                     File selectedFolder = fileChooserTxt.getSelectedFile();
                     String commands = fileActionLaunchTxt.getText();
-                    System.out.println(commands);
                     selectedAction = new ActionFileLaunch(selectedFolder.getPath(), commands, selectedAction,varsubActionFileCb.isSelected());
                     viewOfAction();
                     fileChooserTxt.setSelectedFile(null);
@@ -1000,7 +1001,7 @@ public class PrincipalStageViewController implements Initializable {
                     }
                 } else if (fileActionChooser.getValue().equals("Launch a Program")) {
 
-                    if (fileChooserTxt.getSelectedFile() == null || textIsNotValid(fileActionLaunchTxt.getText())) {
+                    if (fileChooserTxt.getSelectedFile() == null ) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error");
                         alert.setContentText("Select the file!");
