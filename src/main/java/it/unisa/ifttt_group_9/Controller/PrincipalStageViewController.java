@@ -1008,7 +1008,6 @@ public class PrincipalStageViewController implements Initializable {
             alert.setContentText("Insert a Correct Name");
             alert.showAndWait();
         }
-        fieldReset();
     }
 
     @FXML
@@ -1071,6 +1070,7 @@ public class PrincipalStageViewController implements Initializable {
             createdRule.setCounter(selectedCounter);
         selectedCounter=null;
         System.out.println(createdRule.getCounter());
+        fieldReset();
     }
 
     void saveRuleList(ObservableList<Rule> list) throws IOException {
@@ -1155,11 +1155,6 @@ public class PrincipalStageViewController implements Initializable {
         valueInsertByUserBtn.setText("Select a counter 1");
         chooseCounterBtn.setText("Select a counter 2");
 
-        counterTable.getSelectionModel().clearSelection();
-        selectCounterForTriggerBtn.setDisable(true);
-        selectCounterForTriggerBtn2.setDisable(true);
-        valueInsertByUserBtn.setText("Select a counter 1");
-        chooseCounterBtn.setText("Select a counter 2");
     }
 
     public static class DatePickerDateCell extends javafx.scene.control.DateCell {
