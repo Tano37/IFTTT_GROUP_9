@@ -67,8 +67,11 @@ public class TriggerFullDate extends TriggerDecorator {
         int yearNow=now.getYear();
 
 
-
-        return negate != (hourNow == this.hour && minuteNow == this.minute && dayNow == this.dayWeek && monthNow == this.dayMonth && yearNow == this.year);
+        if(precTriggerAndOr){
+            return negate != (hourNow == this.hour && minuteNow == this.minute && dayNow == this.dayWeek && monthNow == this.dayMonth && yearNow == this.year) && super.evaluate();
+        }else {
+            return negate != (hourNow == this.hour && minuteNow == this.minute && dayNow == this.dayWeek && monthNow == this.dayMonth && yearNow == this.year) || super.evaluate();
+        }
     }
 
     public int getHour() {

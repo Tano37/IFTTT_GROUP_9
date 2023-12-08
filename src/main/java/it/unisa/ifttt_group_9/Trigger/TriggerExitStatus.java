@@ -59,8 +59,12 @@ public class TriggerExitStatus extends TriggerDecorator {
         });
         myTrigger.start();
 
+        if(precTriggerAndOr){
+            return (negate == (this.getExitExpected() != this.getExitValue())) && super.evaluate();
+        }else {
+            return (negate == (this.getExitExpected() != this.getExitValue())) || super.evaluate();
 
-        return (negate == (this.getExitExpected() != this.getExitValue()));
+        }
 
     }
 }

@@ -7,8 +7,8 @@ public class TriggerFileDimension extends TriggerDecorator {
     private String filePath;
     private long maxSize;
 
-    public TriggerFileDimension(String filePath, long maxSize, boolean negate, Trigger trigger, boolean nextTriggerAndOr) {
-        super(negate, trigger, nextTriggerAndOr);
+    public TriggerFileDimension(String filePath, long maxSize, boolean negate, Trigger trigger, boolean precTriggerAndOr) {
+        super(negate, trigger, precTriggerAndOr);
         this.filePath = filePath;
         this.maxSize = maxSize;
     }
@@ -57,11 +57,21 @@ public class TriggerFileDimension extends TriggerDecorator {
             // Get the file size in bytes
             long fileSize = file.length();
 
-            return negate != fileSize > maxSize;
+            if(precTriggerAndOr){
+                return negate != fileSize > maxSize && super.evaluate();
+            }else{
+                return negate != fileSize > maxSize || super.evaluate();
+            }
+
+
 
         } else {
             System.out.println(filePath + " doesn't exists");
-            return negate;
+            if(precTriggerAndOr){
+                return negate && super.evaluate();
+            }else{
+                return negate || super.evaluate();
+            }
         }
     }
 }
