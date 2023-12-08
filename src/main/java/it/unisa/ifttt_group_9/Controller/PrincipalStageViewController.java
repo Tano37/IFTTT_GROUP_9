@@ -812,14 +812,16 @@ public class PrincipalStageViewController implements Initializable {
                 Counter counterInsert=selectedCounter;
                 Counter counterInsert2=selectedCounter2;
                 String chooserActionCounter= chooserActionCounterId.getValue();
-                selectedTrigger=new TriggerCounter(selectedCounter2,selectedCounter,chooserActionCounter);
+                selectedTrigger=new TriggerCounter(selectedCounter2,selectedCounter,chooserActionCounter,negateTriggerCheckBox.isSelected(),
+                        selectedTrigger, logicalOperationCb.isSelected());
 
             }
             if(!changeCounterField.selectedProperty().get()){
                 Counter counterInsert=selectedCounter;
                 Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
                 String chooserActionCounter= chooserActionCounterId.getValue();
-                selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter);
+                selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter,negateTriggerCheckBox.isSelected(),
+                        selectedTrigger, logicalOperationCb.isSelected());
             }
             addCounterBtn.setVisible(true);
             deleteCounterBtn.setVisible(true);
@@ -827,8 +829,8 @@ public class PrincipalStageViewController implements Initializable {
             modifeCounterBtn.setVisible(true);
             selectCounterForTriggerBtn.setVisible(false);
             //  counterConfrontationLbl1.setText("Nothing");
-            counterConfrontationLbl2.setText("Nothing");
-            counterConfrontationLbl3.setText("Nothing");
+            counterConfrontationLbl2.setText("");
+            counterConfrontationLbl3.setText("");
 
             if (negateTriggerCheckBox.isSelected()) {
                 selectedTrigger.negate();
@@ -1102,6 +1104,7 @@ public class PrincipalStageViewController implements Initializable {
             alert.setContentText("Insert a Correct Name");
             alert.showAndWait();
         }
+        fieldReset();
     }
 
     @FXML
@@ -1243,6 +1246,11 @@ public class PrincipalStageViewController implements Initializable {
         negateTriggerCheckBox.selectedProperty().set(false);
         logicalOperationCb.selectedProperty().set(false);
 
+        counterTable.getSelectionModel().clearSelection();
+        selectCounterForTriggerBtn.setDisable(true);
+        selectCounterForTriggerBtn2.setDisable(true);
+        valueInsertByUserBtn.setText("Select a counter 1");
+        chooseCounterBtn.setText("Select a counter 2");
     }
 
     public static class DatePickerDateCell extends javafx.scene.control.DateCell {
