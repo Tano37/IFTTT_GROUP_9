@@ -54,7 +54,12 @@ public class TriggerMonth extends TriggerDecorator {
         int m= now.getMinute();
         int d= now.getDayOfMonth();
 
-        return negate != (h==this.hour && m==this.minute && d==this.dayMonth && this.dayWeek==0);
+        if (precTriggerAndOr) {
+            return negate != (h==this.hour && m==this.minute && d==this.dayMonth && this.dayWeek==0) && super.evaluate();
+        }else{
+            return negate != (h==this.hour && m==this.minute && d==this.dayMonth && this.dayWeek==0) || super.evaluate();
+        }
+
     }
 
     public int getHour() {

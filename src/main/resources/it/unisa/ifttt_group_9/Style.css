@@ -10,21 +10,21 @@
     -fx-border-width: 1px;
 }
 
-#hoursChoiceId, #minuteChoiceId, #dayChoiceId, #monthChoiceId,#hourChoiceIdSleep, #minuteChoiceIdSleep, #dayChoiceIdSleep, #monthChoiceIdSleep, #yearChoiceIdSleep, #fileActionChooser{
+#hoursChoiceId, #minuteChoiceId, #dayChoiceId, #monthChoiceId,#hourChoiceIdSleep, #minuteChoiceIdSleep, #dayChoiceIdSleep, #monthChoiceIdSleep, #yearChoiceIdSleep, #fileActionChooser,#directoryChoosingControllExitStatusBtn,#valueInsertByUserBtn,#chooseCounterBtn, #chooserActionCounterId{
     -fx-background-color: #4CAF50;
     -fx-text-fill: #ffffff;
 }
 
-#rulesTable {
+#rulesTable, #counterTable {
     -fx-background-color: #4CAF50; /* Cambia il colore di sfondo della TableView */
 }
 
-#addRuleBtn, #continueBtn, #backBtn1, #confirmBtn, #backBtn2, #activateRuleBtn, #deactivateRuleBtn, #sleepRuleBtn, #confirmSleepBtn, #backSleepBtn, #file, #destDirBtn, #addActionBtn{
+#addRuleBtn, #continueBtn, #backBtn1, #confirmBtn, #backBtn2, #activateRuleBtn, #deactivateRuleBtn, #sleepRuleBtn, #confirmSleepBtn, #backSleepBtn, #file, #destDirBtn, #addActionBtn, #selectCounterForTriggerBtn,#selectCounterForTriggerBtn2,#addCounterBtn, #backCounterBtn{
     -fx-background-color: #4CAF50; /* Cambia il colore di sfondo dei pulsanti */
     -fx-text-fill: #ffffff; /* Cambia il colore del testo dei pulsanti */
 }
 
-#deleteBtn{
+#deleteBtn, #deleteCounterBtn{
     -fx-background-color: #ff0000; /* Cambia il colore di sfondo dei pulsanti */
     -fx-text-fill: #ffffff;
 }
@@ -33,17 +33,19 @@
     -fx-background-color: #f0f0f0; /* Cambia il colore di sfondo dei campi di testo */
 }
 
-#textMessageTab, #audioTab, #timeTab, #dayTab, #monthTab, #fullDateTab, #existingFileTab, #fileDimensionTab, #fileTab{
+#textMessageTab, #audioTab, #timeTab, #dayTab, #monthTab, #fullDateTab, #existingFileTab, #fileDimensionTab, #fileTab,#counterTab,#controlExitStatusTab{
     -fx-background-color: #4CAF50; /* Cambia il colore di sfondo delle schede */
     -fx-text-fill: #ffffff; /* Cambia il colore del testo delle schede */
 }
 
-#fileChooserBtn, #withActionBtn {
+#fileChooserBtn, #withActionBtn, #modifeCounterBtn{
     -fx-background-color: #2196F3; /* Cambia il colore di sfondo del pulsante di scelta file */
     -fx-text-fill: #ffffff; /* Cambia il colore del testo del pulsante di scelta file */
 }
 
-#labelSleep{
+#counterBtn{
+    -fx-background-color: 	#FFFF33; /* Cambia il colore di sfondo del pulsante di scelta file */
+    -fx-text-fill: #000000; /* Cambia il colore del testo del pulsante di scelta file */
 
 }
 
