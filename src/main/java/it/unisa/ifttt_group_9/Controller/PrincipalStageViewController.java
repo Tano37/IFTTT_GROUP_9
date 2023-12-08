@@ -1019,6 +1019,12 @@ public class PrincipalStageViewController implements Initializable {
                 }
             }
         }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Insert a Correct Name");
+            alert.showAndWait();
+        }
     }
 
     @FXML
