@@ -30,7 +30,7 @@ public class ActionAudio extends ActionDecorator {
         return filePath;
     }
 
-    private void playAudioWithPopup(String filePath) {
+    public void playAudioWithPopup(String filePath) {
         // Ottieni il nome del file dal percorso
         String[] directories = filePath.split("/");
         String name = directories[directories.length - 1];
@@ -52,7 +52,7 @@ public class ActionAudio extends ActionDecorator {
         continuePlaying = false;
     }
 
-    private void playAudio(String filePath) {
+    public void playAudio(String filePath) {
         try {
             // Ottieni un AudioInputStream dal file audio
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(filePath));
@@ -89,7 +89,7 @@ public class ActionAudio extends ActionDecorator {
         }
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
 
         ActionAudio audio = new ActionAudio("C:/Users/giuse/Downloads/ProvaAudio.wav");
         File file = new File(audio.getFilePath());
@@ -97,7 +97,7 @@ public class ActionAudio extends ActionDecorator {
         System.out.println(file.getPath());
         audio.executeAction();
 
-    }
+    }*/
 
     @Override
     public String toString() {

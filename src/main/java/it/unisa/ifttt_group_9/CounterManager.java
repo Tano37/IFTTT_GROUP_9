@@ -21,7 +21,7 @@ public class CounterManager {
         counterList = new ArrayList<>(); //conviene un altra struttura dati?
     }
 
-    public void addRule(Counter counter) {
+    public void addCounter(Counter counter) {
         counterList.add(counter);
     }
 
@@ -42,7 +42,6 @@ public class CounterManager {
         String[] items = text.split(" ");
 
         String elaboratedString = "";
-        // Scorri e stampa le parole
         for (String item : items) {
             //System.out.println("item: " + item);
             if(item.startsWith("$")){
@@ -61,7 +60,7 @@ public class CounterManager {
             }
         }
         System.out.println("eccola " + elaboratedString);
-        return elaboratedString;
+        return elaboratedString.trim();
     }
 
     @Override

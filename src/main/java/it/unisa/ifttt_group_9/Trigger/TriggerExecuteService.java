@@ -47,7 +47,7 @@ public class TriggerExecuteService  extends Service<Void> {
                 triggerSelected.setExitValue(process.waitFor());
 
 
-//----------------/ This part is only needed to feedback how and why the process executed exits;
+/* This part is only needed to feedback how and why the process executed exits;
 
                 StringBuilder standardOutput = new StringBuilder();
                 StringBuilder errorOutput = new StringBuilder();
@@ -55,13 +55,13 @@ public class TriggerExecuteService  extends Service<Void> {
                 try (BufferedReader standardReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                      BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
 
-                    // Leggi l'output standard del processo
+                    // Extracting process standard output
                     String standardLine;
                     while ((standardLine = standardReader.readLine()) != null) {
                         standardOutput.append(standardLine).append("\n");
                     }
 
-                    // Leggi l'output degli errori del processo
+                    // Extracting process error output
                     String errorLine;
                     while ((errorLine = errorReader.readLine()) != null) {
                         errorOutput.append(errorLine).append("\n");
@@ -72,7 +72,7 @@ public class TriggerExecuteService  extends Service<Void> {
                 }
                 
 
-//----------------/
+*/
 
                 return null;
             }

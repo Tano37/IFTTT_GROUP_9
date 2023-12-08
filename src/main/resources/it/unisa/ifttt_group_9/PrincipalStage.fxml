@@ -223,7 +223,7 @@
                 <Button fx:id="deleteCounterBtn" layoutX="267.0" layoutY="337.0" mnemonicParsing="false" onAction="#deleteCounterAction" text="Delete Counter" />
                 <Button fx:id="backCounterBtn" layoutX="28.0" layoutY="337.0" mnemonicParsing="false" onAction="#backCounterAction" prefHeight="31.0" prefWidth="80.0" text="Back" />
                 <Button fx:id="modifeCounterBtn" layoutX="196.0" layoutY="337.0" mnemonicParsing="false" onAction="#modifeCounterAction" text="Edit" />
-                <Button fx:id="selectCounterForTriggerBtn" layoutX="166.0" layoutY="255.0" mnemonicParsing="false" onAction="#selectCounterForTriggerAction" text="Select and continue" />
+                <Button fx:id="selectCounterForTriggerBtn" layoutX="349.0" layoutY="255.0" mnemonicParsing="false" onAction="#selectCounterForTriggerAction" text="Select and continue" />
             <Button fx:id="selectCounterForTriggerBtn2" layoutX="349.0" layoutY="255.0" mnemonicParsing="false" onAction="#selectCounterForTrigger2Action" text="Select and continue" />
             </children>
         </AnchorPane>
