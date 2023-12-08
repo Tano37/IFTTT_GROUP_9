@@ -1232,6 +1232,12 @@ public class PrincipalStageViewController implements Initializable {
         chooseCounterBtn.setText(selectedItems.toString());
         selectedCounter = selectedItems.get(0);
         counterConfrontationLbl2.setText("Name: "+ selectedCounter.getName()+" - Value: "+selectedCounter.getValue());
+        addCounterBtn.setVisible(true);
+        deleteCounterBtn.setVisible(true);
+        backCounterBtn.setVisible(true);
+        modifeCounterBtn.setVisible(true);
+        selectCounterForTriggerBtn2.setVisible(false);
+        selectCounterForTriggerBtn.setVisible(false);
 
 
     }
@@ -1259,6 +1265,12 @@ public class PrincipalStageViewController implements Initializable {
 
         counterConfrontationLbl3.setText("Name: "+ selectedCounter2.getName()+" - Value: "+selectedCounter2.getValue());
 
+        addCounterBtn.setVisible(true);
+        deleteCounterBtn.setVisible(true);
+        backCounterBtn.setVisible(true);
+        modifeCounterBtn.setVisible(true);
+        selectCounterForTriggerBtn2.setVisible(false);
+        selectCounterForTriggerBtn.setVisible(false);
 
     }
     @FXML
