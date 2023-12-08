@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="stackPaneId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unisa.ifttt_group_9.Controller.PrincipalStageViewController">
+<StackPane fx:id="stackPaneId" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unisa.ifttt_group_9.Controller.PrincipalStageViewController">
     <stylesheets>
         <URL value="@Style.css" />
     </stylesheets>
     <children>
-        <AnchorPane fx:id="ancorPane1" prefHeight="368.0" prefWidth="536.0">
+        <AnchorPane fx:id="ancorPane1" prefHeight="368.0" prefWidth="536.0" visible="false">
             <children>
                 <TableView fx:id="rulesTable" prefHeight="267.0" prefWidth="534.0">
                     <columns>
@@ -26,7 +37,7 @@
                 <Button fx:id="withActionBtn" layoutX="227.0" layoutY="350.0" mnemonicParsing="false" onAction="#createWithAction" text="With action" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0" visible="false">
+        <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0">
             <children>
                 <TabPane fx:id="tabPane1" layoutX="-2.0" prefHeight="280.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
@@ -143,7 +154,9 @@
                 </TabPane>
                 <Button fx:id="continueBtn" layoutX="428.0" layoutY="342.0" mnemonicParsing="false" onAction="#continueAction" text="Continue" />
                 <Button fx:id="backBtn1" layoutX="40.0" layoutY="342.0" mnemonicParsing="false" onAction="#back1Action" text="Back" />
-            <CheckBox fx:id="negateTriggerCheckBox" layoutX="213.0" layoutY="332.0" mnemonicParsing="false" text="Not Trigger" />
+            <CheckBox fx:id="negateTriggerCheckBox" layoutX="299.0" layoutY="321.0" mnemonicParsing="false" text="Not Trigger" />
+            <CheckBox fx:id="logicalOperationCb" layoutX="299.0" layoutY="347.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="105.0" text="And Logic" />
+            <Button fx:id="AddMoreTriggerBtn" layoutX="139.0" layoutY="332.0" mnemonicParsing="false" onAction="#addSequenceTriggerAction" text="Add Trigger " />
 
                 
 

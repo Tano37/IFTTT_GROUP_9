@@ -13,6 +13,22 @@ public class TriggerCounterCompareCounter extends TriggerDecorator{
         this.valueOfComparation=valueOfComparation;
     }
 
+    public TriggerCounterCompareCounter(Counter counter1, Counter counter2, String valueOfComparationboolean,
+                                        boolean negate , Trigger newTrigger, boolean operator) {
+        super(negate, newTrigger, operator);
+        this.counter1 = counter1;
+        this.counter2 = counter2;
+        this.valueOfComparation = valueOfComparationboolean;
+    }
+
+    public TriggerCounterCompareCounter(Counter counter1, Counter counter2,
+                                        String valueOfComparation,boolean negate ) {
+        super(negate);
+        this.counter1 = counter1;
+        this.counter2 = counter2;
+        this.valueOfComparation = valueOfComparation;
+    }
+
     @Override
     public boolean evaluate() {
         if(valueOfComparation.equals("greater")){

@@ -66,6 +66,8 @@ public class TriggerTimestamp extends TriggerDecorator {
         return "TriggerTimestamp{" +
                 "hour=" + hour +
                 ", minute=" + minute +
-                '}';
+                ", negate=" + negate +
+                ", precTriggerAndOr=" + precTriggerAndOr +
+                "\n" + precTrigger ;
     }
 }
