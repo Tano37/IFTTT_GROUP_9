@@ -744,7 +744,7 @@ public class PrincipalStageViewController implements Initializable {
                 Counter counterInsert=selectedCounter;
                 Counter counterInsert2=selectedCounter2;
                 String chooserActionCounter= chooserActionCounterId.getValue();
-                selectedTrigger=new TriggerCounterCompareCounter(selectedCounter2,selectedCounter,chooserActionCounter);
+                selectedTrigger=new TriggerCounter(selectedCounter2,selectedCounter,chooserActionCounter);
 
             }
             if(!changeCounterField.selectedProperty().get()){
