@@ -31,11 +31,7 @@ public class ActionText extends ActionDecorator {
 
     @Override
     public String toString() {
-        return "ActionText{" +
-                "text='" + text + '\'' +
-                ", variableSubstitution=" + variableSubstitution +
-                "\n" + tempAction +
-                '}';
+        return "{ActionText: " + text + " }\n" + super.toString();
     }
 
     public String getText() {
