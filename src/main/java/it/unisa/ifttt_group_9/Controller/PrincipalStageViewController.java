@@ -992,113 +992,17 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     void confirmAction(ActionEvent event) throws IOException {
 
-        String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
+
         if (!nameRuleText.getText().trim().isEmpty()) {
-
-
-            if (tabId.equals("textMessageTab")) {
-                if (textMessageId.getText().trim().isEmpty()) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Errore");
-                    alert.setContentText("Inserisci un testo!");
-                    alert.showAndWait();
-                } else {
-                    selectedAction = new ActionText(textMessageId.getText(), selectedAction,varsubActionTextCb.isSelected());
-                    createRule();
-                }
-            } else if (tabId.equals("audioTab")) {
-                if (fileChooserWav.getSelectedFile() == null) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Errore");
-                    alert.setContentText("Inserisci il file audio!");
-                    alert.showAndWait();
-
-                } else {
-                    File selectedFolder = fileChooserWav.getSelectedFile();
-                    selectedAction = new ActionAudio(selectedFolder.getPath(), selectedAction);
-                    fileChooserWav.setSelectedFile(null);
-                    createRule();
-                }
-            } else if (nameRuleText.getText().trim().isEmpty()) {
+            if(selectedAction != null){
+                createRule();
+            }else{
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Errore");
-                alert.setContentText("Inserisci un nome al file");
+                alert.setTitle("Error");
+                alert.setContentText("Add a rule");
                 alert.showAndWait();
-            } else if (tabId.equals("fileTab")) {
-                if (fileActionChooser.getValue().equals("Add String in the end")) {
-
-                    if (fileChooserTxt.getSelectedFile() == null || textIsNotValid(fileActionLaunchTxt.getText())) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
-                        alert.setContentText("Compile the fields correctly!");
-                        alert.showAndWait();
-                    } else {
-                        File selectedFolder = fileChooserTxt.getSelectedFile();
-                        String testInFile = fileActionLaunchTxt.getText();
-                        selectedAction = new ActionFileAddString(selectedFolder.getPath(), testInFile,
-                                selectedAction,varsubActionFileCb.isSelected());
-                        System.out.println(selectedAction);
-                        fileChooserTxt.setSelectedFile(null);
-                        createRule();
-                    }
-                } else if (fileActionChooser.getValue().equals("Copy and Paste")) {
-
-                    if (fileChooserTxt.getSelectedFile() == null) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
-                        alert.setContentText("Select source file!");
-                        alert.showAndWait();
-                    } else if (directoryChooserActionFile.getSelectedFile() == null) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
-                        alert.setContentText("Select destination file!");
-                        alert.showAndWait();
-                    } else {
-                        File selectedFolder = fileChooserTxt.getSelectedFile();
-                        File dirSelectedFolder = directoryChooserActionFile.getSelectedFile();
-
-                        selectedAction = new ActionFileCopy(selectedFolder.getPath(), dirSelectedFolder.getPath(), selectedAction);
-                        fileChooserTxt.setSelectedFile(null);
-                        directoryChooserActionFile.setSelectedFile(null);
-                        createRule();
-
-
-                    }
-                } else if (fileActionChooser.getValue().equals("Delete a File")) {
-
-                    if (fileChooserTxt.getSelectedFile() == null) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
-                        alert.setContentText("Select the file to delete!");
-                        alert.showAndWait();
-                    } else {
-                        File selectedFolder = fileChooserTxt.getSelectedFile();
-                        selectedAction = new ActionFileDelete(selectedFolder.getPath(), selectedAction);
-                        fileChooserTxt.setSelectedFile(null);
-                        createRule();
-                    }
-                } else if (fileActionChooser.getValue().equals("Launch a Program")) {
-
-                    if (fileChooserTxt.getSelectedFile() == null ) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
-                        alert.setContentText("Select the file!");
-                        alert.showAndWait();
-                    } else {
-                        File selectedFolder = fileChooserTxt.getSelectedFile();
-                        String commands = fileActionLaunchTxt.getText();
-                        System.out.println(commands);
-                        selectedAction = new ActionFileLaunch(selectedFolder.getPath(), commands,
-                                selectedAction,varsubActionFileCb.isSelected());
-                        fileChooserTxt.setSelectedFile(null);
-                        fileActionLaunchTxt.clear();
-                        createRule();
-
-                    }
-                }
             }
-        }
-        else {
+        }else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("Insert a Correct Name");
@@ -1245,6 +1149,11 @@ public class PrincipalStageViewController implements Initializable {
 
         negateTriggerCheckBox.selectedProperty().set(false);
         logicalOperationCb.selectedProperty().set(false);
+        counterTable.getSelectionModel().clearSelection();
+        selectCounterForTriggerBtn.setDisable(true);
+        selectCounterForTriggerBtn2.setDisable(true);
+        valueInsertByUserBtn.setText("Select a counter 1");
+        chooseCounterBtn.setText("Select a counter 2");
 
         counterTable.getSelectionModel().clearSelection();
         selectCounterForTriggerBtn.setDisable(true);
