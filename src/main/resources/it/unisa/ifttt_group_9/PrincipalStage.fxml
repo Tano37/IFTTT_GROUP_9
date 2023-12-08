@@ -20,7 +20,7 @@
         <URL value="@Style.css" />
     </stylesheets>
     <children>
-        <AnchorPane fx:id="ancorPane1" prefHeight="368.0" prefWidth="536.0" visible="false">
+        <AnchorPane fx:id="ancorPane1" prefHeight="368.0" prefWidth="536.0">
             <children>
                 <TableView fx:id="rulesTable" prefHeight="267.0" prefWidth="534.0">
                     <columns>
@@ -28,16 +28,17 @@
                         <TableColumn fx:id="triggerStatusClm" prefWidth="101.0" text="Trigger Status" />
                     </columns>
                 </TableView>
-                <Button fx:id="addRuleBtn" layoutX="393.0" layoutY="283.0" mnemonicParsing="false" onAction="#addRuleAction" prefHeight="31.0" prefWidth="96.0" text="Add Rule" />
-                <Button fx:id="deleteBtn" layoutX="393.0" layoutY="350.0" mnemonicParsing="false" onAction="#deleteRuleAction" text="Delete Rule" />
+                <Button fx:id="addRuleBtn" layoutX="229.0" layoutY="275.0" mnemonicParsing="false" onAction="#addRuleAction" prefHeight="31.0" prefWidth="96.0" text="Add Rule" />
+                <Button fx:id="deleteBtn" layoutX="415.0" layoutY="333.0" mnemonicParsing="false" onAction="#deleteRuleAction" text="Delete Rule" />
                 <Button fx:id="activateRuleBtn" layoutX="26.0" layoutY="283.0" mnemonicParsing="false" onAction="#activateRuleAction" prefHeight="25.0" prefWidth="108.0" text="Activate Rule" />
                 <Button fx:id="deactivateRuleBtn" layoutX="26.0" layoutY="317.0" mnemonicParsing="false" onAction="#deactivateRuleAction" prefHeight="25.0" prefWidth="108.0" text="Deactivate Rule" />
                 <Button fx:id="sleepRuleBtn" layoutX="26.0" layoutY="350.0" mnemonicParsing="false" onAction="#sleepRuleAction" prefHeight="25.0" prefWidth="108.0" text="Sleep Rule" />
-                <Button fx:id="counterBtn" layoutX="235.0" layoutY="299.0" mnemonicParsing="false" onAction="#counterAction" text="Counters" />
-                <Button fx:id="withActionBtn" layoutX="227.0" layoutY="350.0" mnemonicParsing="false" onAction="#createWithAction" text="With action" />
+                <Button fx:id="counterBtn" layoutX="423.0" layoutY="283.0" mnemonicParsing="false" onAction="#counterAction" text="Counters" />
+                <Button fx:id="withActionBtn" layoutX="229.0" layoutY="350.0" mnemonicParsing="false" onAction="#createWithAction" text="With Action" />
+            <Button fx:id="withTriggerBtn" layoutX="225.0" layoutY="313.0" mnemonicParsing="false" onAction="#createWithTrigger" text="With Trigger" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0">
+        <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0" visible="false">
             <children>
                 <TabPane fx:id="tabPane1" layoutX="-2.0" prefHeight="280.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>

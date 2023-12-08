@@ -70,13 +70,6 @@ public class TriggerExecuteService  extends Service<Void> {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if (triggerSelected.getExitValue() == 0){
-                    String processStandardOutput = standardOutput.toString();
-                    System.out.println("Output standard del processo:\n" + processStandardOutput);
-                }else{
-                    String processErrorOutput = errorOutput.toString();
-                    System.err.println("Output degli errori del processo:\n" + processErrorOutput);
-                }
                 
 
 //----------------/

@@ -95,6 +95,8 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     private Button withActionBtn;
     @FXML
+    private Button withTriggerBtn;
+    @FXML
     private Button addActionBtn;
     @FXML
     private Button directoryChoosingControllExitStatusBtn;
@@ -531,11 +533,13 @@ public class PrincipalStageViewController implements Initializable {
             deactivateRuleBtn.setDisable(!newValue.getStatus());
             sleepRuleBtn.setDisable(!newValue.getStatus());
             withActionBtn.setDisable(false);
+            withTriggerBtn.setDisable(false);
         } else {
             activateRuleBtn.setDisable(true);
             deactivateRuleBtn.setDisable(true);
             sleepRuleBtn.setDisable(true);
             withActionBtn.setDisable(true);
+            withTriggerBtn.setDisable(true);
         }
     }
 
@@ -613,6 +617,14 @@ public class PrincipalStageViewController implements Initializable {
         fieldReset();
     }
     @FXML
+    void createWithTrigger(ActionEvent event){
+        Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
+        selectedTrigger = selectedItem.getRuleTrigger();
+        ancorPane1.visibleProperty().setValue(false);
+        ancorPane2.visibleProperty().setValue(true);
+        fieldReset();
+    }
+    @FXML
     void backSleepAction(ActionEvent event){
         ancorPane1.visibleProperty().setValue(true);
         ancorPane4.visibleProperty().setValue(false);
@@ -656,6 +668,7 @@ public class PrincipalStageViewController implements Initializable {
         rulesTable.getSelectionModel().clearSelection();
         fieldReset();
         selectedAction=null;
+        selectedTrigger=null;
     }
 
     void viewOfAction(){
@@ -665,17 +678,26 @@ public class PrincipalStageViewController implements Initializable {
         alert.setContentText(selectedAction.toString());
         alert.showAndWait();
     }
+    void viewOfTrigger(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Add Action List");
+        alert.setHeaderText(null); // Senza intestazione
+        alert.setContentText(selectedTrigger.toString());
+        alert.showAndWait();
+    }
 
     @FXML
     void addSequenceTriggerAction(ActionEvent event){
-
-
         String tabId = tabPane1.getSelectionModel().getSelectedItem().getId();
         if (tabId.equals("timeTab")) {
-            boolean logicaloperation = false;
             selectedTrigger = new TriggerTimestamp(hoursChoiceId.getValue(),
                     minuteChoiceId.getValue(),negateTriggerCheckBox.isSelected(),
                     selectedTrigger, logicalOperationCb.isSelected());
+            if (negateTriggerCheckBox.isSelected()) {
+                selectedTrigger.negate();
+                negateTriggerCheckBox.selectedProperty().set(false);
+            }
+            viewOfTrigger();
             /*questa variabile selectedTrigger andrà riazzerata una volta creata definitivamente la regola
             e alla regola andrà messo il check che i campi trigger e action siano diversi da null*/
         } else if (tabId.equals("dayTab")) {
@@ -683,13 +705,17 @@ public class PrincipalStageViewController implements Initializable {
             for (DayOfWeek day : DayOfWeek.values()) {
                 if (day.toString().equalsIgnoreCase(dayChoiceId.getValue())) {
                     numberDay = day.getValue();
-
                     break; // Esci dal ciclo una volta trovato il giorno corrispondente
                 }
             }
             selectedTrigger = new TriggerDay(hoursChoiceId.getValue(), minuteChoiceId.getValue(),
                     numberDay,negateTriggerCheckBox.isSelected(),
                     selectedTrigger, logicalOperationCb.isSelected());
+            if (negateTriggerCheckBox.isSelected()) {
+                selectedTrigger.negate();
+                negateTriggerCheckBox.selectedProperty().set(false);
+            }
+            viewOfTrigger();
         } else if (tabId.equals("monthTab")) {
            /* minuteChoiceId.setValue(0);
             hourChoiceIdSleep.setValue(0);*/
@@ -697,6 +723,11 @@ public class PrincipalStageViewController implements Initializable {
             selectedTrigger = new TriggerMonth(hoursChoiceId.getValue(), minuteChoiceId.getValue(), 0,
                     monthChoiceId.getValue(),negateTriggerCheckBox.isSelected(),
                     selectedTrigger, logicalOperationCb.isSelected());
+            if (negateTriggerCheckBox.isSelected()) {
+                selectedTrigger.negate();
+                negateTriggerCheckBox.selectedProperty().set(false);
+            }
+            viewOfTrigger();
         } else if (tabId.equals("existingFileTab")) {
             if (directoryChooserTriggerFileExists.getSelectedFile() == null || textIsNotValid(fileNameLbl.getText())) {
                 ancorPane2.visibleProperty().setValue(true);
@@ -709,6 +740,10 @@ public class PrincipalStageViewController implements Initializable {
                 selectedTrigger = new TriggerFile(directoryChooserTriggerFileExists.getSelectedFile().getAbsolutePath(),
                         fileNameLbl.getText(),negateTriggerCheckBox.isSelected(),
                         selectedTrigger, logicalOperationCb.isSelected());
+                if (negateTriggerCheckBox.isSelected()) {
+                    selectedTrigger.negate();
+                    negateTriggerCheckBox.selectedProperty().set(false);
+                }viewOfTrigger();
             }
         } else if (tabId.equals("fileDimensionTab")) {
             if (fileChooserTriggerFileDimension.getSelectedFile() == null || textIsNotValid(maxFileDimensionTxt.getText())) {
@@ -723,20 +758,25 @@ public class PrincipalStageViewController implements Initializable {
                         .getSelectedFile().getAbsolutePath(),
                         Long.parseLong(maxFileDimensionTxt.getText()),negateTriggerCheckBox.isSelected(),
                         selectedTrigger, logicalOperationCb.isSelected());
+                if (negateTriggerCheckBox.isSelected()) {
+                    selectedTrigger.negate();
+                    negateTriggerCheckBox.selectedProperty().set(false);
+                }viewOfTrigger();
             }
-
         } else if (tabId.equals("fullDateTab")) {
             LocalDate fullDateInsert = dataPickerId.getValue();
-
             int dayInsert = fullDateInsert.getDayOfMonth();
             int monthInsert = fullDateInsert.getMonth().getValue();
             int yearInsert = fullDateInsert.getYear();
             int hourchoise = hoursChoiceId.getValue();
             int minutechoise = minuteChoiceId.getValue();
-
             selectedTrigger = new TriggerFullDate(hoursChoiceId.getValue(), minuteChoiceId.getValue(), dayInsert,
                     monthInsert, yearInsert,negateTriggerCheckBox.isSelected(),
                     selectedTrigger, logicalOperationCb.isSelected());
+            if (negateTriggerCheckBox.isSelected()) {
+                selectedTrigger.negate();
+                negateTriggerCheckBox.selectedProperty().set(false);
+            }viewOfTrigger();
         } else if (tabId.equals("controlExitStatusTab")) {
             if (fileChooserExitStatus.getSelectedFile() == null || textIsNotValid(valueTextId.getText())) {
                 ancorPane2.visibleProperty().setValue(true);
@@ -746,31 +786,27 @@ public class PrincipalStageViewController implements Initializable {
                 alert.setContentText("Compile the fields correctly!");
                 alert.showAndWait();
             } else {
-
                 selectedTrigger = new TriggerExitStatus(fileChooserExitStatus.getSelectedFile().getAbsolutePath(),
                         commandLineTextId.getText(), Integer.parseInt(valueTextId.getText()),negateTriggerCheckBox.isSelected(),
                         selectedTrigger, logicalOperationCb.isSelected());
-
+                if (negateTriggerCheckBox.isSelected()) {
+                    selectedTrigger.negate();
+                    negateTriggerCheckBox.selectedProperty().set(false);
+                }viewOfTrigger();
             }
-
         } else if(tabId.equals("counterTab")){
             if(changeCounterField.selectedProperty().get()){
                 Counter counterInsert=selectedCounter;
                 Counter counterInsert2=selectedCounter2;
                 String chooserActionCounter= chooserActionCounterId.getValue();
-                selectedTrigger=new TriggerCounterCompareCounter(selectedCounter2,selectedCounter,chooserActionCounter,
-                        negateTriggerCheckBox.isSelected(),
-                        selectedTrigger, logicalOperationCb.isSelected());
-
+                selectedTrigger=new TriggerCounterCompareCounter(selectedCounter2,
+                        selectedCounter,chooserActionCounter);
             }
             if(!changeCounterField.selectedProperty().get()){
                 Counter counterInsert=selectedCounter;
                 Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
                 String chooserActionCounter= chooserActionCounterId.getValue();
                 selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter);
-
-
-
             }
             addCounterBtn.setVisible(true);
             deleteCounterBtn.setVisible(true);
@@ -779,15 +815,13 @@ public class PrincipalStageViewController implements Initializable {
             selectCounterForTriggerBtn.setVisible(false);
             //  counterConfrontationLbl1.setText("Nothing");
             counterConfrontationLbl2.setText("Nothing");
-
             counterConfrontationLbl3.setText("Nothing");
-
 
             if (negateTriggerCheckBox.isSelected()) {
                 selectedTrigger.negate();
+                negateTriggerCheckBox.selectedProperty().set(false);
             }
         }
-
     }
 
     @FXML
@@ -797,7 +831,13 @@ public class PrincipalStageViewController implements Initializable {
 
         String tabId = tabPane1.getSelectionModel().getSelectedItem().getId();
         if (tabId.equals("timeTab")) {
-            selectedTrigger = new TriggerTimestamp(hoursChoiceId.getValue(), minuteChoiceId.getValue());
+            selectedTrigger = new TriggerTimestamp(hoursChoiceId.getValue(),
+                    minuteChoiceId.getValue(),negateTriggerCheckBox.isSelected(),
+                    selectedTrigger, logicalOperationCb.isSelected());
+            if (negateTriggerCheckBox.isSelected()) {
+                selectedTrigger.negate();
+                negateTriggerCheckBox.selectedProperty().set(false);
+            }
             /*questa variabile selectedTrigger andrà riazzerata una volta creata definitivamente la regola
             e alla regola andrà messo il check che i campi trigger e action siano diversi da null*/
         } else if (tabId.equals("dayTab")) {
@@ -805,17 +845,27 @@ public class PrincipalStageViewController implements Initializable {
             for (DayOfWeek day : DayOfWeek.values()) {
                 if (day.toString().equalsIgnoreCase(dayChoiceId.getValue())) {
                     numberDay = day.getValue();
-
                     break; // Esci dal ciclo una volta trovato il giorno corrispondente
                 }
             }
-            selectedTrigger = new TriggerDay(hoursChoiceId.getValue(), minuteChoiceId.getValue(), numberDay);
+            selectedTrigger = new TriggerDay(hoursChoiceId.getValue(), minuteChoiceId.getValue(),
+                    numberDay,negateTriggerCheckBox.isSelected(),
+                    selectedTrigger, logicalOperationCb.isSelected());
+            if (negateTriggerCheckBox.isSelected()) {
+                selectedTrigger.negate();
+                negateTriggerCheckBox.selectedProperty().set(false);
+            }
         } else if (tabId.equals("monthTab")) {
            /* minuteChoiceId.setValue(0);
             hourChoiceIdSleep.setValue(0);*/
             //System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
             selectedTrigger = new TriggerMonth(hoursChoiceId.getValue(), minuteChoiceId.getValue(), 0,
-                    monthChoiceId.getValue());
+                    monthChoiceId.getValue(),negateTriggerCheckBox.isSelected(),
+                    selectedTrigger, logicalOperationCb.isSelected());
+            if (negateTriggerCheckBox.isSelected()) {
+                selectedTrigger.negate();
+                negateTriggerCheckBox.selectedProperty().set(false);
+            }
         } else if (tabId.equals("existingFileTab")) {
             if (directoryChooserTriggerFileExists.getSelectedFile() == null || textIsNotValid(fileNameLbl.getText())) {
                 ancorPane2.visibleProperty().setValue(true);
@@ -826,7 +876,12 @@ public class PrincipalStageViewController implements Initializable {
                 alert.showAndWait();
             } else {
                 selectedTrigger = new TriggerFile(directoryChooserTriggerFileExists.getSelectedFile().getAbsolutePath(),
-                        fileNameLbl.getText());
+                        fileNameLbl.getText(),negateTriggerCheckBox.isSelected(),
+                        selectedTrigger, logicalOperationCb.isSelected());
+                if (negateTriggerCheckBox.isSelected()) {
+                    selectedTrigger.negate();
+                    negateTriggerCheckBox.selectedProperty().set(false);
+                }
             }
         } else if (tabId.equals("fileDimensionTab")) {
             if (fileChooserTriggerFileDimension.getSelectedFile() == null || textIsNotValid(maxFileDimensionTxt.getText())) {
@@ -838,20 +893,28 @@ public class PrincipalStageViewController implements Initializable {
                 alert.showAndWait();
             } else {
                 selectedTrigger = new TriggerFileDimension(fileChooserTriggerFileDimension
-                        .getSelectedFile().getAbsolutePath(), Long.parseLong(maxFileDimensionTxt.getText()));
+                        .getSelectedFile().getAbsolutePath(),
+                        Long.parseLong(maxFileDimensionTxt.getText()),negateTriggerCheckBox.isSelected(),
+                        selectedTrigger, logicalOperationCb.isSelected());
+                if (negateTriggerCheckBox.isSelected()) {
+                    selectedTrigger.negate();
+                    negateTriggerCheckBox.selectedProperty().set(false);
+                }
             }
-
         } else if (tabId.equals("fullDateTab")) {
             LocalDate fullDateInsert = dataPickerId.getValue();
-
             int dayInsert = fullDateInsert.getDayOfMonth();
             int monthInsert = fullDateInsert.getMonth().getValue();
             int yearInsert = fullDateInsert.getYear();
             int hourchoise = hoursChoiceId.getValue();
             int minutechoise = minuteChoiceId.getValue();
-
             selectedTrigger = new TriggerFullDate(hoursChoiceId.getValue(), minuteChoiceId.getValue(), dayInsert,
-                    monthInsert, yearInsert);
+                    monthInsert, yearInsert,negateTriggerCheckBox.isSelected(),
+                    selectedTrigger, logicalOperationCb.isSelected());
+            if (negateTriggerCheckBox.isSelected()) {
+                selectedTrigger.negate();
+                negateTriggerCheckBox.selectedProperty().set(false);
+            }
         } else if (tabId.equals("controlExitStatusTab")) {
             if (fileChooserExitStatus.getSelectedFile() == null || textIsNotValid(valueTextId.getText())) {
                 ancorPane2.visibleProperty().setValue(true);
@@ -861,43 +924,40 @@ public class PrincipalStageViewController implements Initializable {
                 alert.setContentText("Compile the fields correctly!");
                 alert.showAndWait();
             } else {
-
                 selectedTrigger = new TriggerExitStatus(fileChooserExitStatus.getSelectedFile().getAbsolutePath(),
-                        commandLineTextId.getText(), Integer.parseInt(valueTextId.getText()));
-
+                        commandLineTextId.getText(), Integer.parseInt(valueTextId.getText()),negateTriggerCheckBox.isSelected(),
+                        selectedTrigger, logicalOperationCb.isSelected());
+                if (negateTriggerCheckBox.isSelected()) {
+                    selectedTrigger.negate();
+                    negateTriggerCheckBox.selectedProperty().set(false);
+                }
             }
-
-        }
-        else if(tabId.equals("counterTab")){
+        } else if(tabId.equals("counterTab")){
             if(changeCounterField.selectedProperty().get()){
                 Counter counterInsert=selectedCounter;
                 Counter counterInsert2=selectedCounter2;
                 String chooserActionCounter= chooserActionCounterId.getValue();
-                selectedTrigger=new TriggerCounterCompareCounter(selectedCounter2,selectedCounter,chooserActionCounter);
-
+                selectedTrigger=new TriggerCounterCompareCounter(selectedCounter2,
+                        selectedCounter,chooserActionCounter);
             }
             if(!changeCounterField.selectedProperty().get()){
                 Counter counterInsert=selectedCounter;
                 Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
                 String chooserActionCounter= chooserActionCounterId.getValue();
                 selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter);
-
-
-
             }
             addCounterBtn.setVisible(true);
             deleteCounterBtn.setVisible(true);
             backCounterBtn.setVisible(true);
             modifeCounterBtn.setVisible(true);
             selectCounterForTriggerBtn.setVisible(false);
-          //  counterConfrontationLbl1.setText("Nothing");
+            //  counterConfrontationLbl1.setText("Nothing");
             counterConfrontationLbl2.setText("Nothing");
-
             counterConfrontationLbl3.setText("Nothing");
-
 
             if (negateTriggerCheckBox.isSelected()) {
                 selectedTrigger.negate();
+                negateTriggerCheckBox.selectedProperty().set(false);
             }
         }
     }
@@ -1291,6 +1351,9 @@ public class PrincipalStageViewController implements Initializable {
         //Rule Fields Set
         fireOnceCheckbox.selectedProperty().setValue(false);
         nameRuleText.clear();
+
+        negateTriggerCheckBox.selectedProperty().set(false);
+        logicalOperationCb.selectedProperty().set(false);
 
     }
 
