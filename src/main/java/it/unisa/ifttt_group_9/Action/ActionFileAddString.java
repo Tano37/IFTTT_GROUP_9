@@ -14,7 +14,7 @@ public class ActionFileAddString extends ActionDecorator {
     private Boolean variableSubstitution;
 
 
-    public ActionFileAddString(String filePath, String stringToAdd, Action action, Boolean variabileSubstitution) {
+    public ActionFileAddString(String filePath, String stringToAdd, Action action, Boolean variableSubstitution) {
         super(action);
         this.filePath = filePath;
         this.stringToAdd = stringToAdd;
@@ -47,7 +47,7 @@ public class ActionFileAddString extends ActionDecorator {
                     BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
                     // Adds the string
-                    bufferedWriter.write(stringToAdd);
+                    bufferedWriter.write("\n"+stringToAdd);
 
 
                     new PanelPopUPManager("StringAddition", "The string has been added").showMessage();

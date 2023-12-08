@@ -47,18 +47,20 @@ public class ActionText extends ActionDecorator {
 
         // Mostra un dialogo con un messaggio e un pulsante "OK"
 
-        int scelta = new PanelPopUPManager("Action Text", text).showMessage();
-
-        super.executeAction();
 
         if (this.variableSubstitution)
             this.text= CounterManager.counterSubstitution(this.text);
         // Verifica se l'utente ha premuto "OK"
+        int scelta = new PanelPopUPManager("Action Text", text).showMessage();
+
+        super.executeAction();
+
         if (scelta == JOptionPane.OK_OPTION) {
             System.out.println("You pressed OK. Closing the alert...");
         } else {
             System.out.println("Allert closed without pressing OK.");
         }
+
 
 
     }
