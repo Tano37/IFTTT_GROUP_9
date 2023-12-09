@@ -42,6 +42,7 @@ public class TriggerExitStatus extends TriggerDecorator {
         return exitValue;
     }
 
+    //Checks if the exit status is equal to the setted one using a service to analyze the output
     @Override
     public boolean evaluate() {
         TriggerExecuteService myTrigger = new TriggerExecuteService(this);

@@ -47,7 +47,7 @@ public class TriggerCounter extends TriggerDecorator{
         this.valueOfComparation=valueOfComparation;
     }
 
-
+    //Checks if the two counters have the same value or one is greater than another, it depends on: valueOfComparation
     @Override
     public boolean evaluate() {
         switch (valueOfComparation) {

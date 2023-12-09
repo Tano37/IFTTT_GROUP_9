@@ -1,10 +1,8 @@
 package it.unisa.ifttt_group_9;
 
-import it.unisa.ifttt_group_9.Rule.Rule;
-import it.unisa.ifttt_group_9.Rule.RuleManager;
+
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class CounterManager {
@@ -15,7 +13,8 @@ public class CounterManager {
             instance = new CounterManager();
         return instance;
     }
-    private List<Counter> counterList;
+
+    private List<Counter> counterList; //contains the counter
 
     private CounterManager() {
         counterList = new ArrayList<>(); //conviene un altra struttura dati?
@@ -38,6 +37,7 @@ public class CounterManager {
     }
 
 
+    //Substitutes the name of the counter with its value
     public static String counterSubstitution(String text){
         String[] items = text.split(" ");
 
@@ -46,17 +46,14 @@ public class CounterManager {
             //System.out.println("item: " + item);
             if(item.startsWith("$")){
                 String variableName = item.substring(1);
-                //System.out.println("substring: " + item.substring(1));
-                //System.out.println("valore del substring: " + CounterManager.getInstance().getCounterByName(variableName).getValue());
                 Counter counterToSubstitute= CounterManager.getInstance().getCounterByName(variableName);
                 if (counterToSubstitute == null)
                     return ("Almeno un counter desiderato non è disponibile non è disponibile per l'output: " + text);
                 elaboratedString=elaboratedString.concat(counterToSubstitute.getValue() + " ");
-                //System.out.println(counterToSubstitute.getValue());
+
             }
             else{
                 elaboratedString=elaboratedString.concat(item + " ");
-                //System.out.println(expressionItem);
             }
         }
         System.out.println("eccola " + elaboratedString);

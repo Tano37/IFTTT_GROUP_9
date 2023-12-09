@@ -45,6 +45,10 @@ import java.util.ResourceBundle;
 public class PrincipalStageViewController implements Initializable {
     // Buttons
     @FXML
+    private Button fileDimensionChooseFileBtn;
+    @FXML
+    private Button file;
+    @FXML
     private Button fileChooserBtn;
     @FXML
     private Button deleteBtn;

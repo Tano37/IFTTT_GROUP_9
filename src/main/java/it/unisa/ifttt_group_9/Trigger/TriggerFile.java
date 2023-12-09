@@ -22,6 +22,7 @@ public class TriggerFile extends TriggerDecorator {
         this.fileName = fileName;
     }
 
+    //Checks if the file  exists
     @Override
     public boolean evaluate() {
         File file = new File(directoryPath, fileName);

@@ -45,7 +45,7 @@ public class TriggerFileDimension extends TriggerDecorator {
 
 
 
-
+    //checks if the file dimension exceed the setted one
     @Override
     public boolean evaluate() {
 

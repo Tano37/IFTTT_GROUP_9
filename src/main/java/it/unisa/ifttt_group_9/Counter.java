@@ -1,6 +1,5 @@
 package it.unisa.ifttt_group_9;
 
-import it.unisa.ifttt_group_9.Rule.Rule;
 
 import java.io.Serializable;
 
