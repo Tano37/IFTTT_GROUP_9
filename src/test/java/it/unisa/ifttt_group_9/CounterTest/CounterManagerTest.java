@@ -1,6 +1,7 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.CounterTest;
 
-import org.junit.jupiter.api.BeforeEach;
+import it.unisa.ifttt_group_9.Counter;
+import it.unisa.ifttt_group_9.CounterManager;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

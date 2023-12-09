@@ -1,4 +1,4 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.TriggerTest;
 
 
 import it.unisa.ifttt_group_9.Trigger.TriggerMonth;

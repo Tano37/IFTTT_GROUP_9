@@ -1,4 +1,4 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.RuleTest;
 
 import it.unisa.ifttt_group_9.Action.Action;
 import it.unisa.ifttt_group_9.Rule.Rule;

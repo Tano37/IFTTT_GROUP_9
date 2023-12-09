@@ -1,4 +1,4 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.ExceptionsTest;
 
 import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 import org.junit.jupiter.api.Test;

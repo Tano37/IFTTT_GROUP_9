@@ -1,4 +1,4 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.CounterTest;
 
 import it.unisa.ifttt_group_9.Counter;
 import org.junit.jupiter.api.Test;

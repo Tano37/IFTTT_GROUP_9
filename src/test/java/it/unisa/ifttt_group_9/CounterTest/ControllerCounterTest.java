@@ -1,5 +1,7 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.CounterTest;
 
+import it.unisa.ifttt_group_9.ControllerCounter;
+import it.unisa.ifttt_group_9.Counter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;

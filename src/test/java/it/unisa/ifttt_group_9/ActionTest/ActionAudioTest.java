@@ -1,4 +1,4 @@
-package it.unisa.ifttt_group_9;
+package it.unisa.ifttt_group_9.ActionTest;
 
 import it.unisa.ifttt_group_9.Action.ActionAudio;
 import org.junit.Test;
