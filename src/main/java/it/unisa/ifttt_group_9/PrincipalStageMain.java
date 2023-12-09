@@ -18,6 +18,10 @@ public class PrincipalStageMain extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(PrincipalStageMain.class.getResource("PrincipalStage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Rules Manager");
+        stage.setMinWidth(550);
+        stage.setMaxWidth(550);
+        stage.setMinHeight(450);
+        stage.setMaxHeight(450);
         stage.setScene(scene);
         stage.show();
     }
