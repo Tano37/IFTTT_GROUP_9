@@ -740,7 +740,7 @@ public class PrincipalStageViewController implements Initializable {
                     break; // Esci dal ciclo una volta trovato il giorno corrispondente
                 }
             }
-            selectedTrigger = new TriggerDay(hoursChoiceId.getValue(), minuteChoiceId.getValue(),
+            selectedTrigger = new TriggerDay(
                     numberDay,negateTriggerCheckBox.isSelected(),
                     selectedTrigger, logicalOperationCb.isSelected());
             if (negateTriggerCheckBox.isSelected()) {
@@ -752,7 +752,7 @@ public class PrincipalStageViewController implements Initializable {
            /* minuteChoiceId.setValue(0);
             hourChoiceIdSleep.setValue(0);*/
             //System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
-            selectedTrigger = new TriggerMonth(hoursChoiceId.getValue(), minuteChoiceId.getValue(), 0,
+            selectedTrigger = new TriggerMonth(
                     monthChoiceId.getValue(),negateTriggerCheckBox.isSelected(),
                     selectedTrigger, logicalOperationCb.isSelected());
             if (negateTriggerCheckBox.isSelected()) {
@@ -801,9 +801,8 @@ public class PrincipalStageViewController implements Initializable {
             int dayInsert = fullDateInsert.getDayOfMonth();
             int monthInsert = fullDateInsert.getMonth().getValue();
             int yearInsert = fullDateInsert.getYear();
-            int hourchoise = hoursChoiceId.getValue();
-            int minutechoise = minuteChoiceId.getValue();
-            selectedTrigger = new TriggerFullDate(hoursChoiceId.getValue(), minuteChoiceId.getValue(), dayInsert,
+
+            selectedTrigger = new TriggerFullDate(dayInsert,
                     monthInsert, yearInsert,negateTriggerCheckBox.isSelected(),
                     selectedTrigger, logicalOperationCb.isSelected());
             if (negateTriggerCheckBox.isSelected()) {
