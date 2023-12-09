@@ -14,6 +14,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -22,7 +23,7 @@
         <URL value="@Style.css" />
     </stylesheets>
     <children>
-        <AnchorPane fx:id="ancorPane1" prefHeight="400.0" prefWidth="500.0">
+        <AnchorPane fx:id="ancorPane1" prefHeight="400.0" prefWidth="500.0" visible="false">
             <children>
                 <TableView fx:id="rulesTable" prefHeight="267.0" prefWidth="534.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
                     <columns>
@@ -67,19 +68,23 @@
             </VBox>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0" visible="false">
+        <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0">
             <children>
-                <TabPane fx:id="tabPane1" layoutX="-2.0" prefHeight="280.0" prefWidth="534.0" tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="tabPane1" tabClosingPolicy="UNAVAILABLE" tabMinWidth="20.0" AnchorPane.bottomAnchor="116.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
                         <Tab fx:id="timeTab" text="Time">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <Label layoutX="123.0" layoutY="95.0" text="Set Time" />
-                                        <Label layoutX="263.0" layoutY="95.0" text=":" />
-                                        <ChoiceBox fx:id="hoursChoiceId" layoutX="194.0" layoutY="90.0" prefHeight="31.0" prefWidth="60.0" />
-                                        <ChoiceBox fx:id="minuteChoiceId" layoutX="275.0" layoutY="90.0" prefHeight="31.0" prefWidth="60.0" />
-                                        <Separator layoutX="2.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
+                              <HBox alignment="CENTER" layoutX="167.0" layoutY="94.0" spacing="10.0" AnchorPane.leftAnchor="167.0" AnchorPane.rightAnchor="166.0">
+                                 <children>
+                                              <Label text="Set Time" />
+                                              <ChoiceBox fx:id="hoursChoiceId" prefHeight="31.0" prefWidth="60.0" />
+                                              <Label text=":" />
+                                              <ChoiceBox fx:id="minuteChoiceId" prefHeight="31.0" prefWidth="60.0" />
+                                 </children>
+                              </HBox>
+                                        <Separator layoutX="2.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -88,9 +93,13 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <ChoiceBox fx:id="dayChoiceId" layoutX="211.0" layoutY="83.0" prefHeight="31.0" prefWidth="144.0" />
-                                        <Separator layoutX="7.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
-                                        <Label layoutX="117.0" layoutY="87.0" text="Day of Week:" />
+                              <HBox alignment="CENTER" layoutX="153.0" layoutY="94.0" spacing="30.0" AnchorPane.leftAnchor="153.0" AnchorPane.rightAnchor="134.0">
+                                 <children>
+                                              <Label contentDisplay="CENTER" text="Day of Week:" />
+                                              <ChoiceBox fx:id="dayChoiceId" prefHeight="31.0" prefWidth="144.0" />
+                                 </children>
+                              </HBox>
+                                        <Separator layoutX="7.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -99,9 +108,13 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <Separator layoutX="7.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
-                                        <Label layoutX="94.0" layoutY="88.0" text="Day Of Month:" />
-                                        <ChoiceBox fx:id="monthChoiceId" layoutX="203.0" layoutY="83.0" prefHeight="31.0" prefWidth="144.0" />
+                                        <Separator layoutX="7.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                              <HBox alignment="CENTER" layoutX="140.0" layoutY="94.0" spacing="30.0">
+                                 <children>
+                                              <Label text="Day Of Month:" />
+                                              <ChoiceBox fx:id="monthChoiceId" prefHeight="31.0" prefWidth="144.0" />
+                                 </children>
+                              </HBox>
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -110,8 +123,12 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <Label layoutX="145.0" layoutY="49.0" prefHeight="21.0" prefWidth="249.0" text="Select a full date for trigger attivation" />
-                                        <DatePicker fx:id="dataPickerId" layoutX="158.0" layoutY="83.0" />
+                              <VBox alignment="CENTER" layoutX="167.0" layoutY="53.0" spacing="30.0" AnchorPane.leftAnchor="167.0" AnchorPane.rightAnchor="167.0">
+                                 <children>
+                                              <Label text="Select a full date for trigger attivation" />
+                                              <DatePicker fx:id="dataPickerId" />
+                                 </children>
+                              </VBox>
                                         <Separator layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
                                     </children>
                                 </AnchorPane>
@@ -121,10 +138,22 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <Label layoutX="152.0" layoutY="113.0" text="File Name:" />
-                                        <TextField fx:id="fileNameLbl" layoutX="229.0" layoutY="109.0" prefHeight="25.0" prefWidth="180.0" />
-                                        <Button fx:id="directoryChoosingBtn" layoutX="229.0" layoutY="57.0" mnemonicParsing="false" onAction="#directoryChoosingBtnAction" prefHeight="25.0" prefWidth="178.0" text="Choose a Directory" />
-                                        <Label layoutX="152.0" layoutY="61.0" text="Directory:" />
+                              <VBox layoutX="138.0" layoutY="85.0" spacing="30.0" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="138.0">
+                                 <children>
+                                    <HBox alignment="CENTER" spacing="20.0">
+                                       <children>
+                                                    <Label text="Directory:" />
+                                                    <Button fx:id="directoryChoosingBtn" mnemonicParsing="false" onAction="#directoryChoosingBtnAction" prefHeight="25.0" prefWidth="178.0" text="Choose a Directory" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" spacing="20.0">
+                                       <children>
+                                                    <Label text="File Name:" />
+                                                    <TextField fx:id="fileNameLbl" prefHeight="25.0" prefWidth="180.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                                         <Separator layoutX="-1.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
                                     </children>
                                 </AnchorPane>
@@ -134,10 +163,22 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <Label layoutX="73.0" layoutY="114.0" prefHeight="21.0" prefWidth="138.0" text="Max File Dimension:" />
-                                        <TextField fx:id="maxFileDimensionTxt" layoutX="229.0" layoutY="109.0" prefHeight="25.0" prefWidth="180.0" />
-                                        <Button fx:id="fileDimensionChooseFileBtn" layoutX="229.0" layoutY="57.0" mnemonicParsing="false" onAction="#fileDimensionChooser" prefHeight="25.0" prefWidth="178.0" text="Choose a File" />
-                                        <Label layoutX="185.0" layoutY="62.0" text="File:" />
+                              <VBox alignment="CENTER" layoutX="113.0" layoutY="85.0" spacing="30.0" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="112.0">
+                                 <children>
+                                    <HBox alignment="CENTER" spacing="20.0">
+                                       <children>
+                                                    <Label text="File:" />
+                                                    <Button fx:id="fileDimensionChooseFileBtn" mnemonicParsing="false" onAction="#fileDimensionChooser" prefHeight="25.0" prefWidth="178.0" text="Choose a File" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" spacing="20.0">
+                                       <children>
+                                                    <Label text="Max File Dimension:" />
+                                                    <TextField fx:id="maxFileDimensionTxt" prefHeight="25.0" prefWidth="180.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                                         <Separator layoutX="1.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
                                     </children>
                                 </AnchorPane>
@@ -147,14 +188,29 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <Label layoutX="88.0" layoutY="78.0" text="Command Line :" />
-                                        <TextField fx:id="commandLineTextId" layoutX="226.0" layoutY="73.0" prefHeight="25.0" prefWidth="180.0" />
-                                        <Button fx:id="directoryChoosingControllExitStatusBtn" layoutX="227.0" layoutY="26.0" mnemonicParsing="false" onAction="#directoryChoosingExitStatusBtnAction" prefHeight="25.0" prefWidth="178.0" text="Choose a Directory" />
-                                        <Label layoutX="88.0" layoutY="31.0" text="Directory:" />
-                                        <TextField fx:id="valueTextId" layoutX="226.0" layoutY="124.0" prefHeight="25.0" prefWidth="180.0" />
-                                        <Label layoutX="88.0" layoutY="129.0" prefHeight="21.0" prefWidth="121.0" text="Expected Value :" />
-                              <Label layoutX="75.0" layoutY="176.0" text="Attention: Commands must be separated by a single Comma" />
-                              <Separator layoutX="2.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" />
+                              <HBox layoutX="130.0" layoutY="26.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="101.0">
+                                 <children>
+                                    <VBox spacing="35.0">
+                                       <children>
+                                                    <Label text="Directory:" />
+                                                    <Label text="Command Line :" />
+                                                    <Label prefHeight="21.0" prefWidth="121.0" text="Expected Value :" />
+                                       </children>
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox spacing="30.0">
+                                       <children>
+                                                    <Button fx:id="directoryChoosingControllExitStatusBtn" mnemonicParsing="false" onAction="#directoryChoosingExitStatusBtnAction" prefHeight="25.0" prefWidth="178.0" text="Choose a Directory" />
+                                                    <TextField fx:id="commandLineTextId" prefHeight="25.0" prefWidth="180.0" />
+                                                    <TextField fx:id="valueTextId" prefHeight="25.0" prefWidth="180.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Separator layoutX="2.0" layoutY="250.0" prefHeight="0.0" prefWidth="536.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                              <Label layoutX="120.0" layoutY="214.0" text="Attention: Commands must be separated by a single Comma" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -168,9 +224,9 @@
                                         <Label layoutX="31.0" layoutY="72.0" text="Choose a counter to compare" />
                                         <Label layoutX="31.0" layoutY="109.0" prefHeight="21.0" prefWidth="152.0" text="Choose the action" />
                                         <ChoiceBox fx:id="chooserActionCounterId" layoutX="282.0" layoutY="104.0" prefWidth="150.0" />
-                                        <Separator layoutX="-1.0" layoutY="196.0" prefHeight="0.0" prefWidth="536.0" />
+                                        <Separator layoutX="-1.0" layoutY="196.0" prefHeight="0.0" prefWidth="536.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                         <Button fx:id="chooseCounterBtn" layoutX="281.0" layoutY="67.0" mnemonicParsing="false" onAction="#chooseCounterAction" prefHeight="31.0" prefWidth="152.0" text="Select a Counter 2" />
-                                        <CheckBox fx:id="changeCounterField" layoutX="76.0" layoutY="149.0" mnemonicParsing="false" onAction="#changeCounterFieldAction" prefHeight="21.0" prefWidth="402.0" text="Click here if u wanna comparte with another counter" />
+                                        <CheckBox fx:id="changeCounterField" layoutX="76.0" layoutY="149.0" mnemonicParsing="false" onAction="#changeCounterFieldAction" prefHeight="21.0" prefWidth="308.0" text="Click here if u wanna comparte with another counter" />
                               <Label layoutX="118.0" layoutY="4.0" text="The first value is comparade with the second " />
                               <Button fx:id="valueInsertByUserBtn" layoutX="281.0" layoutY="27.0" mnemonicParsing="false" onAction="#valueInsertByUserBtnAction" prefHeight="31.0" prefWidth="151.0" text="Select a counter 1" />
                               <Label fx:id="counterConfrontationLbl1" layoutX="115.0" layoutY="217.0" prefHeight="21.0" prefWidth="363.0" text="Nothing" />
@@ -182,11 +238,19 @@
                         </Tab>
                     </tabs>
                 </TabPane>
-                <Button fx:id="continueBtn" layoutX="428.0" layoutY="342.0" mnemonicParsing="false" onAction="#continueAction" text="Continue" />
-                <Button fx:id="backBtn1" layoutX="40.0" layoutY="342.0" mnemonicParsing="false" onAction="#back1Action" text="Back" />
-            <CheckBox fx:id="negateTriggerCheckBox" layoutX="299.0" layoutY="321.0" mnemonicParsing="false" text="Not Trigger" />
-            <CheckBox fx:id="logicalOperationCb" layoutX="299.0" layoutY="347.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="105.0" text="And Logic" />
-            <Button fx:id="AddMoreTriggerBtn" layoutX="139.0" layoutY="332.0" mnemonicParsing="false" onAction="#addSequenceTriggerAction" text="Add Trigger " />
+            <HBox alignment="CENTER" layoutX="21.0" layoutY="304.0" spacing="65.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0">
+               <children>
+                      <Button fx:id="backBtn1" mnemonicParsing="false" onAction="#back1Action" text="Back" />
+                  <Button fx:id="AddMoreTriggerBtn" mnemonicParsing="false" onAction="#addSequenceTriggerAction" text="Add Trigger " />
+                  <VBox>
+                     <children>
+                        <CheckBox fx:id="negateTriggerCheckBox" mnemonicParsing="false" text="Not Trigger" />
+                        <CheckBox fx:id="logicalOperationCb" mnemonicParsing="false" prefHeight="21.0" prefWidth="105.0" text="And Logic" />
+                     </children>
+                  </VBox>
+                      <Button fx:id="continueBtn" mnemonicParsing="false" onAction="#continueAction" text="Continue" />
+               </children>
+            </HBox>
 
                 
 
