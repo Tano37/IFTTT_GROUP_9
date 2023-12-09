@@ -8,61 +8,51 @@ import java.time.LocalDateTime;
 public class TriggerMonth extends TriggerDecorator {
 
 
-
     private int dayMonth;
 
-    public TriggerMonth (int dayMonth, boolean negate, Trigger trigger, boolean nextTriggerAndOr) {
+    public TriggerMonth(int dayMonth, boolean negate, Trigger trigger, boolean nextTriggerAndOr) {
         super(negate, trigger, nextTriggerAndOr);
-        if ((dayMonth<0 || dayMonth>31) )
+        if ((dayMonth < 0 || dayMonth > 31))
             throw new IllegalTimeException();
 
-        this.dayMonth=dayMonth;
+        this.dayMonth = dayMonth;
     }
-    public TriggerMonth (int dayMonth, boolean negate) throws IllegalTimeException {
+
+    public TriggerMonth(int dayMonth, boolean negate) throws IllegalTimeException {
         super(negate);
-        if ((dayMonth<0 || dayMonth>31) )
+        if ((dayMonth < 0 || dayMonth > 31))
             throw new IllegalTimeException();
 
-        this.dayMonth=dayMonth;
+        this.dayMonth = dayMonth;
     }
 
-    public TriggerMonth (int dayMonth) throws IllegalTimeException {
-        if ((dayMonth<0 || dayMonth>31) )
+    public TriggerMonth(int dayMonth) throws IllegalTimeException {
+        if ((dayMonth < 0 || dayMonth > 31))
             throw new IllegalTimeException();
 
-        this.dayMonth=dayMonth;
+        this.dayMonth = dayMonth;
     }
 
-    /*
-    public void setTime (int hour, int minute){
-        this.hour=hour;
-        this.minute=minute;
-    }
-    */
-
+    //checks if the actual month is equal to the setted one
     @Override
-    public boolean evaluate(){
-        LocalDateTime now= LocalDateTime.now();
+    public boolean evaluate() {
+        LocalDateTime now = LocalDateTime.now();
 
-        int d= now.getDayOfMonth();
-
+        int d = now.getDayOfMonth();
 
 
         if (precTriggerAndOr) {
-            return negate != (d==this.dayMonth) && super.evaluate();
-        }else{
-            return negate != (d==this.dayMonth) || super.evaluate();
+            return negate != (d == this.dayMonth) && super.evaluate();
+        } else {
+            return negate != (d == this.dayMonth) || super.evaluate();
         }
 
     }
 
     @Override
     public String toString() {
-        return (negate?"!" : "") + "{TriggerMonth: "  + dayMonth + " }\n" +super.toString();
+        return (negate ? "!" : "") + "{TriggerMonth: " + dayMonth + " }\n" + super.toString();
 
     }
 
-
-
-    public int getDay(){return dayMonth;}
 }

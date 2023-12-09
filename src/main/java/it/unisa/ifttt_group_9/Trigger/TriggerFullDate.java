@@ -2,7 +2,6 @@ package it.unisa.ifttt_group_9.Trigger;
 
 import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 //Concrete Product (AbstractFactory)
@@ -52,7 +51,7 @@ public class TriggerFullDate extends TriggerDecorator {
         this.minute=minute;
     }
 
-
+    //check if the date is equal to the current one
     @Override
     public boolean evaluate(){
         LocalDateTime now= LocalDateTime.now();
@@ -69,15 +68,6 @@ public class TriggerFullDate extends TriggerDecorator {
         }
     }
 
-    public int getHour() {
-        return hour;
-    }
-
-    public int getMinute() {
-        return minute;
-    }
-
-    public int getDay(){return dayMonth;}
 
     @Override
     public String toString() {

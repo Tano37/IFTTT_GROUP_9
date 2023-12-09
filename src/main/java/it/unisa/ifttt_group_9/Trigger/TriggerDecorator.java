@@ -37,7 +37,7 @@ public class TriggerDecorator implements Trigger{
 
     public String toString(){
         if (precTrigger!=null){
-            return (precTriggerAndOr? "AND ":"OR ") +precTrigger.toString();
+            return (precTriggerAndOr? "AND ":"OR ") +precTrigger;
         }else {
             return "";
         }

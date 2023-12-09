@@ -33,12 +33,7 @@ public class TriggerTimestamp extends TriggerDecorator {
     }
 
 
-    public void setTime (int hour, int minute){
-        this.hour=hour;
-        this.minute=minute;
-    }
-
-
+    //checks if the actual time is equal to the setted time
     @Override
     public boolean evaluate(){
         LocalTime now= LocalTime.now();
@@ -53,13 +48,6 @@ public class TriggerTimestamp extends TriggerDecorator {
 
     }
 
-    public int getHour() {
-        return hour;
-    }
-
-    public int getMinute() {
-        return minute;
-    }
 
     @Override
 

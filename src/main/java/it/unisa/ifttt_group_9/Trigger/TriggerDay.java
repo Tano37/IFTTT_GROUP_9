@@ -35,7 +35,7 @@ public class TriggerDay extends TriggerDecorator {
     }
 
 
-
+    //Checks if the actual name day is equal to the setted one
     @Override
     public boolean evaluate(){
         LocalDateTime now= LocalDateTime.now();
