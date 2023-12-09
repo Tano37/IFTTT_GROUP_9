@@ -252,7 +252,7 @@ public class PrincipalStageViewController implements Initializable {
     private ObservableList<Counter> counterList = FXCollections.observableArrayList();
 
     private ControllerCounter controllerCounter= new ControllerCounter(counterList);
-    private Counter selectedCounter, selectedCounter2;
+    private Counter selectedCounter=null, selectedCounter2=null;
 
 
     @Override
@@ -357,14 +357,7 @@ public class PrincipalStageViewController implements Initializable {
                 minuteChoiceId.valueProperty().isNull()
 
         );
-        BooleanBinding bbb=Bindings.or(
-                bb,
-                valueInsertByUser.textProperty().isEmpty()
-        );
-
-
-        continueBtn.disableProperty().bind(bbb);
-
+        continueBtn.disableProperty().bind(bb);
         rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
             @Override
             public void changed(ObservableValue<? extends Rule> observable, Rule oldValue, Rule newValue) {
@@ -700,6 +693,9 @@ public class PrincipalStageViewController implements Initializable {
         fieldReset();
         selectedAction=null;
         selectedTrigger=null;
+        selectedCounter = null;
+        selectedCounter2 = null;
+
     }
 
     void viewOfAction(){
@@ -828,33 +824,63 @@ public class PrincipalStageViewController implements Initializable {
                 }viewOfTrigger();
             }
         } else if(tabId.equals("counterTab")){
-            if(changeCounterField.selectedProperty().get()){
-                Counter counterInsert=selectedCounter;
-                Counter counterInsert2=selectedCounter2;
-                String chooserActionCounter= chooserActionCounterId.getValue();
-                selectedTrigger=new TriggerCounter(selectedCounter2,selectedCounter,chooserActionCounter,negateTriggerCheckBox.isSelected(),
-                        selectedTrigger, logicalOperationCb.isSelected());
 
+            if(changeCounterField.selectedProperty().get()){
+                if(selectedCounter == null|| selectedCounter2==null ){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Errore");
+                    alert.setContentText("Compile the fields correctly!");
+                    alert.showAndWait();
+                }else{
+                    Counter counterInsert=selectedCounter;
+                    Counter counterInsert2=selectedCounter2;
+                    String chooserActionCounter= chooserActionCounterId.getValue();
+                    selectedTrigger=new TriggerCounter(selectedCounter2,selectedCounter,chooserActionCounter,negateTriggerCheckBox.isSelected(),
+                            selectedTrigger, logicalOperationCb.isSelected());
+                    addCounterBtn.setVisible(true);
+                    deleteCounterBtn.setVisible(true);
+                    backCounterBtn.setVisible(true);
+                    modifeCounterBtn.setVisible(true);
+                    selectCounterForTriggerBtn.setVisible(false);
+                    //  counterConfrontationLbl1.setText("Nothing");
+                    counterConfrontationLbl2.setText("");
+                    counterConfrontationLbl3.setText("");
+
+                    if (negateTriggerCheckBox.isSelected()) {
+                        selectedTrigger.negate();
+                        negateTriggerCheckBox.selectedProperty().set(false);
+                    }
+                    selectedCounter= null;
+                    selectedCounter2= null;
+                }
             }
             if(!changeCounterField.selectedProperty().get()){
-                Counter counterInsert=selectedCounter;
-                Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
-                String chooserActionCounter= chooserActionCounterId.getValue();
-                selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter,negateTriggerCheckBox.isSelected(),
-                        selectedTrigger, logicalOperationCb.isSelected());
-            }
-            addCounterBtn.setVisible(true);
-            deleteCounterBtn.setVisible(true);
-            backCounterBtn.setVisible(true);
-            modifeCounterBtn.setVisible(true);
-            selectCounterForTriggerBtn.setVisible(false);
-            //  counterConfrontationLbl1.setText("Nothing");
-            counterConfrontationLbl2.setText("");
-            counterConfrontationLbl3.setText("");
+                if(valueInsertByUser.getText().trim().isEmpty()|| selectedCounter== null ){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Errore");
+                    alert.setContentText("Compile the fields correctly!");
+                    alert.showAndWait();
+                }else {
+                    Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
+                    String chooserActionCounter= chooserActionCounterId.getValue();
+                    selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter,negateTriggerCheckBox.isSelected(),
+                            selectedTrigger, logicalOperationCb.isSelected());
+                    addCounterBtn.setVisible(true);
+                    deleteCounterBtn.setVisible(true);
+                    backCounterBtn.setVisible(true);
+                    modifeCounterBtn.setVisible(true);
+                    selectCounterForTriggerBtn.setVisible(false);
+                    //  counterConfrontationLbl1.setText("Nothing");
+                    counterConfrontationLbl2.setText("");
+                    counterConfrontationLbl3.setText("");
 
-            if (negateTriggerCheckBox.isSelected()) {
-                selectedTrigger.negate();
-                negateTriggerCheckBox.selectedProperty().set(false);
+                    if (negateTriggerCheckBox.isSelected()) {
+                        selectedTrigger.negate();
+                        negateTriggerCheckBox.selectedProperty().set(false);
+                    }
+                    selectedCounter= null;
+                    selectedCounter2= null;
+                }
             }
         }
     }
