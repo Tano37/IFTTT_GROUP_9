@@ -30,6 +30,12 @@ public class ActionFileLaunch extends ActionDecorator {
         this.variableSubstitution=variableSubstitution;
     }
 
+    /*This method allows an external process to run. If the variable substitution option (this.variableSubstitution) is enabled, it replaces the variables in the arguments with values calculated by CounterManager.counterSubstitution.
+      Constructs a list of commands, including the path to the executable (filePath) and any specified arguments (arguments).
+      Creates a process using the ProcessBuilder constructor.
+      Starts the process.
+      Optionally, waits for the process to complete using process.waitFor().
+      Displays a pop-up indicating the exit code of the process after its execution.*/
     @Override
     public void executeAction() {
 

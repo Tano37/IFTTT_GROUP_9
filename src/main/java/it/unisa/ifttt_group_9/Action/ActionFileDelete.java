@@ -17,6 +17,9 @@ public class ActionFileDelete extends ActionDecorator {
         this.filePath = filePath;
     }
 
+    /*This method deletes a file by taking the path passed at the time of cration of the action
+      and if it is present it shows a success message while if it does not exist it shows an error message.
+      In the final clause, the super function is called for any related actions after*/
     @Override
     public void executeAction() {
         File file = new File(filePath);

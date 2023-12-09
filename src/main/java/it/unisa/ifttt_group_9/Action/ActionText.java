@@ -2,8 +2,6 @@ package it.unisa.ifttt_group_9.Action;
 
 import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
 import it.unisa.ifttt_group_9.CounterManager;
-import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
-
 import it.unisa.ifttt_group_9.exceptions.IllegalMessageException;
 
 import javax.swing.*;
@@ -38,6 +36,9 @@ public class ActionText extends ActionDecorator {
         return text;
     }
 
+    /*This method displays a popup with user-set messages and, if the variable substitution option (this.variableSubstitution)
+    is enabled, replaces the argument variables with the values calculated by CounterManager.counterSubstitution. It also shows terminal how the alert is closed whether with ok or X
+    It also calls the superfunction is called for any related action afterwards.*/
     @Override
     public void executeAction() {
 

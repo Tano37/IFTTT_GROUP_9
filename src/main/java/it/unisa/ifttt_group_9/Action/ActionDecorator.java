@@ -1,3 +1,5 @@
+// This abstract class is part of the decorator pattern for actions.
+// It implements the Action interface and acts as a base class for concrete decorators.
 package it.unisa.ifttt_group_9.Action;
 
 public abstract class ActionDecorator implements Action {
@@ -8,6 +10,8 @@ public abstract class ActionDecorator implements Action {
         tempAction = newAction;
     }
 
+    // Implements the executeAction method from the Action interface.
+    // Delegates the execution to the wrapped Action if it exists.
     @Override
     public void executeAction() {
         if (tempAction != null) {
