@@ -374,18 +374,18 @@ public class PrincipalStageViewController implements Initializable {
             }
         });
 
-        ArrayList<Rule> appoggioList= new ArrayList<Rule>();
+        ArrayList<Rule> toCheckList= new ArrayList<Rule>();
         //Controllore di regola
         Timeline timeline=new Timeline(new KeyFrame(
                 Duration.millis(400), e->{//settaggio del tempo di ripetizione
 
             for(Rule r1 : rulesList){
                 if(r1.getStatus()){
-                    appoggioList.add(r1);
+                    toCheckList.add(r1);
                 }
             }
 
-            for(Rule r : appoggioList){
+            for(Rule r : toCheckList){
                 if (r.getDateUntilSleep() != null) {
                     /*LocalDateTime truncatedNow = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
                     LocalDateTime truncatedOtherDateTime = r.getDateUntilSleep().truncatedTo(ChronoUnit.MINUTES);*/
@@ -432,7 +432,7 @@ public class PrincipalStageViewController implements Initializable {
 
 
             }
-            appoggioList.clear();
+            toCheckList.clear();
         })
         );
         timeline.setCycleCount(Animation.INDEFINITE);
