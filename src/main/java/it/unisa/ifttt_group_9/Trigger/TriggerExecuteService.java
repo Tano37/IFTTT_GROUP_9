@@ -47,7 +47,7 @@ public class TriggerExecuteService  extends Service<Void> {
                 triggerSelected.setExitValue(process.waitFor());
 
 
-/* This part is only needed to feedback how and why the process executed exits;
+/* This part is only needed to feedback how and why the process executed exits; Useful Comment;
 
                 StringBuilder standardOutput = new StringBuilder();
                 StringBuilder errorOutput = new StringBuilder();
@@ -70,9 +70,10 @@ public class TriggerExecuteService  extends Service<Void> {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+*/
                 
 
-*/
+
 
                 return null;
             }

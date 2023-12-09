@@ -1,5 +1,7 @@
 package it.unisa.ifttt_group_9;
 
+import it.unisa.ifttt_group_9.Trigger.Trigger;
+import it.unisa.ifttt_group_9.Trigger.TriggerFile;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -13,9 +15,13 @@ class TriggerFileTest {
         String directoryPath=System.getProperty("user.dir") + "\\src\\test\\java\\it\\unisa\\ifttt_group_9\\";
         String fileName="testfile.txt";
         File file1 = new File(directoryPath, fileName);
+        Trigger trigger = new TriggerFile(directoryPath, fileName);
+
+        assertEquals(trigger.evaluate(), file1.exists());
+
         File file2= new File(directoryPath, "unexistingFile.txt");
-        assertTrue(file1.exists());
-        assertFalse(file2.exists());
+        Trigger trigger2 = new TriggerFile(directoryPath, "unexistingFile.txt");
+        assertEquals(trigger2.evaluate(), file2.exists());
     }
 
 
