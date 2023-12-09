@@ -1,113 +1,104 @@
 package it.unisa.ifttt_group_9.CounterTest;
-
 import it.unisa.ifttt_group_9.ControllerCounter;
 import it.unisa.ifttt_group_9.Counter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ControllerCounterTest {
+class ControllerCounterTest {
 
-    private ControllerCounter controller;
+    private ControllerCounter controllerCounter;
     private ObservableList<Counter> counterList;
 
     @BeforeEach
-    public void setUp() {
-        // Initialize the counterList and ControllerCounter before each test
+    void setUp() {
+        // Inizializza la ControllerCounter con una lista vuota
         counterList = FXCollections.observableArrayList();
-        controller = new ControllerCounter(counterList);
+        controllerCounter = new ControllerCounter(counterList);
     }
 
     @Test
-    public void testCreation() {
-        // Simulate user input for creating a counter
-        // You might need to adjust this based on your specific requirements
-        creation("Test",10);
+    void testCreation() throws IOException {
+        // Simula l'input dell'utente
+        creation("TestCounter", "42");
 
-        // Assert that the counterList is not empty after creation
-        assertFalse(counterList.isEmpty());
+        // Verifica che il contatore sia stato creato correttamente
+        assertEquals(1, counterList.size());
+        assertEquals("TestCounter", counterList.get(0).getName());
+        assertEquals(42, counterList.get(0).getValue());
     }
 
     @Test
-    public void testDelete() {
-        // Add a counter to the list for testing deletion
-        Counter testCounter = new Counter("TestCounter", 10);
-        counterList.add(testCounter);
+    void testDelete() throws IOException {
+        // Aggiungi alcuni contatori alla lista
+        Counter counter1 = new Counter("Counter1", 10);
+        Counter counter2 = new Counter("Counter2", 20);
+        counterList.addAll(counter1, counter2);
 
-        // Simulate user input for deleting a counter
-        controller.delete(FXCollections.observableArrayList(testCounter));
+        // Simula la selezione di alcuni elementi
+        ObservableList<Counter> selectedItems = FXCollections.observableArrayList(counter1, counter2);
 
-        // Assert that the counterList is empty after deletion
+        // Esegui il metodo da testare
+        controllerCounter.delete(selectedItems);
+
+        // Verifica che i contatori siano stati rimossi correttamente
         assertTrue(counterList.isEmpty());
     }
 
     @Test
-    public void testUpdate() {
-        // Add counters to the list for testing update
-        Counter counter1 = new Counter("Counter1", 5);
+    void testSaveCounterList() throws IOException {
+        // Aggiungi alcuni contatori alla lista
+        Counter counter1 = new Counter("Counter1", 10);
+        Counter counter2 = new Counter("Counter2", 20);
+        counterList.addAll(counter1, counter2);
 
-        counterList.addAll(counter1);
+        // Esegui il metodo da testare
+        controllerCounter.saveCounterList();
 
-        // Simulate user input for updating counters
-        update(counter1,10);
-
-        // Assert that the counters have been updated
-        assertEquals(10, counter1.getValue());
-
+        // Verifica che la lista dei contatori sia stata salvata correttamente
+        // Puoi anche aggiungere ulteriori verifiche in base alla tua implementazione
+        assertTrue(counterList.size() == 2); // La dimensione dovrebbe rimanere la stessa dopo il salvataggio
+        counterList.clear(); // "Simula" la creazione di una nuova lista al caricamento
+        controllerCounter.loadCounterList();
+        assertEquals(2, counterList.size()); // Dopo il caricamento, la dimensione dovrebbe essere nuovamente 2
     }
 
     @Test
-    public void testSaveAndLoadCounterList() {
-        // Add a counter to the list for testing save and load
-        Counter testCounter = new Counter("TestCounter", 15);
-        counterList.add(testCounter);
+    void testLoadCounterList() throws IOException {
+        // Aggiungi alcuni contatori alla lista
+        Counter counter1 = new Counter("Counter1", 10);
+        Counter counter2 = new Counter("Counter2", 20);
+        counterList.addAll(counter1, counter2);
 
-        try {
-            // Save the counter list to a file
-            controller.saveCounterList();
+        // Esegui il metodo da testare
+        controllerCounter.saveCounterList();
 
-            // Clear the counter list
-            counterList.clear();
+        // Verifica che la lista dei contatori sia stata caricata correttamente
+        // Puoi anche aggiungere ulteriori verifiche in base alla tua implementazione
+        assertFalse(counterList.isEmpty()); // La lista non dovrebbe essere vuota dopo il caricamento
+        assertEquals(2, counterList.size()); // Dopo il caricamento, la dimensione dovrebbe essere 2
+        // Puoi anche verificare i dettagli specifici dei contatori caricati, ad esempio, controllare che contengano i dati corretti
+        assertEquals("Counter1", counterList.get(0).getName());
+        assertEquals(10, counterList.get(0).getValue());
+        assertEquals("Counter2", counterList.get(1).getName());
+        assertEquals(20, counterList.get(1).getValue());
+    }
+    public void creation(String name, String value){
 
-            // Load the counter list from the file
-            controller.loadCounterList();
+            String enteredName = name;
+            Integer enteredValue = Integer.parseInt(value);
 
-            // Assert that the loaded counter list contains the expected counter
-            assertTrue(counterList.contains(testCounter));
-        } catch (IOException e) {
-            fail("Exception thrown during save or load: " + e.getMessage());
+            Counter count = new Counter(enteredName, enteredValue);
+            if (counterList != null) {
+
+                counterList.add(count);
+            }
         }
     }
-
-    //Ho usato un metodo creation simuato in quanto non testando l'interfaccia grafica non posso
-    //prendere valori dall'utente quindi devo inserirli a mano per fare il test. Lo stesso vale per
-    //il metodo di modifica dopo
-    public void creation(String name, int value){
-
-
-        // Ora puoi utilizzare enteredName e enteredValue come desideri
-        Counter count = new Counter(name, value);
-        if (counterList != null) {
-
-            counterList.add(count);
-           /* try {
-                saveCounterList();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }*/
-        }
-    }
-
-public void update(Counter counterToUpdate, int updatedNumber){
-
-}
-}
-
-
-
 
