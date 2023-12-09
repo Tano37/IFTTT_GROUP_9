@@ -11,7 +11,8 @@ public class TriggerDay extends TriggerDecorator {
 
     public TriggerDay (int dayWeek, boolean negate, Trigger trigger, boolean nextTriggerAndOr) throws IllegalTimeException {
         super(negate, trigger, nextTriggerAndOr);
-
+        if ((dayWeek<1 || dayWeek>7))
+            throw new IllegalTimeException();
 
         this.dayWeek=dayWeek;
     }
@@ -19,12 +20,15 @@ public class TriggerDay extends TriggerDecorator {
 
     public TriggerDay (int dayWeek, boolean negate) throws IllegalTimeException {
         super(negate);
-
+        if ((dayWeek<1 || dayWeek>7))
+            throw new IllegalTimeException();
 
         this.dayWeek=dayWeek;
     }
 
     public TriggerDay (int dayWeek) throws IllegalTimeException {
+        if ((dayWeek<1 || dayWeek>7))
+            throw new IllegalTimeException();
 
 
         this.dayWeek=dayWeek;

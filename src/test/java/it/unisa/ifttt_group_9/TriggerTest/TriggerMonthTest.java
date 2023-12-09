@@ -1,48 +1,63 @@
 package it.unisa.ifttt_group_9.TriggerTest;
 
-
+import it.unisa.ifttt_group_9.Trigger.Trigger;
 import it.unisa.ifttt_group_9.Trigger.TriggerMonth;
 import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TriggerMonthTest {
+class TriggerMonthTest {
+
+    //Test with the same date
+    @Test
+    void testTriggerMonthWithCurrentDay() {
+        assertDoesNotThrow(() -> {
+            Trigger trigger = new TriggerMonth(LocalDate.now().getDayOfMonth());
+
+            assertTrue(trigger.evaluate());
+        });
+    }
+    @Test
+    void testTriggerMonthWithNotValidDay() {
+        assertDoesNotThrow(() -> {
+            Trigger trigger = new TriggerMonth(LocalDate.now().getDayOfMonth()-1);
+
+            assertFalse(trigger.evaluate());
+        });
+    }
 
     @Test
-    public void testEvaluateTrue() throws IllegalTimeException {
-        // Testa il metodo evaluate quando la condizione è vera
-        int testHour = LocalDateTime.now().getHour();
-        int testMinute = LocalDateTime.now().getMinute();
-        int testDayWeek = 0;
-        int testDayMonth = LocalDateTime.now().getDayOfMonth(); // Usa il giorno corrente
+    void testTriggerMonthWithInvalidDay() {
+        assertThrows(IllegalTimeException.class, () -> {
+            new TriggerMonth(40);
+        });
+    }
 
-        TriggerMonth trigger = new TriggerMonth(testHour, testMinute, testDayWeek, testDayMonth);
-
+    @Test
+    void testTriggerMonthWithNegateRightDay() {
+        Trigger trigger = new TriggerMonth(LocalDate.now().getDayOfMonth(), true);
+        assertFalse(trigger.evaluate());
+    }
+    @Test
+    void testTriggerMonthWithNegateWrongDay() {
+        Trigger trigger = new TriggerMonth(LocalDate.now().getDayOfMonth()-1, true);
         assertTrue(trigger.evaluate());
     }
 
+
+
     @Test
-    public void testEvaluateFalse() throws IllegalTimeException {
-        // Testa il metodo evaluate quando la condizione è falsa
-        int testHour = 12;
-        int testMinute = 30;
-        int testDayWeek = 0;
-        int testDayMonth = LocalDateTime.now().getDayOfMonth() + 1; // Usa il giorno successivo
+    void testTriggerMonthWithNextTriggerAndOr() {
+        Trigger trigger = new TriggerMonth(20, false, null, true);
 
-        TriggerMonth trigger = new TriggerMonth(testHour, testMinute, testDayWeek, testDayMonth);
-
-        assertFalse(trigger.evaluate());
     }
 
     @Test
-    public void testIllegalTimeException() {
-        // Testa se viene lanciata IllegalTimeException per valori non validi
-        assertThrows(IllegalTimeException.class, () -> new TriggerMonth(-1, 30, 0, 1));
-        assertThrows(IllegalTimeException.class, () -> new TriggerMonth(12, 60, 0, 1));
-        assertThrows(IllegalTimeException.class, () -> new TriggerMonth(12, 30, 0, 32));
+    void testTriggerMonthToString() {
+        Trigger trigger = new TriggerMonth(5);
+        assertEquals("{TriggerMonth: 5 }\n", trigger.toString());
     }
 }
-

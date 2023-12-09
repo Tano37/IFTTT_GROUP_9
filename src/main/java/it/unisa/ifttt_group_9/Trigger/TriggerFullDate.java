@@ -2,6 +2,7 @@ package it.unisa.ifttt_group_9.Trigger;
 
 import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 //Concrete Product (AbstractFactory)
@@ -16,7 +17,8 @@ public class TriggerFullDate extends TriggerDecorator {
 
     public TriggerFullDate (int dayWeek, int dayMonth, int year, boolean negate, Trigger trigger, boolean nextTriggerAndOr) {
         super(negate, trigger, nextTriggerAndOr);
-
+        if ((dayWeek<0 || dayWeek>31) || (dayMonth<1 || dayMonth>12) )
+            throw new IllegalTimeException();
 
 
         this.dayWeek=dayWeek;
@@ -27,7 +29,8 @@ public class TriggerFullDate extends TriggerDecorator {
 
     public TriggerFullDate (int dayWeek, int dayMonth, int year, boolean negate) throws IllegalTimeException {
         super(negate);
-
+        if ((dayWeek<0 || dayWeek>31) || (dayMonth<1 || dayMonth>12) )
+            throw new IllegalTimeException();
 
         this.dayWeek=dayWeek;
         this.dayMonth=dayMonth;
@@ -35,7 +38,8 @@ public class TriggerFullDate extends TriggerDecorator {
     }
 
     public TriggerFullDate (int dayWeek, int dayMonth, int year) throws IllegalTimeException {
-
+        if ((dayWeek<0 || dayWeek>31) || (dayMonth<1 || dayMonth>12) )
+            throw new IllegalTimeException();
 
         this.dayWeek=dayWeek;
         this.dayMonth=dayMonth;

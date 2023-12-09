@@ -113,7 +113,7 @@ public class ControllerCounter implements Serializable {
         }
     }
 
-    public void update(ObservableList<Counter> countersToModify) {
+   /* public void update(ObservableList<Counter> countersToModify) {
         // Creazione della finestra di dialogo
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Modifica dei Contatori");
@@ -155,7 +155,7 @@ public class ControllerCounter implements Serializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
     // Metodo di utilità per mostrare una finestra di dialogo di avviso
     private void showAlert(String title, String content) {

@@ -1,9 +1,11 @@
 package it.unisa.ifttt_group_9.TriggerTest;
-
+import it.unisa.ifttt_group_9.Trigger.Trigger;
 import it.unisa.ifttt_group_9.Trigger.TriggerDay;
 import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 import org.junit.jupiter.api.Test;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,43 +13,46 @@ import static org.junit.jupiter.api.Assertions.*;
 class TriggerDayTest {
 
     @Test
-    void evaluate_shouldReturnTrue_whenCurrentTimeMatchesTriggerTimeAndDay() throws IllegalTimeException {
-        // Arrange
-        int hour = LocalDateTime.now().getHour();
-        int minute = LocalDateTime.now().getMinute();
-        int day = LocalDateTime.now().getDayOfWeek().getValue(); // 4 rappresenta il mercoledì, dove 1 è il lunedì e 7 è la domenica
-        TriggerDay triggerDay = new TriggerDay(hour, minute, day);
+    void testTriggerDayWithValidDay() {
+        assertDoesNotThrow(() -> {
+            Trigger trigger = new TriggerDay(LocalDate.now().getDayOfWeek().getValue());
+            assertTrue(trigger.evaluate());
+        });
+    }
+    @Test
+    void testTriggerDayWithNotValidDay() {
+        assertDoesNotThrow(() -> {
+            Trigger trigger = new TriggerDay(LocalDate.now().getDayOfWeek().getValue()-1);
+            assertFalse(trigger.evaluate());
+        });
+    }
 
-        // Act
-        boolean result = triggerDay.evaluate();
 
-        // Assert
-        assertTrue(result, "Expected evaluation to be true");
+    @Test
+    void testTriggerDayWithInvalidDay() {
+        assertThrows(IllegalTimeException.class, () -> {
+            new TriggerDay(8);
+        });
     }
 
     @Test
-    void evaluate_shouldReturnFalse_whenCurrentTimeDoesNotMatchTriggerTimeOrDay() throws IllegalTimeException {
-        // Arrange
-        int hour = 8;
-        int minute = 45;
-        int day = 2; // Assuming Tuesday
-        TriggerDay triggerDay = new TriggerDay(hour, minute, day);
-
-        // Act
-        boolean result = triggerDay.evaluate();
-
-        // Assert
-        assertFalse(result, "Expected evaluation to be false");
+    void testTriggerDayWithNegate() {
+        Trigger trigger = new TriggerDay(LocalDate.now().getDayOfWeek().getValue(), true);
+        assertFalse(trigger.evaluate());
     }
 
     @Test
-    void evaluate_shouldThrowIllegalTimeException_whenInvalidTimeIsProvided() {
-        // Arrange
-        int invalidHour = 25;
-        int minute = 30;
-        int day = 3;
+    void testTriggerDayWithNextTriggerAndOr() {
+        Trigger trigger = new TriggerDay(4, false, null, true);
+        // Add your assertion based on your specific logic
+        // assertTrue(trigger.evaluate());
+    }
 
-        // Act & Assert
-        assertThrows(IllegalTimeException.class, () -> new TriggerDay(invalidHour, minute, day));
+
+
+    @Test
+    void testTriggerDayToString() {
+        Trigger trigger = new TriggerDay(1);
+        assertEquals("{TriggerDay: 1 }\n", trigger.toString());
     }
 }

@@ -1268,7 +1268,7 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     void modifeCounterAction(ActionEvent event){
         ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
-        controllerCounter.update(selectedItems);
+       // controllerCounter.update(selectedItems);
         counterTable.refresh();
     }
     @FXML
