@@ -767,6 +767,7 @@ public class PrincipalStageViewController implements Initializable {
                     selectedTrigger.negate();
                     negateTriggerCheckBox.selectedProperty().set(false);
                 }viewOfTrigger();
+                fileNameLbl.textProperty().setValue(null);
             }
         } else if (tabId.equals("fileDimensionTab")) {
             if (fileChooserTriggerFileDimension.getSelectedFile() == null || textIsNotValid(maxFileDimensionTxt.getText())) {
