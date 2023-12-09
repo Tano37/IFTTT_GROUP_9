@@ -46,6 +46,8 @@ public class TriggerMonth extends TriggerDecorator {
 
         int d= now.getDayOfMonth();
 
+
+
         if (precTriggerAndOr) {
             return negate != (d==this.dayMonth) && super.evaluate();
         }else{
@@ -57,6 +59,7 @@ public class TriggerMonth extends TriggerDecorator {
     @Override
     public String toString() {
         return (negate?"!" : "") + "{TriggerMonth: "  + dayMonth + " }\n" +super.toString();
+
     }
 
 
