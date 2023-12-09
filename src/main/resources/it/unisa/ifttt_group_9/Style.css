@@ -19,7 +19,7 @@
     -fx-background-color: #4CAF50; /* Cambia il colore di sfondo della TableView */
 }
 
-#addRuleBtn, #continueBtn, #backBtn1, #confirmBtn, #backBtn2,  #activateRuleBtn, #deactivateRuleBtn, #sleepRuleBtn, #confirmSleepBtn, #backSleepBtn, #file, #destDirBtn, #addActionBtn, #selectCounterForTriggerBtn,#selectCounterForTriggerBtn2,#addCounterBtn, #backCounterBtn{
+#addRuleBtn, #backSelectCounterBtn, #continueBtn, #backBtn1, #confirmBtn, #backBtn2,  #activateRuleBtn, #deactivateRuleBtn, #sleepRuleBtn, #confirmSleepBtn, #backSleepBtn, #file, #destDirBtn, #addActionBtn, #selectCounterForTriggerBtn,#selectCounterForTriggerBtn2,#addCounterBtn, #backCounterBtn{
     -fx-background-color: #4CAF50; /* Cambia il colore di sfondo dei pulsanti */
     -fx-text-fill: #ffffff; /* Cambia il colore del testo dei pulsanti */
 }
@@ -29,7 +29,7 @@
     -fx-text-fill: #ffffff;
 }
 
-#nameRuleText, #textMessageId, #fileNameLbl, #maxFileDimensionTxt {
+#nameRuleText, #textMessageId, #fileNameLbl, #maxFileDimensionTxt, #fileActionLaunchTxt{
     -fx-background-color: #f0f0f0; /* Cambia il colore di sfondo dei campi di testo */
 }
 
@@ -38,12 +38,12 @@
     -fx-text-fill: #ffffff; /* Cambia il colore del testo delle schede */
 }
 
-#fileChooserBtn,#fileDimensionChooseFileBtn, #directoryChoosingBtn, #withActionBtn, #AddMoreTriggerBtn, #modifeCounterBtn, #withTriggerBtn,#directoryChoosingControllExitStatusBtn{
+#fileChooserBtn,#fileDimensionChooseFileBtn,#file,#destDirBtn, #directoryChoosingBtn, #withActionBtn, #AddMoreTriggerBtn, #modifeCounterBtn, #withTriggerBtn,#directoryChoosingControllExitStatusBtn{
     -fx-background-color: #2196F3; /* Cambia il colore di sfondo del pulsante di scelta file */
     -fx-text-fill: #ffffff; /* Cambia il colore del testo del pulsante di scelta file */
 }
 
-#counterBtn, #valueInsertByUserBtn, #chooseCounterBtn{
+#counterBtn, #valueInsertByUserBtn, #addCounterBtn, #chooseCounterBtn{
     -fx-background-color: 	#FFFF33; /* Cambia il colore di sfondo del pulsante di scelta file */
     -fx-text-fill: #000000; /* Cambia il colore del testo del pulsante di scelta file */
 
