@@ -39,6 +39,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class PrincipalStageViewController implements Initializable {
@@ -380,11 +381,18 @@ public class PrincipalStageViewController implements Initializable {
             }
         });
 
-
+        ArrayList<Rule> appoggioList= new ArrayList<Rule>();
         //Controllore di regola
         Timeline timeline=new Timeline(new KeyFrame(
-                Duration.millis(400), e->{  //settaggio del tempo di ripetizione
-            for(Rule r : rulesList){
+                Duration.millis(400), e->{//settaggio del tempo di ripetizione
+
+            for(Rule r1 : rulesList){
+                if(r1.getStatus()){
+                    appoggioList.add(r1);
+                }
+            }
+
+            for(Rule r : appoggioList){
                 if (r.getDateUntilSleep() != null) {
                     /*LocalDateTime truncatedNow = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
                     LocalDateTime truncatedOtherDateTime = r.getDateUntilSleep().truncatedTo(ChronoUnit.MINUTES);*/
@@ -431,6 +439,7 @@ public class PrincipalStageViewController implements Initializable {
 
 
             }
+            appoggioList.clear();
         })
         );
         timeline.setCycleCount(Animation.INDEFINITE);
