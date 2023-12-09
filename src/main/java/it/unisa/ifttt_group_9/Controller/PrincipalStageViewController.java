@@ -852,6 +852,7 @@ public class PrincipalStageViewController implements Initializable {
                     }
                     selectedCounter= null;
                     selectedCounter2= null;
+                    viewOfTrigger();
                 }
             }
             if(!changeCounterField.selectedProperty().get()){
@@ -880,6 +881,7 @@ public class PrincipalStageViewController implements Initializable {
                     }
                     selectedCounter= null;
                     selectedCounter2= null;
+                    viewOfTrigger();
                 }
             }
         }
