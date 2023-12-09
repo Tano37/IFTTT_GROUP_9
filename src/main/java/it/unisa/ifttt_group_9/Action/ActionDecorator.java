@@ -16,4 +16,12 @@ public abstract class ActionDecorator implements Action {
 
 
     }
+
+    public String toString(){
+        if (tempAction!=null){
+            return tempAction.toString();
+        }else {
+            return "";
+        }
+    }
 }

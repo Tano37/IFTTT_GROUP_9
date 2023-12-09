@@ -74,4 +74,9 @@ public class TriggerFileDimension extends TriggerDecorator {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return (negate?"!" : "") + "{TriggerFileDimension: " + maxSize + " }\n" +super.toString();
+    }
 }

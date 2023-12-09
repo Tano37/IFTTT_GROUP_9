@@ -83,4 +83,9 @@ public class TriggerFullDate extends TriggerDecorator {
     }
 
     public int getDay(){return dayMonth;}
+
+    @Override
+    public String toString() {
+        return (negate?"!" : "") + "{TriggerFullDate: " + hour + ":" + minute + " - " + dayWeek + "\\" + dayMonth +"\\" +  " }\n"  +super.toString();
+    }
 }

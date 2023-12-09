@@ -34,4 +34,9 @@ public class TriggerFile extends TriggerDecorator {
         }
 
     }
+
+    @Override
+    public String toString() {
+        return (negate?"!" : "") + "{TriggerFile: " + fileName + " }\n" +super.toString();
+    }
 }

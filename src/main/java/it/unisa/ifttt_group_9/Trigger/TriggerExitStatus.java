@@ -67,4 +67,9 @@ public class TriggerExitStatus extends TriggerDecorator {
         }
 
     }
+
+    @Override
+    public String toString() {
+        return (negate?"!" : "") + "{TriggerExitStatus: " + exitExpected + " }\n"  + super.toString();
+    }
 }

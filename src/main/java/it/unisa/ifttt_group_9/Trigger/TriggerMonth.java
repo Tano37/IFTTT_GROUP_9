@@ -62,6 +62,11 @@ public class TriggerMonth extends TriggerDecorator {
 
     }
 
+    @Override
+    public String toString() {
+        return (negate?"!" : "") + "{TriggerMonth: "  + dayMonth + " }\n" +super.toString();
+    }
+
     public int getHour() {
         return hour;
     }

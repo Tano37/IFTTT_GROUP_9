@@ -62,12 +62,8 @@ public class TriggerTimestamp extends TriggerDecorator {
     }
 
     @Override
+
     public String toString() {
-        return "TriggerTimestamp{" +
-                "hour=" + hour +
-                ", minute=" + minute +
-                ", negate=" + negate +
-                ", precTriggerAndOr=" + precTriggerAndOr +
-                "\n" + precTrigger ;
+        return (negate?"!" : "") + "{TriggerTimestamp: " + hour + ":" + minute +   " }\n"  +super.toString();
     }
 }

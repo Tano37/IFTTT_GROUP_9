@@ -37,12 +37,7 @@ public class TriggerDay extends TriggerDecorator {
         this.dayWeek=dayWeek;
     }
 
-    /*
-    public void setTime (int hour, int minute){
-        this.hour=hour;
-        this.minute=minute;
-    }
-    */
+
 
     @Override
     public boolean evaluate(){
@@ -67,4 +62,9 @@ public class TriggerDay extends TriggerDecorator {
     }
 
     public int getDay(){return dayWeek;}
+
+    @Override
+    public String toString() {
+        return (negate?"!" : "") + "{TriggerDay: " + dayWeek + " }\n" + super.toString();
+    }
 }

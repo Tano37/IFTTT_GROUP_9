@@ -693,10 +693,11 @@ public class PrincipalStageViewController implements Initializable {
     }
     void viewOfTrigger(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Add Action List");
+        alert.setTitle("Add Trigger List");
         alert.setHeaderText(null); // Senza intestazione
         alert.setContentText(selectedTrigger.toString());
         alert.showAndWait();
+
     }
 
     @FXML

@@ -34,4 +34,12 @@ public class TriggerDecorator implements Trigger{
     public void negate() {
         this.negate = true;
     }
+
+    public String toString(){
+        if (precTrigger!=null){
+            return (precTriggerAndOr? "AND ":"OR ") +precTrigger.toString();
+        }else {
+            return "";
+        }
+    }
 }
