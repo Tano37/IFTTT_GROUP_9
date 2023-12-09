@@ -23,7 +23,7 @@ public class Rule implements Serializable {
 
     private boolean fireOnce = false;
 
-
+    private Counter counter=null;
 
 
 
@@ -37,6 +37,13 @@ public class Rule implements Serializable {
 
     }
 
+    public Counter getCounter() {
+        return counter;
+    }
+
+    public void setCounter(Counter counter) {
+        this.counter = counter;
+    }
 
     public String getRuleName() {
         return ruleName;
