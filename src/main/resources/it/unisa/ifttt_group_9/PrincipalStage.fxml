@@ -22,7 +22,7 @@
     <stylesheets>
         <URL value="@Style.css" />
     </stylesheets>
-    <AnchorPane fx:id="ancorPane1" prefHeight="400.0" prefWidth="500.0" visible="false">
+    <AnchorPane fx:id="ancorPane1" prefHeight="400.0" prefWidth="500.0">
         <TableView fx:id="rulesTable" prefHeight="267.0" prefWidth="534.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
             <columns>
                 <TableColumn fx:id="ruleClm" prefWidth="121.0" text="Rule" />
@@ -232,7 +232,7 @@
             <Button fx:id="confirmBtn" mnemonicParsing="false" onAction="#confirmAction" text="Confirm" />
         </HBox>
     </AnchorPane>
-    <AnchorPane fx:id="ancorPaneCounterTable" prefHeight="200.0" prefWidth="200.0">
+    <AnchorPane fx:id="ancorPaneCounterTable" prefHeight="200.0" prefWidth="200.0" visible="false">
         <TableView fx:id="counterTable" prefHeight="248.0" prefWidth="534.0">
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

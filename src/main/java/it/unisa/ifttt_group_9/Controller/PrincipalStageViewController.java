@@ -14,10 +14,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,7 +21,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -43,6 +38,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class PrincipalStageViewController implements Initializable {
+    
+    
     // Buttons
     @FXML
     private Button fileDimensionChooseFileBtn;
@@ -86,8 +83,7 @@ public class PrincipalStageViewController implements Initializable {
     private Button counterBtn;
     @FXML
     private Button backCounterBtn;
-    @FXML
-    private Button modifeCounterBtn;
+
     @FXML
     private Button valueInsertByUserBtn;
     @FXML
@@ -267,7 +263,6 @@ public class PrincipalStageViewController implements Initializable {
         selectCounterForTriggerBtn.setVisible(false);
         selectCounterForTriggerBtn2.setVisible(false);
         valueInsertByUserBtn.visibleProperty().set(false);
-        modifeCounterBtn.setDisable(true);
         deleteCounterBtn.setDisable(true);
             valueInsertByUser.setTextFormatter(new javafx.scene.control.TextFormatter<>(new IntegerStringConverter(), null, c ->
             {
@@ -324,34 +319,37 @@ public class PrincipalStageViewController implements Initializable {
         // Aggiunta di un listener per catturare i cambiamenti nella selezione nella scelta della Action Tigger
         fileActionChooser.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 
-            if(newValue.equals("Add String in the end")){
-                fileActionLaunchTxt.setVisible(true);
-                destDirBtn.disableProperty().set(true);
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("File TXT (*.txt)", "txt");
-                // Applicazione del filtro al selettore di file
-                fileChooserTxt.setFileFilter(filter);
-                fileActionLabel.textProperty().set("Insert String to Add");
-                fileActionLabel.setVisible(true);
-            }
-            else if (newValue.equals("Launch a Program")){
-                fileActionLaunchTxt.setVisible(true);
-                destDirBtn.disableProperty().set(true);
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("File EXE (*.exe)", "exe");
-                // Applicazione del filtro al selettore di file
-                fileChooserTxt.setFileFilter(filter);
-                fileActionLabel.textProperty().set("Insert the Arguments");
-                fileActionLabel.setVisible(true);
-            }
-            else if(newValue.equals("Copy and Paste") ){
-                fileActionLaunchTxt.setVisible(false);
-                destDirBtn.disableProperty().set(false);
-                fileChooserTxt.resetChoosableFileFilters();
-                fileActionLabel.setVisible(false);
-            } else if ( newValue.equals("Delete a File")) {
-                fileActionLaunchTxt.setVisible(false);
-                destDirBtn.disableProperty().set(true);
-                fileChooserTxt.resetChoosableFileFilters();
-                fileActionLabel.setVisible(false);
+            switch (newValue) {
+                case "Add String in the end" -> {
+                    fileActionLaunchTxt.setVisible(true);
+                    destDirBtn.disableProperty().set(true);
+                    FileNameExtensionFilter filter = new FileNameExtensionFilter("File TXT (*.txt)", "txt");
+                    // Applicazione del filtro al selettore di file
+                    fileChooserTxt.setFileFilter(filter);
+                    fileActionLabel.textProperty().set("Insert String to Add");
+                    fileActionLabel.setVisible(true);
+                }
+                case "Launch a Program" -> {
+                    fileActionLaunchTxt.setVisible(true);
+                    destDirBtn.disableProperty().set(true);
+                    FileNameExtensionFilter filter = new FileNameExtensionFilter("File EXE (*.exe)", "exe");
+                    // Applicazione del filtro al selettore di file
+                    fileChooserTxt.setFileFilter(filter);
+                    fileActionLabel.textProperty().set("Insert the Arguments");
+                    fileActionLabel.setVisible(true);
+                }
+                case "Copy and Paste" -> {
+                    fileActionLaunchTxt.setVisible(false);
+                    destDirBtn.disableProperty().set(false);
+                    fileChooserTxt.resetChoosableFileFilters();
+                    fileActionLabel.setVisible(false);
+                }
+                case "Delete a File" -> {
+                    fileActionLaunchTxt.setVisible(false);
+                    destDirBtn.disableProperty().set(true);
+                    fileChooserTxt.resetChoosableFileFilters();
+                    fileActionLabel.setVisible(false);
+                }
             }
         });
         valueInsertByUser.textProperty().setValue("0");
@@ -362,23 +360,32 @@ public class PrincipalStageViewController implements Initializable {
 
         );
         continueBtn.disableProperty().bind(bb);
-        rulesTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rule>() {
-            @Override
-            public void changed(ObservableValue<? extends Rule> observable, Rule oldValue, Rule newValue) {
-                handleRuleSelection(newValue);
-            }
-        });
+        rulesTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> handleRuleSelection(newValue));
 
         selectCounterForTriggerBtn.setDisable(true);
         selectCounterForTriggerBtn2.setDisable(true);
-        counterTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Counter>() {
-            @Override
-            public void changed(ObservableValue<? extends Counter> observable, Counter oldValue, Counter newValue) {
-                handleCounterSelection(newValue);
+        counterTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> handleCounterSelection(newValue));
+
+        Timeline timeline = getTimeline();
+        timeline.play();
+
+        try {
+            loadRuleList(rulesList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        maxFileDimensionTxt.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                //if the new value doesn't math a numeric type set the text to the precedent
+                maxFileDimensionTxt.setText(oldValue);
             }
         });
+    }
 
-        ArrayList<Rule> toCheckList= new ArrayList<Rule>();
+    private Timeline getTimeline() {
+        ArrayList<Rule> toCheckList= new ArrayList<>();
         //Controllore di regola
         Timeline timeline=new Timeline(new KeyFrame(
                 Duration.millis(400), e->{//settaggio del tempo di ripetizione
@@ -391,8 +398,6 @@ public class PrincipalStageViewController implements Initializable {
 
             for(Rule r : toCheckList){
                 if (r.getDateUntilSleep() != null) {
-                    /*LocalDateTime truncatedNow = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-                    LocalDateTime truncatedOtherDateTime = r.getDateUntilSleep().truncatedTo(ChronoUnit.MINUTES);*/
 
                     LocalDateTime truncatedNow = LocalDateTime.now();
                     LocalDateTime truncatedOtherDateTime= r.getDateUntilSleep();
@@ -410,10 +415,6 @@ public class PrincipalStageViewController implements Initializable {
                         //System.out.println(r.getRuleTrigger().evaluate()+"/"+!r.getLaunched()+"/"+r.getStatus());
                     }
                 }
-                //System.out.printf(r.getRuleTrigger().evaluate()+"//"+!r.getLaunched()+"//"+r.getStatus());
-               // System.out.println(r.getRuleTrigger().evaluate() +"//"+!r.getLaunched() +"//"+ r.getStatus());
-
-
 
 
                 if(r.getRuleTrigger().evaluate() && !r.getLaunched() && r.getStatus()){
@@ -440,21 +441,7 @@ public class PrincipalStageViewController implements Initializable {
         })
         );
         timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
-
-        try {
-            loadRuleList(rulesList);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        maxFileDimensionTxt.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                //if the new value doesn't math a numeric type set the text to the precedent
-                maxFileDimensionTxt.setText(oldValue);
-            }
-        });
+        return timeline;
     }
 
     private void initializeChoiceBox() {
@@ -525,7 +512,7 @@ public class PrincipalStageViewController implements Initializable {
     private TableColumn<Rule, Boolean> getRuleBooleanTableColumn() {
         TableColumn<Rule, Boolean> statusColumn = new TableColumn<>("Status");
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-        statusColumn.setCellFactory(column -> new TableCell<Rule, Boolean>() {
+        statusColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(Boolean status, boolean empty) {
                 super.updateItem(status, empty);
@@ -534,7 +521,7 @@ public class PrincipalStageViewController implements Initializable {
                     setStyle("");
                 } else {
                     setText(status ? "Activate" : "Deactivate");
-                    setStyle(status ? "-fx-text-fill: green;" : "-fx-text-fill: red;");
+                    setStyle(status ? "-fx-text-fill: green;" : "");
                 }
             }
         });
@@ -562,12 +549,10 @@ public class PrincipalStageViewController implements Initializable {
         if (newValue!=null) {
             selectCounterForTriggerBtn2.setDisable(false);
             selectCounterForTriggerBtn.setDisable(false);
-            modifeCounterBtn.setDisable(false);
             deleteCounterBtn.setDisable(false);
         } else {
             selectCounterForTriggerBtn.setDisable(true);
             selectCounterForTriggerBtn2.setDisable(true);
-            modifeCounterBtn.setDisable(true);
             deleteCounterBtn.setDisable(true);
         }
     }
@@ -721,170 +706,177 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     void addSequenceTriggerAction(ActionEvent event){
         String tabId = tabPane1.getSelectionModel().getSelectedItem().getId();
-        if (tabId.equals("timeTab")) {
-            selectedTrigger = new TriggerTimestamp(hoursChoiceId.getValue(),
-                    minuteChoiceId.getValue(),negateTriggerCheckBox.isSelected(),
-                    selectedTrigger, logicalOperationCb.isSelected());
-            if (negateTriggerCheckBox.isSelected()) {
-                selectedTrigger.negate();
-                negateTriggerCheckBox.selectedProperty().set(false);
+        switch (tabId) {
+            case "timeTab" -> {
+                selectedTrigger = new TriggerTimestamp(hoursChoiceId.getValue(),
+                        minuteChoiceId.getValue(), negateTriggerCheckBox.isSelected(),
+                        selectedTrigger, logicalOperationCb.isSelected());
+                if (negateTriggerCheckBox.isSelected()) {
+                    selectedTrigger.negate();
+                    negateTriggerCheckBox.selectedProperty().set(false);
+                }
+                viewOfTrigger();
             }
-            viewOfTrigger();
             /*questa variabile selectedTrigger andrà riazzerata una volta creata definitivamente la regola
             e alla regola andrà messo il check che i campi trigger e action siano diversi da null*/
-        } else if (tabId.equals("dayTab")) {
-            int numberDay = 0;
-            for (DayOfWeek day : DayOfWeek.values()) {
-                if (day.toString().equalsIgnoreCase(dayChoiceId.getValue())) {
-                    numberDay = day.getValue();
-                    break; // Esci dal ciclo una volta trovato il giorno corrispondente
+            case "dayTab" -> {
+                int numberDay = 0;
+                for (DayOfWeek day : DayOfWeek.values()) {
+                    if (day.toString().equalsIgnoreCase(dayChoiceId.getValue())) {
+                        numberDay = day.getValue();
+                        break; // Esci dal ciclo una volta trovato il giorno corrispondente
+                    }
                 }
-            }
-            selectedTrigger = new TriggerDay(
-                    numberDay,negateTriggerCheckBox.isSelected(),
-                    selectedTrigger, logicalOperationCb.isSelected());
-            if (negateTriggerCheckBox.isSelected()) {
-                selectedTrigger.negate();
-                negateTriggerCheckBox.selectedProperty().set(false);
-            }
-            viewOfTrigger();
-        } else if (tabId.equals("monthTab")) {
-           /* minuteChoiceId.setValue(0);
-            hourChoiceIdSleep.setValue(0);*/
-            //System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
-            selectedTrigger = new TriggerMonth(
-                    monthChoiceId.getValue(),negateTriggerCheckBox.isSelected(),
-                    selectedTrigger, logicalOperationCb.isSelected());
-            if (negateTriggerCheckBox.isSelected()) {
-                selectedTrigger.negate();
-                negateTriggerCheckBox.selectedProperty().set(false);
-            }
-            viewOfTrigger();
-        } else if (tabId.equals("existingFileTab")) {
-            if (directoryChooserTriggerFileExists.getSelectedFile() == null || textIsNotValid(fileNameLbl.getText())) {
-                ancorPane2.visibleProperty().setValue(true);
-                ancorPane3.visibleProperty().setValue(false);
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Errore");
-                alert.setContentText("Compile the fields correctly!");
-                alert.showAndWait();
-            } else {
-                selectedTrigger = new TriggerFile(directoryChooserTriggerFileExists.getSelectedFile().getAbsolutePath(),
-                        fileNameLbl.getText(),negateTriggerCheckBox.isSelected(),
+                selectedTrigger = new TriggerDay(
+                        numberDay, negateTriggerCheckBox.isSelected(),
                         selectedTrigger, logicalOperationCb.isSelected());
                 if (negateTriggerCheckBox.isSelected()) {
                     selectedTrigger.negate();
                     negateTriggerCheckBox.selectedProperty().set(false);
-                }viewOfTrigger();
-                fileNameLbl.textProperty().setValue(null);
+                }
+                viewOfTrigger();
             }
-        } else if (tabId.equals("fileDimensionTab")) {
-            if (fileChooserTriggerFileDimension.getSelectedFile() == null || textIsNotValid(maxFileDimensionTxt.getText())) {
-                ancorPane2.visibleProperty().setValue(true);
-                ancorPane3.visibleProperty().setValue(false);
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Errore");
-                alert.setContentText("Compile the fields correctly!");
-                alert.showAndWait();
-            } else {
-                selectedTrigger = new TriggerFileDimension(fileChooserTriggerFileDimension
-                        .getSelectedFile().getAbsolutePath(),
-                        Long.parseLong(maxFileDimensionTxt.getText()),negateTriggerCheckBox.isSelected(),
+            case "monthTab" -> {
+                //System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
+                selectedTrigger = new TriggerMonth(
+                        monthChoiceId.getValue(), negateTriggerCheckBox.isSelected(),
                         selectedTrigger, logicalOperationCb.isSelected());
                 if (negateTriggerCheckBox.isSelected()) {
                     selectedTrigger.negate();
                     negateTriggerCheckBox.selectedProperty().set(false);
-                }viewOfTrigger();
+                }
+                viewOfTrigger();
             }
-        } else if (tabId.equals("fullDateTab")) {
-            LocalDate fullDateInsert = dataPickerId.getValue();
-            int dayInsert = fullDateInsert.getDayOfMonth();
-            int monthInsert = fullDateInsert.getMonth().getValue();
-            int yearInsert = fullDateInsert.getYear();
-
-            selectedTrigger = new TriggerFullDate(dayInsert,
-                    monthInsert, yearInsert,negateTriggerCheckBox.isSelected(),
-                    selectedTrigger, logicalOperationCb.isSelected());
-            if (negateTriggerCheckBox.isSelected()) {
-                selectedTrigger.negate();
-                negateTriggerCheckBox.selectedProperty().set(false);
-            }viewOfTrigger();
-        } else if (tabId.equals("controlExitStatusTab")) {
-            if (fileChooserExitStatus.getSelectedFile() == null || textIsNotValid(valueTextId.getText())) {
-                ancorPane2.visibleProperty().setValue(true);
-                ancorPane3.visibleProperty().setValue(false);
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Errore");
-                alert.setContentText("Compile the fields correctly!");
-                alert.showAndWait();
-            } else {
-                selectedTrigger = new TriggerExitStatus(fileChooserExitStatus.getSelectedFile().getAbsolutePath(),
-                        commandLineTextId.getText(), Integer.parseInt(valueTextId.getText()),negateTriggerCheckBox.isSelected(),
-                        selectedTrigger, logicalOperationCb.isSelected());
-                if (negateTriggerCheckBox.isSelected()) {
-                    selectedTrigger.negate();
-                    negateTriggerCheckBox.selectedProperty().set(false);
-                }viewOfTrigger();
-            }
-        } else if(tabId.equals("counterTab")){
-
-            if(changeCounterField.selectedProperty().get()){
-                if(selectedCounter == null|| selectedCounter2==null ){
+            case "existingFileTab" -> {
+                if (directoryChooserTriggerFileExists.getSelectedFile() == null || textIsNotValid(fileNameLbl.getText())) {
+                    ancorPane2.visibleProperty().setValue(true);
+                    ancorPane3.visibleProperty().setValue(false);
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Errore");
                     alert.setContentText("Compile the fields correctly!");
                     alert.showAndWait();
-                }else{
-                    Counter counterInsert=selectedCounter;
-                    Counter counterInsert2=selectedCounter2;
-                    String chooserActionCounter= chooserActionCounterId.getValue();
-                    selectedTrigger=new TriggerCounter(selectedCounter2,selectedCounter,chooserActionCounter,negateTriggerCheckBox.isSelected(),
+                } else {
+                    selectedTrigger = new TriggerFile(directoryChooserTriggerFileExists.getSelectedFile().getAbsolutePath(),
+                            fileNameLbl.getText(), negateTriggerCheckBox.isSelected(),
                             selectedTrigger, logicalOperationCb.isSelected());
-                    addCounterBtn.setVisible(true);
-                    deleteCounterBtn.setVisible(true);
-                    backCounterBtn.setVisible(true);
-                    modifeCounterBtn.setVisible(true);
-                    selectCounterForTriggerBtn.setVisible(false);
-                    //  counterConfrontationLbl1.setText("Nothing");
-                    counterConfrontationLbl2.setText("");
-                    counterConfrontationLbl3.setText("");
-
                     if (negateTriggerCheckBox.isSelected()) {
                         selectedTrigger.negate();
                         negateTriggerCheckBox.selectedProperty().set(false);
                     }
-                    selectedCounter= null;
-                    selectedCounter2= null;
                     viewOfTrigger();
+                    fileNameLbl.textProperty().setValue(null);
                 }
             }
-            if(!changeCounterField.selectedProperty().get()){
-                if(valueInsertByUser.getText().trim().isEmpty()|| selectedCounter== null ){
+            case "fileDimensionTab" -> {
+                if (fileChooserTriggerFileDimension.getSelectedFile() == null || textIsNotValid(maxFileDimensionTxt.getText())) {
+                    ancorPane2.visibleProperty().setValue(true);
+                    ancorPane3.visibleProperty().setValue(false);
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Errore");
                     alert.setContentText("Compile the fields correctly!");
                     alert.showAndWait();
-                }else {
-                    Integer valueInsert=Integer.parseInt(valueInsertByUser.textProperty().getValue());
-                    String chooserActionCounter= chooserActionCounterId.getValue();
-                    selectedTrigger=new TriggerCounter(valueInsert,selectedCounter,chooserActionCounter,negateTriggerCheckBox.isSelected(),
+                } else {
+                    selectedTrigger = new TriggerFileDimension(fileChooserTriggerFileDimension
+                            .getSelectedFile().getAbsolutePath(),
+                            Long.parseLong(maxFileDimensionTxt.getText()), negateTriggerCheckBox.isSelected(),
                             selectedTrigger, logicalOperationCb.isSelected());
-                    addCounterBtn.setVisible(true);
-                    deleteCounterBtn.setVisible(true);
-                    backCounterBtn.setVisible(true);
-                    modifeCounterBtn.setVisible(true);
-                    selectCounterForTriggerBtn.setVisible(false);
-                    //  counterConfrontationLbl1.setText("Nothing");
-                    counterConfrontationLbl2.setText("");
-                    counterConfrontationLbl3.setText("");
-
                     if (negateTriggerCheckBox.isSelected()) {
                         selectedTrigger.negate();
                         negateTriggerCheckBox.selectedProperty().set(false);
                     }
-                    selectedCounter= null;
-                    selectedCounter2= null;
                     viewOfTrigger();
+                }
+            }
+            case "fullDateTab" -> {
+                LocalDate fullDateInsert = dataPickerId.getValue();
+                int dayInsert = fullDateInsert.getDayOfMonth();
+                int monthInsert = fullDateInsert.getMonth().getValue();
+                int yearInsert = fullDateInsert.getYear();
+                selectedTrigger = new TriggerFullDate(dayInsert,
+                        monthInsert, yearInsert, negateTriggerCheckBox.isSelected(),
+                        selectedTrigger, logicalOperationCb.isSelected());
+                if (negateTriggerCheckBox.isSelected()) {
+                    selectedTrigger.negate();
+                    negateTriggerCheckBox.selectedProperty().set(false);
+                }
+                viewOfTrigger();
+            }
+            case "controlExitStatusTab" -> {
+                if (fileChooserExitStatus.getSelectedFile() == null || textIsNotValid(valueTextId.getText())) {
+                    ancorPane2.visibleProperty().setValue(true);
+                    ancorPane3.visibleProperty().setValue(false);
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Errore");
+                    alert.setContentText("Compile the fields correctly!");
+                    alert.showAndWait();
+                } else {
+                    selectedTrigger = new TriggerExitStatus(fileChooserExitStatus.getSelectedFile().getAbsolutePath(),
+                            commandLineTextId.getText(), Integer.parseInt(valueTextId.getText()), negateTriggerCheckBox.isSelected(),
+                            selectedTrigger, logicalOperationCb.isSelected());
+                    if (negateTriggerCheckBox.isSelected()) {
+                        selectedTrigger.negate();
+                        negateTriggerCheckBox.selectedProperty().set(false);
+                    }
+                    viewOfTrigger();
+                }
+            }
+            case "counterTab" -> {
+                if (changeCounterField.selectedProperty().get()) {
+                    if (selectedCounter == null || selectedCounter2 == null) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Errore");
+                        alert.setContentText("Compile the fields correctly!");
+                        alert.showAndWait();
+                    } else {
+                        Counter counterInsert = selectedCounter;
+                        Counter counterInsert2 = selectedCounter2;
+                        String chooserActionCounter = chooserActionCounterId.getValue();
+                        selectedTrigger = new TriggerCounter(selectedCounter2, selectedCounter, chooserActionCounter, negateTriggerCheckBox.isSelected(),
+                                selectedTrigger, logicalOperationCb.isSelected());
+                        addCounterBtn.setVisible(true);
+                        deleteCounterBtn.setVisible(true);
+                        backCounterBtn.setVisible(true);
+                        selectCounterForTriggerBtn.setVisible(false);
+
+                        counterConfrontationLbl2.setText("");
+                        counterConfrontationLbl3.setText("");
+
+                        if (negateTriggerCheckBox.isSelected()) {
+                            selectedTrigger.negate();
+                            negateTriggerCheckBox.selectedProperty().set(false);
+                        }
+                        selectedCounter = null;
+                        selectedCounter2 = null;
+                        viewOfTrigger();
+                    }
+                }
+                if (!changeCounterField.selectedProperty().get()) {
+                    if (valueInsertByUser.getText().trim().isEmpty() || selectedCounter == null) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Errore");
+                        alert.setContentText("Compile the fields correctly!");
+                        alert.showAndWait();
+                    } else {
+                        int valueInsert = Integer.parseInt(valueInsertByUser.textProperty().getValue());
+                        String chooserActionCounter = chooserActionCounterId.getValue();
+                        selectedTrigger = new TriggerCounter(valueInsert, selectedCounter, chooserActionCounter, negateTriggerCheckBox.isSelected(),
+                                selectedTrigger, logicalOperationCb.isSelected());
+                        addCounterBtn.setVisible(true);
+                        deleteCounterBtn.setVisible(true);
+                        backCounterBtn.setVisible(true);
+                        selectCounterForTriggerBtn.setVisible(false);
+                        //  counterConfrontationLbl1.setText("Nothing");
+                        counterConfrontationLbl2.setText("");
+                        counterConfrontationLbl3.setText("");
+
+                        if (negateTriggerCheckBox.isSelected()) {
+                            selectedTrigger.negate();
+                            negateTriggerCheckBox.selectedProperty().set(false);
+                        }
+                        selectedCounter = null;
+                        selectedCounter2 = null;
+                        viewOfTrigger();
+                    }
                 }
             }
         }
@@ -943,96 +935,99 @@ public class PrincipalStageViewController implements Initializable {
     void concateneteAction(ActionEvent event){
 
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
-        if(tabId.equals("textMessageTab")) {
-            if(textMessageId.getText().trim().isEmpty() ){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Errore");
-                alert.setContentText("Insert Text");
-                alert.showAndWait();
-            }else{
-                selectedAction = new ActionText(textMessageId.getText().trim(),
-                        selectedAction, varsubActionTextCb.isSelected());
-                viewOfAction();
-                textMessageId.clear();
+        switch (tabId) {
+            case "textMessageTab" -> {
+                if (textMessageId.getText().trim().isEmpty()) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Errore");
+                    alert.setContentText("Insert Text");
+                    alert.showAndWait();
+                } else {
+                    selectedAction = new ActionText(textMessageId.getText().trim(),
+                            selectedAction, varsubActionTextCb.isSelected());
+                    viewOfAction();
+                    textMessageId.clear();
+                }
             }
-        }else if(tabId.equals("audioTab")) {
-            if (fileChooserWav.getSelectedFile() == null){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Insert Audio File!");
-                alert.showAndWait();
-            }else {
-                File selectedFolder = fileChooserWav.getSelectedFile();
-                selectedAction = new ActionAudio(selectedFolder.getPath(), selectedAction);
-                fileChooserWav.setSelectedFile(null);
-                viewOfAction();
-                fileChooserWav.setSelectedFile(null);
+            case "audioTab" -> {
+                if (fileChooserWav.getSelectedFile() == null) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("Insert Audio File!");
+                    alert.showAndWait();
+                } else {
+                    File selectedFolder = fileChooserWav.getSelectedFile();
+                    selectedAction = new ActionAudio(selectedFolder.getPath(), selectedAction);
+                    fileChooserWav.setSelectedFile(null);
+                    viewOfAction();
+                    fileChooserWav.setSelectedFile(null);
+                }
             }
-        }else if(tabId.equals("fileTab")) {
-
-            if(fileActionChooser.getValue().equals("Add String in the end")){
-                if (fileChooserTxt.getSelectedFile() == null || textIsNotValid(fileActionLaunchTxt.getText())){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("Compile the fields correctly!");
-                    alert.showAndWait();
-                } else{
-                    File selectedFolder = fileChooserTxt.getSelectedFile();
-                    String testInFile = fileActionLaunchTxt.getText();
-                    selectedAction = new ActionFileAddString(selectedFolder.getPath(), testInFile,selectedAction,
-                            varsubActionFileCb.isSelected());
-                    fileChooserTxt.setSelectedFile(null);
-                    viewOfAction();
-                    fileChooserTxt.setSelectedFile(null);
-                    fileActionLaunchTxt.clear();
-                }
-            }else if(fileActionChooser.getValue().equals("Copy and Paste")){
-                if (fileChooserTxt.getSelectedFile() == null){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("Select source file!");
-                    alert.showAndWait();
-                }else if (directoryChooserActionFile.getSelectedFile() == null){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("Select destination file!");
-                    alert.showAndWait();
-                }else{
-                    File selectedFolder = fileChooserTxt.getSelectedFile();
-                    File dirSelectedFolder = directoryChooserActionFile.getSelectedFile();
-                    selectedAction = new ActionFileCopy(selectedFolder.getPath(),dirSelectedFolder.getPath(),selectedAction);
-                    fileChooserTxt.setSelectedFile(null);
-                    directoryChooserActionFile.setSelectedFile(null);
-                    viewOfAction();
-                    fileChooserTxt.setSelectedFile(null);
-                    directoryChooserActionFile.setSelectedFile(null);
-                }
-            }else if(fileActionChooser.getValue().equals("Delete a File")){
-                if (fileChooserTxt.getSelectedFile() == null){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("Select the file to delete!");
-                    alert.showAndWait();
-                } else{
-                    File selectedFolder = fileChooserTxt.getSelectedFile();
-                    selectedAction = new ActionFileDelete(selectedFolder.getPath(),selectedAction);
-                    viewOfAction();
-                    fileChooserTxt.setSelectedFile(null);
-                }
-            }else if(fileActionChooser.getValue().equals("Launch a Program")){
-                if (fileChooserTxt.getSelectedFile() == null ){
-                    System.out.println(fileChooserTxt.getSelectedFile().getPath());
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("Select the file!");
-                    alert.showAndWait();
-                }else{
-                    File selectedFolder = fileChooserTxt.getSelectedFile();
-                    String commands = fileActionLaunchTxt.getText();
-                    selectedAction = new ActionFileLaunch(selectedFolder.getPath(), commands, selectedAction,varsubActionFileCb.isSelected());
-                    viewOfAction();
-                    fileChooserTxt.setSelectedFile(null);
-                    fileActionLaunchTxt.clear();
+            case "fileTab" -> {
+                if (fileActionChooser.getValue().equals("Add String in the end")) {
+                    if (fileChooserTxt.getSelectedFile() == null || textIsNotValid(fileActionLaunchTxt.getText())) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setContentText("Compile the fields correctly!");
+                        alert.showAndWait();
+                    } else {
+                        File selectedFolder = fileChooserTxt.getSelectedFile();
+                        String testInFile = fileActionLaunchTxt.getText();
+                        selectedAction = new ActionFileAddString(selectedFolder.getPath(), testInFile, selectedAction,
+                                varsubActionFileCb.isSelected());
+                        fileChooserTxt.setSelectedFile(null);
+                        viewOfAction();
+                        fileChooserTxt.setSelectedFile(null);
+                        fileActionLaunchTxt.clear();
+                    }
+                } else if (fileActionChooser.getValue().equals("Copy and Paste")) {
+                    if (fileChooserTxt.getSelectedFile() == null) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setContentText("Select source file!");
+                        alert.showAndWait();
+                    } else if (directoryChooserActionFile.getSelectedFile() == null) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setContentText("Select destination file!");
+                        alert.showAndWait();
+                    } else {
+                        File selectedFolder = fileChooserTxt.getSelectedFile();
+                        File dirSelectedFolder = directoryChooserActionFile.getSelectedFile();
+                        selectedAction = new ActionFileCopy(selectedFolder.getPath(), dirSelectedFolder.getPath(), selectedAction);
+                        fileChooserTxt.setSelectedFile(null);
+                        directoryChooserActionFile.setSelectedFile(null);
+                        viewOfAction();
+                        fileChooserTxt.setSelectedFile(null);
+                        directoryChooserActionFile.setSelectedFile(null);
+                    }
+                } else if (fileActionChooser.getValue().equals("Delete a File")) {
+                    if (fileChooserTxt.getSelectedFile() == null) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setContentText("Select the file to delete!");
+                        alert.showAndWait();
+                    } else {
+                        File selectedFolder = fileChooserTxt.getSelectedFile();
+                        selectedAction = new ActionFileDelete(selectedFolder.getPath(), selectedAction);
+                        viewOfAction();
+                        fileChooserTxt.setSelectedFile(null);
+                    }
+                } else if (fileActionChooser.getValue().equals("Launch a Program")) {
+                    if (fileChooserTxt.getSelectedFile() == null) {
+                        System.out.println(fileChooserTxt.getSelectedFile().getPath());
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setContentText("Select the file!");
+                        alert.showAndWait();
+                    } else {
+                        File selectedFolder = fileChooserTxt.getSelectedFile();
+                        String commands = fileActionLaunchTxt.getText();
+                        selectedAction = new ActionFileLaunch(selectedFolder.getPath(), commands, selectedAction, varsubActionFileCb.isSelected());
+                        viewOfAction();
+                        fileChooserTxt.setSelectedFile(null);
+                        fileActionLaunchTxt.clear();
+                    }
                 }
             }
         }
@@ -1041,7 +1036,7 @@ public class PrincipalStageViewController implements Initializable {
     }
 
     @FXML
-    void confirmAction(ActionEvent event) throws IOException {
+    void confirmAction(ActionEvent event) {
 
 
         if (!nameRuleText.getText().trim().isEmpty()) {
@@ -1157,10 +1152,7 @@ public class PrincipalStageViewController implements Initializable {
     }
 
     public boolean textIsNotValid(String text){
-        if (text == null || text.isEmpty())
-            return true;
-        else
-            return false;
+        return text == null || text.isEmpty();
     }
 
     public void fieldReset(){
@@ -1242,7 +1234,6 @@ public class PrincipalStageViewController implements Initializable {
     public void backCounterAction(ActionEvent event){
         ancorPaneCounterTable.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
-        modifeCounterBtn.setDisable(true);
         deleteCounterBtn.setDisable(true);
 
     }
@@ -1284,7 +1275,6 @@ public class PrincipalStageViewController implements Initializable {
         addCounterBtn.setVisible(false);
         deleteCounterBtn.setVisible(false);
         backCounterBtn.setVisible(false);
-        modifeCounterBtn.setVisible(false);
         selectCounterForTriggerBtn2.setVisible(false);
         selectCounterForTriggerBtn.setVisible(true);
     }
@@ -1299,7 +1289,6 @@ public class PrincipalStageViewController implements Initializable {
         addCounterBtn.setVisible(true);
         deleteCounterBtn.setVisible(true);
         backCounterBtn.setVisible(true);
-        modifeCounterBtn.setVisible(true);
         selectCounterForTriggerBtn2.setVisible(false);
         selectCounterForTriggerBtn.setVisible(false);
         counterTable.getSelectionModel().clearSelection();
@@ -1311,7 +1300,6 @@ public class PrincipalStageViewController implements Initializable {
         addCounterBtn.setVisible(true);
         deleteCounterBtn.setVisible(true);
         backCounterBtn.setVisible(true);
-        modifeCounterBtn.setVisible(true);
         selectCounterForTriggerBtn2.setVisible(false);
         selectCounterForTriggerBtn.setVisible(false);
     }
@@ -1324,7 +1312,6 @@ public class PrincipalStageViewController implements Initializable {
         addCounterBtn.setVisible(false);
         deleteCounterBtn.setVisible(false);
         backCounterBtn.setVisible(false);
-        modifeCounterBtn.setVisible(false);
         selectCounterForTriggerBtn2.setVisible(true);
 
         selectCounterForTriggerBtn.setVisible(false);
@@ -1343,7 +1330,6 @@ public class PrincipalStageViewController implements Initializable {
         addCounterBtn.setVisible(true);
         deleteCounterBtn.setVisible(true);
         backCounterBtn.setVisible(true);
-        modifeCounterBtn.setVisible(true);
         selectCounterForTriggerBtn2.setVisible(false);
         selectCounterForTriggerBtn.setVisible(false);
         counterTable.getSelectionModel().clearSelection();

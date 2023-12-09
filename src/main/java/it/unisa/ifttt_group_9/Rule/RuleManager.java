@@ -1,13 +1,10 @@
 package it.unisa.ifttt_group_9.Rule;
 
-import javafx.collections.ObservableList;
-
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RuleManager {
-    //applicazione del pattern singleton
+    //silngleton pattern
     private static RuleManager instance=null;
     public static RuleManager getInstance() {
         if (instance == null)
@@ -17,8 +14,7 @@ public class RuleManager {
     private List<Rule> ruleList;
 
     private RuleManager() {
-        ruleList = new ArrayList<>(); //conviene un altra struttura dati?
-    }
+        ruleList = new ArrayList<>();}
 
     public void addRule(Rule rule) {
         ruleList.add(rule);

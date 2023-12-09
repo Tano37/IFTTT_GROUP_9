@@ -12,6 +12,7 @@ public class PanelPopUPManager {
         this.message = message;
     }
 
+    //Shows a message in front of the main page
     public int showMessage(){
         JFrame frame = new JFrame("Panel");
         frame.setAlwaysOnTop(true);
