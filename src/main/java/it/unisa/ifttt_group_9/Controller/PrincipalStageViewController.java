@@ -89,7 +89,10 @@ public class PrincipalStageViewController implements Initializable {
     private Button selectCounterForTriggerBtn2;
     @FXML
     private Button AddMoreTriggerBtn;
-    
+    @FXML
+    private Button backSelectCounterBtn;
+
+
     @FXML
     private CheckBox changeCounterField;
     @FXML
@@ -257,8 +260,10 @@ public class PrincipalStageViewController implements Initializable {
         initializeChoiceBox();
         initializecounterTable();
         selectCounterForTriggerBtn.setVisible(false);
-        valueInsertByUserBtn.visibleProperty().set(false);
         selectCounterForTriggerBtn2.setVisible(false);
+        valueInsertByUserBtn.visibleProperty().set(false);
+        modifeCounterBtn.setDisable(true);
+        deleteCounterBtn.setDisable(true);
             valueInsertByUser.setTextFormatter(new javafx.scene.control.TextFormatter<>(new IntegerStringConverter(), null, c ->
             {
                 if (c.isContentChange()) {
@@ -551,9 +556,13 @@ public class PrincipalStageViewController implements Initializable {
         if (newValue!=null) {
             selectCounterForTriggerBtn2.setDisable(false);
             selectCounterForTriggerBtn.setDisable(false);
+            modifeCounterBtn.setDisable(false);
+            deleteCounterBtn.setDisable(false);
         } else {
             selectCounterForTriggerBtn.setDisable(true);
             selectCounterForTriggerBtn2.setDisable(true);
+            modifeCounterBtn.setDisable(true);
+            deleteCounterBtn.setDisable(true);
         }
     }
 
@@ -1183,15 +1192,29 @@ public class PrincipalStageViewController implements Initializable {
     }
     @FXML
     public void counterAction(ActionEvent event){
+        backSelectCounterBtn.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(false);
         ancorPaneCounterTable.visibleProperty().setValue(true);
+        counterTable.getSelectionModel().clearSelection();
     }
     @FXML
-        public void backCounterAction(ActionEvent event){
+    public void backCounterAction(ActionEvent event){
         ancorPaneCounterTable.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
-        //System.out.println("ciao");
+        modifeCounterBtn.setDisable(true);
+        deleteCounterBtn.setDisable(true);
+
     }
+    @FXML
+    public void backSelectCounterAction(ActionEvent event){
+        ancorPaneCounterTable.visibleProperty().setValue(false);
+        ancorPane2.visibleProperty().setValue(true);
+        counterTable.getSelectionModel().clearSelection();
+
+    }
+
+
+
     @FXML
     void addCounterAction(ActionEvent event) {
         // ControllerCounter controller= new ControllerCounter(counterList);
@@ -1213,6 +1236,7 @@ public class PrincipalStageViewController implements Initializable {
     }
     @FXML
     void chooseCounterAction(ActionEvent event){
+        backSelectCounterBtn.visibleProperty().setValue(true);
         ancorPane1.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(false);
         ancorPaneCounterTable.visibleProperty().setValue(true);
@@ -1237,6 +1261,7 @@ public class PrincipalStageViewController implements Initializable {
         modifeCounterBtn.setVisible(true);
         selectCounterForTriggerBtn2.setVisible(false);
         selectCounterForTriggerBtn.setVisible(false);
+        counterTable.getSelectionModel().clearSelection();
 
 
     }
@@ -1251,6 +1276,7 @@ public class PrincipalStageViewController implements Initializable {
     }
     @FXML
     void valueInsertByUserBtnAction(ActionEvent event){
+        backSelectCounterBtn.visibleProperty().setValue(true);
         ancorPane1.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(false);
         ancorPaneCounterTable.visibleProperty().setValue(true);
@@ -1279,6 +1305,7 @@ public class PrincipalStageViewController implements Initializable {
         modifeCounterBtn.setVisible(true);
         selectCounterForTriggerBtn2.setVisible(false);
         selectCounterForTriggerBtn.setVisible(false);
+        counterTable.getSelectionModel().clearSelection();
 
     }
     @FXML
