@@ -14,18 +14,12 @@ public class TriggerExitStatus extends TriggerDecorator {
         this.commandLine = commandLine;
         this.exitExpected = exitStatus;
     }
-    public TriggerExitStatus(String stringPath, String commandLine, int exitStatus, boolean negate) {
-        super(negate);
+    public TriggerExitStatus(String stringPath, String commandLine, int exitStatusExpected) {
+        super();
         this.stringPath = stringPath;
         this.commandLine = commandLine;
-        this.exitExpected = exitStatus;
+        this.exitExpected = exitStatusExpected;
     }
-    public TriggerExitStatus(String stringPath, String commandLine, int exitStatus) {
-        this.stringPath = stringPath;
-        this.commandLine = commandLine;
-        this.exitExpected = exitStatus;
-    }
-
 
     public void setExitValue(int exitValue) {
         this.exitValue = exitValue;
@@ -43,28 +37,19 @@ public class TriggerExitStatus extends TriggerDecorator {
         return exitExpected;
     }
 
+
     public int getExitValue() {
         return exitValue;
     }
 
     @Override
     public boolean evaluate() {
-        AtomicBoolean evaluationResult = new AtomicBoolean(false);
-
         TriggerExecuteService myTrigger = new TriggerExecuteService(this);
-        myTrigger.setOnSucceeded(e -> {
-
-            //System.out.println("Risultato esecuzione: "+ this.getExitValue()+"risultato confrontato="+ this.getExitExpected());
-
-        });
         myTrigger.start();
-
         if(precTriggerAndOr){
             return (negate == (this.getExitExpected() != this.getExitValue())) && super.evaluate();
         }else {
             return (negate == (this.getExitExpected() != this.getExitValue())) || super.evaluate();
-
         }
-
     }
 }
