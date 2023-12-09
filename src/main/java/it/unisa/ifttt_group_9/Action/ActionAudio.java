@@ -30,49 +30,56 @@ public class ActionAudio extends ActionDecorator {
         return filePath;
     }
 
+    /*This method plays an audio file in a separate thread, displays a pop-up dialog
+    box with information about the audio action, and finally checks for user interaction
+    and stops playback accordingly.*/
+
     public void playAudioWithPopup(String filePath) {
-        // Ottieni il nome del file dal percorso
+        // Get the file name from the path
         String[] directories = filePath.split("/");
         String name = directories[directories.length - 1];
 
-        // Avvia un thread per la riproduzione audio
+        // Start a thread for audio playback
         new Thread(() -> playAudio(filePath)).start();
         super.executeAction();
-        // Mostra il dialogo pop-up
+        // Show pop-up dialog
         int scelta = new PanelPopUPManager("AudioAction", name).showMessage();
 
-        // Verifica se l'utente ha premuto "OK"
+        // Check whether the user has pressed "OK"
         if (scelta == JOptionPane.OK_OPTION) {
             System.out.println("You pressed OK. Closing the alert...");
         } else {
             System.out.println("Alert closed without pressing OK.");
         }
 
-        // Imposta la variabile di stato per terminare la riproduzione
+        // Set the status variable to end playback
         continuePlaying = false;
     }
 
+    /*This method handles the playback of an audio file using the Java Sound
+    API Reads the audio data and writes it to the output line.
+    It allows controlled interruption of playback using the continuePlaying variable.*/
     public void playAudio(String filePath) {
         try {
-            // Ottieni un AudioInputStream dal file audio
+            // Get an AudioInputStream from the audio file
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(filePath));
 
-            // Ottieni il formato dell'audio
+            // Get an AudioInputStream from the audio file
             AudioFormat format = audioInputStream.getFormat();
 
-            // Crea un DataLine.Info per ottenere un SourceDataLine, che è utilizzato per la riproduzione
+            // Creates a DataLine.Info to get a SourceDataLine, which is used for playback
             DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
 
-            // Ottieni un SourceDataLine
+            // Get a SourceDataLine
             SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info);
 
-            // Apri la linea per la riproduzione
+            // Open the line for playback
             line.open(format);
 
-            // Avvia la riproduzione
+            // Start playback
             line.start();
 
-            // Leggi i dati audio dal file e inviali alla linea
+            // Read the audio data from the file and send it to the line
             byte[] buffer = new byte[4096];
             int bytesRead = 0;
 
@@ -80,7 +87,7 @@ public class ActionAudio extends ActionDecorator {
                 line.write(buffer, 0, bytesRead);
             }
 
-            // Chiudi l'AudioInputStream e la linea dopo la riproduzione
+            // Close the AudioInputStream and the line after playback
             audioInputStream.close();
             line.drain();
             line.close();
@@ -89,15 +96,6 @@ public class ActionAudio extends ActionDecorator {
         }
     }
 
-   /* public static void main(String[] args) {
-
-        ActionAudio audio = new ActionAudio("C:/Users/giuse/Downloads/ProvaAudio.wav");
-        File file = new File(audio.getFilePath());
-
-        System.out.println(file.getPath());
-        audio.executeAction();
-
-    }*/
 
     @Override
     public String toString() {

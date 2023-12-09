@@ -27,11 +27,12 @@ public class ActionFileAddString extends ActionDecorator {
         this.variableSubstitution=variabileSubstitution;
     }
 
-
-    public String getFilePath() {
-        return filePath;
-    }
-
+    /*Checks whether variable substitution is enabled (this.variableSubstitution).
+    If enabled, replaces the variables in the string to be added using CounterManager.
+    counterSubstitution. Attempts to add the modified string to a file specified by filePath.
+    If successful, displays a pop-up message indicating that the string has been added.
+    It catches and handles any IOException that might occur during the operation on the file.
+    In the final clause, the super function is called for any related actions after*/
     @Override
     public void executeAction() {
         if (this.variableSubstitution) {

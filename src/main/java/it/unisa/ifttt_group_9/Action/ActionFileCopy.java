@@ -25,16 +25,22 @@ public class ActionFileCopy extends ActionDecorator {
         this.filePath = filePath;
     }
 
+    /*Defines the path to the source file (sourcePath) and the path to the destination directory (destinationPath).
+     Attempts to move the file specified by filePath to the destination directory.
+     If successful, it displays a pop-up message indicating that the file has been copied.
+     If an IOException occurs while copying the file, it catches the exception, prints an error message, and displays a pop-up message.
+     In the final clause, the super function is called for any related actions after*/
+
     @Override
     public void executeAction() {
-        // Percorso del file da spostare
+        // Path of the file to be moved
         Path sourcePath = Paths.get(filePath);
 
-        // Percorso della directory di destinazione
+        // Path to the destination directory
         Path destinationPath = Paths.get(destinationDirPath);
 
         try {
-            // Sposta il file nella nuova posizione
+            // Move the file to the new location
             Files.move(sourcePath, destinationPath.resolve(sourcePath.getFileName()), StandardCopyOption.REPLACE_EXISTING);
             new PanelPopUPManager(this.getClass().getName(),"The file has been copied");
         } catch (IOException e) {
