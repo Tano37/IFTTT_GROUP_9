@@ -15,7 +15,7 @@ public class SleepTest {
     @Test
     void testSleepRuleLogic() {
         // Simula la logica della regola di sonno
-        PrincipalStageViewController controller = new PrincipalStageViewController();
+
 
         // Crea un trigger alle 11:05
         LocalDateTime futureDate = LocalDateTime.now().plusSeconds(3);
@@ -32,7 +32,7 @@ public class SleepTest {
         testRule.setStatus(false);
 
         // Chiamata al metodo di logica della regola di sonno simulato
-        sleepRuleLogicSimulation(controller, testRule);
+        sleepRuleLogicSimulation(testRule);
 
         // Verifica che la regola sia stata attivata correttamente
         assertTrue(testRule.getStatus());
@@ -41,7 +41,7 @@ public class SleepTest {
         assertTrue(isLaunchedSimulation(testRule));
     }
 
-    private void sleepRuleLogicSimulation(PrincipalStageViewController controller, Rule rule) {
+    private void sleepRuleLogicSimulation(Rule rule) {
         LocalDateTime truncatedNow = LocalDateTime.now();
         LocalDateTime truncatedOtherDateTime = rule.getDateUntilSleep();
         //System.out.println(truncatedNow + "/" + truncatedOtherDateTime);
