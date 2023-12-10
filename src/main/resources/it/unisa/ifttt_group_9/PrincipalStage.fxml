@@ -128,9 +128,9 @@
                     <CheckBox fx:id="changeCounterField" layoutX="169.0" layoutY="161.0" mnemonicParsing="false" onAction="#changeCounterFieldAction" prefHeight="21.0" prefWidth="189.0" text="Comparision between Counters" />
                     <Label layoutX="145.0" layoutY="14.0" text="The first value is compared with the second: " />
                     <Button fx:id="valueInsertByUserBtn" layoutX="323.0" layoutY="43.0" mnemonicParsing="false" onAction="#valueInsertByUserBtnAction" prefHeight="31.0" prefWidth="152.0" text="Select a counter 1" />
-                    <Label fx:id="counterConfrontationLbl1" layoutX="115.0" layoutY="217.0" prefHeight="21.0" prefWidth="363.0" text="Nothing" />
-                    <Label fx:id="counterConfrontationLbl3" layoutX="116.0" layoutY="217.0" prefHeight="21.0" prefWidth="256.0" text="Nothing" />
-                    <Label fx:id="counterConfrontationLbl2" layoutX="115.0" layoutY="196.0" prefHeight="21.0" prefWidth="363.0" text="Nothing" />
+                    <Label fx:id="counterConfrontationLbl1" layoutX="115.0" layoutY="217.0" prefHeight="21.0" prefWidth="363.0" text="No Counter Selected" />
+                    <Label fx:id="counterConfrontationLbl3" layoutX="116.0" layoutY="217.0" prefHeight="21.0" prefWidth="256.0" text="No Counter Selected" />
+                    <Label fx:id="counterConfrontationLbl2" layoutX="115.0" layoutY="196.0" prefHeight="21.0" prefWidth="363.0" text="No Counter Selected" />
                 </AnchorPane>
             </Tab>
         </TabPane>
@@ -168,7 +168,7 @@
                     <Separator layoutX="-25.0" layoutY="230.0" prefHeight="17.0" prefWidth="574.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" />
                 </AnchorPane>
             </Tab>
-            <Tab fx:id="audioTab" text="Allert Audio">
+            <Tab fx:id="audioTab" text="Alert Audio">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <HBox alignment="CENTER" layoutX="106.0" layoutY="104.0" spacing="30.0">
                         <Label text="Choose an Audio(.wav)" />
