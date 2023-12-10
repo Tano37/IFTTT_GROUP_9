@@ -1,0 +1,3 @@
+Stampa
+Argomento 1: firstArgument
+Argomento 2: secondArgument
