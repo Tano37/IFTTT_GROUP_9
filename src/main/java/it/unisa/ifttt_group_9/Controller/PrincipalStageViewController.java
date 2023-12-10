@@ -539,7 +539,10 @@ public class PrincipalStageViewController implements Initializable {
                     setStyle("");
                 } else {
                     setText(status ? "Activate" : "Deactivate");
-                    setStyle(status ? "-fx-text-fill: green;" : "");
+                    if (status)
+                        setStyle("-fx-text-fill: green;");
+                    else
+                        setStyle("-fx-text-fill: red;");
                 }
             }
         });
