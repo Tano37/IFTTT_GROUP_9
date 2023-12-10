@@ -1,8 +1,6 @@
 package it.unisa.ifttt_group_9.Trigger;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
-public class TriggerExitStatus extends TriggerDecorator {
+public class TriggerExitStatus extends TriggerAbstractClass {
     private String stringPath;
     private String commandLine;
     private int exitExpected;

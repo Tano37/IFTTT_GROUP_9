@@ -6,7 +6,7 @@ import it.unisa.ifttt_group_9.exceptions.IllegalMessageException;
 
 import javax.swing.*;
 
-public class ActionText extends ActionDecorator {
+public class ActionText extends ActionAbstractClass {
 
     private String text;
     private Boolean variableSubstitution;

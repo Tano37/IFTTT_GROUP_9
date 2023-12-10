@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 
-public class ActionFileCopy extends ActionDecorator {
+public class ActionFileCopy extends ActionAbstractClass {
 
     String filePath;
     String destinationDirPath;

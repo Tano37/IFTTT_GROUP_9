@@ -2,11 +2,11 @@
 // It implements the Action interface and acts as a base class for concrete decorators.
 package it.unisa.ifttt_group_9.Action;
 
-public abstract class ActionDecorator implements Action {
+public abstract class ActionAbstractClass implements Action {
 
     protected Action tempAction;
 
-    public ActionDecorator(Action newAction) {
+    public ActionAbstractClass(Action newAction) {
         tempAction = newAction;
     }
 

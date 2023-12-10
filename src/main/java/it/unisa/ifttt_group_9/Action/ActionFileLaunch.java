@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActionFileLaunch extends ActionDecorator {
+public class ActionFileLaunch extends ActionAbstractClass {
 
     private String filePath;
     private String arguments;

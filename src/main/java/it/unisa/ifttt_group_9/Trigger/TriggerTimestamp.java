@@ -5,7 +5,7 @@ import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 import java.time.LocalTime;
 
 //Concrete Product (AbstractFactory)
-public class TriggerTimestamp extends TriggerDecorator {
+public class TriggerTimestamp extends TriggerAbstractClass {
     int hour;
     int minute;
 

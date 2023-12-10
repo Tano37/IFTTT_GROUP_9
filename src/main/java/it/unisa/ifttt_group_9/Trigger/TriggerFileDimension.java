@@ -2,7 +2,7 @@ package it.unisa.ifttt_group_9.Trigger;
 
 import java.io.File;
 
-public class TriggerFileDimension extends TriggerDecorator {
+public class TriggerFileDimension extends TriggerAbstractClass {
 
     private String filePath;
     private long maxSize;

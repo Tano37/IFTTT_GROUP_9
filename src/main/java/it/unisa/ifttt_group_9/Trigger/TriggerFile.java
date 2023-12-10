@@ -2,7 +2,7 @@ package it.unisa.ifttt_group_9.Trigger;
 
 import java.io.File;
 
-public class TriggerFile extends TriggerDecorator {
+public class TriggerFile extends TriggerAbstractClass {
     private String directoryPath;
     private String fileName;
 

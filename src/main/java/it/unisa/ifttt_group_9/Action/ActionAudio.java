@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
-public class ActionAudio extends ActionDecorator {
+public class ActionAudio extends ActionAbstractClass {
     private String filePath;
     private volatile boolean continuePlaying = true;
 

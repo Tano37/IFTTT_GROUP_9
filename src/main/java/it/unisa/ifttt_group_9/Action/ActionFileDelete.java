@@ -4,7 +4,7 @@ import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
 
 import java.io.File;
 
-public class ActionFileDelete extends ActionDecorator {
+public class ActionFileDelete extends ActionAbstractClass {
 
     String filePath;
 

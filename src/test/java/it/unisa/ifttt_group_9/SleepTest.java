@@ -1,7 +1,6 @@
 package it.unisa.ifttt_group_9;
 
 import it.unisa.ifttt_group_9.Action.Action;
-import it.unisa.ifttt_group_9.Action.ActionDecorator;
 import it.unisa.ifttt_group_9.Action.ActionText;
 import it.unisa.ifttt_group_9.Controller.PrincipalStageViewController;
 import it.unisa.ifttt_group_9.Rule.Rule;

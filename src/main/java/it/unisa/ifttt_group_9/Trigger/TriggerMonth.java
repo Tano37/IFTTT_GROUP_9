@@ -5,7 +5,7 @@ import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 import java.time.LocalDateTime;
 
 //Concrete Product (AbstractFactory)
-public class TriggerMonth extends TriggerDecorator {
+public class TriggerMonth extends TriggerAbstractClass {
 
 
     private int dayMonth;

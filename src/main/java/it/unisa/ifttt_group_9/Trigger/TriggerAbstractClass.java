@@ -3,21 +3,21 @@ package it.unisa.ifttt_group_9.Trigger;
 
 
 
-public class TriggerDecorator implements Trigger{
+public class TriggerAbstractClass implements Trigger{
 
      boolean negate = false;
      boolean precTriggerAndOr = Trigger.AND;
 
      protected Trigger precTrigger = null;
 
-    public TriggerDecorator(boolean negate) {
+    public TriggerAbstractClass(boolean negate) {
         this.negate = negate;
     }
 
-    public TriggerDecorator(){
+    public TriggerAbstractClass(){
     }
 
-    public TriggerDecorator(boolean negate, Trigger newTrigger, boolean operator){
+    public TriggerAbstractClass(boolean negate, Trigger newTrigger, boolean operator){
         this.negate = negate;
         precTrigger = newTrigger;
         precTriggerAndOr = operator;

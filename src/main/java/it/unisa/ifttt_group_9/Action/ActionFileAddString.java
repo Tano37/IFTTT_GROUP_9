@@ -7,7 +7,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ActionFileAddString extends ActionDecorator {
+public class ActionFileAddString extends ActionAbstractClass {
 
     private String filePath;
     private String stringToAdd;
