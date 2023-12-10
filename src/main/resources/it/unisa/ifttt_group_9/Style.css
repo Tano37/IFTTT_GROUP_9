@@ -39,7 +39,7 @@
     -fx-test-fill: #000000;
 }
 /*file chooser buttons*/
-#fileChooserBtn,#fileDimensionChooseFileBtn,#file,#destDirBtn, #directoryChoosingBtn, #withActionBtn, #AddMoreTriggerBtn, #addActionBtn, #modifeCounterBtn, #withTriggerBtn,#directoryChoosingControllExitStatusBtn{
+#withActionBtn, #AddMoreTriggerBtn, #addActionBtn, #modifeCounterBtn, #withTriggerBtn{
     -fx-background-color: #2196F3;
     -fx-test-fill: #000000;
 }
