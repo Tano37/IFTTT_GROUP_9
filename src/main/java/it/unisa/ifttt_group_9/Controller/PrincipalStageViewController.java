@@ -273,7 +273,7 @@ public class PrincipalStageViewController implements Initializable {
         withActionBtn.disableProperty().setValue(true);
         withTriggerBtn.disableProperty().setValue(true);
 
-        // Set of of
+        // Set Table Rule in The Principal Interface
         ruleClm.setCellValueFactory(new PropertyValueFactory<>("ruleName"));
         triggerStatusClm.setCellValueFactory(new PropertyValueFactory<>("ruleTriggerEvaluation"));
         rulesTable.setItems(rulesList);
