@@ -6,12 +6,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+
+
 public class ActionFileLaunchTest {
 
     @Test
     public void testExecuteAction() {
         // Replace these values with the actual path to your executable and its arguments
-        String executablePath =System.getProperty("user.dir") + "\"src\\main\\resources\\it\\unisa\\ifttt_group_9\\draw.exe\"";
+        String executablePath =System.getProperty("user.dir") + "/src/test/java/it/unisa/ifttt_group_9/ActionTest/draw.exe";
         String arguments = "";
         Boolean variableSubstitution = false;
 

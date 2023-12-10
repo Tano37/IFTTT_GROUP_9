@@ -1,7 +1,9 @@
 package it.unisa.ifttt_group_9.Action;
 
+
 import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
 import it.unisa.ifttt_group_9.Counters.CounterManager;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class ActionFileLaunch extends ActionAbstractClass {
 
         this.filePath = filePath;
         this.arguments = arguments;
-        this.variableSubstitution=variableSubstitution;
+        this.variableSubstitution=variabileSubstitution;
     }
 
     /*This method allows an external process to run. If the variable substitution option (this.variableSubstitution) is enabled, it replaces the variables in the arguments with values calculated by CounterManager.counterSubstitution.
