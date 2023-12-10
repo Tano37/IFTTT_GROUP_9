@@ -464,6 +464,7 @@ public class PrincipalStageViewController implements Initializable {
         fileActionChooser.autosize();
         // I set the buttons in such a way as to make the "Add String" functionality immediately available.
         FileNameExtensionFilter filterTxt = new FileNameExtensionFilter("File TXT (*.txt)", "txt");
+        fileChooserTxt.resetChoosableFileFilters();
         fileChooserTxt.setFileFilter(filterTxt);
         destDirBtn.disableProperty().set(true);
         fileActionLabel.textProperty().set("Insert String to Add");
@@ -475,6 +476,7 @@ public class PrincipalStageViewController implements Initializable {
                     destDirBtn.disableProperty().set(true);
                     FileNameExtensionFilter filter = new FileNameExtensionFilter("File TXT (*.txt)", "txt");
                     // Applicazione del filtro al selettore di file
+                    fileChooserTxt.resetChoosableFileFilters();
                     fileChooserTxt.setFileFilter(filter);
                     fileActionLabel.textProperty().set("Insert String to Add");
                     fileActionLabel.setVisible(true);
@@ -485,6 +487,7 @@ public class PrincipalStageViewController implements Initializable {
                     destDirBtn.disableProperty().set(true);
                     FileNameExtensionFilter filter = new FileNameExtensionFilter("File EXE (*.exe)", "exe");
                     // Applicazione del filtro al selettore di file
+                    fileChooserTxt.resetChoosableFileFilters();
                     fileChooserTxt.setFileFilter(filter);
                     fileActionLabel.textProperty().set("Insert the Arguments");
                     fileActionLabel.setVisible(true);
@@ -991,7 +994,6 @@ public class PrincipalStageViewController implements Initializable {
                         String testInFile = fileActionLaunchTxt.getText();
                         selectedAction = new ActionFileAddString(selectedFolder.getPath(), testInFile, selectedAction,
                                 varsubActionFileCb.isSelected());
-                        fileChooserTxt.setSelectedFile(null);
                         viewOfAction();
                         fileChooserTxt.setSelectedFile(null);
                         fileActionLaunchTxt.clear();
