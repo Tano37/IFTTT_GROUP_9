@@ -327,7 +327,7 @@ public class PrincipalStageViewController implements Initializable {
         //Controllore di regola
         Timeline timeline=new Timeline(new KeyFrame(
                 Duration.millis(1000), e->{//settaggio del tempo di ripetizione
-
+                    rulesTable.refresh();
             for(Rule r1 : rulesList){
                 if(r1.getStatus()){
                     toCheckList.add(r1);
@@ -360,6 +360,7 @@ public class PrincipalStageViewController implements Initializable {
                     RuleExecuteService myService = new RuleExecuteService(r);
                     myService.start();
                     r.setStatus(!r.isFireOnce());
+
                     try {
                         saveRuleList(rulesList);
                     } catch (IOException exc) {
