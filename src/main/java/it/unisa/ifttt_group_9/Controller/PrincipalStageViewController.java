@@ -897,7 +897,7 @@ public class PrincipalStageViewController implements Initializable {
         if(selectedTrigger==null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
-            alert.setContentText("Insert at least a Trigger");
+            alert.setContentText("Add at least one Trigger to your Rule");
             alert.showAndWait();
         }else {
             ancorPane2.visibleProperty().setValue(false);
@@ -1055,7 +1055,7 @@ public class PrincipalStageViewController implements Initializable {
             }else{
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
-                alert.setContentText("Add a rule");
+                alert.setContentText("Add at least one Action to your Rule");
                 alert.showAndWait();
             }
         }else {
