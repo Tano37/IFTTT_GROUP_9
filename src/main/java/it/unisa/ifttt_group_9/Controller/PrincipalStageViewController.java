@@ -328,7 +328,7 @@ public class PrincipalStageViewController implements Initializable {
                     toCheckList.add(r1);
                 }else{
                     if (r1.getDateUntilSleep() != null) {
-
+                        //implementation of sleeping period for a rule
                         LocalDateTime truncatedNow = LocalDateTime.now();
                         LocalDateTime truncatedOtherDateTime= r1.getDateUntilSleep();
                         int comparisonResult = truncatedNow.compareTo(truncatedOtherDateTime);
@@ -346,7 +346,7 @@ public class PrincipalStageViewController implements Initializable {
 
 
             }
-
+            //check on the activated rules
             for(Rule r : toCheckList){
 
                 if(r.getRuleTrigger().evaluate() && !r.getLaunched() && r.getStatus()){
