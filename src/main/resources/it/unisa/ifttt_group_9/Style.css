@@ -13,7 +13,7 @@
 /*choosers*/
 #hoursChoiceId, #minuteChoiceId, #dayChoiceId, #monthChoiceId,#hourChoiceIdSleep, #minuteChoiceIdSleep, #dayChoiceIdSleep, #monthChoiceIdSleep, #yearChoiceIdSleep, #fileActionChooser,#valueInsertByUserBtn,#chooseCounterBtn, #chooserActionCounterId{
     -fx-background-color: #4CAF50;
-    -fx-text-fill: #ffffff;
+    -fx-test-fill: #000000;
 }
 /*tables*/
 #rulesTable, #counterTable {
@@ -22,12 +22,12 @@
 /*continue buttons*/
 #addRuleBtn, #backSelectCounterBtn, #continueBtn, #backBtn1, #confirmBtn, #backBtn2,  #activateRuleBtn, #deactivateRuleBtn, #sleepRuleBtn, #confirmSleepBtn, #backSleepBtn, #file, #destDirBtn, #selectCounterForTriggerBtn,#selectCounterForTriggerBtn2,#addCounterBtn, #backCounterBtn{
     -fx-background-color: #4CAF50;
-    -fx-text-fill: #ffffff;
+    -fx-test-fill: #000000;
 }
 /*delete buttons*/
 #deleteBtn, #deleteCounterBtn{
     -fx-background-color: #ff0000;
-    -fx-text-fill: #ffffff;
+    -fx-test-fill: #000000;
 }
 /*labels*/
 #nameRuleText, #textMessageId, #fileNameLbl, #maxFileDimensionTxt, #fileActionLaunchTxt{
@@ -36,23 +36,23 @@
 /*tabs*/
 #textMessageTab, #audioTab, #timeTab, #dayTab, #monthTab, #fullDateTab, #existingFileTab, #fileDimensionTab, #fileTab,#counterTab,#controlExitStatusTab, #dataPickerId{
     -fx-background-color: #4CAF50;
-    -fx-text-fill: #ffffff;
+    -fx-test-fill: #000000;
 }
 /*file chooser buttons*/
 #fileChooserBtn,#fileDimensionChooseFileBtn,#file,#destDirBtn, #directoryChoosingBtn, #withActionBtn, #AddMoreTriggerBtn, #addActionBtn, #modifeCounterBtn, #withTriggerBtn,#directoryChoosingControllExitStatusBtn{
     -fx-background-color: #2196F3;
-    -fx-text-fill: #ffffff;
+    -fx-test-fill: #000000;
 }
 
 /* counter btn*/
 #counterBtn, #valueInsertByUserBtn, #addCounterBtn, #chooseCounterBtn{
     -fx-background-color: 	#FFD700;
-    -fx-text-fill: #ffffff;
+    -fx-test-fill: #000000;
 }
 
 #textMessageTab:selected, #audioTab:selected, #timeTab:selected, #dayTab:selected, #monthTab:selected, #fullDateTab:selected, #existingFileTab:selected, #fileDimensionTab:selected, #fileTab:selected,#counterTab:selected,#controlExitStatusTab:selected, #dataPickerId:selected{
     -fx-background-color: #2196F3;
-    -fx-text-fill: #ffffff;
+    -fx-test-fill: #000000;
 }
 
 
