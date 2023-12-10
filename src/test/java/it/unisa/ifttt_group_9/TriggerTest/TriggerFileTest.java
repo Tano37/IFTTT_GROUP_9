@@ -8,7 +8,7 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TriggerFileTest {
+public class TriggerFileTest {
 
     @Test
     public void testEvaluate(){

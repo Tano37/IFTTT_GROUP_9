@@ -5,7 +5,7 @@ import it.unisa.ifttt_group_9.Counters.CounterManager;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class CounterManagerTest {
+public class CounterManagerTest {
 
     private CounterManager counterManager= CounterManager.getInstance();
 
@@ -26,7 +26,7 @@ class CounterManagerTest {
     }
 
     @Test
-    void counterSubstitution() {
+    public void counterSubstitution() {
         Counter counter3 = new Counter("Counter3", 15);
         counterManager.addCounter(counter3);
 

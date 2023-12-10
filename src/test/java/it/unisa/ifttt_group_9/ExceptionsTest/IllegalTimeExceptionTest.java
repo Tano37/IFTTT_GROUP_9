@@ -4,10 +4,10 @@ import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class IllegalTimeExceptionTest {
+public class IllegalTimeExceptionTest {
 
     @Test
-    void testDefaultConstructor() {
+    public void testDefaultConstructor() {
         IllegalTimeException exception = assertThrows(IllegalTimeException.class, () -> {
             throw new IllegalTimeException();
         });
@@ -16,7 +16,7 @@ class IllegalTimeExceptionTest {
     }
 
     @Test
-    void testMessageConstructor() {
+    public void testMessageConstructor() {
         String errorMessage = "Illegal time!";
         IllegalTimeException exception = assertThrows(IllegalTimeException.class, () -> {
             throw new IllegalTimeException(errorMessage);

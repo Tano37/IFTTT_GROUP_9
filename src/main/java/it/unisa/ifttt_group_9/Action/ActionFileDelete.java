@@ -6,7 +6,7 @@ import java.io.File;
 
 public class ActionFileDelete extends ActionAbstractClass {
 
-    String filePath;
+    private String filePath;
 
     public ActionFileDelete(String filePath, Action action) {
         super(action);

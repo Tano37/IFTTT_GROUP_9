@@ -10,10 +10,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RuleManagerTest {
+public class RuleManagerTest {
 
     @Test
-    void testGetInstance() {
+    public void testGetInstance() {
         RuleManager instance1 = RuleManager.getInstance();
         RuleManager instance2 = RuleManager.getInstance();
 
@@ -21,7 +21,7 @@ class RuleManagerTest {
     }
 
     @Test
-    void addRule() {
+    public void addRule() {
         RuleManager ruleManager = RuleManager.getInstance();
         Trigger trigger=null;
         Action action=null;
@@ -33,7 +33,7 @@ class RuleManagerTest {
     }
 
     @Test
-    void getRuleList() {
+    public void getRuleList() {
         RuleManager ruleManager = RuleManager.getInstance();
         Trigger trigger=null;
         Action action=null;

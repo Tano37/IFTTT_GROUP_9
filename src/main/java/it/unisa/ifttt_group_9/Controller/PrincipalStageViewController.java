@@ -557,7 +557,7 @@ public class PrincipalStageViewController implements Initializable {
     }
 
 
-    void handleRuleSelection(Rule newValue) {
+    private void handleRuleSelection(Rule newValue) {
         if (newValue != null) {
             activateRuleBtn.setDisable(newValue.getStatus());
             deactivateRuleBtn.setDisable(!newValue.getStatus());
@@ -572,7 +572,7 @@ public class PrincipalStageViewController implements Initializable {
             withTriggerBtn.setDisable(true);
         }
     }
-    void handleCounterSelection( Counter newValue) {
+    private void handleCounterSelection( Counter newValue) {
         if (newValue!=null) {
             selectCounterForTriggerBtn2.setDisable(false);
             selectCounterForTriggerBtn.setDisable(false);
@@ -712,14 +712,14 @@ public class PrincipalStageViewController implements Initializable {
 
     }
 
-    void viewOfAction(){
+    private void viewOfAction(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Add Action List");
         alert.setHeaderText(null); // Senza intestazione
         alert.setContentText(selectedAction.toString());
         alert.showAndWait();
     }
-    void viewOfTrigger(){
+    private void viewOfTrigger(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Add Trigger List");
         alert.setHeaderText(null); // Senza intestazione
@@ -1107,7 +1107,7 @@ public class PrincipalStageViewController implements Initializable {
         fileChooserTxt.showOpenDialog(dialog);
     }
 
-    public void createRule(){
+    private void createRule(){
         Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger,
                 selectedAction,fireOnceCheckbox.isSelected());
         rulesList.add(createdRule);
@@ -1129,7 +1129,7 @@ public class PrincipalStageViewController implements Initializable {
         fieldReset();
     }
 
-    void saveRuleList(ObservableList<Rule> list) throws IOException {
+    private void saveRuleList(ObservableList<Rule> list) throws IOException {
         ObjectOutputStream binaryFileOut = new ObjectOutputStream(new FileOutputStream("RULES.dat"));
         for (Rule rule : list) {
             binaryFileOut.writeObject(rule);
@@ -1137,7 +1137,7 @@ public class PrincipalStageViewController implements Initializable {
         binaryFileOut.close();
     }
 
-    void loadRuleList(ObservableList<Rule> list) throws IOException {
+    private void loadRuleList(ObservableList<Rule> list) throws IOException {
         File file = new File("RULES.dat");
         if(file.exists()){
             ObjectInputStream binaryFileIn = new ObjectInputStream(new FileInputStream("RULES.dat"));
@@ -1161,11 +1161,11 @@ public class PrincipalStageViewController implements Initializable {
         fileChooserTriggerFileDimension.showOpenDialog(dialog);
     }
 
-    public boolean textIsNotValid(String text){
+    private boolean textIsNotValid(String text){
         return text == null || text.isEmpty();
     }
 
-    public void fieldReset(){
+    private void fieldReset(){
         //Triggers Fields Set
         hoursChoiceId.setValue(LocalTime.now().getHour());
         minuteChoiceId.setValue(LocalTime.now().getMinute());
@@ -1210,7 +1210,7 @@ public class PrincipalStageViewController implements Initializable {
 
     }
 
-    public static class DatePickerDateCell extends javafx.scene.control.DateCell {
+    private static class DatePickerDateCell extends javafx.scene.control.DateCell {
         @Override
         public void updateItem(LocalDate item, boolean empty) {
             super.updateItem(item, empty);

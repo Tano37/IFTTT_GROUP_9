@@ -4,10 +4,10 @@ import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class PanelPopUPManagerTest {
+public class PanelPopUPManagerTest {
 
     @Test
-    void testShowMessage() {
+    public void testShowMessage() {
         // Dato che il metodo showMessage coinvolge interazioni con l'interfaccia grafica (GUI), potresti voler testarlo manualmente o ispezionare visivamente l'output.
 
         // Creating a PanelPopUPManager istance

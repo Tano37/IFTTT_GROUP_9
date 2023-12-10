@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TriggerFullDateTest {
+public class TriggerFullDateTest {
 
     @Test
-    void testTriggerFullDateWithValidDate() {
+    public void testTriggerFullDateWithValidDate() {
         assertDoesNotThrow(() -> {
             Trigger trigger = new TriggerFullDate(LocalDateTime.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear());
 
@@ -21,7 +21,7 @@ class TriggerFullDateTest {
         });
     }
     @Test
-    void testTriggerFullDateWithNotValidDate() {
+    public void testTriggerFullDateWithNotValidDate() {
         assertDoesNotThrow(() -> {
             Trigger trigger = new TriggerFullDate(LocalDateTime.now().getDayOfMonth()-1, LocalDate.now().getMonthValue()-1, LocalDate.now().getYear()-1);
 
@@ -30,25 +30,25 @@ class TriggerFullDateTest {
     }
 
     @Test
-    void testTriggerFullDateWithInvalidDate() {
+    public void testTriggerFullDateWithInvalidDate() {
         assertThrows(IllegalTimeException.class, () -> {
             new TriggerFullDate(32, 12, 2023);
         });
     }
 
     @Test
-    void testTriggerFullDateWithNegate() {
+    public void testTriggerFullDateWithNegate() {
         Trigger trigger = new TriggerFullDate(LocalDateTime.now().getDayOfMonth(), LocalDate.now().getMonthValue(), LocalDate.now().getYear(),true);
         assertFalse(trigger.evaluate());
     }
     @Test
-    void testTriggerFullDateWithNegate2() {
+    public void testTriggerFullDateWithNegate2() {
         Trigger trigger = new TriggerFullDate(3, 12, 2023, true);
         assertTrue(trigger.evaluate());
     }
 
     @Test
-    void testTriggerFullDateWithNextTriggerAndOr() {
+    public void testTriggerFullDateWithNextTriggerAndOr() {
         Trigger trigger = new TriggerFullDate(3, 12, 2023, false, null, true);
         // Add your assertion based on your specific logic
         // assertTrue(trigger.evaluate());

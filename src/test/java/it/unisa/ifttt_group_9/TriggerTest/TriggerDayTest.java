@@ -10,17 +10,17 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TriggerDayTest {
+public class TriggerDayTest {
 
     @Test
-    void testTriggerDayWithValidDay() {
+    public void testTriggerDayWithValidDay() {
         assertDoesNotThrow(() -> {
             Trigger trigger = new TriggerDay(LocalDate.now().getDayOfWeek().getValue());
             assertTrue(trigger.evaluate());
         });
     }
     @Test
-    void testTriggerDayWithNotValidDay() {
+    public void testTriggerDayWithNotValidDay() {
         assertDoesNotThrow(() -> {
             Trigger trigger = new TriggerDay(LocalDate.now().getDayOfWeek().getValue()-1);
             assertFalse(trigger.evaluate());
@@ -29,20 +29,20 @@ class TriggerDayTest {
 
 
     @Test
-    void testTriggerDayWithInvalidDay() {
+    public void testTriggerDayWithInvalidDay() {
         assertThrows(IllegalTimeException.class, () -> {
             new TriggerDay(8);
         });
     }
 
     @Test
-    void testTriggerDayWithNegate() {
+    public void testTriggerDayWithNegate() {
         Trigger trigger = new TriggerDay(LocalDate.now().getDayOfWeek().getValue(), true);
         assertFalse(trigger.evaluate());
     }
 
     @Test
-    void testTriggerDayWithNextTriggerAndOr() {
+    public void testTriggerDayWithNextTriggerAndOr() {
         Trigger trigger = new TriggerDay(4, false, null, true);
         // Add your assertion based on your specific logic
         // assertTrue(trigger.evaluate());

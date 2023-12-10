@@ -10,7 +10,7 @@ import java.io.*;
 
 
 public class ControllerCounter implements Serializable {
-    ObservableList<Counter> counterList;
+    private ObservableList<Counter> counterList;
 
     public ControllerCounter(ObservableList<Counter> counterList) {
         this.counterList = counterList;

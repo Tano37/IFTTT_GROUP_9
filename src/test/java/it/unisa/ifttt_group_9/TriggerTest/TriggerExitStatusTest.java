@@ -10,14 +10,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class TriggerExitStatusTest {
+public class TriggerExitStatusTest {
 
     /* This exevutable exactly accepts 2 arguments which will be printed on a file, if it receives a diverse number
     * of arguments the execution will fail */
     private String executablePath=System.getProperty("user.dir") + "\\src\\test\\java\\it\\unisa\\ifttt_group_9\\TriggerTest\\HelloWorld.exe";
 
     @Test
-    void testEvaluate(){
+    public void testEvaluate(){
 
             TriggerExitStatus trigger1 = new TriggerExitStatus(executablePath, "firstArgument, secondArgument", 0);
             TriggerExitStatus trigger2 = new TriggerExitStatus(executablePath, "firstArgument, secondArgument, thirdArgument", 1);

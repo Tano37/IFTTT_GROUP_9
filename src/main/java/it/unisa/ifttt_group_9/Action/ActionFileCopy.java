@@ -11,8 +11,8 @@ import java.nio.file.StandardCopyOption;
 
 public class ActionFileCopy extends ActionAbstractClass {
 
-    String filePath;
-    String destinationDirPath;
+    private String filePath;
+    private String destinationDirPath;
 
     public ActionFileCopy(String filePath, String destinationDirPath, Action action) {
         super(action);
