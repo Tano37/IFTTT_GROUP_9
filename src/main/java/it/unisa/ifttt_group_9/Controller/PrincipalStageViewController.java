@@ -22,7 +22,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -261,6 +265,7 @@ public class PrincipalStageViewController implements Initializable {
         initializeChoiceBox();
         initializecounterTable();
         initializeCounterGUI();
+        initializeBtnColors();
 
 
         rulesList= FXCollections.observableArrayList();
@@ -398,6 +403,15 @@ public class PrincipalStageViewController implements Initializable {
                 "Comparision Value: ", valueInsertByUser.textProperty()));
         valueInsertByUser.textProperty().setValue("0");
 
+    }
+
+    private void initializeBtnColors(){
+        fileChooserBtn.setBackground(Background.fill(Color.web("2196F3")));
+        file.setBackground(Background.fill(Color.web("2196F3")));
+        destDirBtn.setBackground(Background.fill(Color.web("2196F3")));
+        directoryChoosingBtn.setBackground(Background.fill(Color.web("2196F3")));
+        fileDimensionChooseFileBtn.setBackground(Background.fill(Color.web("2196F3")));
+        directoryChoosingControllExitStatusBtn.setBackground(Background.fill(Color.web("2196F3")));
     }
 
     private void initializeChoiceBox() {
@@ -735,6 +749,7 @@ public class PrincipalStageViewController implements Initializable {
 
     @FXML
     void addSequenceTriggerAction(ActionEvent event){
+        initializeBtnColors();
         String tabId = tabPane1.getSelectionModel().getSelectedItem().getId();
         switch (tabId) {
             case "timeTab" -> {
@@ -931,10 +946,6 @@ public class PrincipalStageViewController implements Initializable {
         JDialog dialog = new JDialog(frame, "Panel", true);
         directoryChooserTriggerFileExists
                 .setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("File WAV (*.wav)", "wav");
-        // Applicazione del filtro al selettore di file
-        directoryChooserTriggerFileExists
-                .setFileFilter(filter);
         // Mostra il selettore di cartelle
         result = directoryChooserTriggerFileExists
                 .showOpenDialog(dialog);
@@ -944,6 +955,8 @@ public class PrincipalStageViewController implements Initializable {
             // Obtain selected Folder
             File selectedFolder = directoryChooserTriggerFileExists
                     .getSelectedFile();
+
+            directoryChoosingBtn.setBackground(Background.fill(Color.web("4CAF50")));
         }
     }
 
@@ -957,7 +970,7 @@ public class PrincipalStageViewController implements Initializable {
     
     @FXML
     void concateneteAction(ActionEvent event){
-
+        initializeBtnColors();
         String tabId = tabPane2.getSelectionModel().getSelectedItem().getId();
         switch (tabId) {
             case "textMessageTab" -> {
@@ -1081,7 +1094,6 @@ public class PrincipalStageViewController implements Initializable {
         JFrame frame = new JFrame("Panel");
         frame.setAlwaysOnTop(true);
         JDialog dialog = new JDialog(frame, "Panel", true);
-        // Impostazione del selettore di cartelle (invece di file)
         fileChooserWav.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("File WAV (*.wav)", "wav");
         // Applicazione del filtro al selettore di file
@@ -1090,6 +1102,8 @@ public class PrincipalStageViewController implements Initializable {
         result = fileChooserWav.showOpenDialog(dialog);
         if (result == JFileChooser.APPROVE_OPTION){
             File selectedFolder = fileChooserWav.getSelectedFile();
+            fileChooserBtn.setBackground(Background.fill(Color.web("4CAF50")));
+            System.out.println("Ciao");
         }
 
     }
@@ -1100,7 +1114,10 @@ public class PrincipalStageViewController implements Initializable {
         frame.setAlwaysOnTop(true);
         JDialog dialog = new JDialog(frame, "Panel", true);
         directoryChooserActionFile.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        directoryChooserActionFile.showOpenDialog(dialog);
+        int confirm = directoryChooserActionFile.showOpenDialog(dialog);
+        if(confirm == JFileChooser.APPROVE_OPTION){
+            destDirBtn.setBackground(Background.fill(Color.web("4CAF50")));
+        }
     }
 
     @FXML
@@ -1109,7 +1126,10 @@ public class PrincipalStageViewController implements Initializable {
         frame.setAlwaysOnTop(true);
         JDialog dialog = new JDialog(frame, "Panel", true);
         fileChooserTxt.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooserTxt.showOpenDialog(dialog);
+        int confirm =fileChooserTxt.showOpenDialog(dialog);
+        if(confirm == JFileChooser.APPROVE_OPTION){
+            file.setBackground(Background.fill(Color.web("4CAF50")));
+        }
     }
 
     private void createRule(){
@@ -1163,7 +1183,11 @@ public class PrincipalStageViewController implements Initializable {
         frame.setAlwaysOnTop(true);
         JDialog dialog = new JDialog(frame, "Panel", true);
         fileChooserTriggerFileDimension.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooserTriggerFileDimension.showOpenDialog(dialog);
+        int confirm =fileChooserTriggerFileDimension.showOpenDialog(dialog);
+        if(confirm == JFileChooser.APPROVE_OPTION){
+            fileDimensionChooseFileBtn.setBackground(Background.fill(Color.web("4CAF50")));
+        }
+
     }
 
     private boolean textIsNotValid(String text){
@@ -1236,6 +1260,7 @@ public class PrincipalStageViewController implements Initializable {
         if (result == JFileChooser.APPROVE_OPTION) {
             // Obtain selected Folder
             File selectedFolder = fileChooserExitStatus.getSelectedFile();
+            directoryChoosingControllExitStatusBtn.setBackground(Background.fill(Color.web("4CAF50")));
         }
     }
     @FXML
