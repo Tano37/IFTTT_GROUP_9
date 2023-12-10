@@ -397,7 +397,7 @@ public class PrincipalStageViewController implements Initializable {
         }
         counterConfrontationLbl3.setVisible(false);
         counterConfrontationLbl1.textProperty().bind(Bindings.concat(
-                "Valore attuale: ", valueInsertByUser.textProperty()));
+                "Comparision Value: ", valueInsertByUser.textProperty()));
         valueInsertByUser.textProperty().setValue("0");
 
     }
