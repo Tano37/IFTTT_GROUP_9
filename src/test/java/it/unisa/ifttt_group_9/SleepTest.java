@@ -44,7 +44,6 @@ public class SleepTest {
     private void sleepRuleLogicSimulation(Rule rule) {
         LocalDateTime truncatedNow = LocalDateTime.now();
         LocalDateTime truncatedOtherDateTime = rule.getDateUntilSleep();
-        //System.out.println(truncatedNow + "/" + truncatedOtherDateTime);
 
         while (truncatedNow.isBefore(truncatedOtherDateTime)) {
             if (rule.getDateUntilSleep() != null) {
@@ -54,7 +53,6 @@ public class SleepTest {
                 int comparisonResult = truncatedNow.compareTo(truncatedOtherDateTime);
 
                 if (!rule.getStatus() && comparisonResult >= 0) {
-                    System.out.println("ciaooo2");
                     rule.setStatus(true);
                     rule.setDateUntilSleep(null);
                     rule.setLaunched(false);

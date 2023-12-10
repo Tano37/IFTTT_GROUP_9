@@ -45,13 +45,6 @@ public class ActionAudio extends ActionAbstractClass {
         // Show pop-up dialog
         int scelta = new PanelPopUPManager("AudioAction", name).showMessage();
 
-        // Check whether the user has pressed "OK"
-        if (scelta == JOptionPane.OK_OPTION) {
-            System.out.println("You pressed OK. Closing the alert...");
-        } else {
-            System.out.println("Alert closed without pressing OK.");
-        }
-
         // Set the status variable to end playback
         continuePlaying = false;
     }

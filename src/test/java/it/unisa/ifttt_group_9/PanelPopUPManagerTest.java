@@ -10,16 +10,14 @@ class PanelPopUPManagerTest {
     void testShowMessage() {
         // Dato che il metodo showMessage coinvolge interazioni con l'interfaccia grafica (GUI), potresti voler testarlo manualmente o ispezionare visivamente l'output.
 
-        // Crea un'istanza di PanelPopUPManager
+        // Creating a PanelPopUPManager istance
         PanelPopUPManager panelPopUPManager = new PanelPopUPManager("Titolo di Test", "Messaggio di Test");
 
-        // Invoca il metodo showMessage
+        // Calling showMessage method
         int result = panelPopUPManager.showMessage();
 
-        // In questo esempio, puoi stampare il risultato per la verifica manuale
-        System.out.println("Risultato del dialogo: " + result);
+        // Asserting that the pop-up has been showed and closed in one of the two allowed ways
+        assertTrue((0 == result) || (-1 == result));
 
-        // Potresti voler ispezionare visivamente il dialogo visualizzato e verificare se soddisfa le tue aspettative.
-        // Per il testing automatizzato delle interazioni GUI, potresti dover utilizzare strumenti o framework aggiuntivi.
     }
 }

@@ -334,8 +334,6 @@ public class PrincipalStageViewController implements Initializable {
 
                     LocalDateTime truncatedNow = LocalDateTime.now();
                     LocalDateTime truncatedOtherDateTime= r.getDateUntilSleep();
-                    System.out.println("now: "+ truncatedNow+"/other: "+ truncatedOtherDateTime+
-                            "/status: "+ r.getStatus()+ "/name: "+ r.getRuleName());
                     int comparisonResult = truncatedNow.compareTo(truncatedOtherDateTime);
 
 
@@ -345,7 +343,6 @@ public class PrincipalStageViewController implements Initializable {
                         rulesTable.refresh();
                         r.setDateUntilSleep(null);
                         r.setLaunched(false);
-                        //System.out.println(r.getRuleTrigger().evaluate()+"/"+!r.getLaunched()+"/"+r.getStatus());
                     }
                 }
 
@@ -559,7 +556,6 @@ public class PrincipalStageViewController implements Initializable {
 
     void handleRuleSelection(Rule newValue) {
         if (newValue != null) {
-            System.out.println("Elemento selezionato: " + newValue.getRuleName());
             activateRuleBtn.setDisable(newValue.getStatus());
             deactivateRuleBtn.setDisable(!newValue.getStatus());
             sleepRuleBtn.setDisable(!newValue.getStatus());
@@ -607,7 +603,6 @@ public class PrincipalStageViewController implements Initializable {
         Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
 
         if (!selectedItem.getStatus()) {
-            System.out.println("Regola: "+ selectedItem.getRuleName()+ " attivata");
             selectedItem.setStatus(true);
             rulesTable.refresh();
             activateRuleBtn.setDisable(true);
@@ -628,7 +623,6 @@ public class PrincipalStageViewController implements Initializable {
         Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
 
         if (selectedItem.getStatus()) {
-            System.out.println("Regola: "+ selectedItem.getRuleName()+ " disattivata");
             selectedItem.setStatus(false);
             rulesTable.refresh();
             activateRuleBtn.setDisable(false);
@@ -765,7 +759,6 @@ public class PrincipalStageViewController implements Initializable {
                 viewOfTrigger();
             }
             case "monthTab" -> {
-                //System.out.println("Controller: "+hoursChoiceId.getValue()+"//"+ minuteChoiceId.getValue()+"//"+monthChoiceId.getValue());
                 selectedTrigger = new TriggerMonth(
                         monthChoiceId.getValue(), negateTriggerCheckBox.isSelected(),
                         selectedTrigger, logicalOperationCb.isSelected());
@@ -940,14 +933,9 @@ public class PrincipalStageViewController implements Initializable {
 
         // Verifica se l'utente ha selezionato una cartella
         if (result == JFileChooser.APPROVE_OPTION) {
-            // Ottieni la cartella selezionata
+            // Obtain selected Folder
             File selectedFolder = directoryChooserTriggerFileExists
                     .getSelectedFile();
-            // Stampa il percorso della cartella
-            System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
-            //selectedAction = new ActionAudio(selectedFolder.getPath());
-        } else {
-            System.out.println("Nessuna cartella selezionata.");
         }
     }
 
@@ -1043,7 +1031,6 @@ public class PrincipalStageViewController implements Initializable {
                     }
                 } else if (fileActionChooser.getValue().equals("Launch a Program")) {
                     if (fileChooserTxt.getSelectedFile() == null) {
-                        System.out.println(fileChooserTxt.getSelectedFile().getPath());
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error");
                         alert.setContentText("Select the file!");
@@ -1094,13 +1081,10 @@ public class PrincipalStageViewController implements Initializable {
         fileChooserWav.setFileFilter(filter);
         // Mostra il selettore di cartelle
         result = fileChooserWav.showOpenDialog(dialog);
-        if (result == JFileChooser.APPROVE_OPTION) {
+        if (result == JFileChooser.APPROVE_OPTION){
             File selectedFolder = fileChooserWav.getSelectedFile();
-            System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
-            //selectedAction = new ActionAudio(selectedFolder.getPath());
-        } else {
-            System.out.println("Nessuna cartella selezionata.");
         }
+
     }
 
     @FXML
@@ -1124,7 +1108,6 @@ public class PrincipalStageViewController implements Initializable {
     public void createRule(){
         Rule createdRule = new Rule(nameRuleText.getText(), selectedTrigger,
                 selectedAction,fireOnceCheckbox.isSelected());
-        System.out.println(createdRule);
         rulesList.add(createdRule);
         try{
             saveRuleList(rulesList);
@@ -1133,15 +1116,14 @@ public class PrincipalStageViewController implements Initializable {
         }
         selectedTrigger = null;
         selectedAction = null;
-        //System.out.println(RuleManager.getInstance().toString());
+
         ancorPane3.visibleProperty().setValue(false);
         ancorPane1.visibleProperty().setValue(true);
         rulesTable.getSelectionModel().clearSelection();
-        System.out.println(selectedCounter);
+
         if(selectedCounter!=null)
             createdRule.setCounter(selectedCounter);
         selectedCounter=null;
-        System.out.println(createdRule.getCounter());
         fieldReset();
     }
 
@@ -1245,10 +1227,8 @@ public class PrincipalStageViewController implements Initializable {
         fileChooserExitStatus.setFileFilter(filter);
         result = fileChooserExitStatus.showOpenDialog(dialog);
         if (result == JFileChooser.APPROVE_OPTION) {
+            // Obtain selected Folder
             File selectedFolder = fileChooserExitStatus.getSelectedFile();
-            System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
-        } else {
-            System.out.println("Nessuna cartella selezionata.");
         }
     }
     @FXML
@@ -1285,7 +1265,6 @@ public class PrincipalStageViewController implements Initializable {
     void deleteCounterAction(ActionEvent event){
         //ControllerCounter controller= new ControllerCounter(counterList);
         ObservableList<Counter> selectedItems = counterTable.getSelectionModel().getSelectedItems();
-        System.out.println(selectedItems.toString());
         controllerCounter.delete(selectedItems);
     }
     @FXML

@@ -43,7 +43,6 @@ public class CounterManager {
 
         String elaboratedString = "";
         for (String item : items) {
-            //System.out.println("item: " + item);
             if(item.startsWith("$")){
                 String variableName = item.substring(1);
                 Counter counterToSubstitute= CounterManager.getInstance().getCounterByName(variableName);
@@ -56,7 +55,6 @@ public class CounterManager {
                 elaboratedString=elaboratedString.concat(item + " ");
             }
         }
-        System.out.println("eccola " + elaboratedString);
         return elaboratedString.trim();
     }
 

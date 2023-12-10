@@ -32,6 +32,7 @@ class TriggerExitStatusTest {
                 throw new RuntimeException(e);
             }
 
+            //Asserting that various kind of predisposed executions are matching the expected values
             assertEquals(trigger1.getExitExpected(), trigger1.getExitValue());
 
             assertEquals(trigger2.getExitExpected(), trigger2.getExitValue());
