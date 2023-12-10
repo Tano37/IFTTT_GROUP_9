@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TriggerFileDimensionTest {
     //Dim = 10866344 Byte
-    String filePathTest = System.getProperty("user.dir") + "\\src\\test\\java\\it\\unisa\\ifttt_group_9\\";
+    private String filePathTest = System.getProperty("user.dir") + "\\src\\test\\java\\it\\unisa\\ifttt_group_9\\";
 
 
     @Test

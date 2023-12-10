@@ -4,10 +4,10 @@ import it.unisa.ifttt_group_9.exceptions.IllegalMessageException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class IllegalMessageExceptionTest {
+public class IllegalMessageExceptionTest {
 
     @Test
-    void testDefaultConstructor() {
+    public void testDefaultConstructor() {
         IllegalMessageException exception = assertThrows(IllegalMessageException.class, () -> {
             throw new IllegalMessageException();
         });
@@ -16,7 +16,7 @@ class IllegalMessageExceptionTest {
     }
 
     @Test
-    void testMessageConstructor() {
+    public void testMessageConstructor() {
         String errorMessage = "Illegal message!";
         IllegalMessageException exception = assertThrows(IllegalMessageException.class, () -> {
             throw new IllegalMessageException(errorMessage);

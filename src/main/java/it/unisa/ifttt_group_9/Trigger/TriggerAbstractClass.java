@@ -5,8 +5,8 @@ package it.unisa.ifttt_group_9.Trigger;
 
 public class TriggerAbstractClass implements Trigger{
 
-     boolean negate = false;
-     boolean precTriggerAndOr = Trigger.AND;
+     public boolean negate = false;
+     public boolean precTriggerAndOr = Trigger.AND;
 
      protected Trigger precTrigger = null;
 

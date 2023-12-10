@@ -9,11 +9,11 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TriggerMonthTest {
+public class TriggerMonthTest {
 
     //Test with the same date
     @Test
-    void testTriggerMonthWithCurrentDay() {
+    public void testTriggerMonthWithCurrentDay() {
         assertDoesNotThrow(() -> {
             Trigger trigger = new TriggerMonth(LocalDate.now().getDayOfMonth());
 
@@ -21,7 +21,7 @@ class TriggerMonthTest {
         });
     }
     @Test
-    void testTriggerMonthWithNotValidDay() {
+    public void testTriggerMonthWithNotValidDay() {
         assertDoesNotThrow(() -> {
             Trigger trigger = new TriggerMonth(LocalDate.now().getDayOfMonth()-1);
 
@@ -30,19 +30,19 @@ class TriggerMonthTest {
     }
 
     @Test
-    void testTriggerMonthWithInvalidDay() {
+    public void testTriggerMonthWithInvalidDay() {
         assertThrows(IllegalTimeException.class, () -> {
             new TriggerMonth(40);
         });
     }
 
     @Test
-    void testTriggerMonthWithNegateRightDay() {
+    public void testTriggerMonthWithNegateRightDay() {
         Trigger trigger = new TriggerMonth(LocalDate.now().getDayOfMonth(), true);
         assertFalse(trigger.evaluate());
     }
     @Test
-    void testTriggerMonthWithNegateWrongDay() {
+    public void testTriggerMonthWithNegateWrongDay() {
         Trigger trigger = new TriggerMonth(LocalDate.now().getDayOfMonth()-1, true);
         assertTrue(trigger.evaluate());
     }
@@ -50,7 +50,7 @@ class TriggerMonthTest {
 
 
     @Test
-    void testTriggerMonthWithNextTriggerAndOr() {
+    public void testTriggerMonthWithNextTriggerAndOr() {
         Trigger trigger = new TriggerMonth(20, false, null, true);
 
     }

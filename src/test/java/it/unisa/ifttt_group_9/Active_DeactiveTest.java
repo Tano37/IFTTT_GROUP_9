@@ -15,7 +15,7 @@ public class Active_DeactiveTest {
     private ObservableList<Rule> rulesList;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         // Inizializza il controller e la lista di regole per ogni test
         //controller = new YourController();  // Sostituisci con il nome effettivo del tuo controller
         rulesList = FXCollections.observableArrayList();
@@ -24,7 +24,7 @@ public class Active_DeactiveTest {
     }
 
     @Test
-    void testDeactiveRule(){
+    public void testDeactiveRule(){
 
         //Set the element to deactive becouse for the logic Status=true a rule is deactive
         rulesList.get(0).setStatus(true);
@@ -33,7 +33,7 @@ public class Active_DeactiveTest {
 
     }
     @Test
-    void testActiveeRule(){
+    public void testActiveeRule(){
 
         //Set the element to active becouse for the logic Status=false a rule is active
         rulesList.get(0).setStatus(false);

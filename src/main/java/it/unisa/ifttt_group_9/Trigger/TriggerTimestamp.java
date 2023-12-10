@@ -6,8 +6,8 @@ import java.time.LocalTime;
 
 //Concrete Product (AbstractFactory)
 public class TriggerTimestamp extends TriggerAbstractClass {
-    int hour;
-    int minute;
+    private int hour;
+    private int minute;
 
     public TriggerTimestamp (int hour, int minute, boolean negate, Trigger trigger, boolean nextTriggerAndOr) {
         super(negate, trigger, nextTriggerAndOr);

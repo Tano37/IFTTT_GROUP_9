@@ -4,10 +4,10 @@ import it.unisa.ifttt_group_9.exceptions.FileDoNotExistsException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class FileDoNotExistsExceptionTest {
+public class FileDoNotExistsExceptionTest {
 
     @Test
-    void testDefaultConstructor() {
+    public void testDefaultConstructor() {
         FileDoNotExistsException exception = assertThrows(FileDoNotExistsException.class, () -> {
             throw new FileDoNotExistsException();
         });
@@ -16,7 +16,7 @@ class FileDoNotExistsExceptionTest {
     }
 
     @Test
-    void testMessageConstructor() {
+    public void testMessageConstructor() {
         String errorMessage = "File does not exist!";
         FileDoNotExistsException exception = assertThrows(FileDoNotExistsException.class, () -> {
             throw new FileDoNotExistsException(errorMessage);

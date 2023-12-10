@@ -8,7 +8,7 @@ import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TriggerTimestampTest {
+public class TriggerTimestampTest {
 
     @Test
     public void testEvaluate(){

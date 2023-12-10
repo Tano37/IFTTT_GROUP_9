@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-class ActionFileAddStringTest {
+public class ActionFileAddStringTest {
 
     @Test
-    void executeAction_SuccessfullyAddsStringToFile() {
+    public void executeAction_SuccessfullyAddsStringToFile() {
         // Arrange
         String testFilePath = "testFile.txt";
         String testStringToAdd = "TestString";

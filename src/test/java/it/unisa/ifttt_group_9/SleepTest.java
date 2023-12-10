@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SleepTest {
 
     @Test
-    void testSleepRuleLogic() {
+    public void testSleepRuleLogic() {
         // Simula la logica della regola di sonno
 
 

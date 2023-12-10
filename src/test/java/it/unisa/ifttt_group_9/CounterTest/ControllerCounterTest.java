@@ -8,20 +8,20 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ControllerCounterTest {
+public class ControllerCounterTest {
 
     private ControllerCounter controllerCounter;
     private ObservableList<Counter> counterList;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         // Inizializza la ControllerCounter con una lista vuota
         counterList = FXCollections.observableArrayList();
         controllerCounter = new ControllerCounter(counterList);
     }
 
     @Test
-    void testCreation() throws IOException {
+    public void testCreation() throws IOException {
         // Simula l'input dell'utente
         creation("TestCounter", "42");
 
@@ -32,7 +32,7 @@ class ControllerCounterTest {
     }
 
     @Test
-    void testDelete() throws IOException {
+    public void testDelete() throws IOException {
         // Aggiungi alcuni contatori alla lista
         Counter counter1 = new Counter("Counter1", 10);
         Counter counter2 = new Counter("Counter2", 20);
@@ -49,7 +49,7 @@ class ControllerCounterTest {
     }
 
     @Test
-    void testSaveCounterList() throws IOException {
+    public void testSaveCounterList() throws IOException {
         // Aggiungi alcuni contatori alla lista
         Counter counter1 = new Counter("Counter1", 10);
         Counter counter2 = new Counter("Counter2", 20);
@@ -67,7 +67,7 @@ class ControllerCounterTest {
     }
 
     @Test
-    void testLoadCounterList() throws IOException {
+    public void testLoadCounterList() throws IOException {
         // Aggiungi alcuni contatori alla lista
         Counter counter1 = new Counter("Counter1", 10);
         Counter counter2 = new Counter("Counter2", 20);

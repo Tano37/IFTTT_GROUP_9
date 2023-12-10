@@ -4,10 +4,10 @@ import it.unisa.ifttt_group_9.Action.Action;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ActionTest {
+public class ActionTest {
 
     @Test
-    void testExecuteAction() {
+    public void testExecuteAction() {
         // Implementazione di Action per il test
         class SampleAction implements Action {
             private boolean executed = false;
