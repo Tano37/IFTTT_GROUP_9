@@ -14,7 +14,7 @@ Below you can check our documentation, in particular:
 
 * [Design of the architecture](https://drive.google.com/file/d/1Lo2FXetbk-fuFiFUWFnrc5OtbTS0jA0K/view?usp=drive_link)
   
-* [Product Backlog](https://docs.google.com/spreadsheets/d/1E_a1pODM5wcPadScc6v-flNTYtQuco1rU04QWlM8olc/edit?usp=sharing) 
+* [Product Backlog](https://docs.google.com/spreadsheets/d/1OooHnB1RIzLOgfuol30DggMH1Aco4Rub/edit#gid=255441560) 
 
 **-First Sprint Artifacts-**
 
