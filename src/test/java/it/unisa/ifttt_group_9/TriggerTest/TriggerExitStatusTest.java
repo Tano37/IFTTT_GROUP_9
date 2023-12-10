@@ -12,8 +12,8 @@ import java.util.List;
 
 class TriggerExitStatusTest {
 
-    /*This exevutable exactly accepts 2 arguments which will be printed on a file, if it receives a diverse number
-    * of arguments the execution will fail*/
+    /* This exevutable exactly accepts 2 arguments which will be printed on a file, if it receives a diverse number
+    * of arguments the execution will fail */
     private String executablePath=System.getProperty("user.dir") + "\\src\\test\\java\\it\\unisa\\ifttt_group_9\\TriggerTest\\HelloWorld.exe";
 
     @Test
