@@ -26,6 +26,9 @@ public class ActionText extends ActionAbstractClass {
         this.variableSubstitution=variableSubstitution;
     }
 
+    public Boolean getVariableSubstitution() {
+        return variableSubstitution;
+    }
 
     @Override
     public String toString() {
