@@ -46,9 +46,8 @@
 
 /* counter btn*/
 #counterBtn, #valueInsertByUserBtn, #addCounterBtn, #chooseCounterBtn{
-    -fx-background-color: 	#FFFF33;
-    -fx-text-fill: #000000;
-
+    -fx-background-color: 	#FFD700;
+    -fx-text-fill: #ffffff;
 }
 
 
