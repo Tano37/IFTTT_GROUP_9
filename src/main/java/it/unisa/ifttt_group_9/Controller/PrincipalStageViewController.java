@@ -1237,11 +1237,13 @@ public class PrincipalStageViewController implements Initializable {
     @FXML
     void directoryChoosingExitStatusBtnAction(ActionEvent event) {
 
-
+        JFrame frame = new JFrame("Panel");
+        frame.setAlwaysOnTop(true);
+        JDialog dialog = new JDialog(frame, "Panel", true);
         fileChooserExitStatus.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("File EXE (*.exe)", "exe");
         fileChooserExitStatus.setFileFilter(filter);
-        result = fileChooserExitStatus.showOpenDialog(null);
+        result = fileChooserExitStatus.showOpenDialog(dialog);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFolder = fileChooserExitStatus.getSelectedFile();
             System.out.println("Cartella selezionata: " + selectedFolder.getAbsolutePath());
