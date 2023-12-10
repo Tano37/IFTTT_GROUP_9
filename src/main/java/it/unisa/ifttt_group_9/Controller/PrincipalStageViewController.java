@@ -1257,6 +1257,11 @@ public class PrincipalStageViewController implements Initializable {
         ancorPaneCounterTable.visibleProperty().setValue(false);
         ancorPane2.visibleProperty().setValue(true);
         counterTable.getSelectionModel().clearSelection();
+        addCounterBtn.setVisible(true);
+        deleteCounterBtn.setVisible(true);
+        backCounterBtn.setVisible(true);
+        selectCounterForTriggerBtn.setVisible(false);
+        selectCounterForTriggerBtn2.setVisible(false);
 
     }
 
@@ -1326,9 +1331,9 @@ public class PrincipalStageViewController implements Initializable {
         addCounterBtn.setVisible(false);
         deleteCounterBtn.setVisible(false);
         backCounterBtn.setVisible(false);
+        selectCounterForTriggerBtn.setVisible(false);
         selectCounterForTriggerBtn2.setVisible(true);
 
-        selectCounterForTriggerBtn.setVisible(false);
 
     }
     @FXML
