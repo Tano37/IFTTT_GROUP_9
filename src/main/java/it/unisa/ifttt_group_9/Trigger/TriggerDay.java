@@ -4,7 +4,6 @@ import it.unisa.ifttt_group_9.exceptions.IllegalTimeException;
 
 import java.time.LocalDateTime;
 
-//Concrete Product (AbstractFactory)
 public class TriggerDay extends TriggerAbstractClass {
 
     private int dayWeek;
