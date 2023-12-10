@@ -18,6 +18,7 @@ class TriggerExitStatusTest {
 
     @Test
     void testEvaluate(){
+        
             TriggerExitStatus trigger1 = new TriggerExitStatus(executablePath, "firstArgument, secondArgument", 0);
             TriggerExitStatus trigger2 = new TriggerExitStatus(executablePath, "firstArgument, secondArgument, thirdArgument", 1);
             TriggerExitStatus trigger3 = new TriggerExitStatus(executablePath, "firstArgument, secondArgument, thirdArgument", 0);
