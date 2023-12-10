@@ -260,30 +260,9 @@ public class PrincipalStageViewController implements Initializable {
 
         initializeChoiceBox();
         initializecounterTable();
-        selectCounterForTriggerBtn.setVisible(false);
-        selectCounterForTriggerBtn2.setVisible(false);
-        valueInsertByUserBtn.visibleProperty().set(false);
-        deleteCounterBtn.setDisable(true);
-            valueInsertByUser.setTextFormatter(new javafx.scene.control.TextFormatter<>(new IntegerStringConverter(), null, c ->
-            {
-                if (c.isContentChange()) {
-                    String newText = c.getControlNewText();
-                    if (newText.matches("-?\\d*")) {
-                        // Accetta solo stringhe che rappresentano numeri interi (positivi o negativi)
-                        return c;
-                    }
-                }
-                // Non accettare il cambiamento
-                return null;
-            }));
-            if(valueInsertByUserBtn.getText().isEmpty()){
-                continueBtn.setDisable(true);
-            }
-            counterConfrontationLbl3.setVisible(false);
-            counterConfrontationLbl1.textProperty().bind(Bindings.concat("Valore attuale: ", valueInsertByUser.textProperty()));
+        initializeCounterGUI();
 
         dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
-
         rulesList= FXCollections.observableArrayList();
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         confirmBtn.disableProperty().bind(nameRuleText.textProperty().isEmpty());
@@ -294,65 +273,17 @@ public class PrincipalStageViewController implements Initializable {
         withActionBtn.disableProperty().setValue(true);
         withTriggerBtn.disableProperty().setValue(true);
 
+        // Set of of
         ruleClm.setCellValueFactory(new PropertyValueFactory<>("ruleName"));
         triggerStatusClm.setCellValueFactory(new PropertyValueFactory<>("ruleTriggerEvaluation"));
         rulesTable.setItems(rulesList);
         Bindings.bindContent(RuleManager.getInstance().getRuleList(), rulesList);
-
         TableColumn<Rule, Boolean> statusColumn = getRuleBooleanTableColumn();
-
         rulesTable.getColumns().add(statusColumn);
-      ObservableList<String> triggerFileType = FXCollections.observableArrayList();
-        triggerFileType.add("Add String in the end");
-        triggerFileType.add("Copy and Paste");
-        triggerFileType.add("Delete a File");
-        triggerFileType.add("Launch a Program");
-        fileActionChooser.setItems(triggerFileType);
-        fileActionChooser.valueProperty().setValue(triggerFileType.getFirst());
-        fileActionChooser.autosize();
 
-        FileNameExtensionFilter filterTxt = new FileNameExtensionFilter("File TXT (*.txt)", "txt");
-        // Applicazione del filtro al selettore di file
-        fileChooserTxt.setFileFilter(filterTxt);
-        destDirBtn.disableProperty().set(true);
-        fileActionLabel.textProperty().set("Insert String to Add");
-        // Aggiunta di un listener per catturare i cambiamenti nella selezione nella scelta della Action Tigger
-        fileActionChooser.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 
-            switch (newValue) {
-                case "Add String in the end" -> {
-                    fileActionLaunchTxt.setVisible(true);
-                    destDirBtn.disableProperty().set(true);
-                    FileNameExtensionFilter filter = new FileNameExtensionFilter("File TXT (*.txt)", "txt");
-                    // Applicazione del filtro al selettore di file
-                    fileChooserTxt.setFileFilter(filter);
-                    fileActionLabel.textProperty().set("Insert String to Add");
-                    fileActionLabel.setVisible(true);
-                }
-                case "Launch a Program" -> {
-                    fileActionLaunchTxt.setVisible(true);
-                    destDirBtn.disableProperty().set(true);
-                    FileNameExtensionFilter filter = new FileNameExtensionFilter("File EXE (*.exe)", "exe");
-                    // Applicazione del filtro al selettore di file
-                    fileChooserTxt.setFileFilter(filter);
-                    fileActionLabel.textProperty().set("Insert the Arguments");
-                    fileActionLabel.setVisible(true);
-                }
-                case "Copy and Paste" -> {
-                    fileActionLaunchTxt.setVisible(false);
-                    destDirBtn.disableProperty().set(false);
-                    fileChooserTxt.resetChoosableFileFilters();
-                    fileActionLabel.setVisible(false);
-                }
-                case "Delete a File" -> {
-                    fileActionLaunchTxt.setVisible(false);
-                    destDirBtn.disableProperty().set(true);
-                    fileChooserTxt.resetChoosableFileFilters();
-                    fileActionLabel.setVisible(false);
-                }
-            }
-        });
-        valueInsertByUser.textProperty().setValue("0");
+
+
         //binding choince box Timestamp trigger whit button
         BooleanBinding bb = Bindings.or(
                 hoursChoiceId.valueProperty().isNull(),
@@ -443,6 +374,32 @@ public class PrincipalStageViewController implements Initializable {
         timeline.setCycleCount(Animation.INDEFINITE);
         return timeline;
     }
+    public void initializeCounterGUI(){
+        selectCounterForTriggerBtn.setVisible(false);
+        selectCounterForTriggerBtn2.setVisible(false);
+        valueInsertByUserBtn.visibleProperty().set(false);
+        deleteCounterBtn.setDisable(true);
+        valueInsertByUser.setTextFormatter(new javafx.scene.control.TextFormatter<>(new IntegerStringConverter(), null, c ->
+        {
+            if (c.isContentChange()) {
+                String newText = c.getControlNewText();
+                if (newText.matches("-?\\d*")) {
+                    // Accetta solo stringhe che rappresentano numeri interi (positivi o negativi)
+                    return c;
+                }
+            }
+            // Non accettare il cambiamento
+            return null;
+        }));
+        if(valueInsertByUserBtn.getText().isEmpty()){
+            continueBtn.setDisable(true);
+        }
+        counterConfrontationLbl3.setVisible(false);
+        counterConfrontationLbl1.textProperty().bind(Bindings.concat(
+                "Valore attuale: ", valueInsertByUser.textProperty()));
+        valueInsertByUser.textProperty().setValue("0");
+
+    }
 
     private void initializeChoiceBox() {
        /*Initializes user interface elements.
@@ -485,6 +442,59 @@ public class PrincipalStageViewController implements Initializable {
         hourChoiceIdSleep.setValue(0);
         dayChoiceIdSleep.setValue(0);
         monthChoiceId.setValue(1);
+
+
+        //A list is initialized for the choiceBox of the action on the files
+        // in such a way as to change functionality based on the selection made by the user
+        ObservableList<String> triggerFileType = FXCollections.observableArrayList();
+        triggerFileType.add("Add String in the end");
+        triggerFileType.add("Copy and Paste");
+        triggerFileType.add("Delete a File");
+        triggerFileType.add("Launch a Program");
+        fileActionChooser.setItems(triggerFileType);
+        fileActionChooser.valueProperty().setValue(triggerFileType.getFirst());
+        fileActionChooser.autosize();
+        // I set the buttons in such a way as to make the "Add String" functionality immediately available.
+        FileNameExtensionFilter filterTxt = new FileNameExtensionFilter("File TXT (*.txt)", "txt");
+        fileChooserTxt.setFileFilter(filterTxt);
+        destDirBtn.disableProperty().set(true);
+        fileActionLabel.textProperty().set("Insert String to Add");
+        // Adding a listener to catch selection changes when choosing the Action Tigger
+        fileActionChooser.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            switch (newValue) {
+                case "Add String in the end" -> {
+                    fileActionLaunchTxt.setVisible(true);
+                    destDirBtn.disableProperty().set(true);
+                    FileNameExtensionFilter filter = new FileNameExtensionFilter("File TXT (*.txt)", "txt");
+                    // Applicazione del filtro al selettore di file
+                    fileChooserTxt.setFileFilter(filter);
+                    fileActionLabel.textProperty().set("Insert String to Add");
+                    fileActionLabel.setVisible(true);
+                }
+                case "Launch a Program" -> {
+                    fileActionLaunchTxt.setVisible(true);
+                    destDirBtn.disableProperty().set(true);
+                    FileNameExtensionFilter filter = new FileNameExtensionFilter("File EXE (*.exe)", "exe");
+                    // Applicazione del filtro al selettore di file
+                    fileChooserTxt.setFileFilter(filter);
+                    fileActionLabel.textProperty().set("Insert the Arguments");
+                    fileActionLabel.setVisible(true);
+                }
+                case "Copy and Paste" -> {
+                    fileActionLaunchTxt.setVisible(false);
+                    destDirBtn.disableProperty().set(false);
+                    fileChooserTxt.resetChoosableFileFilters();
+                    fileActionLabel.setVisible(false);
+                }
+                case "Delete a File" -> {
+                    fileActionLaunchTxt.setVisible(false);
+                    destDirBtn.disableProperty().set(true);
+                    fileChooserTxt.resetChoosableFileFilters();
+                    fileActionLabel.setVisible(false);
+                }
+            }
+        });
+
     }
 
     private void initializecounterTable() {
@@ -510,7 +520,7 @@ public class PrincipalStageViewController implements Initializable {
     }
 
     private TableColumn<Rule, Boolean> getRuleBooleanTableColumn() {
-        TableColumn<Rule, Boolean> statusColumn = new TableColumn<>("Status");
+        TableColumn<Rule, Boolean> statusColumn = new TableColumn<>("Rule Status");
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         statusColumn.setCellFactory(column -> new TableCell<>() {
             @Override
