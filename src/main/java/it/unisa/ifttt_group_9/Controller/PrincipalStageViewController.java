@@ -470,6 +470,7 @@ public class PrincipalStageViewController implements Initializable {
                     fileChooserTxt.setFileFilter(filter);
                     fileActionLabel.textProperty().set("Insert String to Add");
                     fileActionLabel.setVisible(true);
+                    varsubActionFileCb.setVisible(true);
                 }
                 case "Launch a Program" -> {
                     fileActionLaunchTxt.setVisible(true);
@@ -479,18 +480,21 @@ public class PrincipalStageViewController implements Initializable {
                     fileChooserTxt.setFileFilter(filter);
                     fileActionLabel.textProperty().set("Insert the Arguments");
                     fileActionLabel.setVisible(true);
+                    varsubActionFileCb.setVisible(true);
                 }
                 case "Copy and Paste" -> {
                     fileActionLaunchTxt.setVisible(false);
                     destDirBtn.disableProperty().set(false);
                     fileChooserTxt.resetChoosableFileFilters();
                     fileActionLabel.setVisible(false);
+                    varsubActionFileCb.setVisible(false);
                 }
                 case "Delete a File" -> {
                     fileActionLaunchTxt.setVisible(false);
                     destDirBtn.disableProperty().set(true);
                     fileChooserTxt.resetChoosableFileFilters();
                     fileActionLabel.setVisible(false);
+                    varsubActionFileCb.setVisible(false);
                 }
             }
         });

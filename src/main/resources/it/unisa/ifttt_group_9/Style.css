@@ -20,7 +20,7 @@
     -fx-background-color: #4CAF50;
 }
 /*continue buttons*/
-#addRuleBtn, #backSelectCounterBtn, #continueBtn, #backBtn1, #confirmBtn, #backBtn2,  #activateRuleBtn, #deactivateRuleBtn, #sleepRuleBtn, #confirmSleepBtn, #backSleepBtn, #file, #destDirBtn, #addActionBtn, #selectCounterForTriggerBtn,#selectCounterForTriggerBtn2,#addCounterBtn, #backCounterBtn{
+#addRuleBtn, #backSelectCounterBtn, #continueBtn, #backBtn1, #confirmBtn, #backBtn2,  #activateRuleBtn, #deactivateRuleBtn, #sleepRuleBtn, #confirmSleepBtn, #backSleepBtn, #file, #destDirBtn, #selectCounterForTriggerBtn,#selectCounterForTriggerBtn2,#addCounterBtn, #backCounterBtn{
     -fx-background-color: #4CAF50;
     -fx-text-fill: #ffffff;
 }
@@ -39,7 +39,7 @@
     -fx-text-fill: #ffffff;
 }
 /*file chooser buttons*/
-#fileChooserBtn,#fileDimensionChooseFileBtn,#file,#destDirBtn, #directoryChoosingBtn, #withActionBtn, #AddMoreTriggerBtn, #modifeCounterBtn, #withTriggerBtn,#directoryChoosingControllExitStatusBtn{
+#fileChooserBtn,#fileDimensionChooseFileBtn,#file,#destDirBtn, #directoryChoosingBtn, #withActionBtn, #AddMoreTriggerBtn, #addActionBtn, #modifeCounterBtn, #withTriggerBtn,#directoryChoosingControllExitStatusBtn{
     -fx-background-color: #2196F3;
     -fx-text-fill: #ffffff;
 }
@@ -47,6 +47,11 @@
 /* counter btn*/
 #counterBtn, #valueInsertByUserBtn, #addCounterBtn, #chooseCounterBtn{
     -fx-background-color: 	#FFD700;
+    -fx-text-fill: #ffffff;
+}
+
+#textMessageTab:selected, #audioTab:selected, #timeTab:selected, #dayTab:selected, #monthTab:selected, #fullDateTab:selected, #existingFileTab:selected, #fileDimensionTab:selected, #fileTab:selected,#counterTab:selected,#controlExitStatusTab:selected, #dataPickerId:selected{
+    -fx-background-color: #2196F3;
     -fx-text-fill: #ffffff;
 }
 
