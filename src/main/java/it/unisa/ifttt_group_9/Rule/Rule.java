@@ -1,7 +1,7 @@
 package it.unisa.ifttt_group_9.Rule;
 
 import it.unisa.ifttt_group_9.Action.Action;
-import it.unisa.ifttt_group_9.Counter;
+import it.unisa.ifttt_group_9.Counters.Counter;
 import it.unisa.ifttt_group_9.Trigger.Trigger;
 
 import java.io.Serializable;

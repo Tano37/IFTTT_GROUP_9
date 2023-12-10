@@ -32,23 +32,8 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-        <VBox alignment="BOTTOM_CENTER" layoutX="213.0" layoutY="284.0" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
-            <Button fx:id="addRuleBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addRuleAction" prefHeight="25.0" prefWidth="108.0" text="Add Rule" />
-            <Button fx:id="withTriggerBtn" mnemonicParsing="false" onAction="#createWithTrigger" prefWidth="108.0" text="With Trigger" />
-            <Button fx:id="withActionBtn" mnemonicParsing="false" onAction="#createWithAction" prefWidth="108.0" text="With Action" />
-        </VBox>
-        <VBox layoutX="415.0" layoutY="283.0" spacing="10.0" AnchorPane.bottomAnchor="57.0" AnchorPane.rightAnchor="20.0">
-            <Button fx:id="counterBtn" mnemonicParsing="false" onAction="#counterAction" prefWidth="108.0" text="Counters">
-                <VBox.margin>
-                    <Insets />
-                </VBox.margin>
-            </Button>
-            <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deleteRuleAction" prefWidth="108.0" text="Delete Rule">
-                <VBox.margin>
-                    <Insets />
-                </VBox.margin>
-            </Button>
-        </VBox>
+        <VBox alignment="BOTTOM_CENTER" layoutX="213.0" layoutY="284.0" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+        <VBox layoutX="415.0" layoutY="283.0" spacing="10.0" AnchorPane.bottomAnchor="57.0" AnchorPane.rightAnchor="20.0" />
         <VBox layoutX="26.0" layoutY="283.0" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
             <Button fx:id="activateRuleBtn" mnemonicParsing="false" onAction="#activateRuleAction" prefHeight="25.0" prefWidth="108.0" text="Activate Rule" />
             <Button fx:id="deactivateRuleBtn" mnemonicParsing="false" onAction="#deactivateRuleAction" prefHeight="25.0" prefWidth="108.0" text="Deactivate Rule" />
@@ -58,6 +43,11 @@
                 </VBox.margin>
             </Button>
         </VBox>
+         <Button fx:id="addRuleBtn" layoutX="221.0" layoutY="297.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addRuleAction" prefHeight="25.0" prefWidth="108.0" text="Create New Rule" />
+         <Button fx:id="counterBtn" layoutX="422.0" layoutY="284.0" mnemonicParsing="false" onAction="#counterAction" prefHeight="25.0" prefWidth="108.0" text="Counters" />
+         <Button fx:id="deleteBtn" layoutX="221.0" layoutY="343.0" mnemonicParsing="false" onAction="#deleteRuleAction" prefWidth="108.0" text="Delete Rule" />
+         <Button fx:id="withTriggerBtn" layoutX="422.0" layoutY="319.0" mnemonicParsing="false" onAction="#createWithTrigger" prefWidth="108.0" text="Add Trigger" />
+         <Button fx:id="withActionBtn" layoutX="422.0" layoutY="354.0" mnemonicParsing="false" onAction="#createWithAction" prefWidth="108.0" text="Add Action" />
     </AnchorPane>
     <AnchorPane fx:id="ancorPane2" prefHeight="200.0" prefWidth="200.0" visible="false">
         <TabPane fx:id="tabPane1" tabClosingPolicy="UNAVAILABLE" tabMinWidth="20.0" AnchorPane.bottomAnchor="116.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

@@ -1,11 +1,8 @@
 package it.unisa.ifttt_group_9.CounterTest;
-import it.unisa.ifttt_group_9.ControllerCounter;
-import it.unisa.ifttt_group_9.Counter;
+import it.unisa.ifttt_group_9.Counters.ControllerCounter;
+import it.unisa.ifttt_group_9.Counters.Counter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;

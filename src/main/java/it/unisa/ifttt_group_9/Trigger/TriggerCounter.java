@@ -1,6 +1,6 @@
 package it.unisa.ifttt_group_9.Trigger;
 
-import it.unisa.ifttt_group_9.Counter;
+import it.unisa.ifttt_group_9.Counters.Counter;
 
 public class TriggerCounter extends TriggerAbstractClass {
     private Counter counter1;

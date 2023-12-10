@@ -46,9 +46,7 @@ public class ActionAudioTest {
         // Manuale: Controlla la console per la verifica manuale dell'output audio e la comparsa del popup
         // Puoi regolare il tempo di attesa o aggiungere un'assertion per verificare che l'audio sia stato eseguito correttamente e che il popup sia apparso
     }
-
-    // Puoi aggiungere altri test secondo le tue esigenze
 }
 
-    // Puoi aggiungere altri test secondo le tue esigenze
+
 

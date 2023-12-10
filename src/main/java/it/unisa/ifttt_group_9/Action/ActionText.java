@@ -1,7 +1,7 @@
 package it.unisa.ifttt_group_9.Action;
 
 import it.unisa.ifttt_group_9.Controller.PanelPopUPManager;
-import it.unisa.ifttt_group_9.CounterManager;
+import it.unisa.ifttt_group_9.Counters.CounterManager;
 import it.unisa.ifttt_group_9.exceptions.IllegalMessageException;
 
 import javax.swing.*;

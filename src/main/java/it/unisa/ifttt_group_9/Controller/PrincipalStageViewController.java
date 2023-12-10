@@ -2,9 +2,9 @@ package it.unisa.ifttt_group_9.Controller;
 
 import it.unisa.ifttt_group_9.Action.Action;
 import it.unisa.ifttt_group_9.Action.*;
-import it.unisa.ifttt_group_9.ControllerCounter;
-import it.unisa.ifttt_group_9.Counter;
-import it.unisa.ifttt_group_9.CounterManager;
+import it.unisa.ifttt_group_9.Counters.ControllerCounter;
+import it.unisa.ifttt_group_9.Counters.Counter;
+import it.unisa.ifttt_group_9.Counters.CounterManager;
 import it.unisa.ifttt_group_9.Rule.Rule;
 import it.unisa.ifttt_group_9.Rule.RuleExecuteService;
 import it.unisa.ifttt_group_9.Rule.RuleManager;

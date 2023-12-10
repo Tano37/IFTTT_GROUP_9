@@ -13,4 +13,6 @@ module it.unisa.ifttt_group_9 {
     opens it.unisa.ifttt_group_9.Rule to javafx.fxml;
     exports it.unisa.ifttt_group_9.Trigger;
     opens it.unisa.ifttt_group_9.Trigger to javafx.fxml;
+    exports it.unisa.ifttt_group_9.Counters;
+    opens it.unisa.ifttt_group_9.Counters to javafx.fxml;
 }
