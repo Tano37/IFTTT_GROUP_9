@@ -12,8 +12,8 @@ Below you can check our documentation, in particular:
 
 * [Burndown chart](https://docs.google.com/spreadsheets/d/1-dTMPlXCOvI4Xhb1cHiEuXfK_DByB6Lb/edit?usp=drive_link&ouid=104508030704024094929&rtpof=true&sd=true) 
 
-* [Design of the architecture](https://drive.google.com/file/d/1R0g6mH-w3gTcMtFX7BWPOvjzFV6F3SsN/view?usp=drive_link)  
-
+* [Design of the architecture](https://drive.google.com/file/d/1Lo2FXetbk-fuFiFUWFnrc5OtbTS0jA0K/view?usp=drive_link)
+  
 * [Product Backlog](https://docs.google.com/spreadsheets/d/1E_a1pODM5wcPadScc6v-flNTYtQuco1rU04QWlM8olc/edit?usp=sharing) 
 
 **-First Sprint Artifacts-**
@@ -35,11 +35,11 @@ Below you can check our documentation, in particular:
 
 **-Third Sprint Artifacts-**
 
-* [ThirdSprintBacklog](https://docs.google.com/spreadsheets/d/1bD9_ZOfFEPyzp1oblu_rukjx_H_YzaUSqJE9Sq7Gfyo/edit#gid=0)
+* [ThirdSprintBacklog](https://docs.google.com/spreadsheets/d/1u_Mct7-I8P4qXflAtk8F_Ha07P-l1O-Pk4zS_uckSm0/edit?usp=drive_link)
 
-* [ThirdSprintBacklog](https://docs.google.com/document/d/15XlL1gZ-Yak0XkwGzel8OvXpN6-hJnHM2yasSkrTV2I/edit#heading=h.ca4uuvqa0s8c)
+* [ThirdSprintReview](https://docs.google.com/document/d/1ZKDnSfchf7FmlmY_INBTtN_479TJ6CbkgiTENR6xgqM/edit?usp=drive_link)
 
-* [ThirdSprintBacklog](https://docs.google.com/document/d/1m7eObSMRymUMgdVLmM_xofN-HV2wJfSZsUAU6nx-7Jc/edit)
+* [ThirdSprintRetrospective](https://docs.google.com/document/d/1zCDERAuyBKlY73jOeInwWEEBHOwdmM6vFd6qdnrFF3w/edit?usp=drive_link)
 &nbsp;
 
 >That’s been one of my mantras—focus and simplicity. Simple can be harder than complex: You have to work hard to get your thinking clean to make it simple. But it’s worth it in the end because once you get there, you can move mountains.
