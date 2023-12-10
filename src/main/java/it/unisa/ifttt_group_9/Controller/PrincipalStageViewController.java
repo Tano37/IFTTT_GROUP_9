@@ -336,7 +336,7 @@ public class PrincipalStageViewController implements Initializable {
 
                         if (!r1.getStatus() && comparisonResult >= 0) {
                             r1.setStatus(true);
-                            rulesTable.refresh();
+
                             r1.setDateUntilSleep(null);
                             r1.setLaunched(false);
                         }
@@ -355,7 +355,6 @@ public class PrincipalStageViewController implements Initializable {
                     RuleExecuteService myService = new RuleExecuteService(r);
                     myService.start();
                     r.setStatus(!r.isFireOnce());
-                    rulesTable.refresh();
                     try {
                         saveRuleList(rulesList);
                     } catch (IOException exc) {
@@ -364,7 +363,6 @@ public class PrincipalStageViewController implements Initializable {
 
                 } else {
                     r.setLaunched(r.getRuleTrigger().evaluate() );
-                    rulesTable.refresh();
                 }
 
 

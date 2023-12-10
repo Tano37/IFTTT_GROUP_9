@@ -252,7 +252,7 @@
         <Separator layoutX="2.0" layoutY="226.0" prefHeight="0.0" prefWidth="536.0" AnchorPane.bottomAnchor="78.0" />
     </AnchorPane>
     <AnchorPane fx:id="ancorPane1" prefHeight="400.0" prefWidth="500.0">
-        <TableView fx:id="rulesTable" fixedCellSize="30.0" prefHeight="267.0" prefWidth="534.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+        <TableView fx:id="rulesTable" prefHeight="267.0" prefWidth="534.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
             <columns>
                 <TableColumn fx:id="ruleClm" prefWidth="121.0" text="Rule" />
                 <TableColumn fx:id="triggerStatusClm" prefWidth="101.0" text="Trigger Status" />
