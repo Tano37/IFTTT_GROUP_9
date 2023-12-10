@@ -66,7 +66,6 @@ public class TriggerFileDimension extends TriggerAbstractClass {
 
 
         } else {
-            System.out.println(filePath + " doesn't exists");
             if(precTriggerAndOr){
                 return negate && super.evaluate();
             }else{

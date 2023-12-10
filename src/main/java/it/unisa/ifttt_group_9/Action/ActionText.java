@@ -26,6 +26,9 @@ public class ActionText extends ActionAbstractClass {
         this.variableSubstitution=variableSubstitution;
     }
 
+    public Boolean getVariableSubstitution() {
+        return variableSubstitution;
+    }
 
     @Override
     public String toString() {
@@ -51,14 +54,5 @@ public class ActionText extends ActionAbstractClass {
         int scelta = new PanelPopUPManager("Action Text", text).showMessage();
 
         super.executeAction();
-
-        if (scelta == JOptionPane.OK_OPTION) {
-            System.out.println("You pressed OK. Closing the alert...");
-        } else {
-            System.out.println("Allert closed without pressing OK.");
-        }
-
-
-
     }
 }
