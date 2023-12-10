@@ -290,7 +290,7 @@ public class PrincipalStageViewController implements Initializable {
         TableColumn<Rule, String> actionColumn = new TableColumn<>("Action");
         actionColumn.setCellValueFactory(new PropertyValueFactory<>("RuleActionString"));
         rulesTable.getColumns().add(actionColumn);
-        rulesTable.autosize();
+
         rulesTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> handleRuleSelection(newValue));
 
@@ -321,31 +321,33 @@ public class PrincipalStageViewController implements Initializable {
         ArrayList<Rule> toCheckList= new ArrayList<>();
         //Controllore di regola
         Timeline timeline=new Timeline(new KeyFrame(
-                Duration.millis(400), e->{//settaggio del tempo di ripetizione
+                Duration.millis(1000), e->{//settaggio del tempo di ripetizione
 
             for(Rule r1 : rulesList){
                 if(r1.getStatus()){
                     toCheckList.add(r1);
-                }
-            }
-
-            for(Rule r : toCheckList){
-                if (r.getDateUntilSleep() != null) {
-
-                    LocalDateTime truncatedNow = LocalDateTime.now();
-                    LocalDateTime truncatedOtherDateTime= r.getDateUntilSleep();
-                    int comparisonResult = truncatedNow.compareTo(truncatedOtherDateTime);
+                }else{
+                    if (r1.getDateUntilSleep() != null) {
+                        //implementation of sleeping period for a rule
+                        LocalDateTime truncatedNow = LocalDateTime.now();
+                        LocalDateTime truncatedOtherDateTime= r1.getDateUntilSleep();
+                        int comparisonResult = truncatedNow.compareTo(truncatedOtherDateTime);
 
 
-                    if (!r.getStatus() && comparisonResult >= 0) {
-
-                        r.setStatus(true);
-                        rulesTable.refresh();
-                        r.setDateUntilSleep(null);
-                        r.setLaunched(false);
+                        if (!r1.getStatus() && comparisonResult >= 0) {
+                            r1.setStatus(true);
+                            rulesTable.refresh();
+                            r1.setDateUntilSleep(null);
+                            r1.setLaunched(false);
+                        }
                     }
+
                 }
 
+
+            }
+            //check on the activated rules
+            for(Rule r : toCheckList){
 
                 if(r.getRuleTrigger().evaluate() && !r.getLaunched() && r.getStatus()){
 
@@ -417,7 +419,7 @@ public class PrincipalStageViewController implements Initializable {
         hoursChoiceId.autosize();
 
         //Set options for ChoiceBoxes of minutes, hours, day, month of sleep
-        minuteChoiceIdSleep.setItems(dayList.filtered(value -> value >= 0 && value <= 59));
+        minuteChoiceIdSleep.setItems(dayList.filtered(value -> value >= 1 && value <= 59));
         minuteChoiceIdSleep.autosize();
         hourChoiceIdSleep.setItems(dayList.filtered(value -> value >= 0 && value <= 23));
         hourChoiceIdSleep.autosize();
@@ -446,7 +448,7 @@ public class PrincipalStageViewController implements Initializable {
 
         //Values to be set of fault at startup
         dayChoiceId.setValue("Monday");
-        minuteChoiceIdSleep.setValue(0);
+        minuteChoiceIdSleep.setValue(1);
         hourChoiceIdSleep.setValue(0);
         dayChoiceIdSleep.setValue(0);
         monthChoiceId.setValue(1);
@@ -676,6 +678,9 @@ public class PrincipalStageViewController implements Initializable {
         Integer minutesOfSleep = minuteChoiceIdSleep.getValue();
         Integer hoursOfSleep = hourChoiceIdSleep.getValue();
         Integer daysOfSleep = dayChoiceIdSleep.getValue();
+        minutesOfSleep.toString();
+        hoursOfSleep.toString();
+        daysOfSleep.toString();
 
         Rule selectedItem = rulesTable.getSelectionModel().getSelectedItem();
         LocalDateTime dateUntilSleep = LocalDateTime.now();
@@ -684,9 +689,10 @@ public class PrincipalStageViewController implements Initializable {
         dateUntilSleep = dateUntilSleep.plusHours(hoursOfSleep);
         dateUntilSleep = dateUntilSleep.plusDays(daysOfSleep);
 
-        selectedItem.setDateUntilSleep(dateUntilSleep);
+        rulesTable.getSelectionModel().getSelectedItem().setDateUntilSleep(dateUntilSleep);
+        rulesTable.getSelectionModel().getSelectedItem().setStatus(false);
+        System.out.println(rulesTable.getSelectionModel().getSelectedItem().toString());
         rulesTable.refresh();
-        selectedItem.setStatus(false);
         sleepRuleBtn.setDisable(true);
         deactivateRuleBtn.setDisable(true);
         activateRuleBtn.setDisable(false);
@@ -695,6 +701,7 @@ public class PrincipalStageViewController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
 
     }
 

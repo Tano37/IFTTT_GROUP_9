@@ -80,7 +80,7 @@ public class Rule implements Serializable {
 
     @Override
     public String toString(){
-        return "Rule: " + this.ruleName + "" + this.ruleTrigger.toString() + "" + this.ruleAction.toString();
+        return "Rule: " + this.ruleName + "" + this.ruleTrigger.toString() + "" + this.ruleAction.toString()+ "\n"+ this.getDateUntilSleep()+"\n";
     }
 
     public Boolean getLaunched(){
