@@ -1052,8 +1052,6 @@ public class PrincipalStageViewController implements Initializable {
                 }
             }
         }
-        
-
     }
 
     @FXML
