@@ -432,7 +432,7 @@ public class PrincipalStageViewController implements Initializable {
         //Set the options for the ChoiceBoxes of day, month, and day of the week
         monthChoiceId.setItems(dayList.filtered(value -> value >= 1 && value <= 31));
         monthChoiceId.autosize();
-        ObservableList<String> dayStringList = FXCollections.observableArrayList("Ever", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+        ObservableList<String> dayStringList = FXCollections.observableArrayList( "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
         dayChoiceId.setItems(dayStringList);
         dayChoiceId.autosize();
 
@@ -441,7 +441,7 @@ public class PrincipalStageViewController implements Initializable {
         chooserActionCounterId.setValue("greater");
 
         //Values to be set of fault at startup
-        dayChoiceId.setValue("Ever");
+        dayChoiceId.setValue("Monday");
         minuteChoiceIdSleep.setValue(0);
         hourChoiceIdSleep.setValue(0);
         dayChoiceIdSleep.setValue(0);
@@ -1178,7 +1178,7 @@ public class PrincipalStageViewController implements Initializable {
         hoursChoiceId.setValue(LocalTime.now().getHour());
         minuteChoiceId.setValue(LocalTime.now().getMinute());
 
-        dayChoiceId.setValue("Ever");
+        dayChoiceId.setValue("Monday");
         monthChoiceId.setValue(1);
         dataPickerId.setValue(LocalDate.now());
 
