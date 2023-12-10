@@ -262,7 +262,7 @@ public class PrincipalStageViewController implements Initializable {
         initializecounterTable();
         initializeCounterGUI();
 
-        dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
+
         rulesList= FXCollections.observableArrayList();
         rulesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         confirmBtn.disableProperty().bind(nameRuleText.textProperty().isEmpty());
@@ -272,34 +272,29 @@ public class PrincipalStageViewController implements Initializable {
         sleepRuleBtn.disableProperty().setValue(true);
         withActionBtn.disableProperty().setValue(true);
         withTriggerBtn.disableProperty().setValue(true);
+        selectCounterForTriggerBtn.setDisable(true);
+        selectCounterForTriggerBtn2.setDisable(true);
 
-        // Set of of
+        dataPickerId.setDayCellFactory(picker -> new DatePickerDateCell());
+
+        // Set Table Rule in The Principal Interface
         ruleClm.setCellValueFactory(new PropertyValueFactory<>("ruleName"));
         triggerStatusClm.setCellValueFactory(new PropertyValueFactory<>("ruleTriggerEvaluation"));
         rulesTable.setItems(rulesList);
         Bindings.bindContent(RuleManager.getInstance().getRuleList(), rulesList);
         TableColumn<Rule, Boolean> statusColumn = getRuleBooleanTableColumn();
         rulesTable.getColumns().add(statusColumn);
+        rulesTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> handleRuleSelection(newValue));
 
+        counterTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> handleCounterSelection(newValue));
 
-
-
-        //binding choince box Timestamp trigger whit button
-        BooleanBinding bb = Bindings.or(
-                hoursChoiceId.valueProperty().isNull(),
-                minuteChoiceId.valueProperty().isNull()
-
-        );
-        continueBtn.disableProperty().bind(bb);
-        rulesTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> handleRuleSelection(newValue));
-
-        selectCounterForTriggerBtn.setDisable(true);
-        selectCounterForTriggerBtn2.setDisable(true);
-        counterTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> handleCounterSelection(newValue));
 
         Timeline timeline = getTimeline();
         timeline.play();
 
+        //uploading rules to file
         try {
             loadRuleList(rulesList);
         } catch (IOException e) {
@@ -424,6 +419,15 @@ public class PrincipalStageViewController implements Initializable {
         hourChoiceIdSleep.autosize();
         dayChoiceIdSleep.setItems(dayList);
         dayChoiceIdSleep.autosize();
+
+
+        //binding choince box Timestamp trigger whit button
+        BooleanBinding bb = Bindings.or(
+                hoursChoiceId.valueProperty().isNull(),
+                minuteChoiceId.valueProperty().isNull()
+
+        );
+        continueBtn.disableProperty().bind(bb);
 
         //Set the options for the ChoiceBoxes of day, month, and day of the week
         monthChoiceId.setItems(dayList.filtered(value -> value >= 1 && value <= 31));
