@@ -51,7 +51,7 @@ public class TriggerMonth extends TriggerAbstractClass {
 
     @Override
     public String toString() {
-        return (negate ? "!" : "") + "{TriggerMonth: " + dayMonth + " }\n" + super.toString();
+        return (negate ? "!" : "") + "TriggerMonth: " + dayMonth + " \n" + super.toString();
 
     }
 

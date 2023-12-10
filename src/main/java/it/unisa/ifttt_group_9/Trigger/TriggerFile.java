@@ -36,6 +36,6 @@ public class TriggerFile extends TriggerAbstractClass {
 
     @Override
     public String toString() {
-        return (negate?"!" : "") + "{TriggerFile: " + fileName + " }\n" +super.toString();
+        return (negate?"!" : "") + "TriggerFile: " + fileName + " \n" +super.toString();
     }
 }

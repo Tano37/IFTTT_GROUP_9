@@ -53,6 +53,13 @@ public class Rule implements Serializable {
         return ruleTrigger;
     }
 
+    public String getRuleTriggerString(){
+        return this.ruleTrigger.toString();
+    }
+    public String getRuleActionString(){
+        return this.ruleAction.toString();
+    }
+
     public Boolean getRuleTriggerEvaluation() { return this.ruleTrigger.evaluate(); }
 
     public Action getRuleAction() {

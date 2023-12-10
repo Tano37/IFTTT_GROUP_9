@@ -80,6 +80,6 @@ public class TriggerCounter extends TriggerAbstractClass {
     }
 
     public String toString(){
-        return (negate?"!" : "") + "{TriggerCounter: " + counter1.getValue() + " " + valueOfComparation + counter2.getValue()  + super.toString();
+        return (negate?"!" : "") + "TriggerCounter: " + counter1.getValue() + " " + valueOfComparation + counter2.getValue()  + super.toString();
     }
 }

@@ -40,7 +40,7 @@ public class TriggerDay extends TriggerAbstractClass {
     public boolean evaluate(){
         LocalDateTime now= LocalDateTime.now();
 
-        int d= now.getDayOfWeek().getValue();
+        int d = now.getDayOfWeek().getValue();
         if(precTriggerAndOr){
             return negate != (d == this.dayWeek) && super.evaluate();
         }else{
@@ -57,6 +57,6 @@ public class TriggerDay extends TriggerAbstractClass {
 
     @Override
     public String toString() {
-        return (negate?"!" : "") + "{TriggerDay: " + dayWeek + " }\n" + super.toString();
+        return (negate?"!" : "") + "TriggerDay: " + dayWeek + " \n" + super.toString();
     }
 }

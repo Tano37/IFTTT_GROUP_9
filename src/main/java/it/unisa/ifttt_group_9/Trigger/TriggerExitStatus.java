@@ -54,6 +54,6 @@ public class TriggerExitStatus extends TriggerAbstractClass {
 
     @Override
     public String toString() {
-        return (negate?"!" : "") + "{TriggerExitStatus: " + exitExpected + " }\n"  + super.toString();
+        return (negate?"!" : "") + "TriggerExitStatus: " + exitExpected + " \n"  + super.toString();
     }
 }

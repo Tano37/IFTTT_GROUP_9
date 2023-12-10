@@ -71,6 +71,6 @@ public class TriggerFullDate extends TriggerAbstractClass {
 
     @Override
     public String toString() {
-        return (negate?"!" : "") + "{TriggerFullDate: " + dayWeek + "\\" + dayMonth +"\\" + year+ " }\n"  +super.toString();
+        return (negate?"!" : "") + "TriggerFullDate: " + dayWeek + "\\" + dayMonth +"\\" + year+ " \n"  +super.toString();
     }
 }

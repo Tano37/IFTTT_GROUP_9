@@ -284,6 +284,13 @@ public class PrincipalStageViewController implements Initializable {
         Bindings.bindContent(RuleManager.getInstance().getRuleList(), rulesList);
         TableColumn<Rule, Boolean> statusColumn = getRuleBooleanTableColumn();
         rulesTable.getColumns().add(statusColumn);
+        TableColumn<Rule, String> triggerColumn = new TableColumn<>("Trigger");
+        triggerColumn.setCellValueFactory(new PropertyValueFactory<>("RuleTriggerString"));
+        rulesTable.getColumns().add(triggerColumn);
+        TableColumn<Rule, String> actionColumn = new TableColumn<>("Action");
+        actionColumn.setCellValueFactory(new PropertyValueFactory<>("RuleActionString"));
+        rulesTable.getColumns().add(actionColumn);
+        rulesTable.autosize();
         rulesTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> handleRuleSelection(newValue));
 

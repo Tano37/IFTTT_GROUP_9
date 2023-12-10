@@ -77,6 +77,6 @@ public class TriggerFileDimension extends TriggerAbstractClass {
 
     @Override
     public String toString() {
-        return (negate?"!" : "") + "{TriggerFileDimension: " + maxSize + " }\n" +super.toString();
+        return (negate?"!" : "") + "TriggerFileDimension: " + maxSize + " \n" +super.toString();
     }
 }

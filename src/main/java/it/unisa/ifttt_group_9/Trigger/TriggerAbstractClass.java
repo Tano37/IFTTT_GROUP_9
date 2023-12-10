@@ -37,9 +37,13 @@ public class TriggerAbstractClass implements Trigger{
 
     public String toString(){
         if (precTrigger!=null){
-            return (precTriggerAndOr? "AND ":"OR ") +precTrigger;
+            return  (precTriggerAndOr? "AND":"OR") + "(" + precTrigger +  ")";
         }else {
             return "";
         }
+    }
+
+    public String getString(){
+        return this.toString();
     }
 }

@@ -52,6 +52,6 @@ public class TriggerTimestamp extends TriggerAbstractClass {
     @Override
 
     public String toString() {
-        return (negate?"!" : "") + "{TriggerTimestamp: " + hour + ":" + minute +   " }\n"  +super.toString();
+        return (negate?"!" : "") + "TriggerTimestamp: " + hour + ":" + minute +   " \n"  +super.toString();
     }
 }
