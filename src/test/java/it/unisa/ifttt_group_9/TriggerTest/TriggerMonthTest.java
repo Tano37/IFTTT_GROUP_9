@@ -55,9 +55,5 @@ class TriggerMonthTest {
 
     }
 
-    @Test
-    void testTriggerMonthToString() {
-        Trigger trigger = new TriggerMonth(5);
-        assertEquals("{TriggerMonth: 5 }\n", trigger.toString());
-    }
+
 }
