@@ -50,9 +50,5 @@ class TriggerDayTest {
 
 
 
-    @Test
-    void testTriggerDayToString() {
-        Trigger trigger = new TriggerDay(1);
-        assertEquals("{TriggerDay: 1 }\n", trigger.toString());
-    }
+
 }

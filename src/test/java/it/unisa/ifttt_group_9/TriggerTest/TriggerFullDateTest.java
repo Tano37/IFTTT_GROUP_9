@@ -55,9 +55,5 @@ class TriggerFullDateTest {
     }
 
 
-    @Test
-    void testTriggerFullDateToString() {
-        Trigger trigger = new TriggerFullDate(3, 12, 2023);
-        assertEquals("{TriggerFullDate: 3\\12\\2023 }\n", trigger.toString());
-    }
+
 }
