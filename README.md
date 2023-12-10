@@ -14,7 +14,9 @@ Below you can check our documentation, in particular:
 
 * [Design of the architecture](https://drive.google.com/file/d/1Lo2FXetbk-fuFiFUWFnrc5OtbTS0jA0K/view?usp=drive_link)
   
-* [Product Backlog](https://docs.google.com/spreadsheets/d/1OooHnB1RIzLOgfuol30DggMH1Aco4Rub/edit#gid=255441560) 
+* [Product Backlog](https://docs.google.com/spreadsheets/d/1OooHnB1RIzLOgfuol30DggMH1Aco4Rub/edit#gid=255441560)
+  
+* [Project Light Documentation](https://docs.google.com/document/d/1R5qmlo0wRyHQcnfS-FQavXccJ-w_TxpwOxWEY2GBIag/edit?usp=sharing) 
 
 **-First Sprint Artifacts-**
 
