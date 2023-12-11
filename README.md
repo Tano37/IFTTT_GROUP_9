@@ -12,7 +12,7 @@ Below you can check our documentation, in particular:
 
 * [Burndown chart](https://docs.google.com/spreadsheets/d/1LGesuy6e3iHqZpR_NtMRyUWeqA_9sLpH/edit?usp=sharing&ouid=101305430021904993258&rtpof=true&sd=true) 
 
-* [Design of the architecture](https://drive.google.com/file/d/1Lo2FXetbk-fuFiFUWFnrc5OtbTS0jA0K/view?usp=drive_link)
+* [Design of the architecture](https://drive.google.com/file/d/1JQz4b4WSydnC1eY-zduZsLb89Km5QUBS/view?usp=drive_link)
   
 * [Product Backlog](https://docs.google.com/spreadsheets/d/1OooHnB1RIzLOgfuol30DggMH1Aco4Rub/edit#gid=255441560)
   
@@ -48,11 +48,3 @@ Below you can check our documentation, in particular:
 >
 >Steve Jobs
 
-
-&nbsp;
-
-
-<picture>
-    <source type="image/png" media="(prefers-color-scheme: dark)">
-    <img width=888 src="https://github.com/Tano37/IFTTT_GROUP_9/blob/master/UML.jpg">
-</picture>
