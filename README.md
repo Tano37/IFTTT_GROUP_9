@@ -10,7 +10,7 @@ Below you can check our documentation, in particular:
 
 * [PowerPoint first presentation](https://docs.google.com/presentation/d/1s5dNPeeb9GDX-69nq0G6VtIf82741l3t/edit?usp=drive_link&ouid=104508030704024094929&rtpof=true&sd=true)
 
-* [Burndown chart](https://docs.google.com/spreadsheets/d/1-dTMPlXCOvI4Xhb1cHiEuXfK_DByB6Lb/edit?usp=drive_link&ouid=104508030704024094929&rtpof=true&sd=true) 
+* [Burndown chart](https://docs.google.com/spreadsheets/d/1LGesuy6e3iHqZpR_NtMRyUWeqA_9sLpH/edit?usp=sharing&ouid=101305430021904993258&rtpof=true&sd=true) 
 
 * [Design of the architecture](https://drive.google.com/file/d/1Lo2FXetbk-fuFiFUWFnrc5OtbTS0jA0K/view?usp=drive_link)
   
